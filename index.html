@@ -4,178 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebAutomate.cloud | Premium IT Agency</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #050505;
-            --text-main: #ffffff;
-            --accent: #60a5fa;
-            --accent-glow: rgba(96, 165, 250, 0.5);
+            --bg-color: #030712; /* Deeper dark for premium contrast */
+            --text-main: #f8fafc;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --purple-glow: rgba(139, 92, 246, 0.4);
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Outfit', sans-serif;
-            /* Hide default cursor to use our custom one */
-            cursor: none; 
+            cursor: none; /* Custom Cursor */
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 70%);
+            position: relative;
         }
 
-        /* =========================================
-           1. CUSTOM PREMIUM CURSOR (Trailing Effect)
-           ========================================= */
+        /* --- 1. DYNAMIC BACKGROUND (NEW) --- */
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -3;
+        }
+
+        .bg-orb-1, .bg-orb-2 {
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(150px); z-index: -2; opacity: 0.6;
+            animation: floatOrb 15s infinite alternate ease-in-out;
+        }
+        .bg-orb-1 { background: var(--accent-glow); top: -100px; left: -200px; }
+        .bg-orb-2 { background: var(--purple-glow); bottom: -100px; right: -200px; animation-delay: -5s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.1); }
+        }
+
+        /* --- 2. CUSTOM CURSOR --- */
         .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0; left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 99999; /* Highest priority so it shows over modal */
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 99999; pointer-events: none;
         }
-
-        .cursor-dot {
-            width: 8px; height: 8px;
-            background-color: var(--accent);
-        }
-
+        .cursor-dot { width: 8px; height: 8px; background-color: #fff; box-shadow: 0 0 10px #fff; }
         .cursor-outline {
-            width: 40px; height: 40px;
-            border: 1px solid var(--accent-glow);
+            width: 40px; height: 40px; border: 1px solid var(--accent);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
-        /* =========================================
-           2. HEADER WITH LOGIN BUTTON
-           ========================================= */
+        /* --- 3. HEADER --- */
         header {
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            background: rgba(5, 5, 5, 0.5);
-            backdrop-filter: blur(10px);
+            padding: 25px 50px; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; top: 0; z-index: 100;
+            background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            animation: fadeDown 1s ease-out;
         }
+        .logo { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
+        .logo span { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .header-buttons { display: flex; gap: 20px; }
+        .btn {
+            padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 15px;
+            cursor: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; position: relative; overflow: hidden;
+        }
+        .btn-login { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-nav { background: white; color: black; }
         
-        .logo { font-size: 24px; font-weight: 800; }
-        .logo span { color: var(--accent); }
+        .btn:hover { transform: translateY(-3px); }
+        .btn-login:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+        .btn-nav:hover { box-shadow: 0 10px 25px rgba(255,255,255,0.2); }
 
-        .header-buttons {
-            display: flex;
-            gap: 15px;
+        /* --- 4. HERO SECTION (NEW) --- */
+        .hero {
+            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 20px; margin-top: 80px;
+        }
+        .hero h1 {
+            font-size: 5.5rem; font-weight: 900; line-height: 1.1; max-width: 1000px;
+            animation: fadeUp 1s ease-out 0.2s both;
+        }
+        .hero h1 span {
+            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: gradientShine 3s linear infinite;
+        }
+        .hero p {
+            font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-top: 25px;
+            animation: fadeUp 1s ease-out 0.4s both; line-height: 1.6;
         }
 
-        .btn-nav, .btn-login {
-            padding: 10px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: none; 
-            transition: all 0.3s;
-            border: none;
-        }
-
-        .btn-nav {
-            background: linear-gradient(90deg, #60a5fa, #818cf8);
-            color: white;
-        }
-        
-        .btn-login {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-nav:hover, .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
-
-        /* =========================================
-           3. INFINITE CAROUSEL (Marquee)
-           ========================================= */
+        /* --- 5. INFINITE CAROUSEL --- */
         .marquee-container {
-            width: 100vw; overflow: hidden; background: #111;
-            padding: 20px 0; border-top: 1px solid #333; border-bottom: 1px solid #333;
-            transform: rotate(-2deg) scale(1.05); margin-top: 120px;
+            width: 100vw; overflow: hidden; background: #0f172a; padding: 25px 0;
+            border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
+            transform: rotate(-2deg) scale(1.05); margin-top: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeUp 1s ease-out 0.6s both;
         }
-        .marquee-content {
-            display: flex; white-space: nowrap; animation: scrollMarquee 20s linear infinite;
-        }
+        .marquee-content { display: flex; white-space: nowrap; animation: scrollMarquee 25s linear infinite; }
         .marquee-text {
-            font-size: 3rem; font-weight: 900; text-transform: uppercase;
-            padding: 0 40px; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-            transition: 0.3s;
+            font-size: 2.5rem; font-weight: 900; text-transform: uppercase; padding: 0 40px;
+            color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4); transition: 0.4s;
         }
-        .marquee-text:hover { color: var(--accent); -webkit-text-stroke: 0px; }
+        .marquee-text:hover { color: #fff; -webkit-text-stroke: 0px; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
 
-        @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* =========================================
-           4. FLOWING MENU (Hover Image Reveal)
-           ========================================= */
+        /* --- 6. FLOWING MENU --- */
         .flowing-menu-section {
-            padding: 100px 10%; display: flex; flex-direction: column; align-items: center;
+            padding: 120px 10%; display: flex; flex-direction: column; align-items: center;
+            animation: fadeUp 1s ease-out 0.8s both;
         }
         .menu-title {
-            font-size: 1.5rem; color: #64748b; margin-bottom: 40px; letter-spacing: 4px; text-transform: uppercase;
+            font-size: 1.2rem; color: #64748b; margin-bottom: 50px; letter-spacing: 6px; text-transform: uppercase;
         }
         .menu-item {
-            position: relative; font-size: 6rem; font-weight: 900; text-transform: uppercase;
-            color: transparent; -webkit-text-stroke: 2px #333; cursor: none; transition: 0.4s ease; margin: 10px 0; line-height: 1;
+            position: relative; font-size: 6.5rem; font-weight: 900; text-transform: uppercase;
+            color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.2); cursor: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 5px 0; line-height: 1;
         }
-        .menu-item:hover { color: #fff; -webkit-text-stroke: 0px; }
+        .menu-item:hover { color: #fff; -webkit-text-stroke: 0px; transform: scale(1.05); letter-spacing: 5px; }
 
         .hover-reveal {
-            position: fixed; width: 350px; height: 250px; pointer-events: none; opacity: 0;
-            transform: scale(0.8) translate(-50%, -50%); transition: opacity 0.4s ease, transform 0.4s ease;
-            z-index: -1; overflow: hidden; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: fixed; width: 400px; height: 280px; pointer-events: none; opacity: 0;
+            transform: scale(0.5) translate(-50%, -50%); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: -1; overflow: hidden; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
-        .hover-reveal img { width: 100%; height: 100%; object-fit: cover; }
+        .hover-reveal img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .menu-item:hover ~ .hover-reveal img { transform: scale(1.1); }
 
-        /* =========================================
-           5. ROBOT LOGIN MODAL
-           ========================================= */
+        /* --- 7. ROBOT LOGIN MODAL (Unchanged but styled) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; opacity: 0; visibility: hidden; transition: 0.4s ease;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-
         .login-card {
-            background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px; padding: 40px; width: 100%; max-width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: translateY(50px); transition: 0.4s ease; position: relative;
+            background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; padding: 40px; width: 100%; max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02);
+            transform: translateY(50px) scale(0.9); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
         }
-        .modal-overlay.active .login-card { transform: translateY(0); }
+        .modal-overlay.active .login-card { transform: translateY(0) scale(1); }
 
-        .close-btn {
-            position: absolute; top: 15px; right: 20px; background: none; border: none;
-            color: #64748b; font-size: 24px; font-weight: bold; transition: 0.3s;
-        }
-        .close-btn:hover { color: white; }
+        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #64748b; font-size: 24px; transition: 0.3s; }
+        .close-btn:hover { color: white; transform: rotate(90deg); }
 
-        /* Robot Details */
         .speech-bubble {
-            background: white; color: #0f172a; padding: 10px 20px; border-radius: 20px;
-            font-size: 14px; font-weight: 600; text-align: center; margin-bottom: 25px; position: relative;
+            background: white; color: #0f172a; padding: 12px 20px; border-radius: 20px;
+            font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 25px; position: relative;
         }
         .speech-bubble::after {
             content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
@@ -184,63 +171,70 @@
 
         .robot-container { display: flex; justify-content: center; margin-bottom: 30px; }
         .robot-head {
-            width: 100px; height: 80px; background: #1e293b; border-radius: 35%;
-            border: 2px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow);
+            width: 110px; height: 85px; background: #1e293b; border-radius: 35%;
+            border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow);
             display: flex; justify-content: center; align-items: center; gap: 15px; position: relative;
         }
-        .robot-head::before {
-            content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 4px; height: 15px; background: #64748b;
-        }
+        .robot-head::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 4px; height: 15px; background: #64748b; }
         .robot-head::after {
-            content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-            width: 10px; height: 10px; background: #ef4444; border-radius: 50%;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.8); animation: pulseRed 1.5s infinite;
+            content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px;
+            background: #ef4444; border-radius: 50%; animation: pulseRed 1s infinite alternate;
         }
+        @keyframes pulseRed { from { opacity: 0.4; box-shadow: 0 0 5px red; } to { opacity: 1; box-shadow: 0 0 15px red; } }
 
-        @keyframes pulseRed { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
-        .eye {
-            width: 22px; height: 22px; background: #fff; border-radius: 50%; position: relative; overflow: hidden; transition: 0.3s;
-        }
-        .pupil {
-            width: 10px; height: 10px; background: #0f172a; border-radius: 50%;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: 0.05s ease-out;
-        }
+        .eye { width: 24px; height: 24px; background: #fff; border-radius: 50%; position: relative; overflow: hidden; transition: 0.3s; }
+        .pupil { width: 10px; height: 10px; background: #0f172a; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: 0.05s ease-out; }
         .eye.closed { height: 4px; border-radius: 2px; background: var(--accent); }
         .eye.closed .pupil { display: none; }
 
         .form-group { margin-bottom: 15px; }
         .form-group input {
-            width: 100%; padding: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px; color: white; font-size: 15px; outline: none; transition: 0.3s; cursor: none;
+            width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; color: white; font-size: 15px; outline: none; transition: 0.3s; cursor: none;
         }
-        .form-group input:focus { border-color: var(--accent); background: rgba(255, 255, 255, 0.1); }
+        .form-group input:focus { border-color: var(--accent); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 15px var(--accent-glow); }
 
         .submit-btn {
-            width: 100%; padding: 15px; background: linear-gradient(90deg, #60a5fa, #818cf8); border: none;
-            border-radius: 8px; color: white; font-weight: 700; font-size: 16px; margin-top: 10px; transition: 0.3s; cursor: none;
+            width: 100%; padding: 16px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); border: none;
+            border-radius: 12px; color: white; font-weight: 800; font-size: 16px; margin-top: 10px; transition: 0.3s; cursor: none;
         }
-        .submit-btn:hover { box-shadow: 0 0 20px var(--accent-glow); }
+        .submit-btn:hover { box-shadow: 0 0 25px var(--accent-glow); transform: translateY(-2px); }
+
+        /* --- KEYFRAMES --- */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes gradientShine { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
     </style>
 </head>
 <body>
 
-    <!-- 1. CUSTOM CURSOR -->
+    <!-- Dynamic Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-orb-1"></div>
+    <div class="bg-orb-2"></div>
+
+    <!-- Custom Cursor -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
-    <!-- 2. HEADER -->
+    <!-- Header -->
     <header>
         <div class="logo">WebAutomate<span>.cloud</span></div>
         <div class="header-buttons">
-            <button class="btn-login" id="open-login">Client Login</button>
-            <button class="btn-nav">Free Consultation</button>
+            <button class="btn btn-login" id="open-login">Client Login</button>
+            <button class="btn btn-nav">Start Project</button>
         </div>
     </header>
 
-    <!-- 3. INFINITE CAROUSEL -->
+    <!-- NEW: Hero Section -->
+    <section class="hero">
+        <h1>Building the Future of <span>Operations</span></h1>
+        <p>We transform manual retail tasks into seamless, automated digital workflows. Beautifully designed, powerfully engineered.</p>
+    </section>
+
+    <!-- Infinite Carousel -->
     <div class="marquee-container">
         <div class="marquee-content">
             <div class="marquee-text">AUTOMATE OPERATIONS ✦ BUILD PORTALS ✦ SCALE FAST ✦ </div>
@@ -248,9 +242,9 @@
         </div>
     </div>
 
-    <!-- 4. FLOWING MENU (With Hover Reveal) -->
+    <!-- Flowing Menu (With Hover Reveal) -->
     <section class="flowing-menu-section">
-        <div class="menu-title">Our Capabilities</div>
+        <div class="menu-title">Explore Capabilities</div>
         
         <div class="menu-item" data-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop">Dashboards</div>
         <div class="menu-item" data-image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop">Workspaces</div>
@@ -261,12 +255,12 @@
         </div>
     </section>
 
-    <!-- 5. ROBOT LOGIN MODAL -->
+    <!-- Robot Login Modal -->
     <div class="modal-overlay" id="login-modal">
         <div class="login-card">
             <button class="close-btn" id="close-login">✕</button>
             
-            <div class="speech-bubble" id="speech-bubble">Beep boop. Who goes there?</div>
+            <div class="speech-bubble" id="speech-bubble">Beep boop. Identify yourself!</div>
             
             <div class="robot-container">
                 <div class="robot-head">
@@ -277,25 +271,26 @@
 
             <form id="login-form">
                 <div class="form-group">
-                    <input type="text" id="username" placeholder="Your name or Workspace ID" autocomplete="off">
+                    <input type="text" id="username" placeholder="Workspace ID" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" placeholder="Your email" autocomplete="off">
+                    <input type="email" id="email" placeholder="Work Email" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" placeholder="Super secret password">
+                    <input type="password" id="password" placeholder="Secret Password">
                 </div>
-                <button type="button" class="submit-btn" id="submit-login">LOG ME IN</button>
+                <button type="button" class="submit-btn" id="submit-login">AUTHENTICATE</button>
             </form>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC FOR ALL FEATURES -->
+    <!-- Scripts -->
     <script>
-        // --- 1. Custom Cursor Movement ---
+        // 1. Custom Cursor Movement
         const dot = document.getElementById('cursor-dot');
         const outline = document.getElementById('cursor-outline');
-        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let outlineX = mouseX, outlineY = mouseY;
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
@@ -310,7 +305,7 @@
         }
         animateCursor();
 
-        // --- 2. Flowing Menu (Hover Image Reveal) ---
+        // 2. Flowing Menu (Hover Image Reveal)
         const menuItems = document.querySelectorAll('.menu-item');
         const revealContainer = document.getElementById('hover-reveal');
         const revealImage = document.getElementById('reveal-image');
@@ -320,24 +315,29 @@
                 revealImage.src = item.getAttribute('data-image');
                 revealContainer.style.opacity = '1';
                 revealContainer.style.transform = `scale(1) translate(-50%, -50%)`;
-                outline.style.width = '80px'; outline.style.height = '80px';
+                outline.style.width = '70px'; outline.style.height = '70px';
                 outline.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                outline.style.mixBlendMode = 'difference';
             });
 
             item.addEventListener('mousemove', (e) => {
-                revealContainer.style.left = e.clientX + 'px';
-                revealContainer.style.top = e.clientY + 'px';
+                // Add slight delay physics to the image following cursor
+                setTimeout(() => {
+                    revealContainer.style.left = e.clientX + 'px';
+                    revealContainer.style.top = e.clientY + 'px';
+                }, 50);
             });
 
             item.addEventListener('mouseleave', () => {
                 revealContainer.style.opacity = '0';
-                revealContainer.style.transform = `scale(0.8) translate(-50%, -50%)`;
+                revealContainer.style.transform = `scale(0.5) translate(-50%, -50%)`;
                 outline.style.width = '40px'; outline.style.height = '40px';
                 outline.style.backgroundColor = 'transparent';
+                outline.style.mixBlendMode = 'normal';
             });
         });
 
-        // --- 3. Login Modal & Robot Interaction ---
+        // 3. Login Modal & Robot Interaction
         const loginModal = document.getElementById('login-modal');
         const openLoginBtn = document.getElementById('open-login');
         const closeLoginBtn = document.getElementById('close-login');
@@ -350,46 +350,39 @@
         const eyes = document.querySelectorAll('.eye');
         let isEyesClosed = false;
 
-        // Open/Close Modal
-        openLoginBtn.addEventListener('click', () => loginModal.classList.add('active'));
-        closeLoginBtn.addEventListener('click', () => loginModal.classList.remove('active'));
-
-        // Form Focus Events
-        usernameInput.addEventListener('focus', () => {
-            speechBubble.innerText = "A visitor. State your name.";
-            openEyes();
+        openLoginBtn.addEventListener('click', () => {
+            loginModal.classList.add('active');
+            // Hide custom cursor when modal is open for better typing experience
+            outline.style.display = 'none';
+            dot.style.display = 'none';
+            document.body.style.cursor = 'default';
         });
-        emailInput.addEventListener('focus', () => {
-            speechBubble.innerText = "Typing detected. Go on, I'm watching.";
-            openEyes();
-        });
-        passwordInput.addEventListener('focus', () => {
-            speechBubble.innerText = "Ooooh, Secret! My eyes are closed.";
-            closeEyes();
+        
+        closeLoginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+            // Bring custom cursor back
+            outline.style.display = 'block';
+            dot.style.display = 'block';
+            document.body.style.cursor = 'none';
         });
 
-        function closeEyes() {
-            isEyesClosed = true;
-            eyes.forEach(eye => eye.classList.add('closed'));
-        }
-        function openEyes() {
-            isEyesClosed = false;
-            eyes.forEach(eye => eye.classList.remove('closed'));
-        }
+        usernameInput.addEventListener('focus', () => { speechBubble.innerText = "A visitor. State your name."; openEyes(); });
+        emailInput.addEventListener('focus', () => { speechBubble.innerText = "Typing detected. I'm watching."; openEyes(); });
+        passwordInput.addEventListener('focus', () => { speechBubble.innerText = "Ooooh, Secret! My eyes are closed."; closeEyes(); });
 
-        // Robot Eye Tracking
+        function closeEyes() { isEyesClosed = true; eyes.forEach(eye => eye.classList.add('closed')); }
+        function openEyes() { isEyesClosed = false; eyes.forEach(eye => eye.classList.remove('closed')); }
+
         window.addEventListener('mousemove', (e) => {
             if(isEyesClosed || !loginModal.classList.contains('active')) return;
-
             pupils.forEach(pupil => {
                 const rect = pupil.parentElement.getBoundingClientRect();
                 const eyeCenterX = rect.left + rect.width / 2;
                 const eyeCenterY = rect.top + rect.height / 2;
                 const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
-                const distance = 4; // Max pupil movement
+                const distance = 5; 
                 const moveX = Math.cos(angle) * distance;
                 const moveY = Math.sin(angle) * distance;
-
                 pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
             });
         });
