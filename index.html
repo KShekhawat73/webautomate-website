@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAutomate | IT & Automation Agency</title>
-    <!-- Google Fonts: Outfit for modern tech look -->
+    <title>WebAutomate.cloud | IT & Automation Agency</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +16,7 @@
         }
 
         body {
-            background-color: #0b1120; /* Deep dark blue background */
+            background-color: #0b1120;
             color: #ffffff;
             overflow-x: hidden;
             position: relative;
@@ -25,29 +25,28 @@
         /* --- Animated Glowing Background Effects --- */
         .bg-glow-1, .bg-glow-2 {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(120px);
             z-index: -1;
-            opacity: 0.5;
+            opacity: 0.4;
             animation: float 10s infinite ease-in-out alternate;
         }
         
         .bg-glow-1 {
-            background: rgba(79, 70, 229, 0.4); /* Purple glow */
+            background: rgba(79, 70, 229, 0.4);
             top: -100px;
             left: -100px;
         }
 
         .bg-glow-2 {
-            background: rgba(56, 189, 248, 0.3); /* Blue glow */
-            bottom: 10%;
-            right: -50px;
+            background: rgba(56, 189, 248, 0.3);
+            top: 40%;
+            right: -100px;
             animation-delay: 2s;
         }
 
-        /* Grid lines background (Tech Vibe) */
         .bg-grid {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -56,6 +55,7 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
             z-index: -2;
+            position: fixed;
         }
 
         /* --- Navbar --- */
@@ -64,28 +64,34 @@
             justify-content: space-between;
             align-items: center;
             padding: 25px 8%;
-            background: rgba(11, 17, 32, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .logo {
             font-size: 26px;
             font-weight: 800;
             display: flex;
-            align-items: center;
+            align-items: baseline;
             cursor: pointer;
         }
 
-        /* Text gradient for WebAutomate Logo */
-        .logo span:first-child { color: #fff; }
-        .logo span:last-child {
+        .logo span:nth-child(1) { color: #fff; }
+        .logo span:nth-child(2) {
             background: linear-gradient(90deg, #60a5fa, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        .logo span:nth-child(3) {
+            font-size: 16px;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-left: 2px;
         }
 
         .nav-links {
@@ -102,11 +108,8 @@
             transition: color 0.3s;
         }
 
-        .nav-links li a:hover {
-            color: #60a5fa;
-        }
+        .nav-links li a:hover { color: #60a5fa; }
 
-        /* Nav Button */
         .btn-nav {
             background: linear-gradient(90deg, #60a5fa, #818cf8);
             color: white;
@@ -115,7 +118,7 @@
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
         
         .btn-nav:hover {
@@ -125,17 +128,15 @@
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            margin-top: 50px;
+            padding: 120px 20px 50px 20px;
         }
 
-        /* Text Animations */
         .hero h1 {
             font-size: 65px;
             font-weight: 800;
@@ -143,8 +144,6 @@
             max-width: 900px;
             margin-bottom: 25px;
             animation: fadeUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
         }
 
         .hero h1 .highlight {
@@ -164,7 +163,6 @@
             transform: translateY(30px);
         }
 
-        /* --- Hero Buttons --- */
         .hero-buttons {
             display: flex;
             gap: 20px;
@@ -207,36 +205,160 @@
             transform: scale(1.05);
         }
 
-        /* --- Keyframe Animations --- */
+        /* --- AI Animated Services Section --- */
+        .services-section {
+            padding: 80px 8%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+        
+        .section-title span {
+            color: #818cf8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Live AI Card Animation */
+        .service-card {
+            position: relative;
+            background: #0f172a;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: left;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* The Moving Gradient Light (AI Effect) */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 70%, #60a5fa 80%, #a78bfa 100%);
+            animation: rotateLight 4s linear infinite;
+            z-index: -2;
+            opacity: 0.3;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            animation: rotateLight 2s linear infinite;
+        }
+
+        /* Inner background to cover the rotating light */
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: #111827;
+            border-radius: 14px;
+            z-index: -1;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(96, 165, 250, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        .icon-box svg {
+            width: 30px;
+            height: 30px;
+            stroke: #818cf8;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #f1f5f9;
+        }
+
+        .service-card p {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0b1120;
+            color: #64748b;
+            font-size: 14px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Animations --- */
         @keyframes float {
             0% { transform: translate(0, 0); }
-            100% { transform: translate(30px, -50px); }
+            100% { transform: translate(40px, -60px); }
         }
 
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes rotateLight {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(129, 140, 248, 0.2); }
+            100% { box-shadow: 0 0 20px rgba(129, 140, 248, 0.6); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 45px; }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Background Elements -->
     <div class="bg-grid"></div>
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
 
-    <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <span>Web</span><span>Automate</span>
+            <span>Web</span><span>Automate</span><span>.cloud</span>
         </div>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#">Services ˅</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#">Why Us</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Contact</a></li>
@@ -244,19 +366,55 @@
         <button class="btn-nav">Free Consultation</button>
     </header>
 
-    <!-- Main Hero Section -->
     <section class="hero">
         <h1>Automate Your Business with <span class="highlight">Artificial Intelligence.</span></h1>
-        
         <p>We help companies automate processes, build custom internal portals, and streamline daily reporting workflows.</p>
-        
         <p style="font-size: 16px; color: #64748b;">We create smart digital solutions that save time, boost productivity, and enhance your retail operations.</p>
-        
         <div class="hero-buttons">
             <button class="btn-primary">Book a Consultation</button>
             <button class="btn-secondary">View Services</button>
         </div>
     </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <h2 class="section-title">Our Smart <span>Solutions</span></h2>
+        
+        <div class="services-grid">
+            
+            <!-- Service 1: Custom Apps -->
+            <div class="service-card">
+                <div class="icon-box">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
+                </div>
+                <h3>Custom Operational Workspaces</h3>
+                <p>We develop tailor-made mobile and cloud applications specifically designed for retail task management and live inventory tracking across multiple branch locations.</p>
+            </div>
+
+            <!-- Service 2: Automated Reporting -->
+            <div class="service-card">
+                <div class="icon-box">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+                </div>
+                <h3>Intelligent Reporting Dashboards</h3>
+                <p>Eliminate manual data entry. We automate daily multi-branch reporting operations, including stock & sale compilation, product age monitoring, and credit outstanding status.</p>
+            </div>
+
+            <!-- Service 3: Messaging Automation -->
+            <div class="service-card">
+                <div class="icon-box">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>
+                </div>
+                <h3>Automated Messaging & CRM</h3>
+                <p>Streamline your internal communication with scheduled messaging broadcasts. We build automated CRM scripts that send timely updates and alerts directly to your team.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 WebAutomate.cloud. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
