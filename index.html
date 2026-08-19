@@ -1039,7 +1039,7 @@
 
       border:
         1px solid
-        var(--border-light);
+        var(--line-soft); /* Replaced undefined var */
 
       background:
         rgba(255,255,255,.025);
@@ -1644,7 +1644,7 @@
 
       border:
         1px solid
-        var(--border);
+        var(--line-soft); /* Replaced undefined var */
 
       border-radius:
         22px;
@@ -2369,7 +2369,7 @@
 
       border:
         1px solid
-        var(--border);
+        var(--line-soft); /* Replaced undefined var */
 
       border-radius:
         28px;
@@ -4422,7 +4422,7 @@
 
 
         <!-- ===============================================
-             DASHBOARD
+             DASHBOARD REPLACEMENT
         =============================================== -->
 
         <div class="preview-wrap">
@@ -4441,345 +4441,19 @@
 
 
               <div class="browser-url">
-                secure.workspace / operations
+                secure.workspace / new-module
               </div>
 
             </div>
 
 
 
-            <div class="dashboard">
-
-
-              <aside class="side-panel">
-
-
-                <div class="side-title">
-                  Operations OS
-                </div>
-
-
-                <div class="side-item active">
-                  Overview
-                </div>
-
-
-                <div class="side-item">
-                  Inventory
-                </div>
-
-
-                <div class="side-item">
-                  Sales
-                </div>
-
-
-                <div class="side-item">
-                  Branches
-                </div>
-
-
-                <div class="side-item">
-                  Credit
-                </div>
-
-
-                <div class="side-item">
-                  Reports
-                </div>
-
-
-                <div class="side-item">
-                  Automation
-                </div>
-
-
-              </aside>
-
-
-
-              <div class="main-panel">
-
-
-                <div class="dash-heading">
-
-
-                  <div class="dash-title">
-                    Business Intelligence
-                  </div>
-
-
-                  <div class="system-status">
-
-                    <span></span>
-
-                    Systems Operational
-
-                  </div>
-
-
-                </div>
-
-
-
-                <div class="stats-grid">
-
-
-                  <div class="stat-card">
-
-                    <div class="stat-label">
-                      Today's Sales
-                    </div>
-
-                    <div class="stat-value">
-                      ₹8.42L
-                    </div>
-
-                    <div class="stat-change">
-                      ↑ 12.8% vs yesterday
-                    </div>
-
-                  </div>
-
-
-                  <div class="stat-card">
-
-                    <div class="stat-label">
-                      Live Stock
-                    </div>
-
-                    <div class="stat-value">
-                      14,280
-                    </div>
-
-                    <div class="stat-change">
-                      ↑ Synced across branches
-                    </div>
-
-                  </div>
-
-
-                  <div class="stat-card">
-
-                    <div class="stat-label">
-                      Outstanding
-                    </div>
-
-                    <div class="stat-value">
-                      ₹12.7L
-                    </div>
-
-                    <div class="stat-change">
-                      ↓ 7.3% this week
-                    </div>
-
-                  </div>
-
-
-                  <div class="stat-card">
-
-                    <div class="stat-label">
-                      Automation
-                    </div>
-
-                    <div class="stat-value">
-                      97.4%
-                    </div>
-
-                    <div class="stat-change">
-                      ↑ Tasks automated
-                    </div>
-
-                  </div>
-
-
-                </div>
-
-
-
-                <div class="chart-row">
-
-
-                  <div class="chart-card">
-
-
-                    <div class="chart-title">
-                      Revenue / 30 Days
-                    </div>
-
-
-                    <div class="chart">
-
-
-                      <svg
-                        viewBox="0 0 600 160"
-                        preserveAspectRatio="none"
-                      >
-
-
-                        <defs>
-
-                          <linearGradient
-                            id="revenueGradient"
-                            x1="0%"
-                            y1="0%"
-                            x2="100%"
-                            y2="0%"
-                          >
-
-                            <stop
-                              offset="0%"
-                              stop-color="#55e9f1"
-                            />
-
-                            <stop
-                              offset="100%"
-                              stop-color="#9774ff"
-                            />
-
-                          </linearGradient>
-
-                        </defs>
-
-
-                        <path
-                          d="
-                            M0 128
-                            C30 115 48 118 73 104
-                            S125 110 153 83
-                            S198 92 227 66
-                            S270 75 301 52
-                            S353 64 385 43
-                            S428 48 459 31
-                            S508 47 539 18
-                            S577 22 600 10
-                          "
-
-                          fill="none"
-
-                          stroke="url(#revenueGradient)"
-
-                          stroke-width="3"
-                        />
-
-                      </svg>
-
-
-                    </div>
-
-
-                  </div>
-
-
-
-                  <div class="activity-card">
-
-
-                    <div class="chart-title">
-                      Automated Activity
-                    </div>
-
-
-                    <div class="activity-line">
-
-                      <div class="activity-icon">
-                        ↗
-                      </div>
-
-                      <div class="activity-text">
-
-                        <strong>
-                          Daily report generated
-                        </strong>
-
-                        Branch performance report
-
-                      </div>
-
-                      <div class="activity-time">
-                        09:00
-                      </div>
-
-                    </div>
-
-
-                    <div class="activity-line">
-
-                      <div class="activity-icon">
-                        ✓
-                      </div>
-
-                      <div class="activity-text">
-
-                        <strong>
-                          Inventory sync complete
-                        </strong>
-
-                        4 locations synchronized
-
-                      </div>
-
-                      <div class="activity-time">
-                        08:43
-                      </div>
-
-                    </div>
-
-
-                    <div class="activity-line">
-
-                      <div class="activity-icon">
-                        ◈
-                      </div>
-
-                      <div class="activity-text">
-
-                        <strong>
-                          CRM workflow executed
-                        </strong>
-
-                        124 customer messages
-
-                      </div>
-
-                      <div class="activity-time">
-                        08:16
-                      </div>
-
-                    </div>
-
-
-                    <div class="activity-line">
-
-                      <div class="activity-icon">
-                        !
-                      </div>
-
-                      <div class="activity-text">
-
-                        <strong>
-                          Stock alert detected
-                        </strong>
-
-                        7 items below threshold
-
-                      </div>
-
-                      <div class="activity-time">
-                        07:52
-                      </div>
-
-                    </div>
-
-
-                  </div>
-
-
-                </div>
-
-
+            <div class="dashboard" style="min-height: 400px; display: flex; align-items: center; justify-content: center; padding: 40px; background: rgba(255,255,255,0.02);">
+
+              <div style="text-align: center;">
+                <h3 style="font-size: 24px; margin-bottom: 15px; color: #f4f7fb;">New Operations Module</h3>
+                <p style="color: #8a94a5; font-size: 14px;">This dashboard section has been replaced with a new placeholder component.</p>
               </div>
-
 
             </div>
 
@@ -5227,18 +4901,17 @@
               <div class="feature reveal">
 
                 <div class="feature-icon">
-                  ∞
+                  🛡️
                 </div>
 
                 <div>
 
                   <h4>
-                    Serverless Infrastructure
+                    Enterprise Grade Security
                   </h4>
 
                   <p>
-                    Google Sheets and Apps Script architecture
-                    keeps systems lightweight and cost-efficient.
+                    Advanced encryption and secure protocols to keep your business data protected at all times.
                   </p>
 
                 </div>
@@ -5716,7 +5389,7 @@
 
   <!-- =====================================================
        FOOTER
-    ===================================================== -->
+  ===================================================== -->
 
   <footer>
 
@@ -5765,7 +5438,7 @@
 
   <!-- =====================================================
        ERROR SCREEN
-    ===================================================== -->
+  ===================================================== -->
 
   <div
     class="wa-error-overlay"
@@ -5965,7 +5638,7 @@
 
   <!-- =====================================================
        JAVASCRIPT
-    ===================================================== -->
+  ===================================================== -->
 
   <script>
 
