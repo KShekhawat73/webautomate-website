@@ -1517,6 +1517,63 @@
 
     }
 
+    
+    /* =========================================================
+       ABSTRACT DASHBOARD MODULES (NEW)
+    ========================================================= */
+
+    .abstract-dash {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 24px;
+      background: rgba(10, 15, 22, 0.4);
+      min-height: 400px;
+    }
+
+    .abstract-module {
+      background: rgba(255,255,255,0.015);
+      border: 1px solid rgba(87,238,244,0.1);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .abstract-module::before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(154,120,255,0.15), transparent 70%);
+      border-radius: 50%;
+      top: -50px;
+      left: -50px;
+      animation: ambientPulse 6s infinite alternate;
+    }
+
+    .abstract-text {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .abstract-subtext {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
 
     /* =========================================================
        MARQUEE
@@ -3958,6 +4015,16 @@
     }
 
 
+    @media (max-width: 600px) {
+
+      .abstract-dash {
+        grid-template-columns:
+          1fr;
+      }
+
+    }
+
+
     @media (max-width: 560px) {
 
       .container {
@@ -4448,11 +4515,42 @@
 
 
 
-            <div class="dashboard" style="min-height: 400px; display: flex; align-items: center; justify-content: center; padding: 40px; background: rgba(255,255,255,0.02);">
+            <div class="abstract-dash">
 
-              <div style="text-align: center;">
-                <h3 style="font-size: 24px; margin-bottom: 15px; color: #f4f7fb;">New Operations Module</h3>
-                <p style="color: #8a94a5; font-size: 14px;">This dashboard section has been replaced with a new placeholder component.</p>
+              <div class="abstract-module">
+                <div class="abstract-text gradient">
+                  OPERATIONAL SYNC
+                </div>
+                <div class="abstract-subtext gradient">
+                  MODULE ACTIVE
+                </div>
+              </div>
+
+              <div class="abstract-module">
+                <div class="abstract-text gradient">
+                  DATA STREAM
+                </div>
+                <div class="abstract-subtext gradient">
+                  PROCESSING
+                </div>
+              </div>
+
+              <div class="abstract-module">
+                <div class="abstract-text gradient">
+                  WORKFLOW AUTOMATION
+                </div>
+                <div class="abstract-subtext gradient">
+                  OPTIMIZED
+                </div>
+              </div>
+
+              <div class="abstract-module">
+                <div class="abstract-text gradient">
+                  SYSTEM INTELLIGENCE
+                </div>
+                <div class="abstract-subtext gradient">
+                  CONNECTED
+                </div>
               </div>
 
             </div>
