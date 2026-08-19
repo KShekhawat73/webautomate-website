@@ -1,391 +1,2324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAutomate.cloud | Premium IT Agency</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #030712; /* Deeper dark for premium contrast */
-            --text-main: #f8fafc;
-            --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
-            --purple-glow: rgba(139, 92, 246, 0.4);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-            cursor: none; /* Custom Cursor */
-        }
+  <title>WebAutomate.cloud — Retail Operations, Automated.</title>
+  <meta
+    name="description"
+    content="WebAutomate.cloud builds premium operational workspaces, live inventory dashboards, automated reporting systems and business automation for modern retail businesses."
+  />
+  <meta name="theme-color" content="#06070b" />
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-            position: relative;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-        /* --- 1. DYNAMIC BACKGROUND (NEW) --- */
-        .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px; z-index: -3;
-        }
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-soft: #090b11;
+      --panel: rgba(255,255,255,0.045);
+      --panel-strong: rgba(255,255,255,0.075);
+      --border: rgba(255,255,255,0.09);
+      --text: #f4f7fb;
+      --muted: #99a2b3;
+      --muted-2: #697184;
 
-        .bg-orb-1, .bg-orb-2 {
-            position: fixed; width: 600px; height: 600px; border-radius: 50%;
-            filter: blur(150px); z-index: -2; opacity: 0.6;
-            animation: floatOrb 15s infinite alternate ease-in-out;
-        }
-        .bg-orb-1 { background: var(--accent-glow); top: -100px; left: -200px; }
-        .bg-orb-2 { background: var(--purple-glow); bottom: -100px; right: -200px; animation-delay: -5s; }
+      --cyan: #49f7ff;
+      --blue: #4c7dff;
+      --violet: #9d63ff;
+      --green: #6dffb4;
 
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 50px) scale(1.1); }
-        }
+      --max: 1240px;
+      --nav-height: 82px;
+      --radius: 28px;
+      --radius-sm: 18px;
 
-        /* --- 2. CUSTOM CURSOR --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 99999; pointer-events: none;
-        }
-        .cursor-dot { width: 8px; height: 8px; background-color: #fff; box-shadow: 0 0 10px #fff; }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid var(--accent);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
+      --shadow:
+        0 20px 70px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    }
 
-        /* --- 3. HEADER --- */
-        header {
-            padding: 25px 50px; display: flex; justify-content: space-between; align-items: center;
-            position: fixed; width: 100%; top: 0; z-index: 100;
-            background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            animation: fadeDown 1s ease-out;
-        }
-        .logo { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
-        .logo span { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .header-buttons { display: flex; gap: 20px; }
-        .btn {
-            padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 15px;
-            cursor: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; position: relative; overflow: hidden;
-        }
-        .btn-login { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-nav { background: white; color: black; }
-        
-        .btn:hover { transform: translateY(-3px); }
-        .btn-login:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
-        .btn-nav:hover { box-shadow: 0 10px 25px rgba(255,255,255,0.2); }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* --- 4. HERO SECTION (NEW) --- */
-        .hero {
-            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 20px; margin-top: 80px;
-        }
-        .hero h1 {
-            font-size: 5.5rem; font-weight: 900; line-height: 1.1; max-width: 1000px;
-            animation: fadeUp 1s ease-out 0.2s both;
-        }
-        .hero h1 span {
-            background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
-            background-size: 200% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: gradientShine 3s linear infinite;
-        }
-        .hero p {
-            font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-top: 25px;
-            animation: fadeUp 1s ease-out 0.4s both; line-height: 1.6;
-        }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(76,125,255,.12), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(157,99,255,.10), transparent 24%),
+        radial-gradient(circle at 50% 60%, rgba(73,247,255,.05), transparent 26%),
+        var(--bg);
+      font-family: "Inter", sans-serif;
+      cursor: none;
+    }
 
-        /* --- 5. INFINITE CAROUSEL --- */
-        .marquee-container {
-            width: 100vw; overflow: hidden; background: #0f172a; padding: 25px 0;
-            border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
-            transform: rotate(-2deg) scale(1.05); margin-top: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeUp 1s ease-out 0.6s both;
-        }
-        .marquee-content { display: flex; white-space: nowrap; animation: scrollMarquee 25s linear infinite; }
-        .marquee-text {
-            font-size: 2.5rem; font-weight: 900; text-transform: uppercase; padding: 0 40px;
-            color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4); transition: 0.4s;
-        }
-        .marquee-text:hover { color: #fff; -webkit-text-stroke: 0px; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        /* --- 6. FLOWING MENU --- */
-        .flowing-menu-section {
-            padding: 120px 10%; display: flex; flex-direction: column; align-items: center;
-            animation: fadeUp 1s ease-out 0.8s both;
-        }
-        .menu-title {
-            font-size: 1.2rem; color: #64748b; margin-bottom: 50px; letter-spacing: 6px; text-transform: uppercase;
-        }
-        .menu-item {
-            position: relative; font-size: 6.5rem; font-weight: 900; text-transform: uppercase;
-            color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.2); cursor: none;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); margin: 5px 0; line-height: 1;
-        }
-        .menu-item:hover { color: #fff; -webkit-text-stroke: 0px; transform: scale(1.05); letter-spacing: 5px; }
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .hover-reveal {
-            position: fixed; width: 400px; height: 280px; pointer-events: none; opacity: 0;
-            transform: scale(0.5) translate(-50%, -50%); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: -1; overflow: hidden; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-        }
-        .hover-reveal img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .menu-item:hover ~ .hover-reveal img { transform: scale(1.1); }
+    ::selection {
+      background: rgba(73,247,255,.25);
+      color: #fff;
+    }
 
-        /* --- 7. ROBOT LOGIN MODAL (Unchanged but styled) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000; opacity: 0; visibility: hidden; transition: 0.4s ease;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .login-card {
-            background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px; padding: 40px; width: 100%; max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02);
-            transform: translateY(50px) scale(0.9); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
-        }
-        .modal-overlay.active .login-card { transform: translateY(0) scale(1); }
+    /* -------------------------
+       Custom Cursor
+    ------------------------- */
 
-        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #64748b; font-size: 24px; transition: 0.3s; }
-        .close-btn:hover { color: white; transform: rotate(90deg); }
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+    }
 
-        .speech-bubble {
-            background: white; color: #0f172a; padding: 12px 20px; border-radius: 20px;
-            font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 25px; position: relative;
-        }
-        .speech-bubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-            border-width: 10px 10px 0; border-style: solid; border-color: white transparent transparent transparent;
-        }
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
 
-        .robot-container { display: flex; justify-content: center; margin-bottom: 30px; }
-        .robot-head {
-            width: 110px; height: 85px; background: #1e293b; border-radius: 35%;
-            border: 2px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow);
-            display: flex; justify-content: center; align-items: center; gap: 15px; position: relative;
-        }
-        .robot-head::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 4px; height: 15px; background: #64748b; }
-        .robot-head::after {
-            content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px;
-            background: #ef4444; border-radius: 50%; animation: pulseRed 1s infinite alternate;
-        }
-        @keyframes pulseRed { from { opacity: 0.4; box-shadow: 0 0 5px red; } to { opacity: 1; box-shadow: 0 0 15px red; } }
+    .cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(73,247,255,.45);
+      border-radius: 50%;
+      transition:
+        width .25s ease,
+        height .25s ease,
+        background .25s ease,
+        border-color .25s ease;
+    }
 
-        .eye { width: 24px; height: 24px; background: #fff; border-radius: 50%; position: relative; overflow: hidden; transition: 0.3s; }
-        .pupil { width: 10px; height: 10px; background: #0f172a; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: 0.05s ease-out; }
-        .eye.closed { height: 4px; border-radius: 2px; background: var(--accent); }
-        .eye.closed .pupil { display: none; }
+    body.cursor-hover .cursor-ring {
+      width: 54px;
+      height: 54px;
+      background: rgba(73,247,255,.06);
+      border-color: rgba(73,247,255,.8);
+    }
 
-        .form-group { margin-bottom: 15px; }
-        .form-group input {
-            width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px; color: white; font-size: 15px; outline: none; transition: 0.3s; cursor: none;
-        }
-        .form-group input:focus { border-color: var(--accent); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 15px var(--accent-glow); }
+    @media (max-width: 850px) {
+      body {
+        cursor: auto;
+      }
 
-        .submit-btn {
-            width: 100%; padding: 16px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); border: none;
-            border-radius: 12px; color: white; font-weight: 800; font-size: 16px; margin-top: 10px; transition: 0.3s; cursor: none;
-        }
-        .submit-btn:hover { box-shadow: 0 0 25px var(--accent-glow); transform: translateY(-2px); }
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+    }
 
-        /* --- KEYFRAMES --- */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes gradientShine { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    /* -------------------------
+       Global Effects
+    ------------------------- */
 
-    </style>
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .035;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 70px 70px;
+      mask-image: radial-gradient(circle at center, black 20%, transparent 90%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      pointer-events: none;
+      animation: floatOrb 10s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 320px;
+      height: 320px;
+      top: 4%;
+      left: -90px;
+      background: radial-gradient(circle, rgba(73,247,255,.18), transparent 65%);
+    }
+
+    .orb.two {
+      width: 380px;
+      height: 380px;
+      top: 15%;
+      right: -150px;
+      animation-delay: -3s;
+      background: radial-gradient(circle, rgba(157,99,255,.18), transparent 65%);
+    }
+
+    .orb.three {
+      width: 300px;
+      height: 300px;
+      top: 52%;
+      left: 15%;
+      animation-delay: -6s;
+      background: radial-gradient(circle, rgba(76,125,255,.12), transparent 65%);
+    }
+
+    @keyframes floatOrb {
+      0%,100% {
+        transform: translate3d(0,0,0) scale(1);
+      }
+      50% {
+        transform: translate3d(0,-30px,0) scale(1.05);
+      }
+    }
+
+    /* -------------------------
+       Navigation
+    ------------------------- */
+
+    .nav-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 20px;
+    }
+
+    nav {
+      width: min(var(--max), 100%);
+      margin: auto;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px 0 20px;
+      border: 1px solid var(--border);
+      background: rgba(5,6,10,.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #031014;
+      background:
+        radial-gradient(circle at 35% 30%, #fff, #89ffff 18%, var(--cyan) 60%, #236cff 100%);
+      box-shadow:
+        0 0 20px rgba(73,247,255,.38),
+        inset 0 0 12px rgba(255,255,255,.55);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #b6becc;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      transition: color .25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      min-height: 42px;
+      padding: 0 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #051016;
+      background: linear-gradient(135deg, var(--cyan), #9cefff);
+      box-shadow: 0 8px 30px rgba(73,247,255,.18);
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 850px) {
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+    }
+
+    /* -------------------------
+       Hero
+    ------------------------- */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 150px 20px 80px;
+      position: relative;
+    }
+
+    .hero-inner {
+      width: min(var(--max), 100%);
+      margin: auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      margin-bottom: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(73,247,255,.15);
+      background: rgba(73,247,255,.04);
+      color: #bceeff;
+      font-size: 11px;
+      letter-spacing: .12em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .45; transform: scale(.65); }
+    }
+
+    .hero h1 {
+      max-width: 1050px;
+      margin: auto;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(52px, 8.1vw, 110px);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 700;
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #ffffff 24%,
+        #a5f7ff 50%,
+        #9f83ff 83%,
+        #ffffff 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 220% auto;
+      animation: gradientMove 6s linear infinite;
+    }
+
+    @keyframes gradientMove {
+      to {
+        background-position: 220% center;
+      }
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.5vw, 18px);
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #041015;
+      background: linear-gradient(135deg, var(--cyan), #b6faff);
+      box-shadow: 0 15px 45px rgba(73,247,255,.16);
+    }
+
+    .btn-secondary {
+      color: white;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      color: var(--muted-2);
+      font-size: 11px;
+      letter-spacing: .03em;
+    }
+
+    /* -------------------------
+       Terminal / System Preview
+    ------------------------- */
+
+    .preview-wrap {
+      width: min(1040px, 100%);
+      margin: 72px auto 0;
+      perspective: 1400px;
+    }
+
+    .system-preview {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.025)),
+        #080a0f;
+      box-shadow:
+        0 40px 100px rgba(0,0,0,.5),
+        0 0 80px rgba(73,247,255,.04);
+      transform: rotateX(4deg);
+      transition: transform .7s ease;
+    }
+
+    .preview-wrap:hover .system-preview {
+      transform: rotateX(0deg) translateY(-3px);
+    }
+
+    .browser-bar {
+      height: 48px;
+      padding: 0 17px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.02);
+    }
+
+    .browser-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+    }
+
+    .browser-url {
+      margin-left: 10px;
+      padding: 7px 12px;
+      min-width: 230px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.04);
+      color: #657084;
+      font-size: 10px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      min-height: 500px;
+    }
+
+    .side-panel {
+      border-right: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.015);
+      padding: 22px 14px;
+    }
+
+    .side-title {
+      color: #fff;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0 10px 20px;
+    }
+
+    .side-item {
+      padding: 11px 10px;
+      color: #707a8c;
+      border-radius: 9px;
+      margin-bottom: 4px;
+      font-size: 11px;
+    }
+
+    .side-item.active {
+      color: #c9fbff;
+      background: rgba(73,247,255,.07);
+    }
+
+    .main-panel {
+      padding: 25px;
+    }
+
+    .dash-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .dash-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #8fffc0;
+      background: rgba(109,255,180,.07);
+      font-size: 10px;
+    }
+
+    .status span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      min-height: 112px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 15px;
+      padding: 15px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .stat-label {
+      color: #6f798d;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .stat-value {
+      margin-top: 14px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .stat-change {
+      margin-top: 6px;
+      color: var(--green);
+      font-size: 9px;
+    }
+
+    .chart-row {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 12px;
+    }
+
+    .chart-card,
+    .activity-card {
+      min-height: 220px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 15px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .chart-title {
+      color: #a5adbb;
+      font-size: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chart {
+      height: 140px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 35px 35px;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .activity-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .activity-line:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      background: rgba(73,247,255,.08);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+    }
+
+    .activity-text {
+      flex: 1;
+      color: #838d9f;
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
+    .activity-text strong {
+      display: block;
+      color: #cbd1da;
+      font-size: 9px;
+    }
+
+    .activity-time {
+      color: #555e70;
+      font-size: 8px;
+    }
+
+    @media (max-width: 760px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .chart-row {
+        grid-template-columns: 1fr;
+      }
+
+      .system-preview {
+        border-radius: 20px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .main-panel {
+        padding: 15px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .browser-url {
+        min-width: 0;
+        flex: 1;
+      }
+    }
+
+    /* -------------------------
+       Marquee
+    ------------------------- */
+
+    .marquee-section {
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.018);
+    }
+
+    .marquee {
+      width: max-content;
+      display: flex;
+      animation: marquee 24s linear infinite;
+    }
+
+    .marquee span {
+      padding: 23px 28px;
+      color: #7e8797;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      white-space: nowrap;
+    }
+
+    .marquee .accent {
+      color: #c6fbff;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* -------------------------
+       Sections
+    ------------------------- */
+
+    section:not(.hero):not(.marquee-section) {
+      padding: 120px 20px;
+      position: relative;
+    }
+
+    .container {
+      width: min(var(--max), 100%);
+      margin: auto;
+    }
+
+    .section-kicker {
+      margin-bottom: 15px;
+      color: var(--cyan);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-weight: 800;
+    }
+
+    .section-title {
+      max-width: 800px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(38px, 5vw, 68px);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .section-description {
+      max-width: 620px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* -------------------------
+       Services
+    ------------------------- */
+
+    .services-grid {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      transition:
+        transform .35s ease,
+        border-color .35s ease,
+        background .35s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(73,247,255,.25);
+      background: rgba(255,255,255,.06);
+    }
+
+    .service-glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -80px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(73,247,255,.16), transparent 70%);
+      pointer-events: none;
+    }
+
+    .service-number {
+      color: #4e596c;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      margin-top: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: var(--cyan);
+      font-size: 22px;
+      border: 1px solid rgba(73,247,255,.12);
+      background: rgba(73,247,255,.055);
+      box-shadow: inset 0 0 30px rgba(73,247,255,.035);
+    }
+
+    .service-card h3 {
+      margin-top: 22px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 23px;
+      letter-spacing: -.03em;
+    }
+
+    .service-card p {
+      margin-top: 10px;
+      max-width: 450px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .service-tags {
+      margin-top: 19px;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #8e99ab;
+      background: rgba(255,255,255,.04);
+      font-size: 9px;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    @media (max-width: 760px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* -------------------------
+       Why Us
+    ------------------------- */
+
+    .split {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .feature-list {
+      margin-top: 35px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 15px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 17px;
+      background: rgba(255,255,255,.022);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      color: var(--cyan);
+      font-size: 17px;
+    }
+
+    .feature h4 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 14px;
+    }
+
+    .feature p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    .architecture {
+      position: relative;
+      min-height: 470px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .architecture-core {
+      position: relative;
+      z-index: 3;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(73,247,255,.22);
+      background:
+        radial-gradient(circle, rgba(73,247,255,.13), rgba(73,247,255,.015) 62%),
+        rgba(255,255,255,.025);
+      box-shadow:
+        0 0 80px rgba(73,247,255,.09),
+        inset 0 0 50px rgba(73,247,255,.05);
+    }
+
+    .architecture-core strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+    }
+
+    .architecture-core small {
+      display: block;
+      margin-top: 6px;
+      color: #8090a2;
+      font-size: 9px;
+    }
+
+    .ring {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 1px dashed rgba(73,247,255,.13);
+      animation: spin 22s linear infinite;
+    }
+
+    .ring.r2 {
+      width: 430px;
+      height: 430px;
+      border-color: rgba(157,99,255,.12);
+      animation-duration: 28s;
+      animation-direction: reverse;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .node {
+      position: absolute;
+      z-index: 4;
+      min-width: 130px;
+      padding: 13px 14px;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(7,9,14,.85);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 45px rgba(0,0,0,.3);
+      text-align: center;
+    }
+
+    .node b {
+      display: block;
+      color: #e8edf5;
+      font-size: 10px;
+    }
+
+    .node span {
+      display: block;
+      margin-top: 4px;
+      color: #667186;
+      font-size: 8px;
+    }
+
+    .node.a { top: 16%; left: 3%; }
+    .node.b { top: 8%; right: 5%; }
+    .node.c { bottom: 12%; left: 9%; }
+    .node.d { bottom: 5%; right: 2%; }
+
+    @media (max-width: 900px) {
+      .split {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .architecture {
+        transform: scale(.8);
+        min-height: 400px;
+        margin: -35px -50px;
+      }
+    }
+
+    /* -------------------------
+       Client Workspace
+    ------------------------- */
+
+    .workspace-section {
+      padding-top: 75px !important;
+    }
+
+    .workspace {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: rgba(255,255,255,.025);
+      box-shadow: var(--shadow);
+    }
+
+    .workspace-login {
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.07);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(73,247,255,.11), transparent 22%),
+        #080b10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .workspace-login::before {
+      content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      border: 1px solid rgba(73,247,255,.08);
+      box-shadow:
+        0 0 0 35px rgba(73,247,255,.015),
+        0 0 0 70px rgba(73,247,255,.01);
+    }
+
+    .robot-eye {
+      position: relative;
+      width: 190px;
+      height: 120px;
+      border: 2px solid rgba(73,247,255,.65);
+      border-radius: 50%;
+      box-shadow:
+        0 0 35px rgba(73,247,255,.12),
+        inset 0 0 40px rgba(73,247,255,.08);
+      display: grid;
+      place-items: center;
+      animation: eyeFloat 4s ease-in-out infinite;
+    }
+
+    .robot-eye::before {
+      content: "";
+      position: absolute;
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      border: 1px solid rgba(73,247,255,.25);
+    }
+
+    .pupil {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #fff 0 8%, var(--cyan) 12%, #1a59ff 70%);
+      box-shadow:
+        0 0 30px rgba(73,247,255,.6),
+        0 0 80px rgba(73,247,255,.2);
+      animation: pupilPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pupilPulse {
+      0%,100% { transform: scale(.88); }
+      50% { transform: scale(1.08); }
+    }
+
+    @keyframes eyeFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .login-label {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      color: #657083;
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .workspace-copy {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .workspace-copy h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(29px, 4vw, 48px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    .workspace-copy p {
+      margin-top: 17px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 13px;
+    }
+
+    .workspace-list {
+      margin-top: 25px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .workspace-item {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      color: #b5bdca;
+      font-size: 11px;
+    }
+
+    .workspace-item::before {
+      content: "↗";
+      color: var(--cyan);
+    }
+
+    @media (max-width: 850px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* -------------------------
+       Process
+    ------------------------- */
+
+    .process-grid {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .process-card {
+      padding: 24px;
+      min-height: 220px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      border-left: 1px solid rgba(255,255,255,.05);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+    }
+
+    .process-number {
+      color: #4a5567;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 34px;
+    }
+
+    .process-card h4 {
+      margin-top: 32px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+    }
+
+    .process-card p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 850px) {
+      .process-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* -------------------------
+       CTA
+    ------------------------- */
+
+    .cta {
+      padding-bottom: 120px !important;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 90px 30px;
+      border: 1px solid rgba(73,247,255,.11);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(73,247,255,.09), transparent 38%),
+        linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::before,
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: .17;
+      pointer-events: none;
+    }
+
+    .cta-box::before {
+      top: -100px;
+      left: -90px;
+      background: var(--cyan);
+    }
+
+    .cta-box::after {
+      right: -80px;
+      bottom: -100px;
+      background: var(--violet);
+    }
+
+    .cta-box h2 {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: auto;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(39px, 6vw, 76px);
+      line-height: .98;
+      letter-spacing: -.06em;
+    }
+
+    .cta-box p {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      margin: 19px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .cta-box .hero-actions {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* -------------------------
+       Footer
+    ------------------------- */
+
+    footer {
+      padding: 28px 20px 45px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer-inner {
+      width: min(var(--max),100%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      color: #535d6d;
+      font-size: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      color: #747f90;
+      font-size: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* -------------------------
+       Reveal Animation
+    ------------------------- */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- Dynamic Background Elements -->
-    <div class="bg-grid"></div>
-    <div class="bg-orb-1"></div>
-    <div class="bg-orb-2"></div>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">WebAutomate<span>.cloud</span></div>
-        <div class="header-buttons">
-            <button class="btn btn-login" id="open-login">Client Login</button>
-            <button class="btn btn-nav">Start Project</button>
-        </div>
-    </header>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
 
-    <!-- NEW: Hero Section -->
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <div class="nav-wrap">
+    <nav>
+      <a href="#top" class="logo">
+        <div class="logo-mark">WA</div>
+        WEB AUTOMATE
+      </a>
+
+      <div class="nav-links">
+        <a href="#services">Solutions</a>
+        <a href="#architecture">Technology</a>
+        <a href="#workspace">Client Workspaces</a>
+        <a href="#process">Process</a>
+      </div>
+
+      <!-- Replace href with your consultation/contact page -->
+      <a class="nav-cta magnetic" href="#contact">
+        Book a Strategy Call
+      </a>
+
+      <button class="mobile-menu" aria-label="Open menu">
+        ☰
+      </button>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
     <section class="hero">
-        <h1>Building the Future of <span>Operations</span></h1>
-        <p>We transform manual retail tasks into seamless, automated digital workflows. Beautifully designed, powerfully engineered.</p>
-    </section>
+      <div class="hero-inner">
 
-    <!-- Infinite Carousel -->
-    <div class="marquee-container">
-        <div class="marquee-content">
-            <div class="marquee-text">AUTOMATE OPERATIONS ✦ BUILD PORTALS ✦ SCALE FAST ✦ </div>
-            <div class="marquee-text">AUTOMATE OPERATIONS ✦ BUILD PORTALS ✦ SCALE FAST ✦ </div>
+        <div class="eyebrow reveal">
+          <span class="eyebrow-dot"></span>
+          Retail Infrastructure • Automation • Intelligence
         </div>
-    </div>
 
-    <!-- Flowing Menu (With Hover Reveal) -->
-    <section class="flowing-menu-section">
-        <div class="menu-title">Explore Capabilities</div>
-        
-        <div class="menu-item" data-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop">Dashboards</div>
-        <div class="menu-item" data-image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop">Workspaces</div>
-        <div class="menu-item" data-image="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop">App Scripts</div>
+        <h1 class="reveal">
+          Your business should
+          <span class="gradient-text">run itself.</span>
+        </h1>
 
-        <div class="hover-reveal" id="hover-reveal">
-            <img src="" id="reveal-image" alt="Service Preview">
+        <p class="hero-copy reveal">
+          WebAutomate.cloud builds custom operational systems for modern
+          retail businesses — turning fragmented spreadsheets, repetitive
+          reporting and manual follow-ups into one fast, intelligent
+          digital workspace.
+        </p>
+
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary magnetic" href="#contact">
+            Automate My Operations
+            <span>↗</span>
+          </a>
+
+          <a class="btn btn-secondary magnetic" href="#workspace">
+            Explore Client Workspace
+            <span>→</span>
+          </a>
         </div>
-    </section>
 
-    <!-- Robot Login Modal -->
-    <div class="modal-overlay" id="login-modal">
-        <div class="login-card">
-            <button class="close-btn" id="close-login">✕</button>
-            
-            <div class="speech-bubble" id="speech-bubble">Beep boop. Identify yourself!</div>
-            
-            <div class="robot-container">
-                <div class="robot-head">
-                    <div class="eye" id="left-eye"><div class="pupil"></div></div>
-                    <div class="eye" id="right-eye"><div class="pupil"></div></div>
-                </div>
+        <div class="hero-note reveal">
+          Built for ambitious retailers • Designed around your workflow • No bloated software stack
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="preview-wrap reveal">
+          <div class="system-preview">
+
+            <div class="browser-bar">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+
+              <div class="browser-url">
+                secure.workspace / operations
+              </div>
             </div>
 
-            <form id="login-form">
-                <div class="form-group">
-                    <input type="text" id="username" placeholder="Workspace ID" autocomplete="off">
+            <div class="dashboard">
+
+              <aside class="side-panel">
+                <div class="side-title">
+                  Operations OS
                 </div>
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Work Email" autocomplete="off">
+
+                <div class="side-item active">Overview</div>
+                <div class="side-item">Inventory</div>
+                <div class="side-item">Sales</div>
+                <div class="side-item">Branches</div>
+                <div class="side-item">Credit</div>
+                <div class="side-item">Reports</div>
+                <div class="side-item">Automation</div>
+              </aside>
+
+              <div class="main-panel">
+
+                <div class="dash-heading">
+                  <div class="dash-title">
+                    Business Intelligence
+                  </div>
+
+                  <div class="status">
+                    <span></span>
+                    Systems Operational
+                  </div>
                 </div>
-                <div class="form-group">
-                    <input type="password" id="password" placeholder="Secret Password">
+
+                <div class="stats-grid">
+
+                  <div class="stat-card">
+                    <div class="stat-label">Today's Sales</div>
+                    <div class="stat-value">₹8.42L</div>
+                    <div class="stat-change">↑ 12.8% vs yesterday</div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-label">Live Stock</div>
+                    <div class="stat-value">14,280</div>
+                    <div class="stat-change">↑ Synced across branches</div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-label">Outstanding</div>
+                    <div class="stat-value">₹12.7L</div>
+                    <div class="stat-change">↓ 7.3% this week</div>
+                  </div>
+
+                  <div class="stat-card">
+                    <div class="stat-label">Automation</div>
+                    <div class="stat-value">97.4%</div>
+                    <div class="stat-change">↑ Tasks automated</div>
+                  </div>
+
                 </div>
-                <button type="button" class="submit-btn" id="submit-login">AUTHENTICATE</button>
-            </form>
+
+                <div class="chart-row">
+
+                  <div class="chart-card">
+                    <div class="chart-title">
+                      Revenue / 30 Days
+                    </div>
+
+                    <div class="chart">
+                      <svg
+                        viewBox="0 0 600 160"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                      >
+                        <defs>
+                          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#49f7ff" />
+                            <stop offset="100%" stop-color="#9d63ff" />
+                          </linearGradient>
+                        </defs>
+
+                        <path
+                          d="M0 128
+                             C30 115, 48 118, 73 104
+                             S125 110, 153 83
+                             S198 92, 227 66
+                             S270 75, 301 52
+                             S353 64, 385 43
+                             S428 48, 459 31
+                             S508 47, 539 18
+                             S577 22, 600 10"
+                          fill="none"
+                          stroke="url(#lineGradient)"
+                          stroke-width="3"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="activity-card">
+                    <div class="chart-title">
+                      Automated Activity
+                    </div>
+
+                    <div class="activity-line">
+                      <div class="activity-icon">↗</div>
+                      <div class="activity-text">
+                        <strong>Daily report generated</strong>
+                        Branch performance report
+                      </div>
+                      <div class="activity-time">09:00</div>
+                    </div>
+
+                    <div class="activity-line">
+                      <div class="activity-icon">✓</div>
+                      <div class="activity-text">
+                        <strong>Inventory sync complete</strong>
+                        4 locations synchronized
+                      </div>
+                      <div class="activity-time">08:43</div>
+                    </div>
+
+                    <div class="activity-line">
+                      <div class="activity-icon">◈</div>
+                      <div class="activity-text">
+                        <strong>CRM workflow executed</strong>
+                        124 customer messages
+                      </div>
+                      <div class="activity-time">08:16</div>
+                    </div>
+
+                    <div class="activity-line">
+                      <div class="activity-icon">!</div>
+                      <div class="activity-text">
+                        <strong>Stock alert detected</strong>
+                        7 items below threshold
+                      </div>
+                      <div class="activity-time">07:52</div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         MARQUEE
+    ========================== -->
+
+    <div class="marquee-section">
+      <div class="marquee">
+
+        <span>OPERATIONS</span>
+        <span class="accent">AUTOMATION</span>
+        <span>INVENTORY INTELLIGENCE</span>
+        <span class="accent">REPORTING</span>
+        <span>CRM WORKFLOWS</span>
+        <span class="accent">SERVERLESS SAAS</span>
+
+        <span>OPERATIONS</span>
+        <span class="accent">AUTOMATION</span>
+        <span>INVENTORY INTELLIGENCE</span>
+        <span class="accent">REPORTING</span>
+        <span>CRM WORKFLOWS</span>
+        <span class="accent">SERVERLESS SAAS</span>
+
+      </div>
     </div>
 
-    <!-- Scripts -->
-    <script>
-        // 1. Custom Cursor Movement
-        const dot = document.getElementById('cursor-dot');
-        const outline = document.getElementById('cursor-outline');
-        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-        let outlineX = mouseX, outlineY = mouseY;
+    <!-- =========================
+         SERVICES
+    ========================== -->
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; mouseY = e.clientY;
-            dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    <section id="services">
+      <div class="container">
+
+        <div class="section-kicker reveal">
+          What We Build
+        </div>
+
+        <h2 class="section-title reveal">
+          Software that removes
+          <span class="gradient-text">operational friction.</span>
+        </h2>
+
+        <p class="section-description reveal">
+          Instead of forcing your business into generic software,
+          we engineer digital systems around the way your team
+          already works.
+        </p>
+
+        <div class="services-grid">
+
+          <article class="service-card reveal">
+            <div class="service-glow"></div>
+
+            <div class="service-number">01 / SYSTEMS</div>
+
+            <div class="service-icon">⌘</div>
+
+            <h3>Custom Operations Workspaces</h3>
+
+            <p>
+              Private dashboards and internal tools built around
+              your real business processes — accessible through a
+              secure, dedicated client workspace.
+            </p>
+
+            <div class="service-tags">
+              <span class="tag">Custom Dashboard</span>
+              <span class="tag">Role Based Access</span>
+              <span class="tag">Internal Tools</span>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-glow"></div>
+
+            <div class="service-number">02 / INTELLIGENCE</div>
+
+            <div class="service-icon">◌</div>
+
+            <h3>Live Inventory & Sales</h3>
+
+            <p>
+              See stock, sales and branch performance in one
+              operating layer — updated continuously from your
+              underlying business data.
+            </p>
+
+            <div class="service-tags">
+              <span class="tag">Multi Branch</span>
+              <span class="tag">Live Data</span>
+              <span class="tag">Stock Visibility</span>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-glow"></div>
+
+            <div class="service-number">03 / REPORTING</div>
+
+            <div class="service-icon">◫</div>
+
+            <h3>Automated Daily Intelligence</h3>
+
+            <p>
+              Replace manual reports with automated daily summaries
+              covering stock position, ageing products, branch
+              performance and credit outstanding.
+            </p>
+
+            <div class="service-tags">
+              <span class="tag">Daily Reports</span>
+              <span class="tag">Product Age</span>
+              <span class="tag">Credit Tracking</span>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-glow"></div>
+
+            <div class="service-number">04 / ENGAGEMENT</div>
+
+            <div class="service-icon">✦</div>
+
+            <h3>WhatsApp & CRM Automation</h3>
+
+            <p>
+              Trigger intelligent customer communication and
+              follow-up workflows without relying on staff to
+              manually repeat the same process every day.
+            </p>
+
+            <div class="service-tags">
+              <span class="tag">WhatsApp</span>
+              <span class="tag">CRM</span>
+              <span class="tag">Workflow Automation</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         TECHNOLOGY / ARCHITECTURE
+    ========================== -->
+
+    <section id="architecture">
+      <div class="container">
+
+        <div class="split">
+
+          <div>
+            <div class="section-kicker reveal">
+              The Architecture
+            </div>
+
+            <h2 class="section-title reveal">
+              Premium software.
+              <br />
+              <span class="gradient-text">Without premium bloat.</span>
+            </h2>
+
+            <p class="section-description reveal">
+              Our systems are intentionally lean. Fast frontend
+              interfaces, serverless backend architecture and
+              cloud-connected business data produce powerful
+              experiences without unnecessary infrastructure.
+            </p>
+
+            <div class="feature-list">
+
+              <div class="feature reveal">
+                <div class="feature-icon">⚡</div>
+                <div>
+                  <h4>Lightning-Fast Frontends</h4>
+                  <p>
+                    Pure HTML, CSS and JavaScript interfaces with
+                    minimal overhead and fast delivery.
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature reveal">
+                <div class="feature-icon">∞</div>
+                <div>
+                  <h4>Serverless Infrastructure</h4>
+                  <p>
+                    Google Sheets and Apps Script architecture keeps
+                    deployments lightweight and cost-efficient.
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature reveal">
+                <div class="feature-icon">◉</div>
+                <div>
+                  <h4>Client-Specific Workspaces</h4>
+                  <p>
+                    Each client receives a tailored digital
+                    environment for their tools and workflows.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="architecture reveal">
+
+            <div class="ring"></div>
+            <div class="ring r2"></div>
+
+            <div class="node a">
+              <b>Frontend</b>
+              <span>HTML / CSS / JS</span>
+            </div>
+
+            <div class="node b">
+              <b>Workspace</b>
+              <span>Secure Client Portal</span>
+            </div>
+
+            <div class="node c">
+              <b>Google Sheets</b>
+              <span>Operational Data</span>
+            </div>
+
+            <div class="node d">
+              <b>Apps Script</b>
+              <span>Automation Engine</span>
+            </div>
+
+            <div class="architecture-core">
+              <div>
+                <strong>WEB<br />AUTOMATE</strong>
+                <small>SERVERLESS OPERATIONS OS</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         WORKSPACE
+    ========================== -->
+
+    <section id="workspace" class="workspace-section">
+      <div class="container">
+
+        <div class="section-kicker reveal">
+          The Client Experience
+        </div>
+
+        <h2 class="section-title reveal">
+          Every client gets
+          <span class="gradient-text">their own workspace.</span>
+        </h2>
+
+        <p class="section-description reveal">
+          Your customers don't need to understand the machinery
+          behind the system. They simply log in and use a digital
+          environment designed specifically for their business.
+        </p>
+
+        <div class="workspace">
+
+          <div class="workspace-login reveal">
+
+            <div class="robot-eye">
+              <div class="pupil"></div>
+            </div>
+
+            <div class="login-label">
+              Secure client workspace // authenticated environment
+            </div>
+
+          </div>
+
+          <div class="workspace-copy">
+
+            <h3>
+              A digital headquarters
+              for your business.
+            </h3>
+
+            <p>
+              Give every client a branded, secure portal where their
+              reports, dashboards, operational tools and automation
+              systems live in one place.
+            </p>
+
+            <div class="workspace-list">
+
+              <div class="workspace-item">
+                Secure client login
+              </div>
+
+              <div class="workspace-item">
+                Dedicated operational tools
+              </div>
+
+              <div class="workspace-item">
+                Live business dashboards
+              </div>
+
+              <div class="workspace-item">
+                Automated reporting
+              </div>
+
+              <div class="workspace-item">
+                Scalable modular architecture
+              </div>
+
+            </div>
+
+            <!-- Replace this URL with your actual demo workspace -->
+            <div class="hero-actions" style="justify-content:flex-start;">
+              <a
+                class="btn btn-secondary magnetic"
+                href="https://webautomate.cloud/demo"
+                target="_blank"
+                rel="noopener"
+              >
+                Launch Demo Workspace →
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         PROCESS
+    ========================== -->
+
+    <section id="process">
+      <div class="container">
+
+        <div class="section-kicker reveal">
+          How It Works
+        </div>
+
+        <h2 class="section-title reveal">
+          From manual chaos
+          <span class="gradient-text">to automated control.</span>
+        </h2>
+
+        <div class="process-grid">
+
+          <div class="process-card reveal">
+            <div class="process-number">01</div>
+
+            <h4>Map the Operation</h4>
+
+            <p>
+              We understand your branches, data, staff routines,
+              reports and recurring operational bottlenecks.
+            </p>
+          </div>
+
+          <div class="process-card reveal">
+            <div class="process-number">02</div>
+
+            <h4>Design the System</h4>
+
+            <p>
+              We translate those workflows into a clear digital
+              architecture and custom client workspace.
+            </p>
+          </div>
+
+          <div class="process-card reveal">
+            <div class="process-number">03</div>
+
+            <h4>Automate the Repetition</h4>
+
+            <p>
+              Reporting, alerts, data movement and customer
+              communication become programmable workflows.
+            </p>
+          </div>
+
+          <div class="process-card reveal">
+            <div class="process-number">04</div>
+
+            <h4>Deploy & Improve</h4>
+
+            <p>
+              Your system goes live, your team uses it and we keep
+              improving the operation as your business evolves.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+
+    <section id="contact" class="cta">
+      <div class="container">
+
+        <div class="cta-box reveal">
+
+          <div class="section-kicker">
+            Ready to automate?
+          </div>
+
+          <h2>
+            Stop managing
+            <span class="gradient-text">the repetitive.</span>
+          </h2>
+
+          <p>
+            Let's turn your operational workload into a system that
+            works quietly in the background — every day, across
+            every branch.
+          </p>
+
+          <div class="hero-actions">
+
+            <!-- Replace with your real booking/contact endpoint -->
+            <a
+              class="btn btn-primary magnetic"
+              href="mailto:hello@webautomate.cloud?subject=Automation%20Strategy%20Call"
+            >
+              Start a Conversation ↗
+            </a>
+
+            <!-- Replace with your client login route -->
+            <a
+              class="btn btn-secondary magnetic"
+              href="/login"
+            >
+              Client Login →
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+    <div class="footer-inner">
+
+      <div class="footer-copy">
+        © <span id="year"></span> WebAutomate.cloud — Digital Operations Infrastructure.
+      </div>
+
+      <div class="footer-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:hello@webautomate.cloud">hello@webautomate.cloud</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================
+       YEAR
+    ========================================= */
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+
+    /* =========================================
+       CUSTOM CURSOR
+    ========================================= */
+
+    const cursorDot = document.querySelector(".cursor-dot");
+    const cursorRing = document.querySelector(".cursor-ring");
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.14;
+      ringY += (mouseY - ringY) * 0.14;
+
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+
+      requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    document.querySelectorAll("a, button, .service-card, .magnetic")
+      .forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+          document.body.classList.add("cursor-hover");
         });
 
-        function animateCursor() {
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-            outline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-            requestAnimationFrame(animateCursor);
+        element.addEventListener("mouseleave", () => {
+          document.body.classList.remove("cursor-hover");
+        });
+      });
+
+
+    /* =========================================
+       REVEAL ON SCROLL
+    ========================================= */
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.10
+      }
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      observer.observe(element);
+    });
+
+
+    /* =========================================
+       MAGNETIC BUTTONS
+    ========================================= */
+
+    document.querySelectorAll(".magnetic").forEach((button) => {
+
+      button.addEventListener("mousemove", (e) => {
+
+        if (window.innerWidth <= 850) return;
+
+        const rect = button.getBoundingClientRect();
+
+        const x = e.clientX - (rect.left + rect.width / 2);
+        const y = e.clientY - (rect.top + rect.height / 2);
+
+        button.style.transform =
+          `translate(${x * 0.08}px, ${y * 0.08}px)`;
+      });
+
+      button.addEventListener("mouseleave", () => {
+        button.style.transform = "";
+      });
+
+    });
+
+
+    /* =========================================
+       MOBILE NAV
+    ========================================= */
+
+    const menuButton = document.querySelector(".mobile-menu");
+
+    let mobileMenuOpen = false;
+
+    menuButton.addEventListener("click", () => {
+
+      mobileMenuOpen = !mobileMenuOpen;
+
+      if (mobileMenuOpen) {
+
+        let mobilePanel = document.querySelector(".mobile-panel");
+
+        if (!mobilePanel) {
+
+          mobilePanel = document.createElement("div");
+
+          mobilePanel.className = "mobile-panel";
+
+          mobilePanel.innerHTML = `
+            <a href="#services">Solutions</a>
+            <a href="#architecture">Technology</a>
+            <a href="#workspace">Client Workspaces</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Book a Strategy Call</a>
+          `;
+
+          Object.assign(mobilePanel.style, {
+            position: "fixed",
+            top: "88px",
+            left: "20px",
+            right: "20px",
+            zIndex: "999",
+            padding: "20px",
+            display: "grid",
+            gap: "8px",
+            border: "1px solid rgba(255,255,255,.08)",
+            borderRadius: "18px",
+            background: "rgba(7,8,13,.96)",
+            backdropFilter: "blur(24px)",
+            boxShadow: "0 25px 80px rgba(0,0,0,.5)"
+          });
+
+          mobilePanel.querySelectorAll("a").forEach((item) => {
+            Object.assign(item.style, {
+              padding: "13px 10px",
+              borderRadius: "10px",
+              color: "#b9c1cd",
+              fontSize: "13px"
+            });
+
+            item.addEventListener("click", () => {
+              mobileMenuOpen = false;
+              mobilePanel.remove();
+            });
+          });
+
+          document.body.appendChild(mobilePanel);
         }
-        animateCursor();
 
-        // 2. Flowing Menu (Hover Image Reveal)
-        const menuItems = document.querySelectorAll('.menu-item');
-        const revealContainer = document.getElementById('hover-reveal');
-        const revealImage = document.getElementById('reveal-image');
+      } else {
 
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                revealImage.src = item.getAttribute('data-image');
-                revealContainer.style.opacity = '1';
-                revealContainer.style.transform = `scale(1) translate(-50%, -50%)`;
-                outline.style.width = '70px'; outline.style.height = '70px';
-                outline.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                outline.style.mixBlendMode = 'difference';
-            });
+        const panel = document.querySelector(".mobile-panel");
 
-            item.addEventListener('mousemove', (e) => {
-                // Add slight delay physics to the image following cursor
-                setTimeout(() => {
-                    revealContainer.style.left = e.clientX + 'px';
-                    revealContainer.style.top = e.clientY + 'px';
-                }, 50);
-            });
+        if (panel) {
+          panel.remove();
+        }
+      }
+    });
 
-            item.addEventListener('mouseleave', () => {
-                revealContainer.style.opacity = '0';
-                revealContainer.style.transform = `scale(0.5) translate(-50%, -50%)`;
-                outline.style.width = '40px'; outline.style.height = '40px';
-                outline.style.backgroundColor = 'transparent';
-                outline.style.mixBlendMode = 'normal';
-            });
-        });
 
-        // 3. Login Modal & Robot Interaction
-        const loginModal = document.getElementById('login-modal');
-        const openLoginBtn = document.getElementById('open-login');
-        const closeLoginBtn = document.getElementById('close-login');
-        
-        const speechBubble = document.getElementById('speech-bubble');
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const pupils = document.querySelectorAll('.pupil');
-        const eyes = document.querySelectorAll('.eye');
-        let isEyesClosed = false;
+    /* =========================================
+       SOFT PARALLAX FOR ORBS
+    ========================================= */
 
-        openLoginBtn.addEventListener('click', () => {
-            loginModal.classList.add('active');
-            // Hide custom cursor when modal is open for better typing experience
-            outline.style.display = 'none';
-            dot.style.display = 'none';
-            document.body.style.cursor = 'default';
-        });
-        
-        closeLoginBtn.addEventListener('click', () => {
-            loginModal.classList.remove('active');
-            // Bring custom cursor back
-            outline.style.display = 'block';
-            dot.style.display = 'block';
-            document.body.style.cursor = 'none';
-        });
+    document.addEventListener("mousemove", (e) => {
 
-        usernameInput.addEventListener('focus', () => { speechBubble.innerText = "A visitor. State your name."; openEyes(); });
-        emailInput.addEventListener('focus', () => { speechBubble.innerText = "Typing detected. I'm watching."; openEyes(); });
-        passwordInput.addEventListener('focus', () => { speechBubble.innerText = "Ooooh, Secret! My eyes are closed."; closeEyes(); });
+      if (window.innerWidth <= 850) return;
 
-        function closeEyes() { isEyesClosed = true; eyes.forEach(eye => eye.classList.add('closed')); }
-        function openEyes() { isEyesClosed = false; eyes.forEach(eye => eye.classList.remove('closed')); }
+      const x = (e.clientX / window.innerWidth - .5);
+      const y = (e.clientY / window.innerHeight - .5);
 
-        window.addEventListener('mousemove', (e) => {
-            if(isEyesClosed || !loginModal.classList.contains('active')) return;
-            pupils.forEach(pupil => {
-                const rect = pupil.parentElement.getBoundingClientRect();
-                const eyeCenterX = rect.left + rect.width / 2;
-                const eyeCenterY = rect.top + rect.height / 2;
-                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
-                const distance = 5; 
-                const moveX = Math.cos(angle) * distance;
-                const moveY = Math.sin(angle) * distance;
-                pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
-            });
-        });
-    </script>
+      const orbs = document.querySelectorAll(".orb");
+
+      orbs.forEach((orb, index) => {
+
+        const amount = 10 + (index * 6);
+
+        orb.style.transform =
+          `translate(${x * amount}px, ${y * amount}px)`;
+      });
+
+    });
+
+
+    /* =========================================
+       PREVENT DEAD HASH JUMPS
+    ========================================= */
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+
+      link.addEventListener("click", (event) => {
+
+        const targetId = link.getAttribute("href");
+
+        if (targetId === "#") return;
+
+        const target = document.querySelector(targetId);
+
+        if (target) {
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      });
+
+    });
+  </script>
+
 </body>
 </html>
