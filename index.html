@@ -1,5790 +1,653 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+
+/* =========================================================
+   WEB AUTOMATE — LIGHT PREMIUM MOTION PACK
+   ========================================================= */
+
+
+/* ---------- HERO AMBIENT GLOW ---------- */
 
-<head>
+.hero {
+  position: relative;
+}
 
-  <meta charset="UTF-8">
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(85,233,241,.055),
+      transparent 68%
+    );
+  pointer-events: none;
+  animation: heroGlow 7s ease-in-out infinite;
+}
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+@keyframes heroGlow {
+  0%, 100% {
+    opacity: .55;
+    transform: translate(-50%, -50%) scale(.96);
+  }
 
-  <title>
-    WebAutomate.cloud — Retail Operations, Automated.
-  </title>
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
 
-  <meta
-    name="description"
-    content="WebAutomate.cloud builds custom operational workspaces, live inventory dashboards, automated reporting and business automation for modern retail."
-  >
 
-  <meta
-    name="theme-color"
-    content="#06070b"
-  >
+/* ---------- HERO TEXT ---------- */
 
-  <style>
+.hero h1 {
+  animation:
+    heroTitleIn
+    .95s
+    cubic-bezier(.16,1,.3,1)
+    both;
+}
 
-    /* =========================================================
-       ROOT
-    ========================================================= */
+@keyframes heroTitleIn {
 
-    :root {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
 
-      --bg: #050507;
-      --bg-2: #090a0f;
-      --panel: #0c0e14;
-      --panel-2: #10121a;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-      --white: #f5f5f2;
-      --soft: #c8c8c3;
-      --muted: #85878c;
-      --dim: #4d5056;
+}
 
-      --cyan: #66f5dc;
-      --purple: #9b78ff;
-      --blue: #6088ff;
 
-      --line: rgba(255,255,255,.09);
-      --line-soft: rgba(255,255,255,.055);
+/* ---------- DASHBOARD FLOAT ---------- */
 
-      --max: 1380px;
+.system-preview {
+  animation:
+    dashboardFloat
+    7s
+    ease-in-out
+    infinite;
+  will-change: transform;
+}
 
-    }
+@keyframes dashboardFloat {
 
+  0%, 100% {
+    transform:
+      translateY(0);
+  }
 
-    /* =========================================================
-       RESET
-    ========================================================= */
+  50% {
+    transform:
+      translateY(-7px);
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+}
 
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* ---------- DASHBOARD GLOW ---------- */
 
+.system-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 
-    body {
+  pointer-events: none;
 
-      min-height: 100vh;
+  border-radius: inherit;
 
-      overflow-x: hidden;
+  box-shadow:
+    0 0 0 1px rgba(85,233,241,.02),
+    0 0 50px rgba(85,233,241,.035);
 
-      background:
-        var(--bg);
+  opacity: .7;
 
-      color:
-        var(--white);
+  animation:
+    dashboardGlow
+    5s
+    ease-in-out
+    infinite;
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+@keyframes dashboardGlow {
 
-      cursor: default;
-    }
+  0%, 100% {
+    opacity: .45;
+  }
 
+  50% {
+    opacity: .85;
+  }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+}
 
 
-    button {
-      font: inherit;
-    }
+/* ---------- SERVICE CARDS ---------- */
 
+.service-card {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
 
-    ::selection {
-      background: rgba(102,245,220,.18);
-      color: white;
-    }
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    border-color .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+}
 
+.service-card::before {
+  content: "";
 
-    /* =========================================================
-       MOUSE LIGHT
-    ========================================================= */
+  position: absolute;
 
-    .mouse-light {
+  width: 170px;
+  height: 170px;
 
-      position: fixed;
+  right: -70px;
+  top: -70px;
 
-      width: 420px;
-      height: 420px;
+  border-radius: 50%;
 
-      pointer-events: none;
-
-      border-radius: 50%;
-
-      z-index: 1;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(102,245,220,.045),
-          rgba(155,120,255,.025) 28%,
-          transparent 68%
-        );
-
-      transform:
-        translate(-50%,-50%);
-
-      left: 50%;
-      top: 50%;
-
-      mix-blend-mode: screen;
-
-      transition:
-        opacity .4s ease;
-
-    }
-
-
-    /* =========================================================
-       BACKGROUND GRID
-    ========================================================= */
-
-    body::before {
-
-      content: "";
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: -2;
-
-      pointer-events: none;
-
-      background:
-
-        linear-gradient(
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        ),
-
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.018) 1px,
-          transparent 1px
-        );
-
-      background-size:
-        90px 90px;
-
-      opacity: .38;
-
-    }
-
-
-    body::after {
-
-      content: "";
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: -3;
-
-      pointer-events: none;
-
-      background:
-        radial-gradient(
-          circle at 50% 5%,
-          rgba(98,84,255,.08),
-          transparent 31%
-        );
-
-    }
-
-
-    /* =========================================================
-       GLOBAL
-    ========================================================= */
-
-    .page {
-
-      width:
-        min(
-          var(--max),
-          calc(100% - 40px)
-        );
-
-      margin:
-        0 auto;
-
-    }
-
-
-    .mono {
-
-      font-family:
-        "Courier New",
-        monospace;
-
-    }
-
-
-    .eyebrow {
-
-      color:
-        var(--muted);
-
-      font-size:
-        9px;
-
-      letter-spacing:
-        .16em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .accent {
-      color:
-        var(--cyan);
-    }
-
-
-    .dim {
-      color:
-        #48494d;
-    }
-
-
-    /* =========================================================
-       NAVIGATION
-    ========================================================= */
-
-    .nav {
-
-      position: fixed;
-
-      top: 0;
-
-      left: 0;
-
-      right: 0;
-
-      z-index: 5000;
-
-      padding:
-        18px 20px;
-
-      pointer-events:
-        none;
-
-    }
-
-
-    .nav-inner {
-
-      width:
-        min(
-          var(--max),
-          100%
-        );
-
-      margin:
-        auto;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      pointer-events:
-        auto;
-
-    }
-
-
-    .brand {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        10px;
-
-      font-size:
-        11px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        -.02em;
-
-    }
-
-
-    .brand-mark {
-
-      width:
-        31px;
-
-      height:
-        31px;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      border:
-        1px solid
-        rgba(255,255,255,.15);
-
-      border-radius:
-        50%;
-
-      background:
-        rgba(255,255,255,.035);
-
-      font-size:
-        8px;
-
-    }
-
-
-    .nav-right {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        22px;
-
-    }
-
-
-    .nav-status {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        7px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-      letter-spacing:
-        .12em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .status-dot {
-
-      width:
-        5px;
-
-      height:
-        5px;
-
-      border-radius:
-        50%;
-
-      background:
-        var(--cyan);
-
-      box-shadow:
-        0 0 10px
-        rgba(102,245,220,.7);
-
-    }
-
-
-    .menu-button {
-
-      border:
-        0;
-
-      background:
-        transparent;
-
-      color:
-        white;
-
-      cursor:
-        pointer;
-
-      font-size:
-        9px;
-
-      font-weight:
-        700;
-
-      letter-spacing:
-        .14em;
-
-    }
-
-
-    /* =========================================================
-       FULL MENU
-    ========================================================= */
-
-    .menu {
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 4500;
-
-      padding:
-        105px 32px 30px;
-
-      background:
-        rgba(5,5,7,.97);
-
-      opacity:
-        0;
-
-      pointer-events:
-        none;
-
-      transform:
-        translateY(-20px);
-
-      transition:
-        opacity .45s ease,
-        transform .45s ease;
-
-    }
-
-
-    .menu.active {
-
-      opacity:
-        1;
-
-      pointer-events:
-        auto;
-
-      transform:
-        translateY(0);
-
-    }
-
-
-    .menu-close {
-
-      position:
-        absolute;
-
-      right:
-        27px;
-
-      top:
-        25px;
-
-      border:
-        0;
-
-      background:
-        transparent;
-
-      color:
-        white;
-
-      cursor:
-        pointer;
-
-      font-size:
-        9px;
-
-      letter-spacing:
-        .13em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .menu-inner {
-
-      width:
-        min(
-          var(--max),
-          100%
-        );
-
-      height:
-        100%;
-
-      margin:
-        auto;
-
-      display:
-        flex;
-
-      flex-direction:
-        column;
-
-      justify-content:
-        flex-end;
-
-    }
-
-
-    .menu-link {
-
-      display:
-        block;
-
-      padding:
-        15px 0;
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.08);
-
-      font-size:
-        clamp(
-          48px,
-          9vw,
-          130px
-        );
-
-      line-height:
-        .82;
-
-      letter-spacing:
-        -.085em;
-
-      font-weight:
-        800;
-
-      text-transform:
-        uppercase;
-
-      color:
-        #eeeeeb;
-
-      transition:
-        color .25s ease,
-        padding-left .3s ease;
-
-    }
-
-
-    .menu-link:hover {
-
-      color:
-        var(--cyan);
-
-      padding-left:
-        24px;
-
-    }
-
-
-    /* =========================================================
-       HERO
-    ========================================================= */
-
-    .hero {
-
-      min-height:
-        100vh;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      position:
-        relative;
-
-    }
-
-
-    .hero-inner {
-
-      width:
-        100%;
-
-      padding:
-        150px 0 85px;
-
-    }
-
-
-    .hero-meta {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        20px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .13em;
-
-    }
-
-
-    .hero-meta-right {
-
-      text-align:
-        right;
-
-    }
-
-
-    .hero-title-wrap {
-
-      margin-top:
-        70px;
-
-      position:
-        relative;
-
-      overflow:
-        visible;
-
-    }
-
-
-    .hero-title {
-
-      font-size:
-        clamp(
-          65px,
-          14vw,
-          205px
-        );
-
-      line-height:
-        .78;
-
-      letter-spacing:
-        -.095em;
-
-      font-weight:
-        850;
-
-      text-transform:
-        uppercase;
-
-      will-change:
-        transform;
-
-    }
-
-
-    .hero-line {
-
-      display:
-        block;
-
-      overflow:
-        hidden;
-
-    }
-
-
-    .hero-line-inner {
-
-      display:
-        block;
-
-      transform:
-        translateY(105%);
-
-      animation:
-        heroIn 1.15s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
-
-    }
-
-
-    .hero-line:nth-child(1)
-    .hero-line-inner {
-
-      animation-delay:
-        .1s;
-
-    }
-
-
-    .hero-line:nth-child(2)
-    .hero-line-inner {
-
-      animation-delay:
-        .22s;
-
-    }
-
-
-    @keyframes heroIn {
-
-      to {
-        transform:
-          translateY(0);
-      }
-
-    }
-
-
-    .hero-line.second {
-
-      padding-left:
-        8vw;
-
-    }
-
-
-    .hero-ghost {
-
-      position:
-        absolute;
-
-      top:
-        45%;
-
-      left:
-        26%;
-
-      font-size:
-        clamp(
-          80px,
-          14vw,
-          210px
-        );
-
-      color:
-        rgba(255,255,255,.035);
-
-      pointer-events:
-        none;
-
-      user-select:
-        none;
-
-      white-space:
-        nowrap;
-
-    }
-
-
-    .hero-copy {
-
-      max-width:
-        620px;
-
-      margin:
-        55px 0 0
-        9vw;
-
-      color:
-        var(--soft);
-
-      font-size:
-        clamp(
-          15px,
-          1.5vw,
-          20px
-        );
-
-      line-height:
-        1.65;
-
-      opacity:
-        0;
-
-      animation:
-        fadeIn 1s .75s ease
-        forwards;
-
-    }
-
-
-    @keyframes fadeIn {
-
-      to {
-        opacity:
-          1;
-      }
-
-    }
-
-
-    .hero-copy strong {
-
-      color:
-        white;
-
-      font-weight:
-        600;
-
-    }
-
-
-    .hero-link {
-
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      gap:
-        13px;
-
-      margin:
-        30px 0 0
-        9vw;
-
-      padding-bottom:
-        7px;
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.30);
-
-      font-size:
-        9px;
-
-      letter-spacing:
-        .15em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .hero-link span {
-
-      color:
-        var(--cyan);
-
-    }
-
-
-    /* =========================================================
-       INFINITE TEXT
-    ========================================================= */
-
-    .infinite {
-
-      overflow:
-        hidden;
-
-      padding:
-        23px 0;
-
-      border-top:
-        1px solid
-        var(--line-soft);
-
-      border-bottom:
-        1px solid
-        var(--line-soft);
-
-    }
-
-
-    .infinite-track {
-
-      display:
-        flex;
-
-      width:
-        max-content;
-
-      animation:
-        infiniteMove 35s
-        linear infinite;
-
-    }
-
-
-    .infinite-set {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        28px;
-
-      padding-right:
-        28px;
-
-    }
-
-
-    .infinite-set span {
-
-      font-size:
-        clamp(
-          20px,
-          3vw,
-          39px
-        );
-
-      font-weight:
-        750;
-
-      letter-spacing:
-        -.045em;
-
-      white-space:
-        nowrap;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .infinite-set i {
-
-      display:
-        block;
-
-      width:
-        6px;
-
-      height:
-        6px;
-
-      border-radius:
-        50%;
-
-      background:
-        var(--cyan);
-
-    }
-
-
-    @keyframes infiniteMove {
-
-      from {
-        transform:
-          translateX(0);
-      }
-
-      to {
-        transform:
-          translateX(-50%);
-      }
-
-    }
-
-
-    /* =========================================================
-       INTRO
-    ========================================================= */
-
-    .intro {
-
-      padding:
-        150px 0 100px;
-
-    }
-
-
-    .intro-grid {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        .75fr 2fr;
-
-      gap:
-        60px;
-
-    }
-
-
-    .intro-copy {
-
-      max-width:
-        900px;
-
-      font-size:
-        clamp(
-          38px,
-          6vw,
-          81px
-        );
-
-      line-height:
-        .98;
-
-      letter-spacing:
-        -.065em;
-
-    }
-
-
-    /* =========================================================
-       SECTION HEADER
-    ========================================================= */
-
-    .section-head {
-
-      display:
-        flex;
-
-      align-items:
-        flex-end;
-
-      justify-content:
-        space-between;
-
-      gap:
-        30px;
-
-      margin-bottom:
-        55px;
-
-    }
-
-
-    .section-head h2 {
-
-      margin-top:
-        18px;
-
-      font-size:
-        clamp(
-          48px,
-          8vw,
-          105px
-        );
-
-      line-height:
-        .82;
-
-      letter-spacing:
-        -.085em;
-
-      font-weight:
-        850;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .section-head p {
-
-      max-width:
-        320px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        10px;
-
-      line-height:
-        1.7;
-
-    }
-
-
-    /* =========================================================
-       SERVICES
-    ========================================================= */
-
-    .services {
-
-      padding:
-        90px 0 150px;
-
-    }
-
-
-    .service-list {
-
-      border-top:
-        1px solid
-        var(--line);
-
-    }
-
-
-    .service {
-
-      position:
-        relative;
-
-      display:
-        grid;
-
-      grid-template-columns:
-        70px 1fr 140px;
-
-      align-items:
-        center;
-
-      gap:
-        18px;
-
-      padding:
-        28px 0;
-
-      border-bottom:
-        1px solid
-        var(--line);
-
-      overflow:
-        hidden;
-
-      transition:
-        padding .35s ease,
-        background .35s ease;
-
-    }
-
-
-    .service:hover {
-
-      padding:
-        45px 24px;
-
-      background:
-        rgba(255,255,255,.02);
-
-    }
-
-
-    .service-number {
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-    }
-
-
-    .service-title {
-
-      font-size:
-        clamp(
-          30px,
-          4vw,
-          60px
-        );
-
-      line-height:
-        .9;
-
-      letter-spacing:
-        -.06em;
-
-      font-weight:
-        750;
-
-    }
-
-
-    .service-detail {
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-      line-height:
-        1.5;
-
-      text-align:
-        right;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .10em;
-
-    }
-
-
-    .service-arrow {
-
-      position:
-        absolute;
-
-      left:
-        53%;
-
-      top:
-        50%;
-
-      color:
-        var(--cyan);
-
-      font-size:
-        18px;
-
-      opacity:
-        0;
-
-      transform:
-        translateY(-50%)
-        translateX(-10px);
-
-      transition:
-        opacity .25s ease,
-        transform .35s ease;
-
-    }
-
-
-    .service:hover
-    .service-arrow {
-
-      opacity:
-        1;
-
-      transform:
-        translateY(-50%)
-        translateX(15px);
-
-    }
-
-
-    /* =========================================================
-       SYSTEM
-    ========================================================= */
-
-    .system {
-
-      padding:
-        120px 0 150px;
-
-    }
-
-
-    .system-heading {
-
-      max-width:
-        1000px;
-
-    }
-
-
-    .system-heading h2 {
-
-      margin-top:
-        18px;
-
-      font-size:
-        clamp(
-          50px,
-          9vw,
-          125px
-        );
-
-      line-height:
-        .80;
-
-      letter-spacing:
-        -.09em;
-
-      font-weight:
-        850;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .system-heading h2 span {
-
-      color:
-        #44454a;
-
-    }
-
-
-    .system-description {
-
-      max-width:
-        650px;
-
-      margin:
-        35px 0 0
-        23%;
-
-      color:
-        var(--soft);
-
-      font-size:
-        15px;
-
-      line-height:
-        1.75;
-
-    }
-
-
-    /* =========================================================
-       SYSTEM VISUAL
-    ========================================================= */
-
-    .system-visual {
-
-      position:
-        relative;
-
-      min-height:
-        600px;
-
-      margin-top:
-        70px;
-
-      overflow:
-        hidden;
-
-      border:
-        1px solid
-        var(--line);
-
-      background:
-        #08090d;
-
-    }
-
-
-    .system-visual::before {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      inset:
-        0;
-
-      background:
-
-        linear-gradient(
-          rgba(255,255,255,.025) 1px,
-          transparent 1px
-        ),
-
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.025) 1px,
-          transparent 1px
-        );
-
-      background-size:
-        80px 80px;
-
-      opacity:
-        .6;
-
-    }
-
-
-    .system-core {
-
-      position:
-        absolute;
-
-      left:
-        50%;
-
-      top:
-        50%;
-
-      width:
-        clamp(
-          230px,
-          30vw,
-          350px
-        );
-
-      height:
-        clamp(
-          230px,
-          30vw,
-          350px
-        );
-
-      transform:
-        translate(-50%,-50%);
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      border:
-        1px solid
-        rgba(102,245,220,.22);
-
-      border-radius:
-        50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(102,245,220,.055),
-          transparent 66%
-        );
-
-    }
-
-
-    .system-core::before {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      inset:
-        -65px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.065);
-
-      border-radius:
-        50%;
-
-    }
-
-
-    .system-core::after {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      inset:
-        -130px;
-
-      border:
-        1px dashed
-        rgba(155,120,255,.07);
-
-      border-radius:
-        50%;
-
-    }
-
-
-    .system-core-title {
-
-      text-align:
-        center;
-
-      font-size:
-        clamp(
-          27px,
-          4vw,
-          48px
-        );
-
-      line-height:
-        .87;
-
-      letter-spacing:
-        -.065em;
-
-      font-weight:
-        850;
-
-    }
-
-
-    .system-core-title small {
-
-      display:
-        block;
-
-      margin-top:
-        14px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        7px;
-
-      font-family:
-        monospace;
-
-      letter-spacing:
-        .14em;
-
-    }
-
-
-    .system-node {
-
-      position:
-        absolute;
-
-      min-width:
-        135px;
-
-      padding:
-        12px 14px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.10);
-
-      background:
-        rgba(8,9,13,.82);
-
-      color:
-        var(--soft);
-
-      font-size:
-        9px;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .10em;
-
-    }
-
-
-    .system-node span {
-
-      display:
-        block;
-
-      margin-top:
-        5px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        7px;
-
-    }
-
-
-    .sn1 {
-      left:
-        8%;
-      top:
-        16%;
-    }
-
-
-    .sn2 {
-      right:
-        8%;
-      top:
-        16%;
-    }
-
-
-    .sn3 {
-      left:
-        10%;
-      bottom:
-        15%;
-    }
-
-
-    .sn4 {
-      right:
-        8%;
-      bottom:
-        14%;
-    }
-
-
-    .system-line {
-
-      position:
-        absolute;
-
-      background:
-        rgba(102,245,220,.20);
-
-      height:
-        1px;
-
-    }
-
-
-    .sl1 {
-      left:
-        20%;
-
-      top:
-        29%;
-
-      width:
-        30%;
-    }
-
-
-    .sl2 {
-      right:
-        20%;
-
-      top:
-        29%;
-
-      width:
-        30%;
-    }
-
-
-    .sl3 {
-      left:
-        22%;
-
-      bottom:
-        27%;
-
-      width:
-        28%;
-    }
-
-
-    .sl4 {
-      right:
-        22%;
-
-      bottom:
-        27%;
-
-      width:
-        28%;
-    }
-
-
-    /* =========================================================
-       WORKSPACE
-    ========================================================= */
-
-    .workspace {
-
-      padding:
-        130px 0;
-
-    }
-
-
-    .workspace-grid {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        .95fr 1.05fr;
-
-      gap:
-        70px;
-
-      align-items:
-        center;
-
-    }
-
-
-    .workspace-title {
-
-      font-size:
-        clamp(
-          52px,
-          8vw,
-          115px
-        );
-
-      line-height:
-        .80;
-
-      letter-spacing:
-        -.085em;
-
-      font-weight:
-        850;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .workspace-title span {
-
-      color:
-        #46474c;
-
-    }
-
-
-    .workspace-copy {
-
-      margin-top:
-        30px;
-
-      color:
-        var(--soft);
-
-      font-size:
-        14px;
-
-      line-height:
-        1.8;
-
-    }
-
-
-    .workspace-copy p + p {
-
-      margin-top:
-        16px;
-
-    }
-
-
-    .workspace-specs {
-
-      margin-top:
-        30px;
-
-      border-top:
-        1px solid
-        var(--line);
-
-      border-bottom:
-        1px solid
-        var(--line);
-
-    }
-
-
-    .workspace-spec {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        20px;
-
-      padding:
-        12px 0;
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.045);
-
-      font-size:
-        8px;
-
-      color:
-        var(--muted);
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .12em;
-
-    }
-
-
-    .workspace-spec:last-child {
-
-      border-bottom:
-        0;
-
-    }
-
-
-    .workspace-spec strong {
-
-      color:
-        white;
-
-      font-weight:
-        500;
-
-    }
-
-
-    .workspace-visual {
-
-      position:
-        relative;
-
-      min-height:
-        600px;
-
-      overflow:
-        hidden;
-
-      border:
-        1px solid
-        var(--line);
-
-      background:
-        #08090c;
-
-    }
-
-
-    .workspace-visual::before {
-
-      content:
-        "";
-
-      position:
-        absolute;
-
-      inset:
-        0;
-
-      background:
-
-        linear-gradient(
-          rgba(255,255,255,.022) 1px,
-          transparent 1px
-        ),
-
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.022) 1px,
-          transparent 1px
-        );
-
-      background-size:
-        70px 70px;
-
-    }
-
-
-    .workspace-ring {
-
-      position:
-        absolute;
-
-      left:
-        50%;
-
-      top:
-        50%;
-
-      transform:
-        translate(-50%,-50%);
-
-      width:
-        300px;
-
-      height:
-        300px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.09);
-
-      border-radius:
-        50%;
-
-    }
-
-
-    .workspace-ring.r2 {
-
-      width:
-        420px;
-
-      height:
-        420px;
-
-      border-color:
-        rgba(102,245,220,.09);
-
-    }
-
-
-    .workspace-core {
-
-      position:
-        absolute;
-
-      left:
-        50%;
-
-      top:
-        50%;
-
-      transform:
-        translate(-50%,-50%);
-
-      width:
-        155px;
-
-      height:
-        155px;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      text-align:
-        center;
-
-      border:
-        1px solid
-        rgba(102,245,220,.24);
-
-      border-radius:
-        50%;
-
-      background:
-        rgba(102,245,220,.025);
-
-    }
-
-
-    .workspace-core strong {
-
-      display:
-        block;
-
-      font-size:
-        14px;
-
-      line-height:
-        1;
-
-    }
-
-
-    .workspace-core small {
-
-      display:
-        block;
-
-      margin-top:
-        7px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        7px;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .11em;
-
-    }
-
-
-    .workspace-tag {
-
-      position:
-        absolute;
-
-      padding:
-        9px 11px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.09);
-
-      background:
-        rgba(8,9,12,.88);
-
-      color:
-        var(--soft);
-
-      font-size:
-        7px;
-
-      letter-spacing:
-        .10em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .wt1 {
-      left:
-        8%;
-      top:
-        15%;
-    }
-
-
-    .wt2 {
-      right:
-        8%;
-      top:
-        18%;
-    }
-
-
-    .wt3 {
-      left:
-        7%;
-      bottom:
-        17%;
-    }
-
-
-    .wt4 {
-      right:
-        8%;
-      bottom:
-        14%;
-    }
-
-
-    /* =========================================================
-       PROCESS
-    ========================================================= */
-
-    .process {
-
-      padding:
-        100px 0 145px;
-
-    }
-
-
-    .process-list {
-
-      border-top:
-        1px solid
-        var(--line);
-
-    }
-
-
-    .process-item {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        80px 1fr 40px;
-
-      align-items:
-        center;
-
-      gap:
-        20px;
-
-      padding:
-        32px 0;
-
-      border-bottom:
-        1px solid
-        var(--line);
-
-      transition:
-        padding .3s ease,
-        background .3s ease;
-
-    }
-
-
-    .process-item:hover {
-
-      padding:
-        44px 22px;
-
-      background:
-        rgba(255,255,255,.018);
-
-    }
-
-
-    .process-no {
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-    }
-
-
-    .process-name {
-
-      font-size:
-        clamp(
-          26px,
-          4vw,
-          58px
-        );
-
-      letter-spacing:
-        -.055em;
-
-      font-weight:
-        750;
-
-    }
-
-
-    .process-arrow {
-
-      color:
-        var(--cyan);
-
-      font-size:
-        18px;
-
-    }
-
-
-    /* =========================================================
-       CTA
-    ========================================================= */
-
-    .cta {
-
-      padding:
-        135px 0 125px;
-
-      text-align:
-        center;
-
-    }
-
-
-    .cta h2 {
-
-      margin-top:
-        18px;
-
-      font-size:
-        clamp(
-          58px,
-          12vw,
-          170px
-        );
-
-      line-height:
-        .76;
-
-      letter-spacing:
-        -.095em;
-
-      font-weight:
-        850;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .cta h2 span {
-
-      display:
-        block;
-
-      color:
-        #45464b;
-
-    }
-
-
-    .cta-link {
-
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      gap:
-        12px;
-
-      margin-top:
-        40px;
-
-      padding-bottom:
-        8px;
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.30);
-
-      font-size:
-        9px;
-
-      letter-spacing:
-        .15em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .cta-link span {
-
-      color:
-        var(--cyan);
-
-    }
-
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
-
-    footer {
-
-      padding:
-        24px 0 35px;
-
-      border-top:
-        1px solid
-        var(--line);
-
-    }
-
-
-    .footer-inner {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        20px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        8px;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        .10em;
-
-    }
-
-
-    /* =========================================================
-       REVEAL
-    ========================================================= */
-
-    .reveal {
-
-      opacity:
-        0;
-
-      transform:
-        translateY(35px);
-
-      transition:
-        opacity .8s
-        cubic-bezier(.16,1,.3,1),
-
-        transform .8s
-        cubic-bezier(.16,1,.3,1);
-
-    }
-
-
-    .reveal.visible {
-
-      opacity:
-        1;
-
-      transform:
-        translateY(0);
-
-    }
-
-
-    /* =========================================================
-       ERROR OVERLAY
-       Same functionality preserved.
-    ========================================================= */
-
-    .error-overlay {
-
-      position:
-        fixed;
-
-      inset:
-        0;
-
-      z-index:
-        10000;
-
-      display:
-        none;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      padding:
-        20px;
-
-      background:
-        rgba(3,4,6,.97);
-
-      overflow-y:
-        auto;
-
-    }
-
-
-    .error-overlay.active {
-
-      display:
-        flex;
-
-    }
-
-
-    .error-page {
-
-      width:
-        min(
-          980px,
-          100%
-        );
-
-    }
-
-
-    .error-brand {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        9px;
-
-      margin-bottom:
-        25px;
-
-      font-size:
-        11px;
-
-      font-weight:
-        800;
-
-    }
-
-
-    .error-brand-mark {
-
-      width:
-        29px;
-
-      height:
-        29px;
-
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      border-radius:
-        50%;
-
-      border:
-        1px solid
-        rgba(255,255,255,.15);
-
-      font-size:
-        8px;
-
-    }
-
-
-    .error-heading {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        7px;
-
-      margin-bottom:
-        18px;
-
-      font-size:
-        clamp(
-          25px,
-          4vw,
-          40px
-        );
-
-      letter-spacing:
-        -.055em;
-
-      font-weight:
-        800;
-
-    }
-
-
-    .error-number {
-
-      color:
-        var(--cyan);
-
-    }
-
-
-    .error-visual {
-
-      min-height:
-        360px;
-
-      position:
-        relative;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      overflow:
-        hidden;
-
-      background:
-        #f6f6f4;
-
-      color:
-        #202328;
-
-    }
-
-
-    .error-circle {
-
-      position:
-        absolute;
-
-      width:
-        270px;
-
-      height:
-        270px;
-
-      border-radius:
-        50%;
-
-      background:
-        #e9e9e6;
-
-    }
-
-
-    .error-big {
-
-      position:
-        absolute;
-
-      top:
-        24px;
-
-      left:
-        50%;
-
-      transform:
-        translateX(-50%);
-
-      color:
-        rgba(0,0,0,.06);
-
-      font-size:
-        clamp(
-          75px,
-          10vw,
-          105px
-        );
-
-      letter-spacing:
-        -.08em;
-
-      font-weight:
-        900;
-
-    }
-
-
-    .error-ground {
-
-      position:
-        absolute;
-
-      bottom:
-        62px;
-
-      left:
-        50%;
-
-      width:
-        430px;
-
-      max-width:
-        70%;
-
-      height:
-        5px;
-
-      transform:
-        translateX(-50%);
-
-      border-radius:
-        50%;
-
-      background:
-        #ddddda;
-
-    }
-
-
-    .error-character {
-
-      position:
-        relative;
-
-      z-index:
-        4;
-
-      width:
-        140px;
-
-      height:
-        185px;
-
-      animation:
-        errorFloat 3s
-        ease-in-out
-        infinite;
-
-    }
-
-
-    @keyframes errorFloat {
-
-      0%,100% {
-        transform:
-          translateY(0);
-      }
-
-      50% {
-        transform:
-          translateY(-7px);
-      }
-
-    }
-
-
-    .error-head {
-
-      position:
-        absolute;
-
-      top:
-        6px;
-
-      left:
-        50%;
-
-      width:
-        64px;
-
-      height:
-        74px;
-
-      transform:
-        translateX(-50%);
-
-      border-radius:
-        48%;
-
-      background:
-        #c47b52;
-
-    }
-
-
-    .error-hair {
-
-      position:
-        absolute;
-
-      z-index:
-        2;
-
-      top:
-        0;
-
-      left:
-        50%;
-
-      width:
-        70px;
-
-      height:
-        36px;
-
-      transform:
-        translateX(-50%);
-
-      border-radius:
-        50% 50% 30% 30%;
-
-      background:
-        #271e1a;
-
-    }
-
-
-    .error-eye {
-
-      position:
-        absolute;
-
-      top:
-        29px;
-
-      width:
-        5px;
-
-      height:
-        5px;
-
-      border-radius:
-        50%;
-
-      background:
-        #222;
-
-    }
-
-
-    .error-eye.left {
-      left:
-        18px;
-    }
-
-
-    .error-eye.right {
-      right:
-        18px;
-    }
-
-
-    .error-mouth {
-
-      position:
-        absolute;
-
-      left:
-        50%;
-
-      top:
-        48px;
-
-      width:
-        15px;
-
-      height:
-        6px;
-
-      transform:
-        translateX(-50%);
-
-      border-bottom:
-        2px solid
-        #50271d;
-
-      border-radius:
-        50%;
-
-    }
-
-
-    .error-body {
-
-      position:
-        absolute;
-
-      left:
-        50%;
-
-      top:
-        74px;
-
-      width:
-        80px;
-
-      height:
-        88px;
-
-      transform:
-        translateX(-50%);
-
-      border-radius:
-        20px 20px 11px 11px;
-
-      background:
-        #ff7b23;
-
-    }
-
-
-    .error-arm {
-
-      position:
-        absolute;
-
-      top:
-        82px;
-
-      width:
-        15px;
-
-      height:
-        66px;
-
-      border-radius:
-        15px;
-
-      background:
-        #c47b52;
-
-    }
-
-
-    .error-arm.left {
-
-      left:
-        18px;
-
-      transform:
-        rotate(22deg);
-
-    }
-
-
-    .error-arm.right {
-
-      right:
-        18px;
-
-      transform:
-        rotate(-24deg);
-
-    }
-
-
-    .error-leg {
-
-      position:
-        absolute;
-
-      bottom:
-        0;
-
-      width:
-        15px;
-
-      height:
-        61px;
-
-      border-radius:
-        12px;
-
-      background:
-        #292c31;
-
-    }
-
-
-    .error-leg.left {
-      left:
-        46px;
-    }
-
-
-    .error-leg.right {
-      right:
-        46px;
-    }
-
-
-    .error-message {
-
-      position:
-        absolute;
-
-      bottom:
-        27px;
-
-      left:
-        50%;
-
-      width:
-        90%;
-
-      transform:
-        translateX(-50%);
-
-      z-index:
-        6;
-
-      text-align:
-        center;
-
-    }
-
-
-    .error-message h3 {
-
-      font-size:
-        15px;
-
-      font-weight:
-        750;
-
-    }
-
-
-    .error-message p {
-
-      margin-top:
-        5px;
-
-      color:
-        #70757b;
-
-      font-size:
-        9px;
-
-    }
-
-
-    .error-home {
-
-      display:
-        inline-flex;
-
-      margin-top:
-        10px;
-
-      padding:
-        8px 14px;
-
-      border:
-        0;
-
-      border-radius:
-        4px;
-
-      color:
-        white;
-
-      background:
-        #32a852;
-
-      font-size:
-        9px;
-
-      font-weight:
-        700;
-
-    }
-
-
-    .error-code-grid {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        1.25fr 1fr;
-
-      gap:
-        15px;
-
-      margin-top:
-        15px;
-
-    }
-
-
-    .error-code-box {
-
-      min-height:
-        160px;
-
-      padding:
-        15px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.09);
-
-      background:
-        #0c1117;
-
-      font-family:
-        monospace;
-
-      font-size:
-        9px;
-
-      line-height:
-        1.7;
-
-      color:
-        #c9d1da;
-
-    }
-
-
-    .error-dots {
-
-      display:
-        flex;
-
-      gap:
-        5px;
-
-      margin-bottom:
-        12px;
-
-    }
-
-
-    .error-dot {
-
-      width:
-        7px;
-
-      height:
-        7px;
-
-      border-radius:
-        50%;
-
-    }
-
-
-    .ed-red {
-      background:
-        #ff5f56;
-    }
-
-
-    .ed-yellow {
-      background:
-        #ffbd2e;
-    }
-
-
-    .ed-green {
-      background:
-        #27c93f;
-    }
-
-
-    .error-footer {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap:
-        15px;
-
-      padding-top:
-        13px;
-
-      color:
-        #5d6570;
-
-      font-size:
-        8px;
-
-      letter-spacing:
-        .08em;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 900px) {
-
-      .hero-line.second {
-        padding-left:
-          0;
-      }
-
-
-      .hero-copy,
-      .hero-link {
-        margin-left:
-          0;
-      }
-
-
-      .intro-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .section-head {
-        flex-direction:
-          column;
-
-        align-items:
-          flex-start;
-      }
-
-
-      .service {
-        grid-template-columns:
-          48px 1fr 80px;
-      }
-
-
-      .workspace-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .system-description {
-        margin-left:
-          0;
-      }
-
-    }
-
-
-    @media (max-width: 700px) {
-
-      .page {
-        width:
-          calc(100% - 26px);
-      }
-
-
-      .nav {
-        padding:
-          15px 12px;
-      }
-
-
-      .nav-status {
-        display:
-          none;
-      }
-
-
-      .hero-inner {
-        padding-top:
-          120px;
-      }
-
-
-      .hero-meta-right {
-        display:
-          none;
-      }
-
-
-      .hero-title {
-        font-size:
-          clamp(
-            60px,
-            18vw,
-            105px
-          );
-      }
-
-
-      .hero-copy {
-        font-size:
-          14px;
-      }
-
-
-      .intro,
-      .system,
-      .workspace,
-      .process {
-        padding:
-          90px 0;
-      }
-
-
-      .intro-copy {
-        font-size:
-          clamp(
-            33px,
-            9.5vw,
-            60px
-          );
-      }
-
-
-      .system-visual {
-        min-height:
-          440px;
-      }
-
-
-      .system-core {
-        width:
-          190px;
-
-        height:
-          190px;
-      }
-
-
-      .system-core::before {
-        inset:
-          -35px;
-      }
-
-
-      .system-core::after {
-        inset:
-          -70px;
-      }
-
-
-      .system-node {
-        min-width:
-          100px;
-
-        padding:
-          9px;
-
-        font-size:
-          7px;
-      }
-
-
-      .workspace-visual {
-        min-height:
-          440px;
-      }
-
-
-      .workspace-ring {
-        width:
-          230px;
-
-        height:
-          230px;
-      }
-
-
-      .workspace-ring.r2 {
-        width:
-          310px;
-
-        height:
-          310px;
-      }
-
-
-      .workspace-core {
-        width:
-          125px;
-
-        height:
-          125px;
-      }
-
-
-      .process-item {
-        grid-template-columns:
-          48px 1fr 25px;
-      }
-
-
-      .footer-inner {
-        flex-direction:
-          column;
-
-        align-items:
-          flex-start;
-      }
-
-
-      .error-code-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-
-      .error-footer {
-        flex-direction:
-          column;
-
-        align-items:
-          flex-start;
-      }
-
-    }
-
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-
-        animation:
-          none !important;
-
-        transition:
-          none !important;
-
-      }
-
-      html {
-        scroll-behavior:
-          auto;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-  <!-- =====================================================
-       MOUSE LIGHT
-  ===================================================== -->
-
-  <div
-    class="mouse-light"
-    id="mouseLight"
-  ></div>
-
-
-
-  <!-- =====================================================
-       NAV
-  ===================================================== -->
-
-  <header class="nav">
-
-    <div class="nav-inner">
-
-
-      <a
-        href="#top"
-        class="brand"
-      >
-
-        <div class="brand-mark">
-          WA
-        </div>
-
-        WEB AUTOMATE
-
-      </a>
-
-
-      <div class="nav-right">
-
-
-        <div class="nav-status">
-
-          <span class="status-dot"></span>
-
-          SYSTEMS ONLINE
-
-        </div>
-
-
-        <button
-          type="button"
-          class="menu-button"
-          id="menuOpen"
-        >
-          MENU
-        </button>
-
-
-      </div>
-
-
-    </div>
-
-  </header>
-
-
-
-  <!-- =====================================================
-       FULLSCREEN MENU
-  ===================================================== -->
-
-  <div
-    class="menu"
-    id="menu"
-  >
-
-
-    <button
-      class="menu-close"
-      id="menuClose"
-      type="button"
-    >
-      CLOSE ×
-    </button>
-
-
-    <div class="menu-inner">
-
-
-      <a
-        href="#services"
-        class="menu-link"
-      >
-        SOLUTIONS
-      </a>
-
-
-      <a
-        href="#system"
-        class="menu-link"
-      >
-        SYSTEM
-      </a>
-
-
-      <a
-        href="#workspace"
-        class="menu-link"
-      >
-        WORKSPACE
-      </a>
-
-
-      <a
-        href="#process"
-        class="menu-link"
-      >
-        PROCESS
-      </a>
-
-
-      <a
-        href="#contact"
-        class="menu-link"
-      >
-        CONTACT
-      </a>
-
-
-    </div>
-
-
-  </div>
-
-
-
-  <!-- =====================================================
-       MAIN
-  ===================================================== -->
-
-  <main id="top">
-
-
-    <!-- ===================================================
-         HERO
-    =================================================== -->
-
-    <section class="hero">
-
-      <div class="page">
-
-
-        <div class="hero-inner">
-
-
-          <div class="hero-meta">
-
-            <div>
-              DIGITAL OPERATIONS / 2026
-            </div>
-
-
-            <div class="hero-meta-right">
-              RETAIL / AUTOMATION / SAAS
-            </div>
-
-          </div>
-
-
-
-          <div class="hero-title-wrap">
-
-
-            <h1 class="hero-title">
-
-
-              <span class="hero-line">
-
-                <span class="hero-line-inner">
-                  WEB
-                </span>
-
-              </span>
-
-
-              <span class="hero-line second">
-
-                <span class="hero-line-inner">
-                  AUTOMATE
-                </span>
-
-              </span>
-
-
-              <span class="hero-ghost">
-                CLOUD
-              </span>
-
-
-            </h1>
-
-
-          </div>
-
-
-
-          <p class="hero-copy">
-
-            WebAutomate.cloud builds
-            <strong>
-              custom operational systems
-            </strong>
-            for modern retail businesses —
-            turning fragmented spreadsheets,
-            repetitive reporting and manual
-            follow-ups into one fast digital workspace.
-
-          </p>
-
-
-
-          <a
-            class="hero-link"
-            href="#contact"
-          >
-
-            BUILD YOUR SYSTEM
-
-            <span>
-              ↗
-            </span>
-
-          </a>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         INFINITE TEXT
-    =================================================== -->
-
-    <section class="infinite">
-
-      <div class="infinite-track">
-
-
-        <div class="infinite-set">
-
-          <span>
-            OPERATIONS
-          </span>
-
-          <i></i>
-
-          <span>
-            LIVE INVENTORY
-          </span>
-
-          <i></i>
-
-          <span>
-            AUTOMATED REPORTING
-          </span>
-
-          <i></i>
-
-          <span>
-            CRM WORKFLOWS
-          </span>
-
-          <i></i>
-
-          <span>
-            SERVERLESS SYSTEMS
-          </span>
-
-          <i></i>
-
-        </div>
-
-
-        <div class="infinite-set">
-
-          <span>
-            OPERATIONS
-          </span>
-
-          <i></i>
-
-          <span>
-            LIVE INVENTORY
-          </span>
-
-          <i></i>
-
-          <span>
-            AUTOMATED REPORTING
-          </span>
-
-          <i></i>
-
-          <span>
-            CRM WORKFLOWS
-          </span>
-
-          <i></i>
-
-          <span>
-            SERVERLESS SYSTEMS
-          </span>
-
-          <i></i>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         INTRO
-    =================================================== -->
-
-    <section class="intro">
-
-      <div class="page">
-
-
-        <div class="intro-grid">
-
-
-          <div class="eyebrow reveal">
-            WHAT WE DO
-          </div>
-
-
-          <div class="intro-copy reveal">
-
-            Your business already has
-            <span class="dim">
-              enough software.
-            </span>
-
-            It needs a system
-            that makes everything
-            <span class="accent">
-              work together.
-            </span>
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         SERVICES
-    =================================================== -->
-
-    <section
-      class="services"
-      id="services"
-    >
-
-      <div class="page">
-
-
-        <div class="section-head reveal">
-
-
-          <div>
-
-            <div class="eyebrow">
-              WHAT WE BUILD
-            </div>
-
-
-            <h2>
-              BUILT<br>
-              TO RUN
-            </h2>
-
-          </div>
-
-
-          <p>
-
-            Custom digital infrastructure for operations,
-            visibility, reporting, customer workflows and
-            business automation.
-
-          </p>
-
-
-        </div>
-
-
-
-        <div class="service-list">
-
-
-          <a
-            href="#system"
-            class="service reveal"
-          >
-
-            <div class="service-number mono">
-              01
-            </div>
-
-
-            <div class="service-title">
-              OPERATIONS
-            </div>
-
-
-            <div class="service-detail">
-
-              Internal tools
-              <br>
-              Client workspaces
-
-            </div>
-
-
-            <div class="service-arrow">
-              ↗
-            </div>
-
-          </a>
-
-
-
-          <a
-            href="#system"
-            class="service reveal"
-          >
-
-            <div class="service-number mono">
-              02
-            </div>
-
-
-            <div class="service-title">
-              INVENTORY
-            </div>
-
-
-            <div class="service-detail">
-
-              Live stock
-              <br>
-              Branch visibility
-
-            </div>
-
-
-            <div class="service-arrow">
-              ↗
-            </div>
-
-          </a>
-
-
-
-          <a
-            href="#system"
-            class="service reveal"
-          >
-
-            <div class="service-number mono">
-              03
-            </div>
-
-
-            <div class="service-title">
-              REPORTING
-            </div>
-
-
-            <div class="service-detail">
-
-              Daily intelligence
-              <br>
-              Automated reports
-
-            </div>
-
-
-            <div class="service-arrow">
-              ↗
-            </div>
-
-          </a>
-
-
-
-          <a
-            href="#system"
-            class="service reveal"
-          >
-
-            <div class="service-number mono">
-              04
-            </div>
-
-
-            <div class="service-title">
-              AUTOMATION
-            </div>
-
-
-            <div class="service-detail">
-
-              WhatsApp
-              <br>
-              CRM workflows
-
-            </div>
-
-
-            <div class="service-arrow">
-              ↗
-            </div>
-
-          </a>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         HERO DASHBOARD
-         Preserved from original website.
-    =================================================== -->
-
-    <section
-      class="services"
-      id="dashboard"
-    >
-
-      <div class="page">
-
-
-        <div class="section-head reveal">
-
-
-          <div>
-
-            <div class="eyebrow">
-              LIVE OPERATIONS
-            </div>
-
-
-            <h2>
-              SEE<br>
-              EVERYTHING
-            </h2>
-
-          </div>
-
-
-          <p>
-
-            One operational layer for sales,
-            stock, branches, reports and
-            automated activity.
-
-          </p>
-
-
-        </div>
-
-
-
-        <div
-          class="dashboard-demo reveal"
-          style="
-            border:1px solid rgba(255,255,255,.09);
-            background:#08090d;
-            overflow:hidden;
-          "
-        >
-
-
-          <div
-            style="
-              height:44px;
-              display:flex;
-              align-items:center;
-              gap:7px;
-              padding:0 14px;
-              border-bottom:1px solid rgba(255,255,255,.06);
-            "
-          >
-
-            <span
-              style="
-                width:7px;
-                height:7px;
-                border-radius:50%;
-                background:#45484d;
-              "
-            ></span>
-
-            <span
-              style="
-                width:7px;
-                height:7px;
-                border-radius:50%;
-                background:#45484d;
-              "
-            ></span>
-
-            <span
-              style="
-                width:7px;
-                height:7px;
-                border-radius:50%;
-                background:#45484d;
-              "
-            ></span>
-
-
-            <span
-              class="mono"
-              style="
-                margin-left:9px;
-                padding:6px 10px;
-                color:#646a75;
-                background:rgba(255,255,255,.03);
-                font-size:8px;
-              "
-            >
-              secure.workspace / operations
-            </span>
-
-          </div>
-
-
-
-          <div
-            style="
-              display:grid;
-              grid-template-columns:180px 1fr;
-              min-height:410px;
-            "
-          >
-
-
-            <div
-              style="
-                padding:20px 13px;
-                border-right:1px solid rgba(255,255,255,.06);
-              "
-            >
-
-              <div
-                style="
-                  color:white;
-                  font-weight:700;
-                  font-size:12px;
-                  padding:0 8px 17px;
-                "
-              >
-                Operations OS
-              </div>
-
-
-              <div class="demo-side active">
-                Overview
-              </div>
-
-              <div class="demo-side">
-                Inventory
-              </div>
-
-              <div class="demo-side">
-                Sales
-              </div>
-
-              <div class="demo-side">
-                Branches
-              </div>
-
-              <div class="demo-side">
-                Credit
-              </div>
-
-              <div class="demo-side">
-                Reports
-              </div>
-
-              <div class="demo-side">
-                Automation
-              </div>
-
-            </div>
-
-
-
-            <div
-              style="
-                padding:22px;
-              "
-            >
-
-
-              <div
-                style="
-                  display:flex;
-                  justify-content:space-between;
-                  align-items:center;
-                  gap:15px;
-                  margin-bottom:18px;
-                "
-              >
-
-                <div
-                  style="
-                    font-size:18px;
-                    font-weight:750;
-                    letter-spacing:-.03em;
-                  "
-                >
-                  Business Intelligence
-                </div>
-
-
-                <div
-                  style="
-                    padding:6px 9px;
-                    border-radius:999px;
-                    background:rgba(102,245,220,.05);
-                    color:#8eeeb8;
-                    font-size:8px;
-                  "
-                >
-                  ● SYSTEMS OPERATIONAL
-                </div>
-
-              </div>
-
-
-
-              <div class="demo-stats">
-
-
-                <div class="demo-stat">
-                  <small>
-                    TODAY'S SALES
-                  </small>
-
-                  <strong>
-                    ₹8.42L
-                  </strong>
-
-                  <em>
-                    ↑ 12.8%
-                  </em>
-                </div>
-
-
-                <div class="demo-stat">
-                  <small>
-                    LIVE STOCK
-                  </small>
-
-                  <strong>
-                    14,280
-                  </strong>
-
-                  <em>
-                    ↑ SYNCED
-                  </em>
-                </div>
-
-
-                <div class="demo-stat">
-                  <small>
-                    OUTSTANDING
-                  </small>
-
-                  <strong>
-                    ₹12.7L
-                  </strong>
-
-                  <em>
-                    ↓ 7.3%
-                  </em>
-                </div>
-
-
-                <div class="demo-stat">
-                  <small>
-                    AUTOMATION
-                  </small>
-
-                  <strong>
-                    97.4%
-                  </strong>
-
-                  <em>
-                    ↑ ACTIVE
-                  </em>
-                </div>
-
-
-              </div>
-
-
-
-              <div
-                style="
-                  margin-top:11px;
-                  display:grid;
-                  grid-template-columns:1.4fr 1fr;
-                  gap:11px;
-                "
-              >
-
-
-                <div
-                  style="
-                    min-height:220px;
-                    padding:16px;
-                    border:1px solid rgba(255,255,255,.06);
-                    background:rgba(255,255,255,.02);
-                  "
-                >
-
-                  <div
-                    style="
-                      color:#878d97;
-                      font-size:8px;
-                      margin-bottom:14px;
-                    "
-                  >
-                    REVENUE / 30 DAYS
-                  </div>
-
-
-                  <div class="mini-chart">
-
-                    <svg
-                      viewBox="0 0 600 160"
-                      preserveAspectRatio="none"
-                    >
-
-                      <defs>
-
-                        <linearGradient
-                          id="chartLine"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="0%"
-                        >
-
-                          <stop
-                            offset="0%"
-                            stop-color="#66f5dc"
-                          />
-
-                          <stop
-                            offset="100%"
-                            stop-color="#9b78ff"
-                          />
-
-                        </linearGradient>
-
-                      </defs>
-
-
-                      <path
-                        d="
-                        M0 125
-                        C35 118 60 114 90 103
-                        S145 106 175 88
-                        S225 91 255 69
-                        S305 80 335 55
-                        S390 66 420 42
-                        S470 52 500 29
-                        S555 34 600 9
-                        "
-                        fill="none"
-                        stroke="url(#chartLine)"
-                        stroke-width="3"
-                      />
-
-                    </svg>
-
-                  </div>
-
-                </div>
-
-
-
-                <div
-                  style="
-                    min-height:220px;
-                    padding:16px;
-                    border:1px solid rgba(255,255,255,.06);
-                    background:rgba(255,255,255,.02);
-                  "
-                >
-
-                  <div
-                    style="
-                      color:#878d97;
-                      font-size:8px;
-                      margin-bottom:13px;
-                    "
-                  >
-                    AUTOMATED ACTIVITY
-                  </div>
-
-
-                  <div class="activity-demo">
-                    <strong>
-                      Daily report generated
-                    </strong>
-
-                    Branch performance report
-
-                  </div>
-
-
-                  <div class="activity-demo">
-                    <strong>
-                      Inventory sync complete
-                    </strong>
-
-                    4 locations synchronized
-
-                  </div>
-
-
-                  <div class="activity-demo">
-                    <strong>
-                      CRM workflow executed
-                    </strong>
-
-                    124 customer messages
-
-                  </div>
-
-
-                  <div class="activity-demo">
-                    <strong>
-                      Stock alert detected
-                    </strong>
-
-                    7 items below threshold
-
-                  </div>
-
-                </div>
-
-
-              </div>
-
-
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         SYSTEM
-    =================================================== -->
-
-    <section
-      class="system"
-      id="system"
-    >
-
-      <div class="page">
-
-
-        <div class="system-heading">
-
-
-          <div class="eyebrow reveal">
-            THE ARCHITECTURE
-          </div>
-
-
-          <h2 class="reveal">
-
-            ONE SYSTEM.
-
-            <br>
-
-            <span>
-              MANY MOVING PARTS.
-            </span>
-
-          </h2>
-
-
-          <p class="system-description reveal">
-
-            Fast frontends, serverless infrastructure and
-            connected business data become one operating
-            layer for your company.
-
-          </p>
-
-
-        </div>
-
-
-
-        <div class="system-visual reveal">
-
-
-          <div class="system-node sn1">
-            INVENTORY
-
-            <span>
-              LIVE DATA
-            </span>
-          </div>
-
-
-          <div class="system-node sn2">
-            SALES
-
-            <span>
-              PERFORMANCE
-            </span>
-          </div>
-
-
-          <div class="system-node sn3">
-            REPORTING
-
-            <span>
-              AUTOMATED
-            </span>
-          </div>
-
-
-          <div class="system-node sn4">
-            CRM
-
-            <span>
-              WORKFLOWS
-            </span>
-          </div>
-
-
-          <div class="system-line sl1"></div>
-
-          <div class="system-line sl2"></div>
-
-          <div class="system-line sl3"></div>
-
-          <div class="system-line sl4"></div>
-
-
-          <div class="system-core">
-
-
-            <div class="system-core-title">
-
-              WEB
-              <br>
-              AUTOMATE
-
-              <small>
-                SERVERLESS OPERATIONS OS
-              </small>
-
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         WORKSPACE
-    =================================================== -->
-
-    <section
-      class="workspace"
-      id="workspace"
-    >
-
-      <div class="page">
-
-
-        <div class="workspace-grid">
-
-
-          <div>
-
-
-            <div class="eyebrow reveal">
-              CLIENT EXPERIENCE
-            </div>
-
-
-            <h2
-              class="workspace-title reveal"
-            >
-
-              YOUR
-
-              <span>
-                OWN
-              </span>
-
-              DIGITAL
-
-              <span>
-                HQ.
-              </span>
-
-            </h2>
-
-
-            <div class="workspace-copy reveal">
-
-
-              <p>
-
-                Every client gets a dedicated workspace for
-                their operational tools, reports, dashboards
-                and automations.
-
-              </p>
-
-
-              <p>
-
-                Secure access, live business data and
-                automated workflows — all in one place.
-
-              </p>
-
-
-              <div class="workspace-specs">
-
-
-                <div class="workspace-spec">
-
-                  <span>
-                    ACCESS
-                  </span>
-
-                  <strong>
-                    SECURE CLIENT LOGIN
-                  </strong>
-
-                </div>
-
-
-                <div class="workspace-spec">
-
-                  <span>
-                    DATA
-                  </span>
-
-                  <strong>
-                    LIVE BUSINESS DATA
-                  </strong>
-
-                </div>
-
-
-                <div class="workspace-spec">
-
-                  <span>
-                    REPORTING
-                  </span>
-
-                  <strong>
-                    DAILY INTELLIGENCE
-                  </strong>
-
-                </div>
-
-
-                <div class="workspace-spec">
-
-                  <span>
-                    AUTOMATION
-                  </span>
-
-                  <strong>
-                    ALWAYS RUNNING
-                  </strong>
-
-                </div>
-
-
-              </div>
-
-
-            </div>
-
-
-          </div>
-
-
-
-          <div
-            class="workspace-visual reveal"
-          >
-
-
-            <div
-              class="workspace-ring"
-            ></div>
-
-
-            <div
-              class="workspace-ring r2"
-            ></div>
-
-
-            <div class="workspace-tag wt1">
-              INVENTORY
-            </div>
-
-
-            <div class="workspace-tag wt2">
-              SALES
-            </div>
-
-
-            <div class="workspace-tag wt3">
-              REPORTS
-            </div>
-
-
-            <div class="workspace-tag wt4">
-              CRM
-            </div>
-
-
-            <div class="workspace-core">
-
-
-              <div>
-
-                <strong>
-                  CLIENT
-                  <br>
-                  WORKSPACE
-                </strong>
-
-                <small>
-                  SECURE ENVIRONMENT
-                </small>
-
-              </div>
-
-
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         PROCESS
-    =================================================== -->
-
-    <section
-      class="process"
-      id="process"
-    >
-
-      <div class="page">
-
-
-        <div class="section-head reveal">
-
-
-          <div>
-
-            <div class="eyebrow">
-              HOW IT WORKS
-            </div>
-
-            <h2>
-              FROM CHAOS<br>
-              TO CONTROL
-            </h2>
-
-          </div>
-
-
-          <p>
-
-            A simple process that turns repetitive work
-            into a reliable system.
-
-          </p>
-
-
-        </div>
-
-
-
-        <div class="process-list">
-
-
-          <div class="process-item reveal">
-
-            <div class="process-no mono">
-              01
-            </div>
-
-            <div class="process-name">
-              MAP THE OPERATION
-            </div>
-
-            <div class="process-arrow">
-              ↗
-            </div>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <div class="process-no mono">
-              02
-            </div>
-
-            <div class="process-name">
-              DESIGN THE SYSTEM
-            </div>
-
-            <div class="process-arrow">
-              ↗
-            </div>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <div class="process-no mono">
-              03
-            </div>
-
-            <div class="process-name">
-              AUTOMATE THE REPETITION
-            </div>
-
-            <div class="process-arrow">
-              ↗
-            </div>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <div class="process-no mono">
-              04
-            </div>
-
-            <div class="process-name">
-              DEPLOY & IMPROVE
-            </div>
-
-            <div class="process-arrow">
-              ↗
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- ===================================================
-         CTA
-    =================================================== -->
-
-    <section
-      class="cta"
-      id="contact"
-    >
-
-      <div class="page">
-
-
-        <div class="eyebrow reveal">
-          READY TO AUTOMATE?
-        </div>
-
-
-        <h2 class="reveal">
-
-          STOP
-
-          <span>
-            MANAGING
-          </span>
-
-          THE REPETITIVE.
-
-        </h2>
-
-
-        <a
-          href="mailto:hello@webautomate.cloud?subject=WebAutomate%20Strategy%20Call"
-          class="cta-link reveal"
-        >
-
-          START A CONVERSATION
-
-          <span>
-            ↗
-          </span>
-
-        </a>
-
-
-      </div>
-
-    </section>
-
-
-
-  </main>
-
-
-
-  <!-- =====================================================
-       FOOTER
-    ===================================================== -->
-
-  <footer>
-
-    <div class="page">
-
-
-      <div class="footer-inner">
-
-
-        <div>
-          ©
-          <span id="year"></span>
-          WEB AUTOMATE.CLOUD
-        </div>
-
-
-        <div>
-          DIGITAL OPERATIONS INFRASTRUCTURE
-        </div>
-
-
-        <div>
-          SYSTEMS ONLINE
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-  </footer>
-
-
-
-  <!-- =====================================================
-       ERROR SCREEN
-  ===================================================== -->
-
-  <div
-    class="error-overlay"
-    id="errorOverlay"
-  >
-
-
-    <div class="error-page">
-
-
-      <div class="error-brand">
-
-        <div class="error-brand-mark">
-          WA
-        </div>
-
-        WEB AUTOMATE
-
-      </div>
-
-
-      <div class="error-heading">
-
-        <span
-          class="error-number"
-          id="errorNumber"
-        >
-          404
-        </span>
-
-        <span id="errorHeading">
-          Page Not Found
-        </span>
-
-      </div>
-
-
-      <div class="error-visual">
-
-
-        <div class="error-circle"></div>
-
-
-        <div
-          class="error-big"
-          id="errorBig"
-        >
-          404
-        </div>
-
-
-        <div class="error-ground"></div>
-
-
-        <div class="error-character">
-
-
-          <div class="error-hair"></div>
-
-
-          <div class="error-head">
-
-            <div class="error-eye left"></div>
-
-            <div class="error-eye right"></div>
-
-            <div class="error-mouth"></div>
-
-          </div>
-
-
-          <div class="error-arm left"></div>
-
-          <div class="error-arm right"></div>
-
-
-          <div class="error-body"></div>
-
-
-          <div class="error-leg left"></div>
-
-          <div class="error-leg right"></div>
-
-
-        </div>
-
-
-        <div class="error-message">
-
-          <h3 id="errorTitle">
-            Looks like you're lost.
-          </h3>
-
-          <p id="errorMessage">
-            The page you're looking for doesn't exist.
-          </p>
-
-          <a
-            href="/"
-            class="error-home"
-          >
-            RETURN TO WEB AUTOMATE
-          </a>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="error-code-grid">
-
-
-        <div class="error-code-box">
-
-          <div class="error-dots">
-
-            <span class="error-dot ed-red"></span>
-
-            <span class="error-dot ed-yellow"></span>
-
-            <span class="error-dot ed-green"></span>
-
-          </div>
-
-
-          const route =
-          window.location.pathname;
-
-          if (!routes.includes(route)) {
-
-            throw new Error("404");
-
-          }
-
-          // destination unavailable
-
-        </div>
-
-
-        <div class="error-code-box">
-
-          <div class="error-dots">
-
-            <span class="error-dot ed-red"></span>
-
-            <span class="error-dot ed-yellow"></span>
-
-            <span class="error-dot ed-green"></span>
-
-          </div>
-
-
-          response.status = 404;
-
-          response.message =
-          "Route not found";
-
-          return response;
-
-        </div>
-
-
-      </div>
-
-
-      <div class="error-footer">
-
-        <div>
-          ● WEB AUTOMATE SYSTEM OPERATIONAL
-        </div>
-
-        <div id="errorCode">
-          WA-404
-        </div>
-
-        <div>
-          webautomate.cloud
-        </div>
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
-
-  <script>
-
-
-    /* =====================================================
-       YEAR
-    ===================================================== */
-
-    document.getElementById(
-      "year"
-    ).textContent =
-      new Date().getFullYear();
-
-
-
-    /* =====================================================
-       MOUSE LIGHT
-       Normal cursor remains.
-    ===================================================== */
-
-    const mouseLight =
-      document.getElementById(
-        "mouseLight"
-      );
-
-
-    let mouseX =
-      window.innerWidth / 2;
-
-
-    let mouseY =
-      window.innerHeight / 2;
-
-
-    let lightX =
-      mouseX;
-
-
-    let lightY =
-      mouseY;
-
-
-    window.addEventListener(
-      "mousemove",
-      function(event) {
-
-        mouseX =
-          event.clientX;
-
-        mouseY =
-          event.clientY;
-
-      },
-      {
-        passive: true
-      }
+  background:
+    radial-gradient(
+      circle,
+      rgba(85,233,241,.09),
+      transparent 65%
     );
 
+  opacity: 0;
 
-    function animateLight() {
+  transition:
+    opacity .35s ease;
+}
 
-      lightX +=
-        (mouseX - lightX)
-        * .08;
+.service-card:hover {
+  transform:
+    translateY(-7px)
+    scale(1.008);
 
-      lightY +=
-        (mouseY - lightY)
-        * .08;
+  border-color:
+    rgba(85,233,241,.22);
 
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.24),
+    0 0 30px rgba(85,233,241,.035);
+}
 
-      mouseLight.style.left =
-        lightX + "px";
-
-
-      mouseLight.style.top =
-        lightY + "px";
-
-
-      requestAnimationFrame(
-        animateLight
-      );
-
-    }
+.service-card:hover::before {
+  opacity: 1;
+}
 
 
-    animateLight();
+/* ---------- SERVICE ICON ---------- */
+
+.service-icon {
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    box-shadow .35s ease;
+}
+
+.service-card:hover .service-icon {
+  transform:
+    rotate(-4deg)
+    scale(1.06);
+
+  box-shadow:
+    0 0 22px rgba(85,233,241,.08);
+}
 
 
+/* ---------- BUTTON ---------- */
 
-    /* =====================================================
-       REVEAL
-    ===================================================== */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
 
-    const revealObserver =
-      new IntersectionObserver(
+.btn-primary::after {
+  content: "";
 
-        function(entries) {
+  position: absolute;
 
-          entries.forEach(
-            function(entry) {
+  top: 0;
+  bottom: 0;
 
-              if (
-                entry.isIntersecting
-              ) {
+  left: -120px;
 
-                entry.target.classList.add(
-                  "visible"
-                );
+  width: 75px;
 
-                revealObserver.unobserve(
-                  entry.target
-                );
-
-              }
-
-            }
-          );
-
-        },
-        {
-          threshold:
-            .12
-        }
-
-      );
-
-
-    document
-      .querySelectorAll(
-        ".reveal"
-      )
-      .forEach(
-        function(el) {
-
-          revealObserver.observe(el);
-
-        }
-      );
-
-
-
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    const menu =
-      document.getElementById(
-        "menu"
-      );
-
-
-    const menuOpen =
-      document.getElementById(
-        "menuOpen"
-      );
-
-
-    const menuClose =
-      document.getElementById(
-        "menuClose"
-      );
-
-
-    menuOpen.addEventListener(
-      "click",
-      function() {
-
-        menu.classList.add(
-          "active"
-        );
-
-        document.body.style.overflow =
-          "hidden";
-
-      }
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.45),
+      transparent
     );
 
+  transform:
+    skewX(-18deg);
 
-    menuClose.addEventListener(
-      "click",
-      function() {
+  animation:
+    buttonShine
+    4.5s
+    ease-in-out
+    infinite;
+}
 
-        menu.classList.remove(
-          "active"
-        );
+@keyframes buttonShine {
 
-        document.body.style.overflow =
-          "";
+  0% {
+    left: -120px;
+  }
 
-      }
+  20% {
+    left: 115%;
+  }
+
+  100% {
+    left: 115%;
+  }
+
+}
+
+
+/* ---------- WORKSPACE ---------- */
+
+.workspace {
+  position: relative;
+}
+
+.workspace-login {
+  isolation: isolate;
+}
+
+.robot-eye {
+  animation:
+    eyePulse
+    4s
+    ease-in-out
+    infinite;
+}
+
+@keyframes eyePulse {
+
+  0%, 100% {
+    transform:
+      scale(1);
+  }
+
+  50% {
+    transform:
+      scale(1.035);
+  }
+
+}
+
+
+/* ---------- PUPIL ---------- */
+
+.pupil {
+  animation:
+    pupilPulse
+    3s
+    ease-in-out
+    infinite;
+}
+
+@keyframes pupilPulse {
+
+  0%, 100% {
+    box-shadow:
+      0 0 25px rgba(85,233,241,.30);
+  }
+
+  50% {
+    box-shadow:
+      0 0 42px rgba(85,233,241,.52);
+  }
+
+}
+
+
+/* ---------- ARCHITECTURE RINGS ---------- */
+
+.architecture .ring {
+  animation:
+    slowRotate
+    22s
+    linear
+    infinite;
+}
+
+.architecture .ring.r2 {
+  animation:
+    slowRotateReverse
+    30s
+    linear
+    infinite;
+}
+
+@keyframes slowRotate {
+
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+@keyframes slowRotateReverse {
+
+  from {
+    transform:
+      rotate(360deg);
+  }
+
+  to {
+    transform:
+      rotate(0deg);
+  }
+
+}
+
+
+/* ---------- ARCHITECTURE CORE ---------- */
+
+.architecture-core {
+  animation:
+    corePulse
+    5s
+    ease-in-out
+    infinite;
+}
+
+@keyframes corePulse {
+
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(85,233,241,.035);
+  }
+
+  50% {
+    box-shadow:
+      0 0 65px rgba(85,233,241,.075);
+  }
+
+}
+
+
+/* ---------- WORKSPACE RINGS ---------- */
+
+.workspace-login::before {
+  animation:
+    workspaceRing
+    12s
+    linear
+    infinite;
+}
+
+@keyframes workspaceRing {
+
+  from {
+    transform:
+      rotate(0deg)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      rotate(180deg)
+      scale(1.025);
+  }
+
+  to {
+    transform:
+      rotate(360deg)
+      scale(1);
+  }
+
+}
+
+
+/* ---------- MARQUEE ---------- */
+
+.marquee {
+  will-change:
+    transform;
+}
+
+.marquee span {
+  transition:
+    color .25s ease;
+}
+
+.marquee:hover span {
+  color:
+    #a9eef1;
+}
+
+
+/* ---------- PROCESS CARDS ---------- */
+
+.process-card {
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    border-color .3s ease;
+}
+
+.process-card::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan),
+      transparent
     );
 
+  transform:
+    scaleX(0);
 
-    document
-      .querySelectorAll(
-        ".menu-link"
-      )
-      .forEach(
-        function(link) {
+  transform-origin:
+    center;
 
-          link.addEventListener(
-            "click",
-            function() {
+  transition:
+    transform .45s ease;
+}
 
-              menu.classList.remove(
-                "active"
-              );
+.process-card:hover {
+  transform:
+    translateY(-4px);
 
-              document.body.style.overflow =
-                "";
+  background:
+    rgba(255,255,255,.035);
 
-            }
-          );
+  border-color:
+    rgba(85,233,241,.15);
+}
 
-        }
-      );
+.process-card:hover::after {
+  transform:
+    scaleX(1);
+}
 
 
-    document.addEventListener(
-      "keydown",
-      function(event) {
+/* ---------- CTA ---------- */
 
-        if (
-          event.key === "Escape"
-        ) {
+.cta-box {
+  position: relative;
+  overflow: hidden;
+}
 
-          menu.classList.remove(
-            "active"
-          );
+.cta-box::before {
+  content: "";
 
-          document.body.style.overflow =
-            "";
+  position: absolute;
 
-        }
+  width: 420px;
+  height: 420px;
 
-      }
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(85,233,241,.055),
+      transparent 68%
     );
 
+  animation:
+    ctaPulse
+    6s
+    ease-in-out
+    infinite;
 
+  pointer-events: none;
+}
 
-    /* =====================================================
-       HERO PARALLAX
-    ===================================================== */
+.cta-box h2,
+.cta-box p,
+.cta-box .hero-actions,
+.cta-box .section-kicker {
+  position: relative;
+  z-index: 2;
+}
 
-    const heroTitle =
-      document.querySelector(
-        ".hero-title"
-      );
+@keyframes ctaPulse {
 
+  0%, 100% {
+    transform:
+      translate(-50%,-50%)
+      scale(.92);
 
-    window.addEventListener(
-      "scroll",
-      function() {
+    opacity: .5;
+  }
 
-        if (
-          window.innerWidth <= 700
-        ) {
-          return;
-        }
+  50% {
+    transform:
+      translate(-50%,-50%)
+      scale(1.08);
 
+    opacity: 1;
+  }
 
-        const y =
-          window.scrollY;
+}
 
 
-        heroTitle.style.transform =
-          "translateY("
-          +
-          (y * .025)
-          +
-          "px)";
+/* ---------- FOOTER LINK HOVER ---------- */
 
-      },
-      {
-        passive: true
-      }
-    );
+.footer-links a {
+  transition:
+    color .2s ease;
+}
 
+.footer-links a:hover {
+  color:
+    var(--cyan);
+}
 
 
-    /* =====================================================
-       SERVICE FOCUS
-    ===================================================== */
+/* ---------- ERROR SCREEN ENTRY ---------- */
 
-    document
-      .querySelectorAll(
-        ".service"
-      )
-      .forEach(
-        function(service) {
+.wa-error-overlay.active .wa-error-page {
+  animation:
+    errorEnter
+    .55s
+    cubic-bezier(.16,1,.3,1)
+    both;
+}
 
-          service.addEventListener(
-            "mouseenter",
-            function() {
+@keyframes errorEnter {
 
-              document
-                .querySelectorAll(
-                  ".service"
-                )
-                .forEach(
-                  function(other) {
+  from {
+    opacity: 0;
+    transform:
+      translateY(20px)
+      scale(.985);
+  }
 
-                    if (
-                      other !== service
-                    ) {
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
 
-                      other.style.opacity =
-                        ".32";
+}
 
-                    }
 
-                  }
-                );
+/* ---------- SECTION REVEAL ---------- */
 
-            }
-          );
+.reveal {
+  transform:
+    translateY(28px);
 
+  opacity:
+    0;
 
-          service.addEventListener(
-            "mouseleave",
-            function() {
+  transition:
+    opacity .7s cubic-bezier(.16,1,.3,1),
+    transform .7s cubic-bezier(.16,1,.3,1);
+}
 
-              document
-                .querySelectorAll(
-                  ".service"
-                )
-                .forEach(
-                  function(other) {
+.reveal.visible {
+  transform:
+    translateY(0);
 
-                    other.style.opacity =
-                      "";
+  opacity:
+    1;
+}
 
-                  }
-                );
 
-            }
-          );
+/* ---------- REDUCE MOTION ---------- */
 
-        }
-      );
+@media (prefers-reduced-motion: reduce) {
 
+  *,
+  *::before,
+  *::after {
+    animation:
+      none !important;
 
+    transition:
+      none !important;
+  }
 
-    /* =====================================================
-       ERROR SYSTEM
-    ===================================================== */
+}
 
-    function showSystemError(
-
-      title =
-        "Something went wrong.",
-
-      message =
-        "The system could not complete the requested operation.",
-
-      code =
-        "SYSTEM ERROR",
-
-      number =
-        "500",
-
-      heading =
-        "System Error"
-
-    ) {
-
-
-      document.getElementById(
-        "errorTitle"
-      ).textContent =
-        title;
-
-
-      document.getElementById(
-        "errorMessage"
-      ).textContent =
-        message;
-
-
-      document.getElementById(
-        "errorCode"
-      ).textContent =
-        code;
-
-
-      document.getElementById(
-        "errorNumber"
-      ).textContent =
-        number;
-
-
-      document.getElementById(
-        "errorBig"
-      ).textContent =
-        number;
-
-
-      document.getElementById(
-        "errorHeading"
-      ).textContent =
-        heading;
-
-
-      document
-        .getElementById(
-          "errorOverlay"
-        )
-        .classList.add(
-          "active"
-        );
-
-
-      document.body.style.overflow =
-        "hidden";
-
-    }
-
-
-
-    /* =====================================================
-       YOUR 404 ROUTE
-    ===================================================== */
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-
-    if (
-      params.get("error") === "404"
-    ) {
-
-      showSystemError(
-
-        "Looks like you're lost.",
-
-        "The page you're looking for doesn't exist.",
-
-        "WA-404",
-
-        "404",
-
-        "Page Not Found"
-
-      );
-
-    }
-
-
-
-  </script>
-
-
-  <!-- =====================================================
-       DASHBOARD DEMO STYLES
-  ===================================================== -->
-
-  <style>
-
-    .demo-side {
-
-      padding:
-        10px 9px;
-
-      margin-bottom:
-        3px;
-
-      border-radius:
-        8px;
-
-      color:
-        #6c7380;
-
-      font-size:
-        9px;
-
-    }
-
-
-    .demo-side.active {
-
-      color:
-        #bdfef2;
-
-      background:
-        rgba(102,245,220,.055);
-
-    }
-
-
-    .demo-stats {
-
-      display:
-        grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
-      gap:
-        10px;
-
-    }
-
-
-    .demo-stat {
-
-      padding:
-        13px;
-
-      min-height:
-        100px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.06);
-
-      background:
-        rgba(255,255,255,.018);
-
-    }
-
-
-    .demo-stat small {
-
-      display:
-        block;
-
-      color:
-        #696f79;
-
-      font-size:
-        7px;
-
-      letter-spacing:
-        .08em;
-
-    }
-
-
-    .demo-stat strong {
-
-      display:
-        block;
-
-      margin-top:
-        13px;
-
-      color:
-        white;
-
-      font-size:
-        20px;
-
-      letter-spacing:
-        -.04em;
-
-    }
-
-
-    .demo-stat em {
-
-      display:
-        block;
-
-      margin-top:
-        5px;
-
-      color:
-        var(--cyan);
-
-      font-size:
-        7px;
-
-      font-style:
-        normal;
-
-    }
-
-
-    .mini-chart {
-
-      height:
-        150px;
-
-      background:
-
-        linear-gradient(
-          rgba(255,255,255,.025) 1px,
-          transparent 1px
-        ),
-
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.02) 1px,
-          transparent 1px
-        );
-
-      background-size:
-        35px 35px;
-
-    }
-
-
-    .mini-chart svg {
-
-      width:
-        100%;
-
-      height:
-        100%;
-
-    }
-
-
-    .activity-demo {
-
-      padding:
-        9px 0;
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.045);
-
-      color:
-        #747a83;
-
-      font-size:
-        7px;
-
-      line-height:
-        1.5;
-
-    }
-
-
-    .activity-demo strong {
-
-      display:
-        block;
-
-      color:
-        #c9ced5;
-
-      font-size:
-        8px;
-
-    }
-
-
-    @media (max-width:760px) {
-
-      .demo-stats {
-
-        grid-template-columns:
-          1fr 1fr;
-
-      }
-
-    }
-
-
-    @media (max-width:500px) {
-
-      .demo-stats {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-    }
-
-  </style>
-
-
-</body>
-
-</html>
+</style>
