@@ -4705,8 +4705,8 @@
 
 
           <a
-            href="#"
-            class="btn btn-secondary open-login-modal"
+            href="#workspace"
+            class="btn btn-secondary"
           >
             Explore Client Workspace
             →
@@ -5960,9 +5960,12 @@
           <input type="text" id="loginUserId" placeholder="Enter your User ID" required>
         </div>
         
-        <div class="input-group" style="margin-top: 20px; text-align: left;">
+        <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
           <label>Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required>
+          <input type="password" id="loginPassword" placeholder="••••••••" required style="padding-right: 40px;">
+          <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 32px; background: transparent; border: none; color: #8a94a5; cursor: pointer; font-size: 16px; padding: 5px;">
+            👁️
+          </button>
         </div>
         
         <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px;">
@@ -6813,10 +6816,19 @@
     const clientLoginForm = document.getElementById('clientLoginForm');
     const loginErrorMessage = document.getElementById('loginErrorMessage');
     
-    // Robot Elements
+    // Robot & Password Toggle Elements
     const robotSpeech = document.getElementById('robotSpeech');
     const loginUserId = document.getElementById('loginUserId');
     const loginPassword = document.getElementById('loginPassword');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+
+    // Toggle Password Visibility Logic
+    togglePasswordBtn.addEventListener('click', function() {
+      const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+      loginPassword.setAttribute('type', type);
+      // Change icon (Eye Open/Closed)
+      this.textContent = type === 'password' ? '👁️' : '🙈'; 
+    });
 
     // Open Modal
     openLoginBtns.forEach(btn => {
@@ -6826,6 +6838,9 @@
         document.body.style.overflow = "hidden"; // Prevent scrolling
         loginErrorMessage.style.display = 'none'; // Hide error on open
         robotSpeech.innerText = "Beep boop. Who goes there?";
+        // Reset password field to hidden
+        loginPassword.setAttribute('type', 'password');
+        togglePasswordBtn.textContent = '👁️';
       });
     });
 
@@ -6867,9 +6882,9 @@
       const btn = clientLoginForm.querySelector('button[type="submit"]');
       const originalText = btn.innerHTML;
       
-      // Get the entered ID and Password
-      const userId = document.getElementById('loginUserId').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
+      // Get the entered ID and Password (and trim extra spaces)
+      const userId = loginUserId.value.trim();
+      const password = loginPassword.value.trim();
 
       // Hide previous errors
       loginErrorMessage.style.display = 'none';
@@ -6883,8 +6898,9 @@
       setTimeout(() => {
         
         // Database mein check karo ki kya ID aur Password match hota hai
+        // .toLowerCase() use kiya gaya hai taaki capital/small ki galti na ho username mein
         const matchedClient = clientDatabase.find(
-          client => client.id === userId && client.password === password
+          client => client.id.toLowerCase() === userId.toLowerCase() && client.password === password
         );
 
         if (matchedClient) {
