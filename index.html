@@ -386,8 +386,7 @@
       right:
         0;
 
-      z-index:
-        5000;
+      z-index: 5000;
 
       padding:
         15px 18px;
@@ -463,7 +462,6 @@
       letter-spacing:
         -.035em;
         
-      /* Gradient Animation added */
       background: linear-gradient(100deg, #57eef4, #9a78ff, #6dffbd, #57eef4);
       background-size: 300% auto;
       -webkit-background-clip: text;
@@ -2905,8 +2903,7 @@
         1.7;
 
     }
-    
-    
+
     /* =========================================================
        ABOUT US SECTION
     ========================================================= */
@@ -2967,6 +2964,7 @@
       align-items: center;
       gap: 5px;
       transition: color 0.2s ease;
+      cursor: pointer;
     }
     
     .blog-card:hover .read-more {
@@ -3209,10 +3207,10 @@
     }
 
     /* =========================================================
-       LOGIN MODAL STYLES (WITH ROBOT)
+       MODAL STYLES (LOGIN & CONTENT)
     ========================================================= */
     
-    .login-modal-overlay {
+    .modal-overlay {
       position: fixed;
       inset: 0;
       z-index: 99999;
@@ -3227,12 +3225,12 @@
       transition: opacity 0.3s ease;
     }
     
-    .login-modal-overlay.active {
+    .modal-overlay.active {
       display: flex;
       opacity: 1;
     }
     
-    .login-modal-box {
+    .modal-box {
       width: 100%;
       max-width: 400px;
       background: rgba(10, 15, 22, 0.95);
@@ -3245,8 +3243,17 @@
       transition: transform 0.3s ease;
       text-align: center;
     }
+
+    /* Wider box for blog/privacy content */
+    .modal-box.content-box {
+      max-width: 800px;
+      max-height: 85vh;
+      overflow-y: auto;
+      text-align: left;
+      padding: 50px 40px;
+    }
     
-    .login-modal-overlay.active .login-modal-box {
+    .modal-overlay.active .modal-box {
       transform: translateY(0);
     }
     
@@ -3266,6 +3273,19 @@
     
     .close-modal:hover {
       color: white;
+    }
+
+    .content-modal-body p {
+      margin-bottom: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .content-modal-body h3 {
+      color: white;
+      margin: 25px 0 10px;
+      font-size: 18px;
     }
 
     /* Robot CSS */
@@ -4413,6 +4433,10 @@
         align-items:
           flex-start;
       }
+      
+      .modal-box.content-box {
+        padding: 40px 20px;
+      }
 
     }
 
@@ -4450,20 +4474,12 @@
 <body>
 
 
-  <!-- =====================================================
-       MOUSE LIGHT
-  ===================================================== -->
-
   <div
     class="mouse-light"
     id="mouseLight"
   ></div>
 
 
-
-  <!-- =====================================================
-       NAVIGATION
-  ===================================================== -->
 
   <div class="nav-wrap">
 
@@ -4479,7 +4495,6 @@
 
       <div class="nav-links">
 
-        <!-- Updated Nav Links -->
         <a href="#about">
           About Us
         </a>
@@ -4499,7 +4514,6 @@
       </div>
 
       
-      <!-- TOP BUTTONS (CALL + LOGIN) -->
       <div class="top-buttons" style="display: flex; gap: 10px; align-items: center;">
         
         <a
@@ -4535,10 +4549,6 @@
   </div>
 
 
-
-  <!-- =====================================================
-       MOBILE NAV
-  ===================================================== -->
 
   <div
     class="mobile-panel"
@@ -4603,7 +4613,6 @@
     </a>
 
 
-    <!-- REDIRECTING TO WHATSAPP -->
     <a
       href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
       target="_blank"
@@ -4616,7 +4625,6 @@
       Contact
     </a>
     
-    <!-- LOGIN MODAL FOR MOBILE -->
     <a
       href="#"
       class="open-login-modal"
@@ -4634,16 +4642,8 @@
 
 
 
-  <!-- =====================================================
-       MAIN
-  ===================================================== -->
-
   <main id="top">
 
-
-    <!-- ===================================================
-         HERO
-    =================================================== -->
 
     <section class="hero">
 
@@ -4694,7 +4694,6 @@
         <div class="hero-actions">
 
 
-          <!-- REDIRECTING TO WHATSAPP -->
           <a
             href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20start%20a%20conversation."
             target="_blank"
@@ -4705,7 +4704,6 @@
           </a>
 
 
-          <!-- OPEN LOGIN MODAL -->
           <a
             href="#"
             class="btn btn-secondary open-login-modal"
@@ -4729,10 +4727,6 @@
         </div>
 
 
-
-        <!-- ===============================================
-             AI INTELLIGENCE VISUAL
-        =============================================== -->
 
         <div class="ai-stage">
 
@@ -4786,10 +4780,6 @@
         </div>
 
 
-
-        <!-- ===============================================
-             DASHBOARD REPLACEMENT
-        =============================================== -->
 
         <div class="preview-wrap">
 
@@ -4867,10 +4857,6 @@
 
 
 
-    <!-- ===================================================
-         MARQUEE
-    =================================================== -->
-
     <div class="marquee-section">
 
 
@@ -4933,10 +4919,6 @@
 
 
 
-    <!-- ===================================================
-         INTRO
-    =================================================== -->
-
     <section>
 
       <div class="container">
@@ -4995,10 +4977,6 @@
     </section>
 
 
-
-    <!-- ===================================================
-         SERVICES
-    =================================================== -->
 
     <section id="services">
 
@@ -5227,10 +5205,6 @@
 
 
 
-    <!-- ===================================================
-         ARCHITECTURE
-    =================================================== -->
-
     <section id="architecture">
 
       <div class="container">
@@ -5353,8 +5327,6 @@
             <div class="ring r2"></div>
 
 
-            <!-- UPDATED ARCHITECTURE NODES -->
-            
             <div class="node a">
 
               <b>
@@ -5439,10 +5411,6 @@
     </section>
 
 
-
-    <!-- ===================================================
-         WORKSPACE
-    =================================================== -->
 
     <section
       id="workspace"
@@ -5582,10 +5550,6 @@
 
 
 
-    <!-- ===================================================
-         PROCESS
-    =================================================== -->
-
     <section
       id="process"
     >
@@ -5702,9 +5666,6 @@
 
     </section>
 
-    <!-- ===================================================
-         ABOUT US SECTION
-    =================================================== -->
     <section id="about" class="about-section">
       <div class="container" style="text-align: center;">
         <div class="section-kicker reveal">About Us</div>
@@ -5717,9 +5678,6 @@
       </div>
     </section>
 
-    <!-- ===================================================
-         RESOURCES / BLOG SECTION
-    =================================================== -->
     <section id="resources" style="padding-top: 100px;">
       <div class="container">
         
@@ -5734,53 +5692,49 @@
           <article class="blog-card reveal">
             <span class="category">Automation</span>
             <h4>WhatsApp CRM Automation kya hai?</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-1">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Inventory</span>
             <h4>Retail business mein inventory automation kaise karein?</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-2">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Comparison</span>
             <h4>Excel vs automated inventory system</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-3">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Reporting</span>
             <h4>Daily sales reporting automate kaise karein?</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-4">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Technology</span>
             <h4>Retail business ke liye AI automation</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-5">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Management</span>
             <h4>Multi-branch inventory management guide</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-6">Read Guide →</a>
           </article>
 
           <article class="blog-card reveal">
             <span class="category">Engagement</span>
             <h4>WhatsApp follow-up automation guide</h4>
-            <a href="#" class="read-more">Read Guide →</a>
+            <a href="#" class="read-more open-content" data-target="blog-7">Read Guide →</a>
           </article>
 
         </div>
 
       </div>
     </section>
-
-    <!-- ===================================================
-         CTA
-    =================================================== -->
 
     <section
       id="contact"
@@ -5823,7 +5777,6 @@
           <div class="hero-actions">
 
 
-            <!-- REDIRECTING TO WHATSAPP -->
             <a
               href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20automate%20my%20business."
               target="_blank"
@@ -5837,7 +5790,6 @@
             </a>
 
 
-            <!-- OPEN LOGIN MODAL -->
             <a
               href="#"
               class="btn btn-secondary open-login-modal"
@@ -5861,9 +5813,6 @@
     </section>
     
     
-    <!-- ===================================================
-         QUERY FORM
-    =================================================== -->
     <section id="query-form" class="query-section">
       <div class="container">
         
@@ -5877,7 +5826,6 @@
             Start your <span class="gradient">transformation</span>
           </h2>
           
-          <!-- Success Message Box (Hidden by default) -->
           <div id="formSuccessMessage" style="display: none; text-align: center; padding: 60px 20px;">
             <div style="font-size: 45px; margin-bottom: 20px; color: var(--mint);">✓</div>
             <h3 style="font-size: 26px; margin-bottom: 12px;">Thanks for your submission!</h3>
@@ -5885,7 +5833,6 @@
             <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Response</button>
           </div>
           
-          <!-- Form -->
           <form id="waSubmitForm" class="custom-form">
             <div class="form-grid">
               
@@ -5937,10 +5884,6 @@
 
 
 
-  <!-- =====================================================
-       FOOTER
-  ===================================================== -->
-
   <footer>
 
 
@@ -5970,11 +5913,11 @@
           Contact Us
         </a>
 
-        <a href="/privacy">
+        <a href="#" class="open-content" data-target="privacy">
           Privacy Policy
         </a>
 
-        <a href="/terms">
+        <a href="#" class="open-content" data-target="terms">
           Terms
         </a>
 
@@ -5987,15 +5930,11 @@
   </footer>
 
 
-  <!-- =====================================================
-       LOGIN MODAL WITH ROBOT
-  ===================================================== -->
-  <div class="login-modal-overlay" id="loginModal">
-    <div class="login-modal-box">
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
       
       <button class="close-modal" id="closeLoginModal">&times;</button>
       
-      <!-- CUTE ROBOT SECTION -->
       <div class="login-robot">
         <div class="robot-speech-bubble" id="robotSpeech">
           Beep boop. Who goes there?
@@ -6012,7 +5951,6 @@
       
       <form id="clientLoginForm" class="custom-form" style="margin-top: 20px;">
         
-        <!-- ERROR MESSAGE BOX (Hidden by default) -->
         <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
           Incorrect User ID or Password.
         </div>
@@ -6037,9 +5975,23 @@
   </div>
 
 
-  <!-- =====================================================
-       ERROR SCREEN
-  ===================================================== -->
+  <div class="modal-overlay" id="contentModal">
+    <div class="modal-box content-box">
+      <button class="close-modal" id="closeContentModal">&times;</button>
+      
+      <div class="section-kicker" id="contentModalCategory" style="margin-bottom: 10px;">
+        Reading
+      </div>
+      
+      <h2 id="contentModalTitle" style="font-size: clamp(24px, 4vw, 36px); line-height: 1.2; margin-bottom: 25px;">
+        </h2>
+      
+      <div id="contentModalBody" class="content-modal-body">
+        </div>
+      
+    </div>
+  </div>
+
 
   <div
     class="wa-error-overlay"
@@ -6236,10 +6188,6 @@
   </div>
 
 
-
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
 
   <script>
 
@@ -6957,6 +6905,157 @@
         }
 
       }, 1500);
+    });
+
+    /* =====================================================
+       DYNAMIC CONTENT READER MODAL (BLOGS, PRIVACY, TERMS)
+    ===================================================== */
+
+    // Article Content Database
+    const articleDatabase = {
+      "privacy": {
+        category: "Legal",
+        title: "Privacy Policy",
+        body: `
+          <h3>Introduction</h3>
+          <p>At WebAutomate.cloud, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our digital automation services.</p>
+          <h3>Data Collection</h3>
+          <p>We collect information you provide directly to us (like your name, email, and business details via forms) and data automatically collected through cookies for website performance.</p>
+          <h3>How We Use Your Data</h3>
+          <p>Your data is strictly used to provide, maintain, and improve our services. We do not sell your personal information to third-party marketers. Operational data synced via Google Sheets remains under your administrative control.</p>
+          <h3>Contact Us</h3>
+          <p>If you have any questions regarding this policy, please reach out to us at hello@webautomate.cloud.</p>
+        `
+      },
+      "terms": {
+        category: "Legal",
+        title: "Terms of Service",
+        body: `
+          <h3>Acceptance of Terms</h3>
+          <p>By accessing or using WebAutomate.cloud, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our services.</p>
+          <h3>Service Provision</h3>
+          <p>We provide custom infrastructure for operations, visibility, reporting, and business automation. Service uptime is subject to the stability of underlying third-party platforms (like AWS, Google Workspace, and WhatsApp APIs).</p>
+          <h3>User Responsibilities</h3>
+          <p>You are responsible for safeguarding your Client Portal credentials. Any activity occurring under your account is your responsibility.</p>
+          <h3>Limitation of Liability</h3>
+          <p>WebAutomate.cloud shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use the service.</p>
+        `
+      },
+      "blog-1": {
+        category: "Automation",
+        title: "WhatsApp CRM Automation kya hai?",
+        body: `
+          <p>Aaj ke time mein businesses apne customers ke sath judne ke liye WhatsApp ka sabse zyada istemaal karte hain. Lekin har customer ko manually message bhejna time-consuming hota hai. Yahin par <strong>WhatsApp CRM Automation</strong> kaam aata hai.</p>
+          <p>Is technique mein aapke Customer Relationship Management (CRM) software ko WhatsApp Business API ke sath joda jaata hai. Isse hota yeh hai ki jab bhi CRM mein koi naya event hota hai (jaise naya lead aana, payment complete hona, ya abandoned cart), system automatically customer ko ek personalized WhatsApp message bhej deta hai.</p>
+          <h3>Fayde (Benefits)</h3>
+          <p>1. <strong>Time Saving:</strong> Staff ko manual messages nahi bhejne padte.<br>
+          2. <strong>Instant Response:</strong> Customers ko turant reply milta hai jisse trust badhta hai.<br>
+          3. <strong>High Open Rate:</strong> Emails ke mukable WhatsApp messages ka open rate 90% se zyada hota hai.</p>
+        `
+      },
+      "blog-2": {
+        category: "Inventory",
+        title: "Retail business mein inventory automation kaise karein?",
+        body: `
+          <p>Agar aapka retail business bada ho raha hai, toh registers aur purane spreadsheets par inventory track karna mushkil ho jata hai. Inventory automation se aap real-time mein apna stock manage kar sakte hain.</p>
+          <p>Automation karne ke liye sabse pehle aapko ek cloud-based POS (Point of Sale) system chahiye. Jab bhi koi item bikega, system automatically stock se us item ko minus kar dega.</p>
+          <p><strong>Steps to Automate:</strong><br>
+          1. Barcode scanners ka istemaal karein taaki data entry fast aur error-free ho.<br>
+          2. Apne POS ko Google Sheets ya kisi custom dashboard se connect karein jahan live data sync ho sake.<br>
+          3. Re-order alerts set karein, taaki jab stock low ho toh supplier ko automatically notification chala jaye.</p>
+        `
+      },
+      "blog-3": {
+        category: "Comparison",
+        title: "Excel vs Automated Inventory System",
+        body: `
+          <p>Excel chhote businesses ke liye ek behtareen tool hai, lekin jaise-jaise business scale karta hai, Excel ki limitations nazar aane lagti hain.</p>
+          <h3>Excel ki Problems:</h3>
+          <p>1. <strong>Manual Data Entry:</strong> Har roz data manually daalna padta hai jisme galti hone ke chances bahut zyada hote hain.<br>
+          2. <strong>No Real-time Updates:</strong> Agar 3 log ek file par kaam kar rahe hain, toh live sync mein problem aati hai.<br>
+          3. <strong>Data Corruption:</strong> Ek galat formula puri sheet ko kharab kar sakta hai.</p>
+          <h3>Automated System ke Fayde:</h3>
+          <p>Automated systems live data par kaam karte hain. Jab ek store par sale hoti hai, toh inventory turant update ho jati hai bina kisi human intervention ke. Saath hi, reporting bhi 1-click mein generate ho jati hai.</p>
+        `
+      },
+      "blog-4": {
+        category: "Reporting",
+        title: "Daily sales reporting automate kaise karein?",
+        body: `
+          <p>Har shaam sabhi branches se reports mangwana aur unhe compile karna ek thaka dene wala kaam hai. Is process ko easily automate kiya jaa sakta hai.</p>
+          <p>WebAutomate.cloud jaise systems ka use karke, aap APIs aur webhooks ke zariye apne saare sales channels ko ek single dashboard mein connect kar sakte hain.</p>
+          <p><strong>Kaise kaam karta hai?</strong><br>
+          Aapke stores din bhar bill banate hain. Raat 9 baje, system automatically cloud database se din bhar ka data fetch karta hai, profit/loss calculate karta hai, aur ek sundar PDF ya text report banakar owner ko WhatsApp ya Email par bhej deta hai. Isse owner ka time bachta hai aur data accuracy 100% rehti hai.</p>
+        `
+      },
+      "blog-5": {
+        category: "Technology",
+        title: "Retail business ke liye AI automation",
+        body: `
+          <p>Artificial Intelligence (AI) ab sirf tech companies ke liye nahi raha. Retail businesses bhi AI ka use karke apne operations ko supercharge kar rahe hain.</p>
+          <p><strong>Predictive Analytics:</strong> AI aapke pichle saal ke sales data ko analyze karke ye bata sakta hai ki aane wale festival season mein kis product ki demand kitni hogi. Isse aap over-stocking aur under-stocking dono se bach sakte hain.</p>
+          <p><strong>Customer Service:</strong> AI Chatbots 24/7 customers ke basic sawaalo ka jawab de sakte hain, unka order status track karke bata sakte hain, jisse aapki customer support team ka load 70% tak kam ho jata hai.</p>
+        `
+      },
+      "blog-6": {
+        category: "Management",
+        title: "Multi-branch inventory management guide",
+        body: `
+          <p>Jab aapke paas 2, 3 ya usse zyada branches hoti hain, toh sabse bada challenge yeh hota hai ki "Kis branch mein kitna stock pada hai?".</p>
+          <p>Multi-branch management ke liye ek centralized system ka hona zaroori hai. Is system mein Head Office (HO) master control rakhta hai.</p>
+          <p>Isme Stock Transfer (ek branch se dusri branch mein maal bhejna) digital hona chahiye. Jab HO se maal nikle, toh branch A mein "In Transit" dikhe, aur jab receive ho jaye tabhi stock mein add ho. Yeh transparency chori aur stock mismatch ko rokti hai.</p>
+        `
+      },
+      "blog-7": {
+        category: "Engagement",
+        title: "WhatsApp follow-up automation guide",
+        body: `
+          <p>Customer ko engage rakhna sales badhane ka sabse accha tareeka hai. WhatsApp follow-up automation aapke liye ek virtual sales agent ka kaam karta hai.</p>
+          <p><strong>Use Cases:</strong><br>
+          - <strong>Abandoned Cart:</strong> Agar customer ne website par cart mein saman daala par kharida nahi, toh 2 ghante baad unhe automatically ek reminder discount code ke sath WhatsApp par chala jayega.<br>
+          - <strong>Post-Purchase Feedback:</strong> Product deliver hone ke theek 3 din baad system customer se automatically feedback aur Google Review link bhej dega.</p>
+          <p>Is tarah ke chote automations directly aapki revenue par bada impact daalte hain.</p>
+        `
+      }
+    };
+
+    const contentModal = document.getElementById('contentModal');
+    const closeContentModal = document.getElementById('closeContentModal');
+    const contentModalTitle = document.getElementById('contentModalTitle');
+    const contentModalBody = document.getElementById('contentModalBody');
+    const contentModalCategory = document.getElementById('contentModalCategory');
+    const openContentBtns = document.querySelectorAll('.open-content');
+
+    // Open Content Modal
+    openContentBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const article = articleDatabase[targetId];
+
+        if(article) {
+          contentModalCategory.innerText = article.category || "Information";
+          contentModalTitle.innerText = article.title;
+          contentModalBody.innerHTML = article.body;
+          
+          contentModal.classList.add('active');
+          document.body.style.overflow = "hidden"; // Prevent scrolling
+        }
+      });
+    });
+
+    // Close Content Modal
+    closeContentModal.addEventListener('click', () => {
+      contentModal.classList.remove('active');
+      document.body.style.overflow = ""; 
+    });
+
+    // Close on outside click
+    contentModal.addEventListener('click', (e) => {
+      if (e.target === contentModal) {
+        contentModal.classList.remove('active');
+        document.body.style.overflow = ""; 
+      }
     });
 
   </script>
