@@ -3143,7 +3143,7 @@
     }
 
     /* =========================================================
-       LOGIN MODAL STYLES
+       LOGIN MODAL STYLES (WITH ROBOT)
     ========================================================= */
     
     .login-modal-overlay {
@@ -3200,6 +3200,105 @@
     
     .close-modal:hover {
       color: white;
+    }
+
+    /* Robot CSS */
+    .login-robot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .robot-speech-bubble {
+      background: white;
+      color: #000;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .robot-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: white transparent transparent transparent;
+    }
+
+    .robot-head-container {
+      position: relative;
+    }
+
+    .robot-head-box {
+      width: 70px;
+      height: 60px;
+      background: var(--bg-2);
+      border: 2px solid var(--cyan);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 0 20px rgba(87,238,244,0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    .robot-antenna {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 12px;
+      background: var(--cyan);
+      z-index: 1;
+    }
+
+    .robot-antenna::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -3px;
+      width: 8px;
+      height: 8px;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--mint);
+    }
+
+    .robot-face-eye {
+      width: 12px;
+      height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--cyan);
+      animation: robotBlink 4s infinite;
+      transition: all 0.3s ease;
+    }
+
+    .robot-face-mouth {
+      position: absolute;
+      bottom: 12px;
+      width: 20px;
+      height: 3px;
+      background: rgba(87,238,244,0.5);
+      border-radius: 2px;
+    }
+
+    @keyframes robotBlink {
+      0%, 96%, 98% { transform: scaleY(1); }
+      97% { transform: scaleY(0.1); }
     }
 
 
@@ -4033,9 +4132,9 @@
     @media (max-width: 900px) {
 
       .nav-links,
-      .nav-cta {
+      .top-buttons {
         display:
-          none;
+          none !important;
       }
 
       .mobile-menu {
@@ -4285,20 +4384,12 @@
 <body>
 
 
-  <!-- =====================================================
-       MOUSE LIGHT
-  ===================================================== -->
-
   <div
     class="mouse-light"
     id="mouseLight"
   ></div>
 
 
-
-  <!-- =====================================================
-       NAVIGATION
-  ===================================================== -->
 
   <div class="nav-wrap">
 
@@ -4332,15 +4423,26 @@
 
       </div>
 
-
-      <!-- REDIRECTING TO WHATSAPP -->
-      <a
-        href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
-        target="_blank"
-        class="nav-cta"
-      >
-        Book a Strategy Call
-      </a>
+      
+      <div class="top-buttons" style="display: flex; gap: 10px; align-items: center;">
+        
+        <a
+          href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
+          target="_blank"
+          class="nav-cta"
+        >
+          Book a Strategy Call
+        </a>
+        
+        <a
+          href="#"
+          class="nav-cta open-login-modal"
+          style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);"
+        >
+          Client Login
+        </a>
+        
+      </div>
 
 
       <button
@@ -4357,10 +4459,6 @@
   </div>
 
 
-
-  <!-- =====================================================
-       MOBILE NAV
-  ===================================================== -->
 
   <div
     class="mobile-panel"
@@ -4425,7 +4523,6 @@
     </a>
 
 
-    <!-- REDIRECTING TO WHATSAPP -->
     <a
       href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
       target="_blank"
@@ -4437,21 +4534,26 @@
     >
       Contact
     </a>
+    
+    <a
+      href="#"
+      class="open-login-modal"
+      style="
+        padding:12px 10px;
+        color:#fff;
+        font-size:12px;
+        font-weight: bold;
+      "
+    >
+      Client Login
+    </a>
 
   </div>
 
 
 
-  <!-- =====================================================
-       MAIN
-  ===================================================== -->
-
   <main id="top">
 
-
-    <!-- ===================================================
-         HERO
-    =================================================== -->
 
     <section class="hero">
 
@@ -4502,7 +4604,6 @@
         <div class="hero-actions">
 
 
-          <!-- REDIRECTING TO WHATSAPP -->
           <a
             href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20start%20a%20conversation."
             target="_blank"
@@ -4513,7 +4614,6 @@
           </a>
 
 
-          <!-- OPEN LOGIN MODAL -->
           <a
             href="#"
             class="btn btn-secondary open-login-modal"
@@ -4537,10 +4637,6 @@
         </div>
 
 
-
-        <!-- ===============================================
-             AI INTELLIGENCE VISUAL
-        =============================================== -->
 
         <div class="ai-stage">
 
@@ -4594,10 +4690,6 @@
         </div>
 
 
-
-        <!-- ===============================================
-             DASHBOARD REPLACEMENT
-        =============================================== -->
 
         <div class="preview-wrap">
 
@@ -4675,10 +4767,6 @@
 
 
 
-    <!-- ===================================================
-         MARQUEE
-    =================================================== -->
-
     <div class="marquee-section">
 
 
@@ -4741,10 +4829,6 @@
 
 
 
-    <!-- ===================================================
-         INTRO
-    =================================================== -->
-
     <section>
 
       <div class="container">
@@ -4803,10 +4887,6 @@
     </section>
 
 
-
-    <!-- ===================================================
-         SERVICES
-    =================================================== -->
 
     <section id="services">
 
@@ -5035,10 +5115,6 @@
 
 
 
-    <!-- ===================================================
-         ARCHITECTURE
-    =================================================== -->
-
     <section id="architecture">
 
       <div class="container">
@@ -5161,8 +5237,6 @@
             <div class="ring r2"></div>
 
 
-            <!-- UPDATED ARCHITECTURE NODES -->
-            
             <div class="node a">
 
               <b>
@@ -5247,10 +5321,6 @@
     </section>
 
 
-
-    <!-- ===================================================
-         WORKSPACE
-    =================================================== -->
 
     <section
       id="workspace"
@@ -5390,10 +5460,6 @@
 
 
 
-    <!-- ===================================================
-         PROCESS
-    =================================================== -->
-
     <section
       id="process"
     >
@@ -5512,10 +5578,6 @@
 
 
 
-    <!-- ===================================================
-         CTA
-    =================================================== -->
-
     <section
       id="contact"
       class="cta"
@@ -5557,7 +5619,6 @@
           <div class="hero-actions">
 
 
-            <!-- REDIRECTING TO WHATSAPP -->
             <a
               href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20automate%20my%20business."
               target="_blank"
@@ -5571,7 +5632,6 @@
             </a>
 
 
-            <!-- OPEN LOGIN MODAL -->
             <a
               href="#"
               class="btn btn-secondary open-login-modal"
@@ -5595,9 +5655,6 @@
     </section>
     
     
-    <!-- ===================================================
-         QUERY FORM
-    =================================================== -->
     <section id="query-form" class="query-section">
       <div class="container">
         
@@ -5611,7 +5668,6 @@
             Start your <span class="gradient">transformation</span>
           </h2>
           
-          <!-- Success Message Box (Hidden by default) -->
           <div id="formSuccessMessage" style="display: none; text-align: center; padding: 60px 20px;">
             <div style="font-size: 45px; margin-bottom: 20px; color: var(--mint);">✓</div>
             <h3 style="font-size: 26px; margin-bottom: 12px;">Thanks for your submission!</h3>
@@ -5619,7 +5675,6 @@
             <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Response</button>
           </div>
           
-          <!-- Form -->
           <form id="waSubmitForm" class="custom-form">
             <div class="form-grid">
               
@@ -5671,10 +5726,6 @@
 
 
 
-  <!-- =====================================================
-       FOOTER
-  ===================================================== -->
-
   <footer>
 
 
@@ -5719,25 +5770,27 @@
   </footer>
 
 
-  <!-- =====================================================
-       LOGIN MODAL
-  ===================================================== -->
   <div class="login-modal-overlay" id="loginModal">
     <div class="login-modal-box">
       
       <button class="close-modal" id="closeLoginModal">&times;</button>
       
-      <div class="section-kicker" style="margin-bottom: 8px;">
-        Secure Access
+      <div class="login-robot">
+        <div class="robot-speech-bubble" id="robotSpeech">
+          Beep boop. Who goes there?
+        </div>
+        <div class="robot-head-container">
+          <div class="robot-antenna"></div>
+          <div class="robot-head-box">
+            <div class="robot-face-eye" id="robotEyeL"></div>
+            <div class="robot-face-eye" id="robotEyeR"></div>
+            <div class="robot-face-mouth"></div>
+          </div>
+        </div>
       </div>
       
-      <h2 style="font-size: 32px; letter-spacing: -0.04em;">
-        Client <span class="gradient">Portal</span>
-      </h2>
-      
-      <form id="clientLoginForm" class="custom-form" style="margin-top: 30px;">
+      <form id="clientLoginForm" class="custom-form" style="margin-top: 20px;">
         
-        <!-- ERROR MESSAGE BOX (Hidden by default) -->
         <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
           Incorrect User ID or Password.
         </div>
@@ -5761,10 +5814,6 @@
     </div>
   </div>
 
-
-  <!-- =====================================================
-       ERROR SCREEN
-  ===================================================== -->
 
   <div
     class="wa-error-overlay"
@@ -5961,10 +6010,6 @@
   </div>
 
 
-
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
 
   <script>
 
@@ -6562,7 +6607,7 @@
 
     
     /* =====================================================
-       CLIENT DATABASE & DYNAMIC LOGIN ROUTING
+       CLIENT DATABASE & DYNAMIC LOGIN ROUTING (WITH ROBOT)
     ===================================================== */
     
     // YAHAN AAP APNI MULTIPLE COMPANIES ADD KAR SAKTE HAIN
@@ -6589,6 +6634,11 @@
     const openLoginBtns = document.querySelectorAll('.open-login-modal');
     const clientLoginForm = document.getElementById('clientLoginForm');
     const loginErrorMessage = document.getElementById('loginErrorMessage');
+    
+    // Robot Elements
+    const robotSpeech = document.getElementById('robotSpeech');
+    const loginUserId = document.getElementById('loginUserId');
+    const loginPassword = document.getElementById('loginPassword');
 
     // Open Modal
     openLoginBtns.forEach(btn => {
@@ -6597,6 +6647,7 @@
         loginModal.classList.add('active');
         document.body.style.overflow = "hidden"; // Prevent scrolling
         loginErrorMessage.style.display = 'none'; // Hide error on open
+        robotSpeech.innerText = "Beep boop. Who goes there?";
       });
     });
 
@@ -6612,6 +6663,23 @@
         loginModal.classList.remove('active');
         document.body.style.overflow = ""; 
       }
+    });
+
+    // Robot Interaction Logic
+    loginUserId.addEventListener('focus', () => {
+      robotSpeech.innerText = "A visitor. State your ID.";
+    });
+    
+    loginUserId.addEventListener('blur', () => {
+      if(!loginUserId.value) robotSpeech.innerText = "Beep boop. Who goes there?";
+    });
+
+    loginPassword.addEventListener('focus', () => {
+      robotSpeech.innerText = "Shh. Super secret password.";
+    });
+    
+    loginPassword.addEventListener('blur', () => {
+      if(!loginPassword.value && !loginUserId.value) robotSpeech.innerText = "Beep boop. Who goes there?";
     });
 
     // Handle Login Submit
@@ -6630,6 +6698,7 @@
 
       // Show authenticating state
       btn.innerHTML = "Authenticating... ⏳";
+      robotSpeech.innerText = "Scanning database...";
       btn.disabled = true;
 
       // Simulate a loading delay
@@ -6643,12 +6712,14 @@
         if (matchedClient) {
             
           // Success! Redirect to the specific client's dashboard
+          robotSpeech.innerText = "Access Granted. Welcome!";
           btn.innerHTML = "Success! Redirecting... ✅";
           window.location.href = matchedClient.redirectUrl; 
           
         } else {
             
           // Failed! Show error message
+          robotSpeech.innerText = "Intruder Alert! Try again.";
           loginErrorMessage.style.display = 'block';
           btn.innerHTML = originalText;
           btn.disabled = false;
