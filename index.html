@@ -4081,6 +4081,10 @@
           1fr;
       }
 
+      .custom-form .form-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
 
 
@@ -5564,37 +5568,37 @@
             Start your <span class="gradient">transformation</span>
           </h2>
           
-          <form action="#" method="POST" class="custom-form">
+          <form id="waSubmitForm" class="custom-form">
             <div class="form-grid">
               
               <div class="input-group">
                 <label>Your Name</label>
-                <input type="text" placeholder="John Doe" required>
+                <input type="text" id="waName" placeholder="John Doe" required>
               </div>
               
               <div class="input-group">
                 <label>Business Name</label>
-                <input type="text" placeholder="Acme Corp" required>
+                <input type="text" id="waBusiness" placeholder="Acme Corp" required>
               </div>
               
               <div class="input-group">
                 <label>Contact Number</label>
-                <input type="tel" placeholder="+91 XXXXX XXXXX" required>
+                <input type="tel" id="waPhone" placeholder="+91 XXXXX XXXXX" required>
               </div>
               
               <div class="input-group">
                 <label>Email Address</label>
-                <input type="email" placeholder="john@example.com" required>
+                <input type="email" id="waEmail" placeholder="john@example.com" required>
               </div>
               
               <div class="input-group" style="grid-column: 1 / -1;">
                 <label>City</label>
-                <input type="text" placeholder="e.g. Mumbai, Delhi" required>
+                <input type="text" id="waCity" placeholder="e.g. Mumbai, Delhi" required>
               </div>
               
               <div class="input-group" style="grid-column: 1 / -1;">
                 <label>What are your requirements?</label>
-                <textarea rows="4" placeholder="Briefly describe your current process and what you want to automate..." required></textarea>
+                <textarea rows="4" id="waReq" placeholder="Briefly describe your current process and what you want to automate..." required></textarea>
               </div>
               
             </div>
@@ -6388,80 +6392,29 @@
 
 
     /* =====================================================
-       SERVER / API ERROR HELPER
+       WHATSAPP FORM SUBMISSION LOGIC
     ===================================================== */
 
-    async function webAutomateFetch(
-      url,
-      options = {}
-    ) {
-
-      try {
-
-        const response =
-          await fetch(
-            url,
-            options
-          );
-
-
-        if (
-          !response.ok
-        ) {
-
-          showSystemError(
-
-            "Service unavailable",
-
-            "We couldn't retrieve the requested business data. Please try again.",
-
-            "WA-" +
-            response.status,
-
-            String(
-              response.status
-            ),
-
-            "Service Error"
-
-          );
-
-        }
-
-
-        return response;
-
-      }
-
-      catch(error) {
-
-        console.error(
-          "WebAutomate:",
-          error
-        );
-
-
-        showSystemError(
-
-          "Connection problem",
-
-          "The workspace could not connect to the automation service.",
-
-          "WA-NETWORK",
-
-          "503",
-
-          "Connection Error"
-
-        );
-
-
-        throw error;
-
-      }
-
+    const waSubmitForm = document.getElementById("waSubmitForm");
+    
+    if (waSubmitForm) {
+      waSubmitForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById("waName").value;
+        const business = document.getElementById("waBusiness").value;
+        const phone = document.getElementById("waPhone").value;
+        const email = document.getElementById("waEmail").value;
+        const city = document.getElementById("waCity").value;
+        const req = document.getElementById("waReq").value;
+        
+        const textMessage = `*New Lead from WebAutomate.cloud*\n\n*Name:* ${name}\n*Business:* ${business}\n*Contact:* ${phone}\n*Email:* ${email}\n*City:* ${city}\n*Requirements:* ${req}`;
+        
+        const waLink = `https://wa.me/917357231104?text=${encodeURIComponent(textMessage)}`;
+        
+        window.open(waLink, "_blank");
+      });
     }
-
 
   </script>
 
