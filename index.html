@@ -3143,6 +3143,67 @@
     }
 
     /* =========================================================
+       LOGIN MODAL STYLES
+    ========================================================= */
+    
+    .login-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(3, 6, 9, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .login-modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .login-modal-box {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(10, 15, 22, 0.95);
+      border: 1px solid rgba(87, 238, 244, 0.15);
+      border-radius: 24px;
+      padding: 40px 30px;
+      position: relative;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+    
+    .login-modal-overlay.active .login-modal-box {
+      transform: translateY(0);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    .close-modal:hover {
+      color: white;
+    }
+
+
+    /* =========================================================
        FOOTER
     ========================================================= */
 
@@ -4452,9 +4513,10 @@
           </a>
 
 
+          <!-- OPEN LOGIN MODAL -->
           <a
-            href="#workspace"
-            class="btn btn-secondary"
+            href="#"
+            class="btn btn-secondary open-login-modal"
           >
             Explore Client Workspace
             →
@@ -5509,9 +5571,10 @@
             </a>
 
 
+            <!-- OPEN LOGIN MODAL -->
             <a
-              href="/login"
-              class="btn btn-secondary"
+              href="#"
+              class="btn btn-secondary open-login-modal"
             >
 
               Client Login
@@ -5655,6 +5718,43 @@
 
   </footer>
 
+
+  <!-- =====================================================
+       LOGIN MODAL
+  ===================================================== -->
+  <div class="login-modal-overlay" id="loginModal">
+    <div class="login-modal-box">
+      
+      <button class="close-modal" id="closeLoginModal">&times;</button>
+      
+      <div class="section-kicker" style="margin-bottom: 8px;">
+        Secure Access
+      </div>
+      
+      <h2 style="font-size: 32px; letter-spacing: -0.04em;">
+        Client <span class="gradient">Portal</span>
+      </h2>
+      
+      <form id="clientLoginForm" class="custom-form" style="margin-top: 30px;">
+        
+        <div class="input-group" style="text-align: left;">
+          <label>User ID</label>
+          <input type="text" id="loginUserId" placeholder="Enter your User ID" required>
+        </div>
+        
+        <div class="input-group" style="margin-top: 20px; text-align: left;">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px;">
+          Secure Login ↗
+        </button>
+        
+      </form>
+      
+    </div>
+  </div>
 
 
   <!-- =====================================================
@@ -6454,6 +6554,57 @@
         });
       });
     }
+
+    
+    /* =====================================================
+       LOGIN MODAL LOGIC
+    ===================================================== */
+    
+    const loginModal = document.getElementById('loginModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+    const openLoginBtns = document.querySelectorAll('.open-login-modal');
+    const clientLoginForm = document.getElementById('clientLoginForm');
+
+    // Open Modal
+    openLoginBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginModal.classList.add('active');
+        document.body.style.overflow = "hidden"; // Prevent scrolling
+      });
+    });
+
+    // Close Modal via 'X' Button
+    closeLoginModal.addEventListener('click', () => {
+      loginModal.classList.remove('active');
+      document.body.style.overflow = ""; // Restore scrolling
+    });
+
+    // Close Modal if clicked outside the box
+    loginModal.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.classList.remove('active');
+        document.body.style.overflow = ""; 
+      }
+    });
+
+    // Handle Login Submit
+    clientLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const btn = clientLoginForm.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      
+      // Show authenticating state
+      btn.innerHTML = "Authenticating... ⏳";
+      btn.disabled = true;
+
+      // Simulate a small loading delay before redirecting
+      setTimeout(() => {
+        // Redirecting to Sivmor specific route
+        window.location.href = "/sivmor"; 
+      }, 1500);
+    });
 
   </script>
 
