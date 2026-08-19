@@ -444,10 +444,7 @@
     }
 
 
-    /* IMPORTANT:
-       No WA / WB BOX.
-       Brand is just WEB AUTOMATE.
-    */
+    /* IMPORTANT: Animated Logo Text */
 
     .logo {
 
@@ -457,9 +454,6 @@
       align-items:
         center;
 
-      color:
-        white;
-
       font-size:
         13px;
 
@@ -468,6 +462,14 @@
 
       letter-spacing:
         -.035em;
+        
+      /* Gradient Animation added */
+      background: linear-gradient(100deg, #57eef4, #9a78ff, #6dffbd, #57eef4);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientFlow 5s linear infinite;
 
     }
 
@@ -1039,7 +1041,7 @@
 
       border:
         1px solid
-        var(--line-soft); /* Replaced undefined var */
+        var(--line-soft);
 
       background:
         rgba(255,255,255,.025);
@@ -1519,7 +1521,7 @@
 
     
     /* =========================================================
-       ABSTRACT DASHBOARD MODULES (NEW)
+       ABSTRACT DASHBOARD MODULES
     ========================================================= */
 
     .abstract-dash {
@@ -1701,7 +1703,7 @@
 
       border:
         1px solid
-        var(--line-soft); /* Replaced undefined var */
+        var(--line-soft);
 
       border-radius:
         22px;
@@ -2426,7 +2428,7 @@
 
       border:
         1px solid
-        var(--line-soft); /* Replaced undefined var */
+        var(--line-soft);
 
       border-radius:
         28px;
@@ -3103,7 +3105,64 @@
         1.75;
 
     }
+    
+    /* =========================================================
+       CUSTOM QUERY FORM
+    ========================================================= */
 
+    .query-section {
+      padding-bottom: 100px;
+    }
+    
+    .custom-form .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 600px) {
+      .custom-form .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+    
+    .input-group input, .input-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: white;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+    
+    .input-group input:focus, .input-group textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 15px rgba(87,238,244,0.1);
+    }
+    
+    .input-group textarea {
+      resize: vertical;
+    }
 
     /* =========================================================
        FOOTER
@@ -4202,8 +4261,6 @@
 
     <nav>
 
-      <!-- NO WA / WB BOX HERE -->
-
       <a
         href="#top"
         class="logo"
@@ -4233,8 +4290,10 @@
       </div>
 
 
+      <!-- REDIRECTING TO WHATSAPP -->
       <a
-        href="mailto:hello@webautomate.cloud?subject=WebAutomate%20Strategy%20Call"
+        href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
+        target="_blank"
         class="nav-cta"
       >
         Book a Strategy Call
@@ -4323,8 +4382,10 @@
     </a>
 
 
+    <!-- REDIRECTING TO WHATSAPP -->
     <a
-      href="mailto:hello@webautomate.cloud?subject=WebAutomate%20Strategy%20Call"
+      href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call."
+      target="_blank"
       style="
         padding:12px 10px;
         color:#8ff8ef;
@@ -4398,8 +4459,10 @@
         <div class="hero-actions">
 
 
+          <!-- REDIRECTING TO WHATSAPP -->
           <a
-            href="mailto:hello@webautomate.cloud?subject=WebAutomate%20Automation%20Strategy"
+            href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20start%20a%20conversation."
+            target="_blank"
             class="btn btn-primary"
           >
             Start a Conversation
@@ -5255,7 +5318,8 @@
             >
 
               <a
-                href="mailto:hello@webautomate.cloud?subject=Client%20Workspace%20Demo"
+                href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20would%20like%20a%20Workspace%20Demo."
+                target="_blank"
                 class="btn btn-secondary"
               >
 
@@ -5409,6 +5473,7 @@
     <section
       id="contact"
       class="cta"
+      style="padding-bottom: 20px !important;"
     >
 
       <div class="container">
@@ -5446,8 +5511,10 @@
           <div class="hero-actions">
 
 
+            <!-- REDIRECTING TO WHATSAPP -->
             <a
-              href="mailto:hello@webautomate.cloud?subject=WebAutomate%20Automation%20Strategy%20Call"
+              href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20automate%20my%20business."
+              target="_blank"
               class="btn btn-primary"
             >
 
@@ -5478,6 +5545,69 @@
 
       </div>
 
+    </section>
+    
+    
+    <!-- ===================================================
+         QUERY FORM
+    =================================================== -->
+    <section id="query-form" class="query-section">
+      <div class="container">
+        
+        <div class="cta-box reveal" style="text-align: left; max-width: 800px; margin: 0 auto; padding: 50px 40px;">
+          
+          <div class="section-kicker" style="text-align: center; margin-bottom: 10px;">
+            Tell Us About Your Business
+          </div>
+          
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: clamp(28px, 4vw, 42px);">
+            Start your <span class="gradient">transformation</span>
+          </h2>
+          
+          <form action="#" method="POST" class="custom-form">
+            <div class="form-grid">
+              
+              <div class="input-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="John Doe" required>
+              </div>
+              
+              <div class="input-group">
+                <label>Business Name</label>
+                <input type="text" placeholder="Acme Corp" required>
+              </div>
+              
+              <div class="input-group">
+                <label>Contact Number</label>
+                <input type="tel" placeholder="+91 XXXXX XXXXX" required>
+              </div>
+              
+              <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="john@example.com" required>
+              </div>
+              
+              <div class="input-group" style="grid-column: 1 / -1;">
+                <label>City</label>
+                <input type="text" placeholder="e.g. Mumbai, Delhi" required>
+              </div>
+              
+              <div class="input-group" style="grid-column: 1 / -1;">
+                <label>What are your requirements?</label>
+                <textarea rows="4" placeholder="Briefly describe your current process and what you want to automate..." required></textarea>
+              </div>
+              
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 25px;">
+              Submit Details ↗
+            </button>
+            
+          </form>
+          
+        </div>
+        
+      </div>
     </section>
 
 
