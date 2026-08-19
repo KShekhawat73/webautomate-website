@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 🔥 Google Site Verification Meta Tag 🔥 -->
+    <meta name="google-site-verification" content="fysdPZJ3TtNgxpwzUP60-FRA7esiq3cDTXtVKStGZwA" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiVMOR Workspace | Management Portal</title>
+    
+    <!-- 🔥 PWA & APK Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* 🌌 Premium Dark Gradient Background */
+        body { 
+            background: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 100%); 
+            color: #f8fafc; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 40px 20px; 
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 🕸️ Interactive Canvas Backgrounds */
+        #bg-canvas, #dashboard-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        #bg-canvas { z-index: 5; }
+        #dashboard-canvas { z-index: 2; display: none; }
+
+        /* Auth Screen Styling */
+        #auth-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: radial-gradient(circle at center, #1e293b 0%, #0b1329 100%); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        /* 🔮 Floating Glassmorphism Login Box */
+        .auth-box { 
+            background: rgba(30, 41, 59, 0.78); 
+            backdrop-filter: blur(20px); 
+            padding: 40px 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15); 
+            text-align: center; 
+            max-width: 430px; 
+            width: 100%; 
+            border: 1px solid rgba(255, 255, 255, 0.14); 
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+            animation: floatingBox 6s ease-in-out infinite;
+        }
+
+        @keyframes floatingBox {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .auth-logo { 
+            width: 110px; 
+            height: 110px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            margin-bottom: 18px; 
+            border: 3px solid #38bdf8; 
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4); 
+            background-color: #f8fafc;
+            transition: transform 0.3s ease;
+        }
+        .auth-logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        /* ✨ Name & Subtitle */
+        .auth-title { 
+            margin-bottom: 4px; 
+            color: #f8fafc; 
+            font-weight: 800; 
+            font-size: 1.85rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .auth-subtitle {
+            color: #94a3b8;
+            font-size: 0.88rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* 🇮🇳 Independence Day Special CSS (Login) */
+        .auth-box.independence-glow {
+            animation: tricolorPulse 3s infinite alternate !important;
+            border-width: 2px;
+        }
+        @keyframes tricolorPulse {
+            0% { box-shadow: 0 0 35px rgba(255, 153, 51, 0.5); border-color: #FF9933; }
+            50% { box-shadow: 0 0 35px rgba(255, 255, 255, 0.4); border-color: #FFFFFF; }
+            100% { box-shadow: 0 0 35px rgba(19, 136, 8, 0.5); border-color: #138808; }
+        }
+        
+        .ind-greeting-container {
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .ind-greeting-text {
+            font-size: 1.05rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            animation: textShine 2s linear infinite;
+        }
+        .ind-flag {
+            height: 20px;
+            margin-left: 10px;
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            transform-origin: left center;
+            animation: miniFlap 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textShine {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(15deg) brightness(1.2); }
+            100% { filter: hue-rotate(0deg) brightness(1); }
+        }
+        @keyframes miniFlap {
+            0% { transform: perspective(200px) rotateY(-20deg) skewY(2deg); }
+            100% { transform: perspective(200px) rotateY(20deg) skewY(-2deg); }
+        }
+
+        /* ✈️ Independence Day Jets Animation */
+        #independence-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; display: none; overflow: hidden;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .jet-container {
+            position: absolute; left: -20%;
+            display: flex; align-items: center;
+            animation: flyAcross 5.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+        .jet-container svg { 
+            width: 60px; height: auto; 
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8)); z-index: 4;
+        }
+        .smoke-trail {
+            height: 18px; width: 2500px; 
+            position: absolute; right: 85%; top: 50%; transform: translateY(-50%);
+            filter: blur(10px); z-index: 2; opacity: 0.85;
+            background: linear-gradient(to right, transparent, var(--smoke-color));
+        }
+        .jet-top { top: 25%; animation-delay: 0.1s; --smoke-color: #FF9933; }
+        .jet-mid { top: 45%; animation-delay: 0.4s; --smoke-color: #FFFFFF; }
+        .jet-bot { top: 65%; animation-delay: 0.7s; --smoke-color: #138808; }
+
+        @keyframes flyAcross {
+            0% { left: -50%; transform: scale(0.85); }
+            50% { transform: scale(1.15); }
+            100% { left: 130%; transform: scale(0.85); }
+        }
+
+        /* 🔥 Advanced 3D Liquid Waving Flag Logic 🔥 */
+        .flag-tether {
+            position: absolute;
+            right: 140px; /* Space behind the middle jet */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            perspective: 1200px; /* 3D depth */
+        }
+        .flag-fabric {
+            position: relative;
+            width: 550px;
+            max-width: 80vw;
+            border-radius: 6px;
+            box-shadow: -20px 30px 50px rgba(0,0,0,0.6);
+            /* Left side flaps, right side is attached to jet */
+            transform-origin: right center; 
+            animation: flagFlap 1.4s ease-in-out infinite alternate;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .flag-fabric img {
+            width: 108%; /* Slightly scaled to hide wavy distortion edges */
+            height: 108%;
+            margin-left: -4%;
+            margin-top: -4%;
+            display: block;
+            filter: url(#flag-ripple); /* 🔥 Applies the real fluid displacement effect 🔥 */
+        }
+        /* Wind shadows & light highlights rolling over fabric */
+        .wind-ripples {
+            position: absolute;
+            top: 0; left: 0; width: 200%; height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(0,0,0,0.15) 30%, 
+                rgba(255,255,255,0.25) 70%, 
+                rgba(255,255,255,0) 100%
+            );
+            background-size: 50% 100%;
+            animation: windMove 1s linear infinite;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* 3D Structural Flapping Keyframes */
+        @keyframes flagFlap {
+            0% { transform: rotateY(-18deg) rotateX(4deg) skewY(2deg); }
+            100% { transform: rotateY(18deg) rotateX(-4deg) skewY(-2deg); }
+        }
+        /* Continuous wind highlights moving */
+        @keyframes windMove {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Auth Form Styles */
+        .auth-box input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            margin: 10px 0; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 12px; 
+            font-size: 0.95rem; 
+            outline: none; 
+            transition: all 0.25s; 
+            background: rgba(15, 23, 42, 0.65); 
+            color: #f8fafc; 
+        }
+        .auth-box input:focus { 
+            border-color: #38bdf8; 
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2); 
+        }
+        
+        .auth-box button { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(135deg, #0284c7, #2563eb); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            margin-top: 18px; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4); 
+        }
+        .auth-box button:hover { 
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.6); 
+            transform: translateY(-2px); 
+            background: linear-gradient(135deg, #0369a1, #1d4ed8);
+        }
+        
+        .register-container { margin-top: 25px; font-size: 0.9rem; color: #94a3b8; }
+        .register-link { color: #38bdf8; font-weight: 600; text-decoration: none; cursor: pointer; }
+        #msg { margin-top: 15px; font-size: 0.9rem; color: #f87171; font-weight: 600; line-height: 1.4; white-space: pre-line; }
+
+        /* Emoji animation */
+        .emoji-animation-box { display: none; justify-content: center; gap: 15px; margin-top: 15px; font-size: 28px; }
+        .emoji-item { animation: emojiBounce 1.5s ease-in-out infinite; }
+        @keyframes emojiBounce { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(-8px); opacity: 1; } }
+
+        /* 👑 Dashboard View Styling */
+        #dashboard-content { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 1100px; z-index: 10; }
+        
+        .header-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        
+        p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem; text-align: center; }
+        
+        .logout-btn { 
+            background: rgba(239, 68, 68, 0.15); 
+            color: #f87171; 
+            border: 1px solid rgba(239, 68, 68, 0.3); 
+            padding: 10px 24px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin-bottom: 40px; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            transition: all 0.3s ease; 
+            backdrop-filter: blur(8px);
+        }
+        .logout-btn:hover { 
+            background: #ef4444; 
+            color: #ffffff; 
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); 
+            transform: translateY(-2px); 
+        }
+
+        /* 💎 3D Cards Grid Container */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 28px; 
+            width: 100%; 
+            perspective: 1000px;
+        }
+        
+        /* 🔥 Ultra-Modern 3D Card Design */
+        .card { 
+            display: none; 
+            position: relative;
+            background: rgba(30, 41, 59, 0.65); 
+            border-radius: 20px; 
+            padding: 32px 26px; 
+            text-align: left; 
+            text-decoration: none; 
+            color: inherit; 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(16px);
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease; 
+            cursor: pointer; 
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--accent-color, #38bdf8);
+            opacity: 0.8;
+            transition: opacity 0.3s, height 0.3s;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            width: 150px; height: 150px;
+            background: var(--accent-color, #38bdf8);
+            filter: blur(80px);
+            top: -50px; right: -50px;
+            opacity: 0.15;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover { 
+            border-color: var(--accent-color, #38bdf8);
+            box-shadow: 0 20px 40px -15px var(--accent-glow, rgba(56, 189, 248, 0.25));
+        }
+
+        .card:hover::before { height: 5px; opacity: 1; }
+        .card:hover::after { opacity: 0.35; }
+
+        .card-header-flex { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+
+        .badge { 
+            display: inline-block; 
+            background: rgba(255, 255, 255, 0.08); 
+            color: var(--accent-color, #38bdf8); 
+            padding: 6px 14px; 
+            border-radius: 50px; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card-icon {
+            font-size: 1.6rem;
+            width: 46px; height: 46px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card h2 { 
+            color: #f8fafc; 
+            margin-bottom: 12px; 
+            font-size: 1.35rem; 
+            font-weight: 700; 
+            transition: color 0.3s;
+        }
+        
+        .card:hover h2 { color: var(--accent-color, #38bdf8); }
+        .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+
+        /* 🎨 Custom Accent Themes */
+        #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
+        #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
+        #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
+        #app-stock-value { --accent-color: #22d3ee; --accent-glow: rgba(34, 211, 238, 0.3); }
+        #app-sales { --accent-color: #a855f7; --accent-glow: rgba(168, 85, 247, 0.35); }
+        #app-target-tracker { --accent-color: #f43f5e; --accent-glow: rgba(244, 63, 94, 0.35); }
+        #app-sbi-cashback { --accent-color: #f97316; --accent-glow: rgba(249, 115, 22, 0.35); }
+        #app-monthly-tracker { --accent-color: #6366f1; --accent-glow: rgba(99, 102, 241, 0.35); }
+
+        /* 📝 Attendance Section Embedded Styling */
+        #attendance-view { display: none; width: 100%; max-width: 450px; margin: 0 auto; background: white; color: #333; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 20; position: relative; }
+        .back-home-btn { display: inline-block; width: 100%; max-width: 450px; margin: 0 auto 15px auto; padding: 10px; background: #6c757d; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .back-home-btn:hover { background: #5a6268; }
+        #attendance-view h2 { text-align: center; color: #007bff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 700; }
+        
+        #attendance-view label { font-weight: 600; display: block; margin-top: 18px; font-size: 0.9rem; color: #495057; }
+        #attendance-view input, #attendance-view select, #attendance-view textarea { width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333; }
+        #attendance-view button { width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #attendance-view button:disabled { background-color: #e9ecef !important; color: #dc3545 !important; cursor: not-allowed; border: 1px solid #dc3545; }
+        #locationBtn { background: linear-gradient(45deg, #ffc107, #ff9800); }
+        #cameraBtn { background: linear-gradient(45deg, #17a2b8, #117a8b); margin-top: 15px; }
+        #captureBtn { background: #007bff; padding: 10px; margin-top: 10px; }
+        #retakeBtn { background: #6c757d; padding: 10px; margin-top: 10px; }
+        #submitBtn { background: linear-gradient(45deg, #28a745, #218838); margin-top: 25px; }
+        .status { text-align: center; font-weight: bold; margin-top: 15px; font-size: 0.95rem; color: #dc3545; padding: 10px; border-radius: 6px; background: rgba(220, 53, 69, 0.1); }
+        .camera-box { display: none; margin-top: 15px; text-align: center; border: 2px dashed #dee2e6; padding: 10px; border-radius: 8px; }
+        #videoElement { width: 100%; border-radius: 8px; background: #000; }
+        #photoResult { display: none; margin-top: 15px; text-align: center; }
+        #capturedImage { width: 100%; border-radius: 8px; border: 2px solid #28a745; }
+        .section-title { font-size: 1.1rem; color: #343a40; margin-top: 25px; margin-bottom: -5px; font-weight: 700; border-bottom: 2px solid #f1f3f5; padding-bottom: 5px; }
+        #successOverlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #ffffff; z-index: 9999; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 20px; }
+        .success-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); max-width: 400px; color: #333; }
+        .success-icon-circle { width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #28a745; font-size: 3rem; }
+        .success-title { color: #28a745; font-size: 1.8rem; font-weight: bold; margin-bottom: 12px; }
+        .success-card p { color: #6c757d; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <!-- 🌊 SVG Filter for Realistic Waving Flag Ripple (Magic Happens Here) 🌊 -->
+    <svg width="0" height="0" style="position: absolute; z-index:-1; pointer-events:none;">
+        <filter id="flag-ripple" x="-20%" y="-20%" width="140%" height="140%">
+            <!-- Generates fractal noise that pulsates slightly -->
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="3" result="warp" seed="2">
+                <animate attributeName="baseFrequency" values="0.015 0.03; 0.025 0.045; 0.015 0.03" dur="1.5s" repeatCount="indefinite" />
+            </feTurbulence>
+            <!-- Distorts the flag image using the noise above -->
+            <feDisplacementMap in="SourceGraphic" in2="warp" scale="25" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <!-- ✈️ Independence Day Jet & Realistic Waving Flag Overlay -->
+    <div id="independence-overlay">
+        <!-- Top Jet (Saffron) -->
+        <div class="jet-container jet-top">
+            <div class="smoke-trail"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
+        </div>
+        <!-- Middle Jet (White) & Giant 3D Waving Flag -->
+        <div class="jet-container jet-mid">
+            <div class="smoke-trail"></div>
+            <!-- 🇮🇳 The Waving Fabric Flag (Uses SVG Filter) -->
+            <div class="flag-tether">
+                <div class="flag-fabric">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
+                    <div class="wind-ripples"></div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
+        </div>
+        <!-- Bottom Jet (Green) -->
+        <div class="jet-container jet-bot">
+            <div class="smoke-trail"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
+        </div>
+    </div>
+
+    <!-- 🌌 Interactive Canvas 1 -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- 🌌 Interactive Canvas 2 -->
+    <canvas id="dashboard-canvas"></canvas>
+
+    <!-- 🔐 Login Screen -->
+    <div id="auth-screen">
+        <div class="auth-box">
+            <img src="https://lh3.googleusercontent.com/d/1r0AARMeDPeGoN-Nor8Z7uOT_2jxgMKbu" alt="SiVMOR Logo" class="auth-logo" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=SiVMOR&background=0284c7&color=fff&size=120';">
+            
+            <h2 class="auth-title">SiVMOR Workspace</h2>
+            <p class="auth-subtitle">Centralized Operations & Analytics Portal</p>
+
+            <!-- 🇮🇳 Dynamic Greeting Text With Waving Flag Image -->
+            <div class="ind-greeting-container" id="ind-greeting">
+                <span class="ind-greeting-text">Happy Independence Day</span>
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" class="ind-flag" alt="Indian Flag">
+            </div>
+
+            <!-- 🔥 Proper Form for Browser Autofill & Password Manager 🔥 -->
+            <form onsubmit="event.preventDefault(); handleLogin();" style="width: 100%; margin: 0; padding: 0;">
+                <input type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
+                <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
+                <button type="submit">Login</button>
+            </form>
+            
+            <div class="register-container">
+                Don't have an account? <span onclick="showRegisterNotice()" class="register-link">Register Here</span>
+            </div>
+
+            <p id="msg"></p>
+
+            <div class="emoji-animation-box" id="emojiBox">
+                <span class="emoji-item">🙃</span>
+                <span class="emoji-item">😒</span>
+                <span class="emoji-item">😢</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 👑 Dashboard Screen -->
+    <div id="dashboard-content">
+        <h1 class="header-title">SiVMOR Workspace</h1>
+        <p class="subtitle">Select an application below to access your live portal</p>
+        <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
+
+        <div class="grid">
+            <!-- 1. Manager Attendance -->
+            <a href="javascript:void(0);" onclick="openAttendanceApp()" class="card" id="app-attendance">
+                <div class="card-header-flex">
+                    <span class="badge">Management</span>
+                    <div class="card-icon">👥</div>
+                </div>
+                <h2>Manager Attendance</h2>
+                <p>Track, view, and manage daily staff attendance logs and clock-in metrics seamlessly.</p>
+            </a>
+
+            <!-- 2. Stores Outstanding -->
+            <a href="https://kshekhawat73.github.io/store-outstanding-dashboard/" target="_blank" class="card" id="app-outstanding">
+                <div class="card-header-flex">
+                    <span class="badge">Finance</span>
+                    <div class="card-icon">💳</div>
+                </div>
+                <h2>Stores Outstanding</h2>
+                <p>Monitor pending balances, store invoices, and credit details in real-time.</p>
+            </a>
+
+            <!-- 3. Stock Availability Checker -->
+            <a href="https://kshekhawat73.github.io/stock/" target="_blank" class="card" id="app-stock">
+                <div class="card-header-flex">
+                    <span class="badge">Operations</span>
+                    <div class="card-icon">📦</div>
+                </div>
+                <h2>Stock Availability Checker</h2>
+                <p>Track, filter, and view regional store inventory counts directly from Sheet1.</p>
+            </a>
+
+            <!-- 4. Stock Value Store Wise -->
+            <a href="https://kshekhawat73.github.io/stock-value/?sheet=Sheet2" target="_blank" class="card" id="app-stock-value">
+                <div class="card-header-flex">
+                    <span class="badge">Value Tracking</span>
+                    <div class="card-icon">📊</div>
+                </div>
+                <h2>Stock Value Store Wise</h2>
+                <p>Monitor corporate value tracking, regional cash flows, and store details from Sheet2 & Sheet3.</p>
+            </a>
+
+            <!-- 5. Sivmor Sales Dashboard -->
+            <a href="https://kshekhawat73.github.io/sales-dashboard/" target="_blank" class="card" id="app-sales">
+                <div class="card-header-flex">
+                    <span class="badge">Sales Analytics</span>
+                    <div class="card-icon">📈</div>
+                </div>
+                <h2>Sivmor Sales Dashboard</h2>
+                <p>Track YoY growth, monthly performance trends, store-wise revenue, and category-wise sales in real-time.</p>
+            </a>
+
+            <!-- 6. Customer Target Tracker -->
+            <a href="#" target="_blank" class="card" id="app-target-tracker">
+                <div class="card-header-flex">
+                    <span class="badge">Marketing & Targets</span>
+                    <div class="card-icon">🎯</div>
+                </div>
+                <h2>Customer Target Tracker</h2>
+                <p>Submit live customer proof images for Instagram follows, YouTube subscribers, and Google reviews.</p>
+            </a>
+
+            <!-- 7. SBI Card Cashback -->
+            <a href="https://kshekhawat73.github.io/Sbi_Card_Cashback/" target="_blank" class="card" id="app-sbi-cashback">
+                <div class="card-header-flex">
+                    <span class="badge">Offers & Cashback</span>
+                    <div class="card-icon">🎁</div>
+                </div>
+                <h2>SBI Card Cashback</h2>
+                <p>Calculate and track SBI credit card cashback offers and benefits easily.</p>
+            </a>
+
+            <!-- 8. Monthly Target Tracker -->
+            <a href="https://kshekhawat73.github.io/monthly-target-tracker/" target="_blank" class="card" id="app-monthly-tracker">
+                <div class="card-header-flex">
+                    <span class="badge">Performance</span>
+                    <div class="card-icon">📆</div>
+                </div>
+                <h2>Monthly Target Tracker</h2>
+                <p>Track, analyze, and manage monthly targets and brand-wise achievements.</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- 📝 Embedded Attendance View -->
+    <div id="attendance-view">
+        <a href="javascript:void(0);" onclick="closeAttendanceApp()" class="back-home-btn">🏠 Back to Dashboard</a>
+        <h2>Store Check-In</h2>
+        
+        <button type="button" id="locationBtn">📍 Step 1: Verify Live GPS</button>
+        <div id="status" class="status">⚠️ Awaiting Location.</div>
+
+        <button type="button" id="cameraBtn">📷 Step 2: Take Selfie</button>
+        
+        <div id="cameraBox" class="camera-box">
+            <video id="videoElement" autoplay playsinline></video>
+            <button type="button" id="captureBtn">📸 Click Photo</button>
+        </div>
+
+        <div id="photoResult">
+            <img id="capturedImage" src="" alt="Captured Selfie" />
+            <button type="button" id="retakeBtn">🔄 Retake Photo</button>
+            <input type="hidden" id="photoData" value="">
+        </div>
+
+        <div class="section-title">📝 Step 3: Details</div>
+        <form id="attendanceForm">
+            <label id="managerLabel" style="display:none;">Manager Name</label>
+            <select id="managerName" required style="display:none;">
+                <option value="">-- Loading Managers... --</option>
+            </select>
+
+            <label id="storeLabel" style="display:none;">Store Name</label>
+            <select id="storeName" required disabled style="display:none;">
+                <option value="">-- Select Manager First --</option>
+            </select>
+
+            <label>Remarks</label>
+            <textarea id="remarks" rows="2" placeholder="Any update or remarks (Optional)"></textarea>
+
+            <input type="hidden" id="latitude" value="">
+            <input type="hidden" id="longitude" value="">
+
+            <button type="submit" id="submitBtn" disabled>Checking details...</button>
+        </form>
+    </div>
+
+    <div id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon-circle">✓</div>
+            <div class="success-title">Success!</div>
+            <p>Your attendance, selfie, and GPS have been marked.</p>
+        </div>
+    </div>
+
+    <script>
+        const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
+        const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
+
+        let loggedInUserGlobal = '';
+        let userAccessGlobal = '';
+        let assignedAttendanceNameGlobal = '';
+
+        // 🔥 DATE TIMER LOGIC FOR 15 AUG ANIMATION 🔥
+        function checkIndependenceDay() {
+            const d = new Date();
+            if (d.getMonth() === 7 && (d.getDate() >= 13 && d.getDate() <= 15)) {
+                const authBox = document.querySelector('.auth-box');
+                if(authBox) authBox.classList.add('independence-glow');
+                const indText = document.getElementById('ind-greeting');
+                if(indText) indText.style.display = 'flex';
+            }
+        }
+        
+        // Setup login screen animation on load
+        document.addEventListener("DOMContentLoaded", checkIndependenceDay);
+
+        // Jets Flying Animation Trigger
+        function triggerIndependenceAnimation() {
+            const d = new Date();
+            if (d.getMonth() === 7 && (d.getDate() >= 13 && d.getDate() <= 15)) {
+                const overlay = document.getElementById('independence-overlay');
+                if(overlay) {
+                    overlay.style.display = 'block';
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+                        setTimeout(() => overlay.style.display = 'none', 1500);
+                    }, 5500); 
+                }
+            }
+        }
+
+        function initLoginParticles() {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const shockwaves = [];
+            const particleCount = 65;
+
+            const mouse = { x: null, y: null };
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            window.addEventListener('click', (e) => {
+                shockwaves.push({ x: e.clientX, y: e.clientY, radius: 5, maxRadius: 180, alpha: 1 });
+
+                particles.forEach(p => {
+                    const dx = p.x - e.clientX;
+                    const dy = p.y - e.clientY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 180) {
+                        p.blink = 1.0;
+                        p.speedX += (dx / dist) * 2.5;
+                        p.speedY += (dy / dist) * 2.5;
+                    }
+                });
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 1;
+                    this.baseSpeedX = (Math.random() - 0.5) * 0.8;
+                    this.baseSpeedY = (Math.random() - 0.5) * 0.8;
+                    this.speedX = this.baseSpeedX;
+                    this.speedY = this.baseSpeedY;
+                    this.blink = 0;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    this.speedX += (this.baseSpeedX - this.speedX) * 0.05;
+                    this.speedY += (this.baseSpeedY - this.speedY) * 0.05;
+
+                    if (this.blink > 0) this.blink -= 0.03;
+
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size + (this.blink * 3), 0, Math.PI * 2);
+                    if (this.blink > 0) {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${0.7 + this.blink * 0.3})`;
+                        ctx.shadowBlur = 15;
+                        ctx.shadowColor = '#38bdf8';
+                    } else {
+                        ctx.fillStyle = 'rgba(56, 189, 248, 0.7)';
+                        ctx.shadowBlur = 0;
+                    }
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                
+                for (let i = shockwaves.length - 1; i >= 0; i--) {
+                    const sw = shockwaves[i];
+                    ctx.beginPath();
+                    ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha})`;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    sw.radius += 5;
+                    sw.alpha -= 0.025;
+                    if (sw.alpha <= 0) shockwaves.splice(i, 1);
+                }
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.25 - dist / 400})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    if (mouse.x && mouse.y) {
+                        const dx = mouse.x - particles[i].x;
+                        const dy = mouse.y - particles[i].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 140) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.8 - distance / 140})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function initDashboardParticles() {
+            const canvas = document.getElementById('dashboard-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.style.display = 'block';
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const orbs = [];
+            const pulses = [];
+            const colors = ['#38bdf8', '#34d399', '#fbbf24', '#22d3ee', '#a855f7', '#f43f5e', '#f97316', '#6366f1'];
+
+            window.addEventListener('click', (e) => {
+                if (document.getElementById('dashboard-content').style.display === 'none') return;
+                pulses.push({ x: e.clientX, y: e.clientY, radius: 10, maxRadius: 220, alpha: 0.6 });
+            });
+
+            class Orb {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 4 + 2;
+                    this.speedY = -(Math.random() * 0.6 + 0.2);
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.alpha = Math.random() * 0.6 + 0.2;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    if (this.y < -20) {
+                        this.y = height + 20;
+                        this.x = Math.random() * width;
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = this.color;
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+
+            for (let i = 0; i < 45; i++) {
+                orbs.push(new Orb());
+            }
+
+            function animateDashboard() {
+                ctx.clearRect(0, 0, width, height);
+                
+                for (let i = pulses.length - 1; i >= 0; i--) {
+                    const p = pulses[i];
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${p.alpha})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    p.radius += 4;
+                    p.alpha -= 0.015;
+                    if (p.alpha <= 0) pulses.splice(i, 1);
+                }
+
+                orbs.forEach(orb => {
+                    orb.update();
+                    orb.draw();
+                });
+
+                requestAnimationFrame(animateDashboard);
+            }
+            animateDashboard();
+        }
+
+        initLoginParticles();
+
+        function enable3DCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
+                });
+            });
+        }
+
+        function showRegisterNotice() {
+            const msg = document.getElementById('msg');
+            const emojiBox = document.getElementById('emojiBox');
+            emojiBox.style.display = "none"; 
+            msg.style.color = "#fbbf24";
+            msg.innerText = "ℹ️ Registration Notice:\nPlease contact the admin directly to create your username and password.";
+        }
+
+        function parseCSV(csvText) {
+            try {
+                const lines = csvText.split(/\r?\n/);
+                if(lines.length < 2) return {};
+                
+                const headers = lines[0].split(",").map(h => h.replace(/["\r\n]+/g, '').trim().toLowerCase());
+                const users = {};
+
+                const passIdx = headers.indexOf("password");
+                const attIdx = headers.indexOf("attendance");
+                const outIdx = headers.indexOf("outstanding");
+                
+                let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store"));
+                if (storeIdx === -1) storeIdx = 4;
+
+                let stockIdx = headers.findIndex(h => h === "stock");
+                if (stockIdx === -1) stockIdx = 5;
+                let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val"));
+                if (valIdx === -1) valIdx = 6;
+                let salesIdx = headers.findIndex(h => h.includes("sale"));
+                if (salesIdx === -1) salesIdx = 7;
+                
+                let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow") || h.includes("ig") || h.includes("yt") || h.includes("google") || h.includes("marketing"));
+                if (instaIdx === -1) instaIdx = 8; 
+
+                let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback"));
+                if (sbiIdx === -1) sbiIdx = 9; 
+
+                let trackerIdx = headers.findIndex(h => h.includes("monthly") || h.includes("monthly-target"));
+                if (trackerIdx === -1) trackerIdx = 10; 
+
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    
+                    const currentline = lines[i].split(",").map(item => item.replace(/["\r\n]+/g, '').trim());
+                    if (!currentline[0]) continue;
+                    
+                    const username = currentline[0].toLowerCase();
+                    
+                    users[username] = {
+                        password: currentline[passIdx !== -1 ? passIdx : 1] || "",
+                        attendance: currentline[attIdx !== -1 ? attIdx : 2] ? currentline[attIdx !== -1 ? attIdx : 2].trim() : "",
+                        outstanding: (currentline[outIdx !== -1 ? outIdx : 3] || "no").toLowerCase(),
+                        stock: (currentline[stockIdx !== -1 ? stockIdx : 5] || "no").toLowerCase(),
+                        stock_value: (currentline[valIdx !== -1 ? valIdx : 6] || "no").toLowerCase(),
+                        allowed_stores: (currentline[storeIdx !== -1 ? storeIdx : 4] || "").toLowerCase(), 
+                        sales: (currentline[salesIdx !== -1 ? salesIdx : 7] || "no").toLowerCase(),
+                        insta_access: (currentline[instaIdx] || "no").toLowerCase(),
+                        sbi_cashback: (currentline[sbiIdx] || "no").toLowerCase(),
+                        monthly_tracker: (currentline[trackerIdx] || "no").toLowerCase() 
+                    };
+                }
+                return users;
+            } catch (e) {
+                console.error("Error parsing CSV: ", e);
+                return {};
+            }
+        }
+
+        async function handleLogin() {
+            const userIn = document.getElementById('username').value.trim().toLowerCase();
+            const passIn = document.getElementById('password').value;
+            const msg = document.getElementById('msg');
+            const emojiBox = document.getElementById('emojiBox');
+
+            emojiBox.style.display = "none";
+
+            if (!userIn || !passIn) {
+                msg.style.color = "#f87171";
+                msg.innerText = "Please enter both fields.";
+                return;
+            }
+
+            msg.style.color = "#38bdf8";
+            msg.innerText = "Verifying access permissions...";
+
+            try {
+                const liveUrl = SHEET_CSV_URL + "&cb=" + new Date().getTime();
+                const response = await fetch(liveUrl);
+                if (!response.ok) throw new Error("Network issue reading sheet remote host.");
+                
+                const csvText = await response.text();
+                const userDatabase = parseCSV(csvText);
+
+                if (userDatabase[userIn] && userDatabase[userIn].password === passIn) {
+                    const userData = userDatabase[userIn];
+                    const attVal = userData.attendance;
+                    const attLower = attVal.toLowerCase();
+
+                    if (attVal === '' && userData.outstanding !== 'yes' && userData.stock !== 'yes' && userData.stock_value !== 'yes' && userData.sales !== 'yes' && userData.insta_access === 'no' && userData.sbi_cashback !== 'yes' && userData.monthly_tracker !== 'yes') {
+                        msg.style.color = "#fbbf24";
+                        msg.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve or assign your role.";
+                        return;
+                    }
+
+                    document.getElementById('auth-screen').style.display = 'none';
+                    document.getElementById('dashboard-content').style.display = 'flex';
+                    
+                    // 🔥 TRIGGERS JETS & GIANT FLAG ON SUCCESSFUL LOGIN 🔥
+                    triggerIndependenceAnimation();
+                    
+                    loggedInUserGlobal = userIn;
+                    userAccessGlobal = attLower;
+                    assignedAttendanceNameGlobal = attVal; 
+
+                    localStorage.setItem('allowed_stores', userData.allowed_stores || '');
+                    localStorage.setItem('username', userIn);
+                    localStorage.setItem('user', userIn);
+                    localStorage.setItem('isLoggedIn', 'true');
+
+                    initDashboardParticles();
+
+                    const attCard = document.getElementById('app-attendance');
+                    if (attVal !== '' && attLower !== 'no') {
+                        attCard.style.display = 'block';
+                    } else {
+                        attCard.style.display = 'none';
+                    }
+
+                    if (userData.outstanding === 'yes') document.getElementById('app-outstanding').style.display = 'block';
+                    
+                    if (userData.stock === 'yes') {
+                        const stockCard = document.getElementById('app-stock');
+                        stockCard.style.display = 'block';
+                        stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                    }
+
+                    if (userData.stock_value === 'yes') {
+                        const stockValCard = document.getElementById('app-stock-value');
+                        stockValCard.style.display = 'block';
+                        stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                    }
+
+                    if (userData.sales === 'yes') {
+                        const salesCard = document.getElementById('app-sales');
+                        salesCard.style.display = 'block';
+                        salesCard.href = `https://kshekhawat73.github.io/sales-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                    }
+                    
+                    const targetTrackerCard = document.getElementById('app-target-tracker');
+                    const instaVal = userData.insta_access;
+                    
+                    if (instaVal === 'admin' || instaVal === 'all' || (userIn === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
+                        targetTrackerCard.style.display = 'block';
+                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/admin.html";
+                    } else if (instaVal === 'yes' || instaVal === 'true') {
+                        targetTrackerCard.style.display = 'block';
+                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/?user=" + encodeURIComponent(userIn);
+                    } else {
+                        targetTrackerCard.style.display = 'none';
+                    }
+
+                    if (userData.sbi_cashback === 'yes') {
+                        document.getElementById('app-sbi-cashback').style.display = 'block';
+                    }
+
+                    if (userData.monthly_tracker === 'yes') {
+                        const monthlyCard = document.getElementById('app-monthly-tracker');
+                        monthlyCard.style.display = 'block';
+                        monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                    }
+                    
+                    enable3DCards();
+
+                } else {
+                    msg.style.color = "#f87171";
+                    msg.innerText = "Access Denied. Account details are incorrect.";
+                    emojiBox.style.display = "flex";
+                }
+            } catch (err) {
+                console.error(err);
+                msg.style.color = "#f87171";
+                msg.innerText = "Network error syncing permissions sheet. Please verify your data source URL connection.";
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('allowed_stores');
+            localStorage.removeItem('username');
+            localStorage.removeItem('user');
+            localStorage.removeItem('isLoggedIn');
+            location.reload();
+        }
+
+        let locationFetched = false;
+        let photoCaptured = false;
+        let rawMappings = [];
+        let stream = null;
+
+        function openAttendanceApp() {
+            if (userAccessGlobal === 'admin') {
+                window.location.href = 'admin-monitor.html';
+                return;
+            }
+
+            if (userAccessGlobal !== 'all' && userAccessGlobal !== 'admin') {
+                document.getElementById('managerLabel').style.display = 'none';
+                document.getElementById('managerName').style.display = 'none';
+                document.getElementById('storeLabel').style.display = 'none';
+                document.getElementById('storeName').style.display = 'none';
+            } else {
+                document.getElementById('managerLabel').style.display = 'block';
+                document.getElementById('managerName').style.display = 'block';
+                document.getElementById('storeLabel').style.display = 'block';
+                document.getElementById('storeName').style.display = 'block';
+            }
+
+            document.getElementById('dashboard-content').style.display = 'none';
+            document.getElementById('attendance-view').style.display = 'block';
+            loadListsDynamicEmbedded();
+        }
+
+        function closeAttendanceApp() {
+            stopCamera();
+            document.getElementById('attendance-view').style.display = 'none';
+            document.getElementById('dashboard-content').style.display = 'flex';
+        }
+
+        async function loadListsDynamicEmbedded() {
+            const managerSelect = document.getElementById('managerName');
+            const storeSelect = document.getElementById('storeName');
+
+            try {
+                const response = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + new Date().getTime());
+                const mappings = await response.json();
+                rawMappings = mappings; 
+
+                let uniqueManagers = rawMappings.map(item => item.manager).filter(name => name && name.length > 0);
+                uniqueManagers = [...new Set(uniqueManagers)];
+                uniqueManagers.sort((a, b) => a.localeCompare(undefined, { sensitivity: 'base', numeric: true }));
+                
+                const userDatabaseValue = userAccessGlobal; 
+                const cleanLoggedInUser = loggedInUserGlobal.trim();
+
+                if (cleanLoggedInUser && userDatabaseValue !== 'all' && userDatabaseValue !== 'admin') {
+                    let mappedManagerName = assignedAttendanceNameGlobal || userDatabaseValue.toUpperCase();
+                    managerSelect.innerHTML = `<option value="${mappedManagerName}" selected>${mappedManagerName}</option>`;
+                    updateStoresForManagerEmbedded(mappedManagerName);
+                } else {
+                    managerSelect.innerHTML = '<option value="">-- Select Your Name --</option>';
+                    uniqueManagers.forEach(name => {
+                        managerSelect.innerHTML += `<option value="${name}">${name}</option>`;
+                    });
+
+                    if (cleanLoggedInUser && (userDatabaseValue === 'all' || userDatabaseValue === 'admin')) {
+                        storeSelect.innerHTML = '<option value="">-- Select Manager First --</option>';
+                    }
+                }
+                checkFormReadyEmbedded();
+            } catch (error) {
+                alert("Live store list load nahi ho payi. Kripya page refresh karein.");
+            }
+        }
+
+        function updateStoresForManagerEmbedded(selectedManager) {
+            const storeSelect = document.getElementById('storeName');
+
+            if (!selectedManager) {
+                storeSelect.innerHTML = '<option value="">-- Select Manager First --</option>';
+                storeSelect.disabled = true;
+                checkFormReadyEmbedded();
+                return;
+            }
+
+            const cleanSelectedManager = selectedManager.toLowerCase().trim();
+            const matchedStores = rawMappings
+                .filter(item => item.manager.toLowerCase().trim() === cleanSelectedManager)
+                .map(item => item.store)
+                .filter(store => store && store.length > 0);
+
+            storeSelect.innerHTML = '';
+            
+            if (matchedStores.length > 0) {
+                matchedStores.forEach((store, idx) => {
+                    storeSelect.innerHTML += `<option value="${store}" ${idx === 0 ? 'selected' : ''}>${store}</option>`;
+                });
+                storeSelect.disabled = false;
+            } else {
+                let userAllowedStore = localStorage.getItem('allowed_stores') || 'GENERAL';
+                let defaultStore = userAllowedStore.toUpperCase();
+                storeSelect.innerHTML = `<option value="${defaultStore}" selected>${defaultStore}</option>`;
+                storeSelect.disabled = false;
+            }
+            checkFormReadyEmbedded();
+        }
+
+        document.getElementById('managerName').addEventListener('change', (e) => {
+            updateStoresForManagerEmbedded(e.target.value);
+        });
+
+        document.getElementById('locationBtn').addEventListener('click', () => {
+            const statusDiv = document.getElementById('status');
+            const locationBtn = document.getElementById('locationBtn');
+            
+            statusDiv.style.display = "block";
+            statusDiv.style.color = "#d97706";
+            statusDiv.style.background = "rgba(245, 158, 11, 0.15)";
+            statusDiv.innerText = "🔄 GPS Signal dhoondh raha hai... Kripya wait karein.";
+
+            if (!navigator.geolocation) {
+                alert("❌ Aapka browser GPS Location support nahi karta.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                    locationFetched = true;
+                    
+                    statusDiv.style.display = "none";
+                    locationBtn.style.background = "linear-gradient(45deg, #28a745, #218838)";
+                    locationBtn.innerText = "✅ Step 1: Location Verified";
+                    checkFormReadyEmbedded();
+                },
+                (err) => { 
+                    statusDiv.style.color = "#dc3545";
+                    statusDiv.style.background = "rgba(220, 53, 69, 0.15)";
+                    
+                    if (err.code === 1) {
+                        statusDiv.innerText = "❌ Location Permission Blocked!";
+                        alert("⚠️ Location Permission Blocked!\n\nAapne browser ko location access nahi diya hai. Kripya address bar ke 'Lock 🔒' icon par click karke Location 'Allow' karein.");
+                    } 
+                    else {
+                        statusDiv.innerText = "⚠️ Location / GPS signal nahi mila. Kripya Location ON karein.";
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+        });
+
+        async function startCameraEmbedded() {
+            const videoElement = document.getElementById('videoElement');
+            const cameraBtn = document.getElementById('cameraBtn');
+            const cameraBox = document.getElementById('cameraBox');
+            const photoResult = document.getElementById('photoResult');
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+                videoElement.srcObject = stream;
+                cameraBtn.style.display = 'none';
+                photoResult.style.display = 'none';
+                cameraBox.style.display = 'block';
+            } catch (err) { alert("Camera access denied or unavailable."); }
+        }
+
+        function stopCamera() { if (stream) { stream.getTracks().forEach(track => track.stop()); } }
+
+        document.getElementById('cameraBtn').addEventListener('click', startCameraEmbedded);
+        document.getElementById('retakeBtn').addEventListener('click', () => {
+            photoCaptured = false;
+            document.getElementById('photoData').value = "";
+            checkFormReadyEmbedded();
+            startCameraEmbedded();
+        });
+
+        document.getElementById('captureBtn').addEventListener('click', () => {
+            const videoElement = document.getElementById('videoElement');
+            const capturedImage = document.getElementById('capturedImage');
+            const photoData = document.getElementById('photoData');
+            const cameraBox = document.getElementById('cameraBox');
+            const photoResult = document.getElementById('photoResult');
+
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            canvas.getContext('2d').drawImage(videoElement, 0, 0);
+            const base64Image = canvas.toDataURL('image/jpeg', 0.6); 
+            capturedImage.src = base64Image;
+            photoData.value = base64Image;
+            photoCaptured = true;
+            stopCamera();
+            cameraBox.style.display = 'none';
+            photoResult.style.display = 'block';
+            checkFormReadyEmbedded();
+        });
+
+        function checkFormReadyEmbedded() {
+            const submitBtn = document.getElementById('submitBtn');
+            const managerSelect = document.getElementById('managerName');
+            const storeSelect = document.getElementById('storeName');
+
+            let missing = [];
+            if (!locationFetched) missing.push("Location");
+            if (!photoCaptured) missing.push("Selfie");
+            if (!managerSelect.value) missing.push("Manager Name");
+            if (!storeSelect.value) missing.push("Store Assign");
+
+            if (missing.length === 0) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Attendance 🚀";
+                submitBtn.style.background = "linear-gradient(45deg, #28a745, #218838)";
+                submitBtn.style.color = "white";
+                submitBtn.style.border = "none";
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Missing: " + missing.join(", ");
+            }
+        }
+
+        document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting Data... ⏳";
+
+            const formData = new URLSearchParams();
+            formData.append('managerName', document.getElementById('managerName').value);
+            formData.append('storeName', document.getElementById('storeName').value);
+            formData.append('remarks', document.getElementById('remarks').value);
+            formData.append('latitude', document.getElementById('latitude').value);
+            formData.append('longitude', document.getElementById('longitude').value);
+            formData.append('photoBase64', document.getElementById('photoData').value); 
+
+            fetch(ATTENDANCE_WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
+                body: formData.toString()
+            }).then(() => {
+                document.getElementById('attendance-view').style.display = 'none';
+                document.getElementById('successOverlay').style.display = 'flex';
+            }).catch(err => {
+                alert("Submission Error: " + err);
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
