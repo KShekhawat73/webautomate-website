@@ -1716,7 +1716,7 @@
         rgba(0,0,0,.22);
 
       transition:
-        transform .35s
+        transform .3s
         cubic-bezier(.16,1,.3,1),
         border-color .3s ease,
         background .3s ease,
@@ -5737,6 +5737,11 @@
       
       <form id="clientLoginForm" class="custom-form" style="margin-top: 30px;">
         
+        <!-- ERROR MESSAGE BOX (Hidden by default) -->
+        <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
+          Incorrect User ID or Password.
+        </div>
+
         <div class="input-group" style="text-align: left;">
           <label>User ID</label>
           <input type="text" id="loginUserId" placeholder="Enter your User ID" required>
@@ -6557,13 +6562,33 @@
 
     
     /* =====================================================
-       LOGIN MODAL LOGIC
+       CLIENT DATABASE & DYNAMIC LOGIN ROUTING
     ===================================================== */
     
+    // YAHAN AAP APNI MULTIPLE COMPANIES ADD KAR SAKTE HAIN
+    const clientDatabase = [
+      {
+        id: "Admin",
+        password: "Admin",
+        redirectUrl: "/sivmor"
+      },
+      {
+        id: "companyabc",
+        password: "password123",
+        redirectUrl: "/companyabc" // Naya folder banakar wahan page rakhna padega
+      },
+      {
+        id: "brandxyz",
+        password: "secure456",
+        redirectUrl: "/brandxyz"
+      }
+    ];
+
     const loginModal = document.getElementById('loginModal');
     const closeLoginModal = document.getElementById('closeLoginModal');
     const openLoginBtns = document.querySelectorAll('.open-login-modal');
     const clientLoginForm = document.getElementById('clientLoginForm');
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
 
     // Open Modal
     openLoginBtns.forEach(btn => {
@@ -6571,6 +6596,7 @@
         e.preventDefault();
         loginModal.classList.add('active');
         document.body.style.overflow = "hidden"; // Prevent scrolling
+        loginErrorMessage.style.display = 'none'; // Hide error on open
       });
     });
 
@@ -6595,14 +6621,40 @@
       const btn = clientLoginForm.querySelector('button[type="submit"]');
       const originalText = btn.innerHTML;
       
+      // Get the entered ID and Password
+      const userId = document.getElementById('loginUserId').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      // Hide previous errors
+      loginErrorMessage.style.display = 'none';
+
       // Show authenticating state
       btn.innerHTML = "Authenticating... ⏳";
       btn.disabled = true;
 
-      // Simulate a small loading delay before redirecting
+      // Simulate a loading delay
       setTimeout(() => {
-        // Redirecting to Sivmor specific route
-        window.location.href = "/sivmor"; 
+        
+        // Database mein check karo ki kya ID aur Password match hota hai
+        const matchedClient = clientDatabase.find(
+          client => client.id === userId && client.password === password
+        );
+
+        if (matchedClient) {
+            
+          // Success! Redirect to the specific client's dashboard
+          btn.innerHTML = "Success! Redirecting... ✅";
+          window.location.href = matchedClient.redirectUrl; 
+          
+        } else {
+            
+          // Failed! Show error message
+          loginErrorMessage.style.display = 'block';
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          
+        }
+
       }, 1500);
     });
 
