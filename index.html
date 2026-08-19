@@ -5538,7 +5538,7 @@
     <section id="query-form" class="query-section">
       <div class="container">
         
-        <div class="cta-box reveal" style="text-align: left; max-width: 800px; margin: 0 auto; padding: 50px 40px;">
+        <div class="cta-box reveal" style="text-align: left; max-width: 800px; margin: 0 auto; padding: 50px 40px; position: relative;">
           
           <div class="section-kicker" style="text-align: center; margin-bottom: 10px;">
             Tell Us About Your Business
@@ -5548,6 +5548,15 @@
             Start your <span class="gradient">transformation</span>
           </h2>
           
+          <!-- Success Message Box (Hidden by default) -->
+          <div id="formSuccessMessage" style="display: none; text-align: center; padding: 60px 20px;">
+            <div style="font-size: 45px; margin-bottom: 20px; color: var(--mint);">✓</div>
+            <h3 style="font-size: 26px; margin-bottom: 12px;">Thanks for your submission!</h3>
+            <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">We have successfully received your details. Our team will review your requirements and get back to you shortly.</p>
+            <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Response</button>
+          </div>
+          
+          <!-- Form -->
           <form id="waSubmitForm" class="custom-form">
             <div class="form-grid">
               
@@ -6372,10 +6381,11 @@
 
 
     /* =====================================================
-       FORM SUBMISSION LOGIC (GOOGLE SHEETS + WHATSAPP)
+       FORM SUBMISSION LOGIC (GOOGLE SHEETS ONLY)
     ===================================================== */
 
     const waSubmitForm = document.getElementById("waSubmitForm");
+    const formSuccessMessage = document.getElementById("formSuccessMessage");
     
     // YOUR GOOGLE APPS SCRIPT WEB APP URL:
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyH3xeu2w2faKxUpivCZVKKw0eue14w-gUjAfdrGFKiYI5ILuMLC3hPR5cXZz-S9T2X/exec'; 
@@ -6419,20 +6429,14 @@
         .then(data => {
           if(data.result === 'success') {
             
-            // Show Success Message
-            submitBtn.innerHTML = "Success! ✅";
+            // Hide the form and show the Success Message Box
+            waSubmitForm.style.display = 'none';
+            formSuccessMessage.style.display = 'block';
             waSubmitForm.reset();
             
-            // 2. CONTINUE TO WHATSAPP 
-            const textMessage = `*New Lead from WebAutomate.cloud*\n\n*Name:* ${name}\n*Business:* ${business}\n*Contact:* ${phone}\n*Email:* ${email}\n*City:* ${city}\n*Requirements:* ${req}`;
-            const waLink = `https://wa.me/917357231104?text=${encodeURIComponent(textMessage)}`;
-            window.open(waLink, "_blank");
-            
-            // Reset button text after a few seconds
-            setTimeout(() => {
-              submitBtn.innerHTML = originalBtnText;
-              submitBtn.disabled = false;
-            }, 3000);
+            // Optional: Restore button state just in case they click "Submit Another Response"
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
             
           } else {
             throw new Error(data.error);
