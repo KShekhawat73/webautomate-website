@@ -416,7 +416,7 @@
   <div class="mouse-light" id="mouseLight"></div>
 
   <!-- NAVIGATION -->
-  <div class="nav-wrap">
+  <div class="nav-wrap" id="mainNavWrap">
     <nav>
       <a href="/" class="logo" style="text-decoration: none;">WEB AUTOMATE</a>
       <div class="nav-links">
@@ -700,78 +700,92 @@
       <div class="dash-grid" id="dashGrid">
           <!-- Cards will be un-hidden here via JS based on permissions -->
           
-          <a href="#" class="dash-card" id="app-attendance">
+          <div class="dash-card" id="app-attendance">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Management</span>
                   <div class="dash-card-icon">👥</div>
               </div>
               <h2>Manager Attendance</h2>
               <p>Track, view, and manage daily staff attendance logs and clock-in metrics seamlessly.</p>
-          </a>
+          </div>
 
-          <a href="https://kshekhawat73.github.io/store-outstanding-dashboard/" target="_blank" class="dash-card" id="app-outstanding">
+          <div class="dash-card" id="app-outstanding">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Finance</span>
                   <div class="dash-card-icon">💳</div>
               </div>
               <h2>Stores Outstanding</h2>
               <p>Monitor pending balances, store invoices, and credit details in real-time.</p>
-          </a>
+          </div>
 
-          <a href="#" target="_blank" class="dash-card" id="app-stock">
+          <div class="dash-card" id="app-stock">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Operations</span>
                   <div class="dash-card-icon">📦</div>
               </div>
               <h2>Stock Availability Checker</h2>
               <p>Track, filter, and view regional store inventory counts directly from Sheet1.</p>
-          </a>
+          </div>
 
-          <a href="#" target="_blank" class="dash-card" id="app-stock-value">
+          <div class="dash-card" id="app-stock-value">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Value Tracking</span>
                   <div class="dash-card-icon">📊</div>
               </div>
               <h2>Stock Value Store Wise</h2>
               <p>Monitor corporate value tracking, regional cash flows, and store details from Sheet2 & Sheet3.</p>
-          </a>
+          </div>
 
-          <a href="#" target="_blank" class="dash-card" id="app-sales">
+          <div class="dash-card" id="app-sales">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Sales Analytics</span>
                   <div class="dash-card-icon">📈</div>
               </div>
               <h2>Sales Dashboard</h2>
               <p>Track YoY growth, monthly performance trends, store-wise revenue, and category-wise sales in real-time.</p>
-          </a>
+          </div>
 
-          <a href="#" target="_blank" class="dash-card" id="app-target-tracker">
+          <div class="dash-card" id="app-target-tracker">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Marketing & Targets</span>
                   <div class="dash-card-icon">🎯</div>
               </div>
               <h2>Customer Target Tracker</h2>
               <p>Submit live customer proof images for Instagram follows, YouTube subscribers, and Google reviews.</p>
-          </a>
+          </div>
 
-          <a href="https://kshekhawat73.github.io/Sbi_Card_Cashback/" target="_blank" class="dash-card" id="app-sbi-cashback">
+          <div class="dash-card" id="app-sbi-cashback">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Offers & Cashback</span>
                   <div class="dash-card-icon">🎁</div>
               </div>
               <h2>SBI Card Cashback</h2>
               <p>Calculate and track SBI credit card cashback offers and benefits easily.</p>
-          </a>
+          </div>
 
-          <a href="#" target="_blank" class="dash-card" id="app-monthly-tracker">
+          <div class="dash-card" id="app-monthly-tracker">
               <div class="dash-card-header-flex">
                   <span class="dash-badge">Performance</span>
                   <div class="dash-card-icon">📆</div>
               </div>
               <h2>Monthly Target Tracker</h2>
               <p>Track, analyze, and manage monthly targets and brand-wise achievements.</p>
-          </a>
+          </div>
       </div>
+  </div>
+
+
+  <!-- =====================================================
+       APP VIEWER (IFRAME MODAL FOR TOOLS - KEEPS IN SAME TAB)
+  ===================================================== -->
+  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg); z-index: 99999; flex-direction: column;">
+    <div style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px;">
+      <button onclick="closeAppViewer()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;">
+        ⬅ Back to Dashboard
+      </button>
+      <div id="appViewerTitle" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">App Title</div>
+    </div>
+    <iframe id="appViewerFrame" src="" style="width: 100%; flex-grow: 1; border: none; background: #f4f7fb;"></iframe>
   </div>
 
 
@@ -917,7 +931,6 @@
       }
     ];
 
-    // CSV Parse Logic matching exact Sivmor format
     function parseCSV(csvText) {
         try {
             const lines = csvText.split(/\r?\n/);
@@ -1021,56 +1034,89 @@
         });
     }
 
-    // 🔥 This function builds the dashboard based on sheet permissions 🔥
+    // 🔥 App Viewer Logic (iFrame in Same Tab) 🔥
+    function openAppViewer(url, title) {
+        document.getElementById('dashboard-view').style.display = 'none';
+        const appViewer = document.getElementById('appViewer');
+        document.getElementById('appViewerTitle').innerText = title;
+        document.getElementById('appViewerFrame').src = url;
+        appViewer.style.display = 'flex';
+        document.body.style.overflow = "hidden"; // Prevents background scroll
+    }
+
+    function closeAppViewer() {
+        document.getElementById('appViewer').style.display = 'none';
+        document.getElementById('appViewerFrame').src = "";
+        document.getElementById('dashboard-view').style.display = 'flex';
+        document.body.style.overflow = ""; 
+        window.scrollTo(0, 0);
+    }
+
+    // Builds the dashboard and attaches the App Viewer onclick events
     function buildDashboard(userData, userIdRaw, companyName) {
         document.getElementById('dashTitle').innerText = companyName + " Workspace";
         const attVal = userData.attendance || "";
         const attLower = attVal.toLowerCase();
 
-        // Check each permission and display card
+        // 1. Attendance (If you have a link for it, replace # below)
         const attCard = document.getElementById('app-attendance');
-        if (attVal !== '' && attLower !== 'no') attCard.style.display = 'block';
-        else attCard.style.display = 'none';
+        if (attVal !== '' && attLower !== 'no') {
+            attCard.style.display = 'block';
+            attCard.onclick = () => alert("Manager Attendance Module is currently undergoing an upgrade."); 
+        } else { attCard.style.display = 'none'; }
 
-        if (userData.outstanding === 'yes') document.getElementById('app-outstanding').style.display = 'block';
-        else document.getElementById('app-outstanding').style.display = 'none';
+        // 2. Outstanding
+        const outCard = document.getElementById('app-outstanding');
+        if (userData.outstanding === 'yes') {
+            outCard.style.display = 'block';
+            outCard.onclick = () => openAppViewer("https://kshekhawat73.github.io/store-outstanding-dashboard/", "Stores Outstanding");
+        } else { outCard.style.display = 'none'; }
         
+        // 3. Stock
+        const stockCard = document.getElementById('app-stock');
         if (userData.stock === 'yes') {
-            const stockCard = document.getElementById('app-stock');
             stockCard.style.display = 'block';
-            stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
-        } else document.getElementById('app-stock').style.display = 'none';
+            stockCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Stock Availability Checker");
+        } else { stockCard.style.display = 'none'; }
 
+        // 4. Stock Value
+        const stockValCard = document.getElementById('app-stock-value');
         if (userData.stock_value === 'yes') {
-            const stockValCard = document.getElementById('app-stock-value');
             stockValCard.style.display = 'block';
-            stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
-        } else document.getElementById('app-stock-value').style.display = 'none';
+            stockValCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Stock Value Store Wise");
+        } else { stockValCard.style.display = 'none'; }
 
+        // 5. Sales
+        const salesCard = document.getElementById('app-sales');
         if (userData.sales === 'yes') {
-            const salesCard = document.getElementById('app-sales');
             salesCard.style.display = 'block';
-            salesCard.href = `https://kshekhawat73.github.io/sales-dashboard/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
-        } else document.getElementById('app-sales').style.display = 'none';
+            salesCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Sales Dashboard");
+        } else { salesCard.style.display = 'none'; }
         
+        // 6. Target Tracker
         const targetTrackerCard = document.getElementById('app-target-tracker');
         const instaVal = userData.insta_access;
         if (instaVal === 'admin' || instaVal === 'all' || (userIdRaw === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/admin.html";
+            targetTrackerCard.onclick = () => openAppViewer("https://kshekhawat73.github.io/target-tracker/admin.html", "Customer Target Tracker (Admin)");
         } else if (instaVal === 'yes' || instaVal === 'true') {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/?user=" + encodeURIComponent(userIdRaw);
-        } else targetTrackerCard.style.display = 'none';
+            targetTrackerCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${encodeURIComponent(userIdRaw)}`, "Customer Target Tracker");
+        } else { targetTrackerCard.style.display = 'none'; }
 
-        if (userData.sbi_cashback === 'yes') document.getElementById('app-sbi-cashback').style.display = 'block';
-        else document.getElementById('app-sbi-cashback').style.display = 'none';
+        // 7. SBI Cashback
+        const sbiCard = document.getElementById('app-sbi-cashback');
+        if (userData.sbi_cashback === 'yes') {
+            sbiCard.style.display = 'block';
+            sbiCard.onclick = () => openAppViewer("https://kshekhawat73.github.io/Sbi_Card_Cashback/", "SBI Card Cashback");
+        } else { sbiCard.style.display = 'none'; }
 
+        // 8. Monthly Tracker
+        const monthlyCard = document.getElementById('app-monthly-tracker');
         if (userData.monthly_tracker === 'yes') {
-            const monthlyCard = document.getElementById('app-monthly-tracker');
             monthlyCard.style.display = 'block';
-            monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
-        } else document.getElementById('app-monthly-tracker').style.display = 'none';
+            monthlyCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Monthly Target Tracker");
+        } else { monthlyCard.style.display = 'none'; }
         
         enable3DCards();
     }
@@ -1093,7 +1139,6 @@
           let matchedClient = null;
           let matchedUserData = null;
 
-          // Fetch all databases in parallel to find the user
           const fetchPromises = clientDatabases.map(db => 
             fetch(db.csvUrl + "&cb=" + Date.now()).then(res => res.text()).then(text => ({ db, text }))
           );
@@ -1109,13 +1154,12 @@
           }
 
           if (matchedClient) {
-              // Save to LocalStorage
               localStorage.setItem('allowed_stores', matchedUserData.allowed_stores || '');
               localStorage.setItem('username', userIdRaw); 
               localStorage.setItem('user', userIdRaw);
               localStorage.setItem('isLoggedIn', 'true');
               localStorage.setItem('active_company', matchedClient.companyName);
-              localStorage.setItem('user_permissions', JSON.stringify(matchedUserData)); // Save permissions for refresh
+              localStorage.setItem('user_permissions', JSON.stringify(matchedUserData)); 
               localStorage.setItem('dashboard_url', matchedClient.dashboardUrl);
 
               robotSpeech.innerText = "Access Granted. Welcome!";
@@ -1125,10 +1169,10 @@
                   loginModal.classList.remove('active');
                   document.body.style.overflow = ""; 
                   
-                  // 🔥 THE MAGIC: Change URL visually without a real page reload
+                  // Change URL visually without page reload
                   window.history.pushState({}, '', matchedClient.dashboardUrl);
 
-                  // Hide Main Site, Show Dashboard
+                  document.getElementById('mainNavWrap').style.display = 'none'; 
                   document.getElementById('landing-view').style.display = 'none'; 
                   document.getElementById('dashboard-view').style.display = 'flex'; 
                   
@@ -1160,7 +1204,7 @@
         localStorage.removeItem('active_company');
         localStorage.removeItem('user_permissions');
         localStorage.removeItem('dashboard_url');
-        // Clear URL and reload to show landing page
+        
         window.history.pushState({}, '', '/');
         location.reload(); 
     }
@@ -1174,8 +1218,8 @@
             const url = localStorage.getItem('dashboard_url');
 
             if(perms && user && comp) {
-                // Instantly swap UI to Dashboard if already logged in
                 window.history.pushState({}, '', url);
+                document.getElementById('mainNavWrap').style.display = 'none';
                 document.getElementById('landing-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'flex';
                 buildDashboard(perms, user, comp);
