@@ -380,6 +380,7 @@
     #app-sbi-cashback { --accent-color: #f97316; --accent-glow: rgba(249, 115, 22, 0.35); }
     #app-monthly-tracker { --accent-color: #6366f1; --accent-glow: rgba(99, 102, 241, 0.35); }
 
+
     /* =========================================================
        🔥🔥 ATTENDANCE IN-BUILT FORM STYLES 🔥🔥
     ========================================================= */
@@ -414,8 +415,8 @@
     ========================================================= */
     #appViewer {
       display: none; position: fixed; top: 0; left: 0; 
-      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
-      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;
+      width: 100%; height: 100vh; height: 100dvh; 
+      background: var(--bg); z-index: 99999; flex-direction: column;
     }
     .appViewer-header {
       height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); 
@@ -429,8 +430,11 @@
       color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; 
       overflow: hidden; text-overflow: ellipsis;
     }
+    .appViewer-content-wrapper {
+      flex-grow: 1; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; background: #f4f7fb;
+    }
     #appViewerFrame {
-      width: 100%; height: 100%; flex-grow: 1; border: none; background: #f4f7fb; overflow-x: hidden;
+      width: 100%; height: 100%; border: none; display: block;
     }
 
     /* Media Queries */
@@ -879,15 +883,19 @@
 
   <!-- =====================================================
        APP VIEWER (IFRAME MODAL FOR TOOLS)
+       🔥 FIX FOR MOBILE OVERFLOW & TEXT CUT OFF 🔥
   ===================================================== -->
-  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;">
+  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column;">
     <div class="appViewer-header" style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px; flex-shrink: 0;">
       <button class="appViewer-btn" onclick="closeAppViewer()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;">
         ⬅ Back
       </button>
       <div id="appViewerTitle" class="appViewer-title" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">App Title</div>
     </div>
-    <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; flex-grow: 1; border: none; background: #f4f7fb;"></iframe>
+    <!-- Allow permissions for Mobile Clipboard and Camera, plus horizontal scroll wrap to prevent text cut off -->
+    <div style="flex-grow: 1; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; background: #f4f7fb;">
+        <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+    </div>
   </div>
 
 
@@ -912,6 +920,8 @@
       </div>
       
       <form id="clientLoginForm" style="margin-top: 20px;">
+        
+        <!-- ERROR MESSAGE BOX (Hidden by default) -->
         <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
           Incorrect User ID or Password.
         </div>
@@ -921,6 +931,7 @@
           <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
         </div>
         
+        <!-- PASSWORD FIELD WITH EYE ICON -->
         <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
           <label>Password</label>
           <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
@@ -1133,11 +1144,21 @@
     }
 
     // App Viewer Logic
-    function openAppViewer(url, title) {
+    function openAppViewer(url, title, forceDesktop = false) {
         document.getElementById('dashboard-view').style.display = 'none';
         const appViewer = document.getElementById('appViewer');
         document.getElementById('appViewerTitle').innerText = title;
-        document.getElementById('appViewerFrame').src = url;
+        
+        const iframe = document.getElementById('appViewerFrame');
+        iframe.src = url;
+        
+        // Force desktop width for heavy tables (like Outstanding) to prevent text wrap on mobile
+        if(forceDesktop) {
+            iframe.style.minWidth = '1000px';
+        } else {
+            iframe.style.minWidth = '100%';
+        }
+        
         appViewer.style.display = 'flex';
         document.body.style.overflow = "hidden";
     }
@@ -1145,6 +1166,7 @@
     function closeAppViewer() {
         document.getElementById('appViewer').style.display = 'none';
         document.getElementById('appViewerFrame').src = "";
+        document.getElementById('appViewerFrame').style.minWidth = '100%';
         document.getElementById('dashboard-view').style.display = 'flex';
         document.body.style.overflow = ""; 
         window.scrollTo(0, 0);
@@ -1157,12 +1179,14 @@
         userAccessGlobal = attLower;
         assignedAttendanceNameGlobal = attVal;
 
-        // ALL Store setup for Admin
-        let storeParam = encodeURIComponent(userData.allowed_stores || '');
-        if (userIdRaw.toLowerCase() === 'admin' || userData.outstanding === 'admin' || userData.stock === 'admin') {
-            storeParam = 'ALL'; 
-        }
         const userParam = encodeURIComponent(userIdRaw);
+        
+        // 🔥 FIX FOR ADMIN TO SEE ALL STORES IN DROPDOWNS 🔥
+        // Agar admin hai, toh filter URL mein stores= parameter bhejenge hi nahi (ya empty bhejenge)
+        let storeParamUrl = `&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+        if (userIdRaw.toLowerCase() === 'admin' || userData.outstanding === 'admin' || userData.stock === 'admin' || userData.sales === 'admin') {
+            storeParamUrl = ''; // Param removed, so external app shows all stores
+        }
 
         // 1. Attendance 
         const attCard = document.getElementById('app-attendance');
@@ -1182,7 +1206,8 @@
         const outCard = document.getElementById('app-outstanding');
         if (userData.outstanding === 'yes' || userData.outstanding === 'admin') {
             outCard.style.display = 'block';
-            outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}&stores=${storeParam}`, "Stores Outstanding");};
+            // Passed forceDesktop = true to prevent mobile wrapping
+            outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}${storeParamUrl}`, "Stores Outstanding", true);};
         } else { 
             outCard.style.display = 'none'; 
             outCard.onclick = (e) => { e.preventDefault(); };
@@ -1192,7 +1217,7 @@
         const stockCard = document.getElementById('app-stock');
         if (userData.stock === 'yes' || userData.stock === 'admin') {
             stockCard.style.display = 'block';
-            stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${userParam}&stores=${storeParam}`, "Stock Availability Checker");};
+            stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${userParam}${storeParamUrl}`, "Stock Availability Checker", true);};
         } else { 
             stockCard.style.display = 'none'; 
             stockCard.onclick = (e) => { e.preventDefault(); };
@@ -1202,7 +1227,7 @@
         const stockValCard = document.getElementById('app-stock-value');
         if (userData.stock_value === 'yes' || userData.stock_value === 'admin') {
             stockValCard.style.display = 'block';
-            stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${userParam}&stores=${storeParam}`, "Stock Value Store Wise");};
+            stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${userParam}${storeParamUrl}`, "Stock Value Store Wise", true);};
         } else { 
             stockValCard.style.display = 'none'; 
             stockValCard.onclick = (e) => { e.preventDefault(); };
@@ -1212,7 +1237,7 @@
         const salesCard = document.getElementById('app-sales');
         if (userData.sales === 'yes' || userData.sales === 'admin') {
             salesCard.style.display = 'block';
-            salesCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${userParam}&stores=${storeParam}`, "Sales Dashboard");};
+            salesCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${userParam}${storeParamUrl}`, "Sales Dashboard", true);};
         } else { 
             salesCard.style.display = 'none'; 
             salesCard.onclick = (e) => { e.preventDefault(); };
@@ -1223,10 +1248,10 @@
         const instaVal = userData.insta_access;
         if (instaVal === 'admin' || instaVal === 'all' || (userIdRaw.toLowerCase() === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${userParam}&stores=${storeParam}`, "Customer Target Tracker (Admin)");};
+            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${userParam}${storeParamUrl}`, "Customer Target Tracker (Admin)");};
         } else if (instaVal === 'yes' || instaVal === 'true') {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${userParam}&stores=${storeParam}`, "Customer Target Tracker");};
+            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${userParam}${storeParamUrl}`, "Customer Target Tracker");};
         } else { 
             targetTrackerCard.style.display = 'none'; 
             targetTrackerCard.onclick = (e) => { e.preventDefault(); };
@@ -1236,7 +1261,7 @@
         const sbiCard = document.getElementById('app-sbi-cashback');
         if (userData.sbi_cashback === 'yes' || userData.sbi_cashback === 'admin') {
             sbiCard.style.display = 'block';
-            sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${userParam}&stores=${storeParam}`, "SBI Card Cashback");};
+            sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${userParam}${storeParamUrl}`, "SBI Card Cashback");};
         } else { 
             sbiCard.style.display = 'none'; 
             sbiCard.onclick = (e) => { e.preventDefault(); };
@@ -1246,7 +1271,7 @@
         const monthlyCard = document.getElementById('app-monthly-tracker');
         if (userData.monthly_tracker === 'yes' || userData.monthly_tracker === 'admin') {
             monthlyCard.style.display = 'block';
-            monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${userParam}&stores=${storeParam}`, "Monthly Target Tracker");};
+            monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${userParam}${storeParamUrl}`, "Monthly Target Tracker", true);};
         } else { 
             monthlyCard.style.display = 'none'; 
             monthlyCard.onclick = (e) => { e.preventDefault(); };
