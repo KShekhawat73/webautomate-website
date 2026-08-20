@@ -856,7 +856,7 @@
 
 
   <!-- =====================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS - KEEPS IN SAME TAB)
+       APP VIEWER (IFRAME MODAL FOR TOOLS - FIX FOR MOBILE & CLIPBOARD)
   ===================================================== -->
   <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column;">
     <div style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px;">
@@ -865,7 +865,7 @@
       </button>
       <div id="appViewerTitle" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">App Title</div>
     </div>
-    <!-- Added permissions for Camera, Geolocation, and Clipboard Copy-Paste inside Iframe -->
+    <!-- Allow permissions for Mobile Clipboard and Camera -->
     <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; flex-grow: 1; border: none; background: #f4f7fb;"></iframe>
   </div>
 
@@ -1152,10 +1152,11 @@
         const attCard = document.getElementById('app-attendance');
         if (attVal !== '' && attLower !== 'no') {
             attCard.style.display = 'block';
-            attCard.onclick = (e) => {
-                e.preventDefault();
-                openAttendanceApp();
-            }; 
+            if (attLower === 'admin') {
+                attCard.onclick = (e) => { e.preventDefault(); openAppViewer("https://kshekhawat73.github.io/Sivmor/admin-monitor.html", "Attendance Monitor"); };
+            } else {
+                attCard.onclick = (e) => { e.preventDefault(); openAttendanceApp(); }; 
+            }
         } else { attCard.style.display = 'none'; }
 
         // 2. Outstanding
@@ -1266,8 +1267,8 @@
                   loginModal.classList.remove('active');
                   document.body.style.overflow = ""; 
                   
-                  // Change URL visually without page reload
-                  window.history.pushState({}, '', matchedClient.dashboardUrl);
+                  // 🔥 HASH ROUTING FIX: Protects against page refresh 404s
+                  window.history.pushState({}, '', '#' + matchedClient.dashboardUrl.replace('/', ''));
 
                   document.getElementById('mainNavWrap').style.display = 'none'; 
                   document.getElementById('landing-view').style.display = 'none'; 
@@ -1295,22 +1296,39 @@
 
     function logoutUser() {
         localStorage.clear(); // Clears everything
-        window.history.pushState({}, '', '/');
+        window.history.pushState({}, '', window.location.pathname);
         location.reload(); 
     }
 
-    // Auto-Login Check on Page Load (With 5 min Timeout)
-    window.onload = function() {
+    // Auto-Logout Timer checks every 10 seconds
+    setInterval(() => {
         if (localStorage.getItem('isLoggedIn') === 'true') {
-            
-            // Check if 5 minutes have passed
             const savedTimeStr = localStorage.getItem('loginTimestamp');
             if (savedTimeStr) {
                 const savedTime = parseInt(savedTimeStr, 10);
                 const currentTime = new Date().getTime();
                 const diffMinutes = (currentTime - savedTime) / (1000 * 60);
 
-                if (diffMinutes > 5) {
+                // If strictly greater than 5 mins, force logout
+                if (diffMinutes >= 5) {
+                    logoutUser();
+                }
+            }
+        }
+    }, 10000);
+
+    // Auto-Login Check on Page Load (With 5 min Timeout and Hash Routing Check)
+    window.onload = function() {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            
+            // Check if 5 minutes have already passed since login
+            const savedTimeStr = localStorage.getItem('loginTimestamp');
+            if (savedTimeStr) {
+                const savedTime = parseInt(savedTimeStr, 10);
+                const currentTime = new Date().getTime();
+                const diffMinutes = (currentTime - savedTime) / (1000 * 60);
+
+                if (diffMinutes >= 5) {
                     // Session expired, force logout
                     logoutUser();
                     return;
@@ -1321,9 +1339,11 @@
             const user = localStorage.getItem('username');
             const comp = localStorage.getItem('active_company');
             const url = localStorage.getItem('dashboard_url');
+            const currentHash = window.location.hash;
 
+            // Optional: You can check if the hash matches the url, but we'll show it anyway if logged in
             if(perms && user && comp) {
-                window.history.pushState({}, '', url);
+                window.history.pushState({}, '', '#' + url.replace('/', ''));
                 document.getElementById('mainNavWrap').style.display = 'none';
                 document.getElementById('landing-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'flex';
