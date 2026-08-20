@@ -2,15 +2,6 @@
 <html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17QWNC3QN4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-17QWNC3QN4');
-  </script>
 
   <meta charset="UTF-8">
 
@@ -6054,13 +6045,13 @@
 
         <div class="input-group" style="text-align: left;">
           <label>User ID</label>
-          <input type="text" id="loginUserId" placeholder="Enter your User ID" required>
+          <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
         </div>
         
         <!-- UPDATED PASSWORD FIELD WITH EYE ICON -->
         <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
           <label>Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required style="padding-right: 40px;">
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
           <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 32px; background: transparent; border: none; color: #8a94a5; cursor: pointer; font-size: 16px; padding: 5px;">
             👁️
           </button>
@@ -6899,13 +6890,10 @@
 
     
     /* =====================================================
-       CLIENT DATABASE AUTH LOGIC (SIVMOR GOOGLE SHEET)
+       DYNAMIC MULTI-TENANT ROUTING SYSTEM
     ===================================================== */
     
-    // Yahan original Sivmor CSV URL daala gaya hai
-    const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
-
-    // CSV Parse Logic from Sivmor Code
+    // CSV Parse Logic (Universal for matched company formats)
     function parseCSV(csvText) {
         try {
             const lines = csvText.split(/\r?\n/);
@@ -6938,6 +6926,21 @@
         }
     }
 
+    // YAHAN AAP APNI MULTIPLE COMPANIES ADD KAR SAKTE HAIN
+    const clientDatabases = [
+      {
+        companyName: "SiVMOR",
+        csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv",
+        dashboardUrl: "/sivmor" // Yahan redirect hoga login ke baad
+      }
+      // FUTURE COMPANIES Aise ADD Karein:
+      // , {
+      //   companyName: "Company ABC",
+      //   csvUrl: "https://docs.google.com/spreadsheets/d/e/.../pub?output=csv",
+      //   dashboardUrl: "/companyabc"
+      // }
+    ];
+
     const loginModal = document.getElementById('loginModal');
     const closeLoginModal = document.getElementById('closeLoginModal');
     const openLoginBtns = document.querySelectorAll('.open-login-modal');
@@ -6954,7 +6957,6 @@
     togglePasswordBtn.addEventListener('click', function() {
       const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
       loginPassword.setAttribute('type', type);
-      // Change icon (Eye Open/Closed)
       this.textContent = type === 'password' ? '👁️' : '🙈'; 
     });
 
@@ -7003,7 +7005,7 @@
       if(!loginPassword.value && !loginUserId.value) robotSpeech.innerText = "Beep boop. Who goes there?";
     });
 
-    // Handle Login Submit (Connected to Google Sheets)
+    // Handle Login Submit (Dynamic Checker)
     clientLoginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -7012,37 +7014,50 @@
       
       const userIdRaw = loginUserId.value.trim();
       const userId = userIdRaw.toLowerCase();
-      const password = loginPassword.value.trim();
+      const password = loginPassword.value;
 
       loginErrorMessage.style.display = 'none';
       btn.innerHTML = "Authenticating... ⏳";
-      robotSpeech.innerText = "Scanning database...";
+      robotSpeech.innerText = "Scanning networks...";
       btn.disabled = true;
 
       try {
-          // Fetch live data from Sivmor Google Sheet
-          const liveUrl = SIVMOR_SHEET_CSV_URL + "&cb=" + new Date().getTime();
-          const response = await fetch(liveUrl);
-          
-          if (!response.ok) throw new Error("Network issue reading sheet.");
-          
-          const csvText = await response.text();
-          const userDatabase = parseCSV(csvText);
+          let matchedClient = null;
+          let matchedUserData = null;
 
-          // Check if credentials match
-          if (userDatabase[userId] && userDatabase[userId].password === password) {
-              
-              // Login Success! Set standard local storage variables just like Sivmor
-              localStorage.setItem('allowed_stores', userDatabase[userId].allowed_stores || '');
+          // Fetch all databases in parallel for speed
+          const fetchPromises = clientDatabases.map(db => 
+            fetch(db.csvUrl + "&cb=" + Date.now())
+              .then(res => res.text())
+              .then(text => ({ db, text }))
+          );
+
+          const results = await Promise.all(fetchPromises);
+
+          // Find if user exists in any of the company sheets
+          for(let result of results) {
+              const userDb = parseCSV(result.text);
+              if (userDb[userId] && userDb[userId].password === password) {
+                  matchedClient = result.db;
+                  matchedUserData = userDb[userId];
+                  break; // Stop looking once we find a match
+              }
+          }
+
+          if (matchedClient) {
+              // Login Success!
+              localStorage.setItem('allowed_stores', matchedUserData.allowed_stores || '');
               localStorage.setItem('username', userIdRaw); 
               localStorage.setItem('user', userIdRaw);
               localStorage.setItem('isLoggedIn', 'true');
+              localStorage.setItem('active_company', matchedClient.companyName);
 
               robotSpeech.innerText = "Access Granted. Welcome!";
               btn.innerHTML = "Success! Redirecting... ✅";
               
-              // Redirect to Sivmor Folder
-              window.location.href = "/sivmor"; 
+              setTimeout(() => {
+                  window.location.href = matchedClient.dashboardUrl; 
+              }, 800);
               
           } else {
               // Login Failed!
