@@ -5,8 +5,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>WebAutomate.cloud — Intelligent Business Automation</title>
-  <meta name="description" content="WebAutomate.cloud builds intelligent operational workspaces, live inventory systems, automated reporting and connected business workflows for modern retail.">
+  <title>SiVMOR Workspace — Centralized Operations Portal</title>
+  <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Access live inventory, sales analytics, outstanding reports, and attendance logs.">
   <meta name="theme-color" content="#05070b">
 
   <style>
@@ -96,7 +96,7 @@
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 12px 45px rgba(0,0,0,.22);
     }
     .logo {
-      display: inline-flex; align-items: center; font-size: 13px; font-weight: 850; letter-spacing: -.035em;
+      display: inline-flex; align-items: center; font-size: 14px; font-weight: 850; letter-spacing: -.035em;
       background: linear-gradient(100deg, #57eef4, #9a78ff, #6dffbd, #57eef4); background-size: 300% auto;
       -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientFlow 5s linear infinite;
     }
@@ -125,7 +125,18 @@
        HERO & GENERAL SECTIONS
     ========================================================= */
     .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 20px 70px; position: relative; }
-    .hero-content { width: min(1100px, 100%); margin: auto; text-align: center; }
+    
+    /* 🔥 SPLIT HERO LAYOUT 🔥 */
+    .hero-inner {
+      width: min(1200px, 100%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-content { text-align: left; }
+    
     .hero-intelligence {
       display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; padding: 8px 13px;
       border: 1px solid rgba(87,238,244,.12); border-radius: 999px; background: rgba(87,238,244,.03);
@@ -135,11 +146,12 @@
       width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
       box-shadow: 0 0 14px rgba(109,255,189,.65); animation: intelligencePulse 2s ease-in-out infinite;
     }
-    .hero h1 { max-width: 1060px; margin: auto; font-size: clamp(51px, 8vw, 105px); line-height: .91; letter-spacing: -.073em; font-weight: 850; animation: heroEntrance 1.1s cubic-bezier(.16,1,.3,1) both; }
+    .hero h1 { margin: 0; font-size: clamp(45px, 6vw, 85px); line-height: 1.05; letter-spacing: -.05em; font-weight: 850; animation: heroEntrance 1.1s cubic-bezier(.16,1,.3,1) both; }
     @keyframes heroEntrance { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-sub { max-width: 690px; margin: 27px auto 0; color: var(--muted); font-size: 15px; line-height: 1.8; animation: heroSub 1s .25s cubic-bezier(.16,1,.3,1) both; }
+    
+    .hero-sub { max-width: 600px; margin: 25px 0 0 0; color: var(--muted); font-size: 15px; line-height: 1.8; animation: heroSub 1s .25s cubic-bezier(.16,1,.3,1) both; }
     @keyframes heroSub { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 11px; flex-wrap: wrap; margin-top: 31px; }
+    
     .btn {
       min-height: 52px; padding: 0 21px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       border-radius: 13px; font-size: 12px; font-weight: 750; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; cursor: pointer;
@@ -149,13 +161,12 @@
     .btn-primary:hover { box-shadow: 0 20px 45px rgba(87,238,244,.19); }
     .btn-secondary { color: white; border: 1px solid var(--line-soft); background: rgba(255,255,255,.025); }
     .btn-secondary:hover { border-color: rgba(87,238,244,.23); background: rgba(255,255,255,.045); }
-    .hero-note { margin-top: 13px; color: var(--dim); font-size: 9px; }
 
     /* AI Animations */
-    .ai-stage { width: min(900px, 100%); min-height: 230px; margin: 46px auto 0; position: relative; overflow: hidden; border: 1px solid var(--line-soft); border-radius: 22px; background: radial-gradient(circle at center, rgba(87,238,244,.045), transparent 42%), #080b10; box-shadow: 0 25px 70px rgba(0,0,0,.25); }
-    .ai-orb { position: absolute; left: 50%; top: 50%; width: 105px; height: 105px; transform: translate(-50%,-50%); border: 1px solid rgba(87,238,244,.30); border-radius: 50%; background: radial-gradient(circle, rgba(87,238,244,.11), rgba(87,238,244,.02) 55%, transparent 70%); box-shadow: 0 0 60px rgba(87,238,244,.08); animation: aiOrbPulse 4s ease-in-out infinite; z-index: 3; }
-    .ai-orb::before { content: ""; position: absolute; inset: 15px; border: 1px dashed rgba(154,120,255,.3); border-radius: 50%; animation: aiRotate 10s linear infinite; }
-    .ai-orb::after { content: ""; position: absolute; inset: 34px; border-radius: 50%; background: radial-gradient(circle, #c9ffff, var(--cyan) 35%, var(--blue) 80%); box-shadow: 0 0 28px rgba(87,238,244,.55); animation: aiCore 2.4s ease-in-out infinite; }
+    .ai-stage { width: 100%; max-width: 650px; min-height: 200px; margin: 46px 0 0 0; position: relative; overflow: hidden; border: 1px solid var(--line-soft); border-radius: 22px; background: radial-gradient(circle at center, rgba(87,238,244,.045), transparent 42%), #080b10; box-shadow: 0 25px 70px rgba(0,0,0,.25); }
+    .ai-orb { position: absolute; left: 50%; top: 50%; width: 90px; height: 90px; transform: translate(-50%,-50%); border: 1px solid rgba(87,238,244,.30); border-radius: 50%; background: radial-gradient(circle, rgba(87,238,244,.11), rgba(87,238,244,.02) 55%, transparent 70%); box-shadow: 0 0 60px rgba(87,238,244,.08); animation: aiOrbPulse 4s ease-in-out infinite; z-index: 3; }
+    .ai-orb::before { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(154,120,255,.3); border-radius: 50%; animation: aiRotate 10s linear infinite; }
+    .ai-orb::after { content: ""; position: absolute; inset: 28px; border-radius: 50%; background: radial-gradient(circle, #c9ffff, var(--cyan) 35%, var(--blue) 80%); box-shadow: 0 0 28px rgba(87,238,244,.55); animation: aiCore 2.4s ease-in-out infinite; }
     @keyframes aiOrbPulse { 0%, 100% { transform: translate(-50%,-50%) scale(.94); } 50% { transform: translate(-50%,-50%) scale(1.08); } }
     @keyframes aiRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes aiCore { 0%, 100% { opacity: .75; transform: scale(.86); } 50% { opacity: 1; transform: scale(1.03); } }
@@ -165,6 +176,41 @@
     @keyframes aiWord { 0%, 100% { opacity: 0; transform: translateY(8px); } 15%, 28% { opacity: 1; transform: translateY(0); } 40% { opacity: 0; transform: translateY(-8px); } }
     .ai-scan { position: absolute; left: 0; right: 0; top: -20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(87,238,244,.35), transparent); animation: aiScan 5s linear infinite; z-index: 4; }
     @keyframes aiScan { 0% { top: -10%; } 100% { top: 110%; } }
+
+    /* 🔥 RIGHT SIDE LOGIN BOX 🔥 */
+    .hero-login-card {
+      background: rgba(10, 15, 22, 0.95);
+      border: 1px solid rgba(87, 238, 244, 0.15);
+      border-radius: 24px;
+      padding: 40px 30px;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      animation: heroSub 1s .4s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    /* Robot CSS inside Login Box */
+    .login-robot { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative; }
+    .robot-speech-bubble {
+      background: white; color: #000; padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 700;
+      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;
+    }
+    .robot-speech-bubble::after {
+      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+      border-width: 6px 6px 0; border-style: solid; border-color: white transparent transparent transparent;
+    }
+    .robot-head-container { position: relative; }
+    .robot-head-box {
+      width: 70px; height: 60px; background: var(--bg-2); border: 2px solid var(--cyan); border-radius: 12px;
+      display: flex; justify-content: center; align-items: center; gap: 12px; box-shadow: 0 0 20px rgba(87,238,244,0.15); position: relative; z-index: 2;
+    }
+    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); z-index: 1; }
+    .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
+    .robot-face-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: robotBlink 4s infinite; transition: all 0.3s ease; }
+    .robot-face-mouth { position: absolute; bottom: 12px; width: 20px; height: 3px; background: rgba(87,238,244,0.5); border-radius: 2px; }
+    @keyframes robotBlink { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+
 
     /* Other Sections */
     .marquee-section { overflow: hidden; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255,255,255,.012); }
@@ -190,19 +236,6 @@
     .service-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 17px; }
     .tag { padding: 5px 8px; border: 1px solid rgba(255,255,255,.05); border-radius: 999px; background: rgba(255,255,255,.03); color: #8993a4; font-size: 8px; }
 
-    /* Abstract Dash inside architecture */
-    .preview-wrap { margin-top: 50px; }
-    .system-preview { border: 1px solid var(--line-soft); border-radius: 28px; overflow: hidden; background: rgba(255,255,255,.018); box-shadow: 0 20px 60px rgba(0,0,0,.24); }
-    .browser-bar { padding: 15px 20px; border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,.2); }
-    .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
-    .browser-dot:nth-child(1) { background: #ff5f56; } .browser-dot:nth-child(2) { background: #ffbd2e; } .browser-dot:nth-child(3) { background: #27c93f; }
-    .browser-url { margin-left: 15px; color: var(--muted); font-size: 10px; font-family: monospace; }
-    .abstract-dash { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px; background: rgba(10, 15, 22, 0.4); min-height: 400px; }
-    .abstract-module { background: rgba(255,255,255,0.015); border: 1px solid rgba(87,238,244,0.1); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 12px; position: relative; overflow: hidden; }
-    .abstract-module::before { content: ""; position: absolute; width: 100px; height: 100px; background: radial-gradient(circle, rgba(154,120,255,0.15), transparent 70%); border-radius: 50%; top: -50px; left: -50px; animation: ambientPulse 6s infinite alternate; }
-    .abstract-text { font-size: 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0; }
-    .abstract-subtext { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin: 0; }
-
     .split { display: grid; grid-template-columns: .92fr 1.08fr; gap: 75px; align-items: center; }
     .feature-list { display: grid; gap: 10px; margin-top: 31px; }
     .feature { display: grid; grid-template-columns: 42px 1fr; gap: 13px; padding: 16px; border: 1px solid rgba(255,255,255,.055); border-radius: 15px; background: rgba(255,255,255,.02); transition: transform .3s ease, background .3s ease, border-color .3s ease; }
@@ -225,33 +258,6 @@
     .node b { display: block; color: #e5ebf3; font-size: 9px; }
     .node span { display: block; margin-top: 3px; color: #667184; font-size: 7px; }
     .node.a { top: 17%; left: 3%; } .node.b { top: 8%; right: 5%; } .node.c { bottom: 11%; left: 9%; } .node.d { bottom: 5%; right: 2%; }
-
-    .workspace-section { padding-top: 75px !important; }
-    .workspace { margin-top: 50px; display: grid; grid-template-columns: 1.02fr .98fr; gap: 16px; padding: 16px; border: 1px solid var(--line-soft); border-radius: 28px; background: rgba(255,255,255,.018); box-shadow: 0 20px 60px rgba(0,0,0,.24); }
-    .workspace-login { position: relative; min-height: 450px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(255,255,255,.06); border-radius: 20px; background: radial-gradient(circle at center, rgba(87,238,244,.07), transparent 35%), #090c11; }
-    .workspace-login::before { content: ""; position: absolute; width: 360px; height: 360px; border: 1px solid rgba(87,238,244,.06); border-radius: 50%; animation: workspaceRing 12s linear infinite; }
-    @keyframes workspaceRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .robot-eye { position: relative; width: 180px; height: 110px; display: grid; place-items: center; border: 1px solid rgba(87,238,244,.5); border-radius: 50%; box-shadow: 0 0 30px rgba(87,238,244,.09); animation: eyePulse 4s ease-in-out infinite; }
-    @keyframes eyePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
-    .robot-eye::before { content: ""; position: absolute; width: 96px; height: 96px; border: 1px solid rgba(87,238,244,.18); border-radius: 50%; }
-    .pupil { width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 7%, var(--cyan) 15%, #285dff 72%); box-shadow: 0 0 28px rgba(87,238,244,.4); animation: pupilPulse 3s ease-in-out infinite; }
-    @keyframes pupilPulse { 0%, 100% { box-shadow: 0 0 28px rgba(87,238,244,.3); } 50% { box-shadow: 0 0 48px rgba(87,238,244,.58); } }
-    .login-label { position: absolute; left: 23px; bottom: 23px; color: #667184; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
-    .workspace-copy { padding: 31px; display: flex; flex-direction: column; justify-content: center; }
-    .workspace-copy h3 { max-width: 520px; font-size: clamp(31px, 4vw, 49px); line-height: 1.01; letter-spacing: -.055em; }
-    .workspace-copy p { margin-top: 16px; color: var(--muted); font-size: 12px; line-height: 1.8; }
-    .workspace-list { display: grid; gap: 9px; margin-top: 23px; }
-    .workspace-item { display: flex; align-items: center; gap: 9px; color: #b4bdca; font-size: 10px; }
-    .workspace-item::before { content: "↗"; color: var(--cyan); }
-
-    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 50px; }
-    .process-card { min-height: 210px; padding: 22px; position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08); border-left: 1px solid rgba(255,255,255,.04); background: linear-gradient(180deg, rgba(255,255,255,.025), transparent); transition: transform .3s ease, background .3s ease, border-color .3s ease; }
-    .process-card::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); transform: scaleX(0); transition: transform .45s ease; }
-    .process-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.035); border-color: rgba(87,238,244,.12); }
-    .process-card:hover::after { transform: scaleX(1); }
-    .process-number { color: #465162; font-size: 31px; font-weight: 700; }
-    .process-card h4 { margin-top: 28px; font-size: 15px; font-weight: 750; }
-    .process-card p { margin-top: 8px; color: var(--muted); font-size: 10px; line-height: 1.7; }
 
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
     .blog-card { padding: 24px; background: rgba(255,255,255,.015); border: 1px solid rgba(87,238,244,0.1); border-radius: 16px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
@@ -277,48 +283,19 @@
     .footer-links a:hover { color: var(--cyan); }
 
     /* =========================================================
-       MODAL STYLES (LOGIN & CONTENT)
+       CONTENT MODAL
     ========================================================= */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 99999; background: rgba(3, 6, 9, 0.85); backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
     }
     .modal-overlay.active { display: flex; opacity: 1; }
-    .modal-box {
-      width: 100%; max-width: 400px; background: rgba(10, 15, 22, 0.95); border: 1px solid rgba(87, 238, 244, 0.15);
-      border-radius: 24px; padding: 40px 30px; position: relative; box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5);
-      transform: translateY(20px); transition: transform 0.3s ease; text-align: center;
-    }
-    .modal-box.content-box { max-width: 800px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 50px 40px; }
+    .modal-box.content-box { width: 100%; background: rgba(10, 15, 22, 0.95); border: 1px solid rgba(87, 238, 244, 0.15); border-radius: 24px; position: relative; box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5); transform: translateY(20px); transition: transform 0.3s ease; max-width: 800px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 50px 40px; }
     .modal-overlay.active .modal-box { transform: translateY(0); }
-    .close-modal {
-      position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--muted);
-      font-size: 28px; cursor: pointer; transition: color 0.2s ease; padding: 0; line-height: 1;
-    }
+    .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--muted); font-size: 28px; cursor: pointer; transition: color 0.2s ease; padding: 0; line-height: 1; }
     .close-modal:hover { color: white; }
     .content-modal-body p { margin-bottom: 15px; color: var(--muted); line-height: 1.7; font-size: 14px; }
     .content-modal-body h3 { color: white; margin: 25px 0 10px; font-size: 18px; }
-
-    /* Robot CSS */
-    .login-robot { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative; }
-    .robot-speech-bubble {
-      background: white; color: #000; padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 700;
-      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;
-    }
-    .robot-speech-bubble::after {
-      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
-      border-width: 6px 6px 0; border-style: solid; border-color: white transparent transparent transparent;
-    }
-    .robot-head-container { position: relative; }
-    .robot-head-box {
-      width: 70px; height: 60px; background: var(--bg-2); border: 2px solid var(--cyan); border-radius: 12px;
-      display: flex; justify-content: center; align-items: center; gap: 12px; box-shadow: 0 0 20px rgba(87,238,244,0.15); position: relative; z-index: 2;
-    }
-    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); z-index: 1; }
-    .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
-    .robot-face-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: robotBlink 4s infinite; transition: all 0.3s ease; }
-    .robot-face-mouth { position: absolute; bottom: 12px; width: 20px; height: 3px; background: rgba(87,238,244,0.5); border-radius: 2px; }
-    @keyframes robotBlink { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
 
     /* =========================================================
        🔥🔥 SIVMOR DASHBOARD STYLES 🔥🔥
@@ -411,12 +388,12 @@
 
 
     /* =========================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS - FIX FOR MOBILE WRAP)
+       APP VIEWER (IFRAME MODAL FOR TOOLS) 
     ========================================================= */
     #appViewer {
       display: none; position: fixed; top: 0; left: 0; 
-      width: 100%; height: 100vh; height: 100dvh; 
-      background: var(--bg); z-index: 99999; flex-direction: column;
+      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
+      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;
     }
     .appViewer-header {
       height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); 
@@ -438,7 +415,10 @@
     }
 
     /* Media Queries */
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-content { text-align: center; }
+      .hero-content h1, .hero-sub, .hero-intelligence, .ai-stage { margin-left: auto; margin-right: auto; }
       .nav-links, .top-buttons { display: none !important; }
       .mobile-menu { display: block; }
       .split { grid-template-columns: 1fr; gap: 45px; }
@@ -451,7 +431,7 @@
       .custom-form .form-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
-      .hero h1 { font-size: clamp(43px, 14vw, 68px); }
+      .hero h1 { font-size: clamp(40px, 10vw, 68px); }
       .modal-box.content-box { padding: 40px 20px; }
     }
   </style>
@@ -467,16 +447,15 @@
   <!-- NAVIGATION -->
   <div class="nav-wrap" id="mainNavWrap">
     <nav>
-      <a href="/" class="logo" style="text-decoration: none;">WEB AUTOMATE</a>
+      <a href="/" class="logo" style="text-decoration: none;">SiVMOR</a>
       <div class="nav-links">
-        <a href="#about">About Us</a>
-        <a href="#services">Solutions</a>
-        <a href="#architecture">Technology</a>
-        <a href="#resources">Resources</a>
+        <a href="#about">Dashboard</a>
+        <a href="#services">Modules</a>
+        <a href="#architecture">Features</a>
+        <a href="#resources">Guides</a>
       </div>
       <div class="top-buttons" style="display: flex; gap: 10px; align-items: center;">
-        <a href="https://wa.me/917357231104?text=Hi%20WebAutomate,%20I%20want%20to%20book%20a%20strategy%20call." target="_blank" class="nav-cta">Book a Strategy Call</a>
-        <a href="#" class="nav-cta open-login-modal" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Client Login</a>
+        <a href="#loginBox" class="nav-cta" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Portal Login</a>
       </div>
       <button type="button" class="mobile-menu" id="mobileMenuButton" aria-label="Open menu">☰</button>
     </nav>
@@ -484,12 +463,11 @@
 
   <!-- MOBILE NAV -->
   <div class="mobile-panel" id="mobilePanel" style="display:none; position:fixed; top:78px; left:12px; right:12px; z-index:4999; padding:12px; gap:5px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:rgba(7,9,14,.98); box-shadow:0 20px 50px rgba(0,0,0,.4);">
-    <a href="#about" style="padding:12px 10px; color:#b5bdca; font-size:12px;">About Us</a>
-    <a href="#services" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Solutions</a>
-    <a href="#architecture" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Technology</a>
-    <a href="#resources" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Resources</a>
-    <a href="https://wa.me/917357231104" target="_blank" style="padding:12px 10px; color:#8ff8ef; font-size:12px;">Contact</a>
-    <a href="#" class="open-login-modal" style="padding:12px 10px; color:#fff; font-size:12px; font-weight: bold;">Client Login</a>
+    <a href="#about" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Dashboard</a>
+    <a href="#services" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Modules</a>
+    <a href="#architecture" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Features</a>
+    <a href="#resources" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Guides</a>
+    <a href="#loginBox" style="padding:12px 10px; color:#fff; font-size:12px; font-weight: bold;">Portal Login</a>
   </div>
 
 
@@ -499,73 +477,89 @@
   <div id="landing-view">
 
     <section class="hero" id="top">
-      <div class="hero-content">
-        <div class="hero-intelligence">
-          <span class="intelligence-dot"></span>
-          Intelligent Operations • Automation • Connected Data
-        </div>
-        <h1>Your business should<br><span class="gradient">run itself.</span></h1>
-        <p class="hero-sub">
-          WebAutomate.cloud builds <strong>intelligent operational systems</strong> for modern retail businesses — turning fragmented spreadsheets, repetitive reporting and manual follow-ups into one connected digital workspace.
-        </p>
-        <div class="hero-actions">
-          <a href="https://wa.me/917357231104" target="_blank" class="btn btn-primary">Start a Conversation ↗</a>
-          <a href="#workspace" class="btn btn-secondary">Explore Client Workspace →</a>
-        </div>
-        <div class="hero-note">Built around your workflow • Lightweight infrastructure • Designed for growing retailers</div>
-
-        <div class="ai-stage" style="margin-top: 50px;">
-          <div class="ai-scan"></div>
-          <div class="ai-orb"></div>
-          <div class="ai-word w1"><strong>ANALYZE</strong> / BUSINESS DATA</div>
-          <div class="ai-word w2"><strong>CONNECT</strong> / WORKFLOWS</div>
-          <div class="ai-word w3"><strong>UNDERSTAND</strong> / PATTERNS</div>
-          <div class="ai-word w4"><strong>AUTOMATE</strong> / REPETITION</div>
-          <div class="ai-word w5"><strong>OPTIMIZE</strong> / OPERATIONS</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABSTRACT DASHBOARD SECTION -->
-    <section>
-      <div class="container">
-        <div class="preview-wrap">
-          <div class="system-preview">
-            <div class="browser-bar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <div class="browser-url">secure.workspace / new-module</div>
+      <div class="hero-inner">
+          
+          <div class="hero-content">
+            <div class="hero-intelligence">
+              <span class="intelligence-dot"></span>
+              Centralized Portal • Live Tracking • Smart Analytics
             </div>
-            <div class="abstract-dash">
-              <div class="abstract-module"><div class="abstract-text gradient">OPERATIONAL SYNC</div><div class="abstract-subtext gradient">MODULE ACTIVE</div></div>
-              <div class="abstract-module"><div class="abstract-text gradient">DATA STREAM</div><div class="abstract-subtext gradient">PROCESSING</div></div>
-              <div class="abstract-module"><div class="abstract-text gradient">WORKFLOW AUTOMATION</div><div class="abstract-subtext gradient">OPTIMIZED</div></div>
-              <div class="abstract-module"><div class="abstract-text gradient">SYSTEM INTELLIGENCE</div><div class="abstract-subtext gradient">CONNECTED</div></div>
+            <h1>Welcome to the<br><span class="gradient">SiVMOR Workspace.</span></h1>
+            <p class="hero-sub">
+              The centralized digital operations and management portal for SiVMOR Gadgets. Access live inventory, sales analytics, and staff attendance in one secure place.
+            </p>
+            <div class="hero-note" style="margin-top: 25px;">Authorized Personnel Only • Secure Cloud Infrastructure • Live Data Sync</div>
+
+            <div class="ai-stage">
+              <div class="ai-scan"></div>
+              <div class="ai-orb"></div>
+              <div class="ai-word w1"><strong>TRACK</strong> / INVENTORY</div>
+              <div class="ai-word w2"><strong>MANAGE</strong> / STAFF</div>
+              <div class="ai-word w3"><strong>MONITOR</strong> / SALES</div>
+              <div class="ai-word w4"><strong>CALCULATE</strong> / CASHBACK</div>
+              <div class="ai-word w5"><strong>ACHIEVE</strong> / TARGETS</div>
             </div>
           </div>
-        </div>
+
+          <!-- 🔥 RIGHT SIDE LOGIN BOX 🔥 -->
+          <div class="hero-login-card" id="loginBox">
+              <!-- CUTE ROBOT SECTION -->
+              <div class="login-robot">
+                <div class="robot-speech-bubble" id="robotSpeech">Beep boop. Enter details.</div>
+                <div class="robot-head-container">
+                  <div class="robot-antenna"></div>
+                  <div class="robot-head-box">
+                    <div class="robot-face-eye" id="robotEyeL"></div>
+                    <div class="robot-face-eye" id="robotEyeR"></div>
+                    <div class="robot-face-mouth"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <form id="clientLoginForm" style="margin-top: 20px;">
+                <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
+                  Incorrect User ID or Password.
+                </div>
+
+                <div class="input-group" style="text-align: left;">
+                  <label>User ID</label>
+                  <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
+                </div>
+                
+                <!-- PASSWORD FIELD WITH EYE ICON -->
+                <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
+                  <label>Password</label>
+                  <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
+                  <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 32px; background: transparent; border: none; color: #8a94a5; cursor: pointer; font-size: 16px; padding: 5px;">👁️</button>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px; border:none;">
+                  Secure Login ↗
+                </button>
+              </form>
+          </div>
+
       </div>
     </section>
 
     <!-- MARQUEE -->
-    <div class="marquee-section" style="margin-top: 100px;">
+    <div class="marquee-section" style="margin-top: 40px;">
       <div class="marquee">
-        <span>ANALYZE</span><span class="accent">CONNECT</span><span>UNDERSTAND</span><span class="accent">AUTOMATE</span><span>OPTIMIZE</span><span class="accent">INTELLIGENCE</span>
-        <span>ANALYZE</span><span class="accent">CONNECT</span><span>UNDERSTAND</span><span class="accent">AUTOMATE</span><span>OPTIMIZE</span><span class="accent">INTELLIGENCE</span>
+        <span>INVENTORY</span><span class="accent">SALES</span><span>ATTENDANCE</span><span class="accent">OUTSTANDING</span><span>PERFORMANCE</span><span class="accent">CASHBACK</span>
+        <span>INVENTORY</span><span class="accent">SALES</span><span>ATTENDANCE</span><span class="accent">OUTSTANDING</span><span>PERFORMANCE</span><span class="accent">CASHBACK</span>
       </div>
     </div>
 
     <!-- INTRO SECTION -->
     <section id="about" style="padding: 100px 20px;">
       <div class="container">
-        <div class="split" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-          <div><div class="eyebrow" style="margin-bottom: 10px;">What We Do</div></div>
+        <div class="split">
+          <div><div class="eyebrow" style="margin-bottom: 10px;">SiVMOR Core System</div></div>
           <div>
             <h2 style="font-size: 32px; line-height: 1.2; margin-bottom: 20px;">
-              Your business already has <span style="color:#4c515b;">enough software.</span> It needs a system that makes everything <span class="gradient">work together.</span>
+              Everything you need to manage your store, <span class="gradient">in one place.</span>
             </h2>
-            <p style="color: var(--muted); line-height: 1.8;">Instead of forcing your business into generic software, we engineer digital systems around the way your team already works.</p>
+            <p style="color: var(--muted); line-height: 1.8;">Log in to access your designated modules, check live performance, and report your daily activities seamlessly.</p>
           </div>
         </div>
       </div>
@@ -574,33 +568,33 @@
     <!-- SERVICES SECTION -->
     <section id="services" style="padding: 80px 0;">
       <div class="container">
-        <div class="section-kicker">What We Build</div>
-        <h2 class="section-title">Software that removes <span class="gradient">operational friction.</span></h2>
-        <p class="section-description">Custom infrastructure for operations, visibility, reporting, customer workflows and business automation.</p>
+        <div class="section-kicker">Portal Modules</div>
+        <h2 class="section-title">Built for <span class="gradient">Store Managers.</span></h2>
+        <p class="section-description">Select tools assigned to your profile based on your current role and responsibilities.</p>
         <div class="services-grid">
           <article class="service-card">
-            <div class="service-number">01 / SYSTEMS</div>
-            <div class="service-icon">⌘</div>
-            <h3>Custom Operations Workspaces</h3>
-            <p>Private dashboards and internal tools built around your real business processes, accessible through a secure client workspace.</p>
+            <div class="service-number">01 / MANAGEMENT</div>
+            <div class="service-icon">👥</div>
+            <h3>Manager Attendance</h3>
+            <p>Verify your presence using GPS-enabled check-ins and live selfie capture directly from your device.</p>
           </article>
           <article class="service-card">
-            <div class="service-number">02 / INTELLIGENCE</div>
-            <div class="service-icon">◌</div>
-            <h3>Live Inventory & Sales</h3>
-            <p>See stock, sales and branch performance in one operating layer with continuously updated business data.</p>
+            <div class="service-number">02 / OPERATIONS</div>
+            <div class="service-icon">📦</div>
+            <h3>Live Stock & Value</h3>
+            <p>Check real-time stock availability across branches and monitor the corporate value tracking seamlessly.</p>
           </article>
           <article class="service-card">
-            <div class="service-number">03 / REPORTING</div>
-            <div class="service-icon">◫</div>
-            <h3>Automated Daily Intelligence</h3>
-            <p>Replace manual reports with automated daily summaries covering stock position, ageing products, branch performance and credit outstanding.</p>
+            <div class="service-number">03 / FINANCE</div>
+            <div class="service-icon">💳</div>
+            <h3>Stores Outstanding</h3>
+            <p>Review pending customer balances, invoices, and credit details to maintain accurate financial health.</p>
           </article>
           <article class="service-card">
-            <div class="service-number">04 / ENGAGEMENT</div>
-            <div class="service-icon">✦</div>
-            <h3>WhatsApp & CRM Automation</h3>
-            <p>Trigger intelligent customer communication and follow-up workflows without relying on staff to repeat the same process every day.</p>
+            <div class="service-number">04 / MARKETING</div>
+            <div class="service-icon">🎯</div>
+            <h3>Customer Targets</h3>
+            <p>Submit daily customer proofs for social media follows, reviews, and track monthly sales targets easily.</p>
           </article>
         </div>
       </div>
@@ -611,66 +605,23 @@
       <div class="container">
         <div class="split">
           <div>
-            <div class="section-kicker">The Architecture</div>
-            <h2 class="section-title">Premium software.<br><span class="gradient">Without premium bloat.</span></h2>
-            <p class="section-description">Fast frontend interfaces, serverless infrastructure and connected business data produce powerful experiences without unnecessary infrastructure.</p>
+            <div class="section-kicker">Portal Features</div>
+            <h2 class="section-title">Fast, secure,<br><span class="gradient">and reliable.</span></h2>
+            <p class="section-description">Our custom-built portal is designed to process store data quickly without lag, keeping you updated on the go.</p>
             <div class="feature-list">
-              <div class="feature"><div class="feature-icon">⚡</div><div><h4>Lightweight Frontends</h4><p>React, Next.js, and clean UI interfaces with minimal overhead.</p></div></div>
-              <div class="feature"><div class="feature-icon">🛡️</div><div><h4>Enterprise Grade Security</h4><p>Advanced encryption and secure protocols to keep business data protected.</p></div></div>
-              <div class="feature"><div class="feature-icon">◉</div><div><h4>Client-Specific Workspaces</h4><p>Every client gets a tailored digital environment for their tools.</p></div></div>
+              <div class="feature"><div class="feature-icon">⚡</div><div><h4>Fast & Responsive</h4><p>Works perfectly on your mobile phone or desktop.</p></div></div>
+              <div class="feature"><div class="feature-icon">🛡️</div><div><h4>Secure Access</h4><p>Role-based logins ensure you only see what you need to.</p></div></div>
+              <div class="feature"><div class="feature-icon">◉</div><div><h4>Store-Specific Data</h4><p>Metrics automatically filter based on your assigned branch.</p></div></div>
             </div>
           </div>
           <div class="architecture">
             <div class="ring"></div><div class="ring r2"></div>
-            <div class="node a"><b>Modern Frontend</b><span>React / Next.js</span></div>
-            <div class="node b"><b>Backend Services</b><span>Node.js / Python</span></div>
-            <div class="node c"><b>Data Infrastructure</b><span>PostgreSQL / AWS</span></div>
-            <div class="node d"><b>AI Intelligence</b><span>Custom LLMs</span></div>
-            <div class="architecture-core"><div><strong>WEB<br>AUTOMATE</strong><small>INTELLIGENT OS</small></div></div>
+            <div class="node a"><b>Live Sync</b><span>Real-time Updates</span></div>
+            <div class="node b"><b>Cloud DB</b><span>Secure Storage</span></div>
+            <div class="node c"><b>Analytics</b><span>Visual Dashboards</span></div>
+            <div class="node d"><b>Tracking</b><span>GPS & Target Metrics</span></div>
+            <div class="architecture-core"><div><strong>SiVMOR<br>CORE</strong><small>WORKSPACE OS</small></div></div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WORKSPACE PREVIEW -->
-    <section id="workspace" class="workspace-section">
-      <div class="container">
-        <div class="section-kicker">The Client Experience</div>
-        <h2 class="section-title">Every client gets <span class="gradient">their own workspace.</span></h2>
-        <p class="section-description">Your customers don't need to understand the machinery behind the system. They simply log in and use a digital environment designed specifically for their business.</p>
-        <div class="workspace">
-          <div class="workspace-login">
-            <div class="robot-eye"><div class="pupil"></div></div>
-            <div class="login-label">Secure client workspace // authenticated environment</div>
-          </div>
-          <div class="workspace-copy">
-            <h3>A digital headquarters for your business.</h3>
-            <p>Give every client a branded, secure portal where their reports, dashboards, operational tools and automation systems live in one place.</p>
-            <div class="workspace-list">
-              <div class="workspace-item">Secure client login</div>
-              <div class="workspace-item">Dedicated operational tools</div>
-              <div class="workspace-item">Live business dashboards</div>
-              <div class="workspace-item">Automated reporting</div>
-              <div class="workspace-item">Scalable modular architecture</div>
-            </div>
-            <div class="hero-actions" style="justify-content:flex-start;">
-              <a href="#" class="btn btn-secondary open-login-modal">Try Live Demo →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESS SECTION -->
-    <section id="process" style="padding: 80px 0;">
-      <div class="container">
-        <div class="section-kicker">How It Works</div>
-        <h2 class="section-title">From manual chaos <span class="gradient">to automated control.</span></h2>
-        <div class="process-grid">
-          <div class="process-card"><div class="process-number">01</div><h4>Map the Operation</h4><p>We understand your branches, data, staff routines, reports and recurring bottlenecks.</p></div>
-          <div class="process-card"><div class="process-number">02</div><h4>Design the System</h4><p>We translate those workflows into a clear digital architecture and custom workspace.</p></div>
-          <div class="process-card"><div class="process-number">03</div><h4>Automate the Repetition</h4><p>Reporting, alerts, data movement and customer communication become programmable.</p></div>
-          <div class="process-card"><div class="process-number">04</div><h4>Deploy & Improve</h4><p>Your system goes live and evolves alongside your business.</p></div>
         </div>
       </div>
     </section>
@@ -678,16 +629,16 @@
     <!-- RESOURCES / BLOG SECTION -->
     <section id="resources" style="padding: 80px 0;">
       <div class="container">
-        <div class="section-kicker" style="text-align: center;">Blog & Resources</div>
-        <h2 class="section-title" style="text-align: center;">Insights for <span class="gradient">Retail Growth</span></h2>
+        <div class="section-kicker" style="text-align: center;">Help Center</div>
+        <h2 class="section-title" style="text-align: center;">SiVMOR Internal <span class="gradient">Guides</span></h2>
         <div class="blog-grid">
-          <article class="blog-card"><span class="category">Automation</span><h4>What is WhatsApp CRM Automation?</h4><a href="#" class="read-more open-content" data-target="blog-1">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Inventory</span><h4>How to automate inventory in a retail business?</h4><a href="#" class="read-more open-content" data-target="blog-2">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Comparison</span><h4>Excel vs Automated Inventory System</h4><a href="#" class="read-more open-content" data-target="blog-3">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Reporting</span><h4>How to automate daily sales reporting?</h4><a href="#" class="read-more open-content" data-target="blog-4">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Technology</span><h4>AI Automation for Retail Businesses</h4><a href="#" class="read-more open-content" data-target="blog-5">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Management</span><h4>Multi-Branch Inventory Management Guide</h4><a href="#" class="read-more open-content" data-target="blog-6">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Engagement</span><h4>WhatsApp Follow-up Automation Guide</h4><a href="#" class="read-more open-content" data-target="blog-7">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Management</span><h4>How to mark Manager Attendance?</h4><a href="#" class="read-more open-content" data-target="blog-1">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Finance</span><h4>Checking Store Outstanding Balances</h4><a href="#" class="read-more open-content" data-target="blog-2">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Operations</span><h4>Live Stock Availability Guide</h4><a href="#" class="read-more open-content" data-target="blog-3">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Analytics</span><h4>Understanding the Sales Dashboard</h4><a href="#" class="read-more open-content" data-target="blog-4">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Marketing</span><h4>Submitting Customer Target Proofs</h4><a href="#" class="read-more open-content" data-target="blog-5">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Performance</span><h4>Tracking your Monthly Targets</h4><a href="#" class="read-more open-content" data-target="blog-6">Read Guide →</a></article>
+          <article class="blog-card"><span class="category">Offers</span><h4>SBI Cashback Calculation Rules</h4><a href="#" class="read-more open-content" data-target="blog-7">Read Guide →</a></article>
         </div>
       </div>
     </section>
@@ -696,26 +647,26 @@
     <section id="contact" style="padding: 80px 0 100px;">
       <div class="container">
         <div class="cta-box" style="text-align: left; max-width: 800px; margin: 0 auto; padding: 50px 40px;">
-          <div class="section-kicker" style="text-align: center; margin-bottom: 10px;">Tell Us About Your Business</div>
-          <h2 style="text-align: center; margin-bottom: 40px; font-size: clamp(28px, 4vw, 42px);">Start your <span class="gradient">transformation</span></h2>
+          <div class="section-kicker" style="text-align: center; margin-bottom: 10px;">SiVMOR Support Helpdesk</div>
+          <h2 style="text-align: center; margin-bottom: 40px; font-size: clamp(28px, 4vw, 42px);">Raise a <span class="gradient">Support Ticket</span></h2>
           
           <div id="formSuccessMessage" style="display: none; text-align: center; padding: 60px 20px;">
             <div style="font-size: 45px; margin-bottom: 20px; color: var(--mint);">✓</div>
-            <h3 style="font-size: 26px; margin-bottom: 12px;">Thanks for your submission!</h3>
-            <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">We have successfully received your details. Our team will review your requirements and get back to you shortly.</p>
-            <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Response</button>
+            <h3 style="font-size: 26px; margin-bottom: 12px;">Ticket Submitted!</h3>
+            <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Your issue has been logged. Admin will review the details and get back to you shortly.</p>
+            <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Ticket</button>
           </div>
           
           <form id="waSubmitForm" class="custom-form">
             <div class="form-grid">
-              <div class="input-group"><label>Your Name</label><input type="text" id="waName" placeholder="John Doe" required></div>
-              <div class="input-group"><label>Business Name</label><input type="text" id="waBusiness" placeholder="Acme Corp" required></div>
+              <div class="input-group"><label>Your Name</label><input type="text" id="waName" placeholder="Enter your name" required></div>
+              <div class="input-group"><label>Store Name</label><input type="text" id="waBusiness" placeholder="e.g. CHB" required></div>
               <div class="input-group"><label>Contact Number</label><input type="tel" id="waPhone" placeholder="+91 XXXXX XXXXX" required></div>
-              <div class="input-group"><label>Email Address</label><input type="email" id="waEmail" placeholder="john@example.com" required></div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label>City</label><input type="text" id="waCity" placeholder="e.g. Mumbai, Delhi" required></div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label>What are your requirements?</label><textarea rows="4" id="waReq" placeholder="Briefly describe your current process and what you want to automate..." required></textarea></div>
+              <div class="input-group"><label>Email / User ID</label><input type="text" id="waEmail" placeholder="Enter your User ID" required></div>
+              <div class="input-group" style="grid-column: 1 / -1;"><label>Issue Type</label><input type="text" id="waCity" placeholder="e.g. Login Issue, Attendance Error" required></div>
+              <div class="input-group" style="grid-column: 1 / -1;"><label>Describe the Problem</label><textarea rows="4" id="waReq" placeholder="Please provide details about the issue..." required></textarea></div>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 25px;">Submit Details ↗</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 25px;">Submit Ticket ↗</button>
           </form>
         </div>
       </div>
@@ -724,12 +675,10 @@
     <!-- FOOTER -->
     <footer>
       <div class="footer-inner">
-        <div class="footer-copy">© <span id="year"></span> WebAutomate.cloud — Intelligent Digital Operations.</div>
+        <div class="footer-copy">© <span id="year"></span> SiVMOR Gadgets. All rights reserved.</div>
         <div class="footer-links">
-          <a href="#about">About Us</a>
-          <a href="#contact">Contact Us</a>
           <a href="#" class="open-content" data-target="privacy">Privacy Policy</a>
-          <a href="#" class="open-content" data-target="terms">Terms</a>
+          <a href="#" class="open-content" data-target="terms">Terms of Access</a>
         </div>
       </div>
     </footer>
@@ -882,66 +831,19 @@
 
 
   <!-- =====================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS)
-       🔥 FIX FOR MOBILE OVERFLOW & TEXT CUT OFF 🔥
+       APP VIEWER (IFRAME MODAL FOR TOOLS) 
   ===================================================== -->
-  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column;">
+  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; 
+      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
+      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;">
     <div class="appViewer-header" style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px; flex-shrink: 0;">
       <button class="appViewer-btn" onclick="closeAppViewer()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;">
         ⬅ Back
       </button>
       <div id="appViewerTitle" class="appViewer-title" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">App Title</div>
     </div>
-    <!-- Allow permissions for Mobile Clipboard and Camera, plus horizontal scroll wrap to prevent text cut off -->
     <div style="flex-grow: 1; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; background: #f4f7fb;">
         <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
-    </div>
-  </div>
-
-
-  <!-- =====================================================
-       LOGIN MODAL WITH ROBOT
-  ===================================================== -->
-  <div class="modal-overlay" id="loginModal">
-    <div class="modal-box">
-      <button class="close-modal" id="closeLoginModal">&times;</button>
-      
-      <!-- CUTE ROBOT SECTION -->
-      <div class="login-robot">
-        <div class="robot-speech-bubble" id="robotSpeech">Beep boop. Who goes there?</div>
-        <div class="robot-head-container">
-          <div class="robot-antenna"></div>
-          <div class="robot-head-box">
-            <div class="robot-face-eye" id="robotEyeL"></div>
-            <div class="robot-face-eye" id="robotEyeR"></div>
-            <div class="robot-face-mouth"></div>
-          </div>
-        </div>
-      </div>
-      
-      <form id="clientLoginForm" style="margin-top: 20px;">
-        
-        <!-- ERROR MESSAGE BOX (Hidden by default) -->
-        <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
-          Incorrect User ID or Password.
-        </div>
-
-        <div class="input-group" style="text-align: left;">
-          <label>User ID</label>
-          <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
-        </div>
-        
-        <!-- PASSWORD FIELD WITH EYE ICON -->
-        <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
-          <label>Password</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
-          <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 32px; background: transparent; border: none; color: #8a94a5; cursor: pointer; font-size: 16px; padding: 5px;">👁️</button>
-        </div>
-        
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px; border:none;">
-          Secure Login ↗
-        </button>
-      </form>
     </div>
   </div>
 
@@ -995,7 +897,7 @@
         e.preventDefault();
         const submitBtn = waSubmitForm.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = "Saving Details... ⏳";
+        submitBtn.innerHTML = "Sending... ⏳";
         submitBtn.disabled = true;
         
         const formData = {
@@ -1021,7 +923,7 @@
           } else throw new Error(data.error);
         })
         .catch(error => {
-          submitBtn.innerHTML = "Error saving. Try Again ❌";
+          submitBtn.innerHTML = "Error sending. Try Again ❌";
           submitBtn.disabled = false;
           setTimeout(() => { submitBtn.innerHTML = originalBtnText; }, 4000);
         });
@@ -1036,7 +938,6 @@
     let userAccessGlobal = '';
     let assignedAttendanceNameGlobal = '';
 
-    // SINGLE HARDCODED DATABASE FOR SIVMOR
     const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
     const DASHBOARD_URL_HASH = "#sivmor";
 
@@ -1092,10 +993,6 @@
         }
     }
 
-    // Modal UI Logic
-    const loginModal = document.getElementById('loginModal');
-    const closeLoginModal = document.getElementById('closeLoginModal');
-    const openLoginBtns = document.querySelectorAll('.open-login-modal');
     const clientLoginForm = document.getElementById('clientLoginForm');
     const loginErrorMessage = document.getElementById('loginErrorMessage');
     
@@ -1110,25 +1007,10 @@
       this.textContent = type === 'password' ? '👁️' : '🙈'; 
     });
 
-    openLoginBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginModal.classList.add('active');
-        document.body.style.overflow = "hidden";
-        loginErrorMessage.style.display = 'none'; 
-        robotSpeech.innerText = "Beep boop. Who goes there?";
-        loginPassword.setAttribute('type', 'password');
-        togglePasswordBtn.textContent = '👁️';
-      });
-    });
-
-    closeLoginModal.addEventListener('click', () => { loginModal.classList.remove('active'); document.body.style.overflow = ""; });
-    loginModal.addEventListener('click', (e) => { if (e.target === loginModal) { loginModal.classList.remove('active'); document.body.style.overflow = ""; }});
-
     loginUserId.addEventListener('focus', () => robotSpeech.innerText = "A visitor. State your ID.");
-    loginUserId.addEventListener('blur', () => { if(!loginUserId.value) robotSpeech.innerText = "Beep boop. Who goes there?"; });
+    loginUserId.addEventListener('blur', () => { if(!loginUserId.value) robotSpeech.innerText = "Beep boop. Enter details."; });
     loginPassword.addEventListener('focus', () => robotSpeech.innerText = "Shh. Super secret password.");
-    loginPassword.addEventListener('blur', () => { if(!loginPassword.value && !loginUserId.value) robotSpeech.innerText = "Beep boop. Who goes there?"; });
+    loginPassword.addEventListener('blur', () => { if(!loginPassword.value && !loginUserId.value) robotSpeech.innerText = "Beep boop. Enter details."; });
 
     function enable3DCards() {
         document.querySelectorAll('.dash-card').forEach(card => {
@@ -1143,7 +1025,6 @@
         });
     }
 
-    // App Viewer Logic
     function openAppViewer(url, title, forceDesktop = false) {
         document.getElementById('dashboard-view').style.display = 'none';
         const appViewer = document.getElementById('appViewer');
@@ -1152,7 +1033,6 @@
         const iframe = document.getElementById('appViewerFrame');
         iframe.src = url;
         
-        // Force desktop width for heavy tables (like Outstanding) to prevent text wrap on mobile
         if(forceDesktop) {
             iframe.style.minWidth = '1000px';
         } else {
@@ -1179,20 +1059,20 @@
         userAccessGlobal = attLower;
         assignedAttendanceNameGlobal = attVal;
 
-        const userParam = encodeURIComponent(userIdRaw);
-        
-        // 🔥 FIX FOR ADMIN TO SEE ALL STORES IN DROPDOWNS 🔥
-        // Agar admin hai, toh filter URL mein stores= parameter bhejenge hi nahi (ya empty bhejenge)
-        let storeParamUrl = `&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+        // Force ALL store access for specific roles (Fixes Outstanding Admin issue)
+        let storeParam = userData.allowed_stores || '';
         if (userIdRaw.toLowerCase() === 'admin' || userData.outstanding === 'admin' || userData.stock === 'admin' || userData.sales === 'admin') {
-            storeParamUrl = ''; // Param removed, so external app shows all stores
+            storeParam = 'ALL'; 
         }
+        const storeParamUrl = `&stores=${encodeURIComponent(storeParam)}`;
+        const userParam = encodeURIComponent(userIdRaw);
 
-        // 1. Attendance 
+        // 1. Attendance
         const attCard = document.getElementById('app-attendance');
         if (attVal !== '' && attLower !== 'no') {
             attCard.style.display = 'block';
             if (attLower === 'admin') {
+                // Fixed: Explicitly load admin monitor for Admin
                 attCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${userParam}`, "Attendance Monitor"); };
             } else {
                 attCard.onclick = (e) => { e.preventDefault(); openAttendanceApp(); }; 
@@ -1206,7 +1086,6 @@
         const outCard = document.getElementById('app-outstanding');
         if (userData.outstanding === 'yes' || userData.outstanding === 'admin') {
             outCard.style.display = 'block';
-            // Passed forceDesktop = true to prevent mobile wrapping
             outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}${storeParamUrl}`, "Stores Outstanding", true);};
         } else { 
             outCard.style.display = 'none'; 
@@ -1291,7 +1170,7 @@
 
       loginErrorMessage.style.display = 'none';
       btn.innerHTML = "Authenticating... ⏳";
-      robotSpeech.innerText = "Scanning database...";
+      robotSpeech.innerText = "Verifying Access...";
       btn.disabled = true;
 
       try {
@@ -1315,9 +1194,6 @@
               btn.innerHTML = "Success! Loading Workspace... ✅";
               
               setTimeout(() => {
-                  loginModal.classList.remove('active');
-                  document.body.style.overflow = ""; 
-                  
                   window.history.pushState({}, '', DASHBOARD_URL_HASH);
 
                   document.getElementById('mainNavWrap').style.display = 'none'; 
@@ -1645,55 +1521,54 @@
         });
     });
 
-
     /* =====================================================
-       DYNAMIC CONTENT READER MODAL (BLOGS, PRIVACY, TERMS)
+       DYNAMIC CONTENT READER MODAL (SIVMOR GUIDES)
     ===================================================== */
     const articleDatabase = {
       "privacy": {
         category: "Legal",
         title: "Privacy Policy",
-        body: `<h3>Introduction</h3><p>At WebAutomate.cloud, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you use our digital automation services.</p><h3>Data Collection</h3><p>We collect information you provide directly to us (like your name, email, and business details via forms) and data automatically collected through cookies for website performance.</p><h3>How We Use Your Data</h3><p>Your data is strictly used to provide, maintain, and improve our services. We do not sell your personal information to third-party marketers. Operational data synced via Google Sheets remains under your administrative control.</p><h3>Contact Us</h3><p>If you have any questions regarding this policy, please reach out to us at hello@webautomate.cloud.</p>`
+        body: `<p>SiVMOR respects your privacy. All portal data, including location check-ins and images, are strictly collected for internal operational tracking and evaluation purposes only.</p>`
       },
       "terms": {
         category: "Legal",
-        title: "Terms of Service",
-        body: `<h3>Acceptance of Terms</h3><p>By accessing or using WebAutomate.cloud, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our services.</p><h3>Service Provision</h3><p>We provide custom infrastructure for operations, visibility, reporting, and business automation. Service uptime is subject to the stability of underlying third-party platforms (like AWS, Google Workspace, and WhatsApp APIs).</p><h3>User Responsibilities</h3><p>You are responsible for safeguarding your Client Portal credentials. Any activity occurring under your account is your responsibility.</p><h3>Limitation of Liability</h3><p>WebAutomate.cloud shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use the service.</p>`
+        title: "Terms of Access",
+        body: `<p>Access to the SiVMOR Workspace is restricted to authorized personnel. Sharing credentials or internal company data with unauthorized entities is strictly prohibited.</p>`
       },
       "blog-1": {
-        category: "Automation",
-        title: "What is WhatsApp CRM Automation?",
-        body: `<p>Today, businesses widely use WhatsApp to connect with their customers. However, sending messages to every customer manually is time-consuming. This is where <strong>WhatsApp CRM Automation</strong> comes in.</p><p>In this technique, your Customer Relationship Management (CRM) software is integrated with the WhatsApp Business API. As a result, whenever a new event occurs in the CRM (like a new lead, successful payment, or abandoned cart), the system automatically sends a personalized WhatsApp message to the customer.</p><h3>Benefits</h3><p>1. <strong>Time Saving:</strong> Staff doesn't have to send manual messages.<br>2. <strong>Instant Response:</strong> Customers get immediate replies, which builds trust.<br>3. <strong>High Open Rate:</strong> Compared to emails, WhatsApp messages have an open rate of over 90%.</p>`
+        category: "Management",
+        title: "How to mark Manager Attendance?",
+        body: `<p>To submit your daily attendance, click on the <strong>Manager Attendance</strong> module. Allow location access when prompted to verify your store presence via GPS. Take a live selfie and click Submit. Your reporting time and branch details are instantly recorded.</p>`
       },
       "blog-2": {
-        category: "Inventory",
-        title: "How to automate inventory in a retail business?",
-        body: `<p>As your retail business grows, tracking inventory on physical registers and outdated spreadsheets becomes difficult. Inventory automation allows you to manage your stock in real-time.</p><p>To automate, you first need a cloud-based POS (Point of Sale) system. Whenever an item is sold, the system will automatically deduct that item from the stock.</p><p><strong>Steps to Automate:</strong><br>1. Use barcode scanners to ensure fast and error-free data entry.<br>2. Connect your POS to Google Sheets or a custom dashboard where live data can sync.<br>3. Set re-order alerts so that whenever the stock runs low, an automated notification is sent to the supplier.</p>`
+        category: "Finance",
+        title: "Checking Store Outstanding",
+        body: `<p>Use the <strong>Stores Outstanding</strong> module to access real-time financial pending statuses. The data shown is strictly filtered for your branch, allowing you to manage collections safely and effectively.</p>`
       },
       "blog-3": {
-        category: "Comparison",
-        title: "Excel vs Automated Inventory System",
-        body: `<p>Excel is a great tool for small businesses, but as the business scales, its limitations become apparent.</p><h3>Problems with Excel:</h3><p>1. <strong>Manual Data Entry:</strong> Data has to be entered manually every day, which increases the chances of errors.<br>2. <strong>No Real-time Updates:</strong> If multiple people are working on the same file, live syncing becomes an issue.<br>3. <strong>Data Corruption:</strong> A single wrong formula can corrupt the entire sheet.</p><h3>Benefits of an Automated System:</h3><p>Automated systems work on live data. When a sale occurs at a store, the inventory is instantly updated without any human intervention. Additionally, reporting can be generated with just one click.</p>`
+        category: "Operations",
+        title: "Live Stock Availability",
+        body: `<p>In the <strong>Stock Checker</strong> module, you can search for products across the network. If an item is out of stock at your store, you can verify its availability in a nearby branch to ensure maximum customer retention.</p>`
       },
       "blog-4": {
-        category: "Reporting",
-        title: "How to automate daily sales reporting?",
-        body: `<p>Requesting and compiling reports from all branches every evening is a tiring task. This process can be easily automated.</p><p>Using systems like WebAutomate.cloud, you can connect all your sales channels into a single dashboard via APIs and webhooks.</p><p><strong>How does it work?</strong><br>Your stores generate bills throughout the day. At 9 PM, the system automatically fetches the day's data from the cloud database, calculates profit/loss, and sends a beautiful PDF or text report directly to the owner via WhatsApp or Email. This saves the owner's time and ensures 100% data accuracy.</p>`
+        category: "Analytics",
+        title: "Understanding the Sales Dashboard",
+        body: `<p>The <strong>Sales Dashboard</strong> updates regularly. Review your Daily vs Monthly targets, analyze product category trends, and track your Year-over-Year store growth.</p>`
       },
       "blog-5": {
-        category: "Technology",
-        title: "AI Automation for Retail Businesses",
-        body: `<p>Artificial Intelligence (AI) is no longer just for tech companies. Retail businesses are also using AI to supercharge their operations.</p><p><strong>Predictive Analytics:</strong> By analyzing your previous year's sales data, AI can predict the demand for specific products in the upcoming festive season. This helps you avoid both over-stocking and under-stocking.</p><p><strong>Customer Service:</strong> AI Chatbots can answer basic customer queries 24/7 and track their order status, which reduces the load on your customer support team by up to 70%.</p>`
+        category: "Marketing",
+        title: "Submitting Customer Target Proofs",
+        body: `<p>In the <strong>Customer Targets</strong> tool, you are required to upload daily screenshots for Google Reviews, Instagram Follows, and YouTube Subs taken from customers. These inputs directly calculate your monthly incentives.</p>`
       },
       "blog-6": {
-        category: "Management",
-        title: "Multi-Branch Inventory Management Guide",
-        body: `<p>When you have multiple branches, the biggest challenge is tracking how much stock is available in each branch.</p><p>For multi-branch management, a centralized system is essential. In this system, the Head Office (HO) maintains master control.</p><p>Stock Transfers (sending goods from one branch to another) should be digital. When goods leave the HO, they should reflect as 'In Transit' for the receiving branch, and should only be added to their stock once physically received. This transparency prevents theft and stock mismatches.</p>`
+        category: "Performance",
+        title: "Tracking your Monthly Targets",
+        body: `<p>Use the <strong>Monthly Tracker</strong> to see how close you are to unlocking tier bonuses. Keep an eye on your ongoing metrics to adjust sales focus accordingly.</p>`
       },
       "blog-7": {
-        category: "Engagement",
-        title: "WhatsApp Follow-up Automation Guide",
-        body: `<p>Keeping customers engaged is the best way to increase sales. WhatsApp follow-up automation acts as a virtual sales agent for you.</p><p><strong>Use Cases:</strong><br>- <strong>Abandoned Cart:</strong> If a customer adds items to their cart on your website but doesn't purchase, an automated reminder with a discount code will be sent to their WhatsApp after 2 hours.<br>- <strong>Post-Purchase Feedback:</strong> Exactly 3 days after product delivery, the system will automatically send a feedback request and a Google Review link to the customer.</p><p>Small automations like these have a direct and significant impact on your revenue.</p>`
+        category: "Offers",
+        title: "SBI Cashback Rules",
+        body: `<p>The <strong>SBI Cashback</strong> module gives you instant calculations for ongoing banking offers. Enter the product value to get the exact final price for the customer, minimizing math errors.</p>`
       }
     };
 
