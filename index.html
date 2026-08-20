@@ -410,14 +410,12 @@
 
 
     /* =========================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS) 
-       🔥 FIX FOR MOBILE OVERFLOW & TEXT CUT OFF 🔥
+       APP VIEWER (IFRAME MODAL FOR TOOLS - FIX FOR MOBILE WRAP)
     ========================================================= */
     #appViewer {
       display: none; position: fixed; top: 0; left: 0; 
-      width: 100vw; height: 100vh; height: 100dvh; /* Mobile height fix */
-      background: var(--bg); z-index: 99999; flex-direction: column;
-      overflow-x: hidden;
+      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
+      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;
     }
     .appViewer-header {
       height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); 
@@ -740,7 +738,7 @@
        🔥🔥 DYNAMIC DASHBOARD VIEW (HIDDEN INITIALLY) 🔥🔥
   ===================================================== -->
   <div id="dashboard-view">
-      <h1 class="dashboard-header-title" id="dashTitle">Company Workspace</h1>
+      <h1 class="dashboard-header-title" id="dashTitle">SiVMOR Workspace</h1>
       <p class="dashboard-subtitle">Select an application below to access your live portal</p>
       <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
 
@@ -880,14 +878,15 @@
 
 
   <!-- =====================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS - FIX FOR MOBILE WRAP)
+       APP VIEWER (IFRAME MODAL FOR TOOLS)
   ===================================================== -->
-  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; max-width: 100vw; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;">
-    <div class="appViewer-header">
-      <button class="appViewer-btn" onclick="closeAppViewer()">⬅ Back</button>
-      <div id="appViewerTitle" class="appViewer-title">App Title</div>
+  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;">
+    <div class="appViewer-header" style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px; flex-shrink: 0;">
+      <button class="appViewer-btn" onclick="closeAppViewer()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;">
+        ⬅ Back
+      </button>
+      <div id="appViewerTitle" class="appViewer-title" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">App Title</div>
     </div>
-    <!-- Allow permissions for Mobile Clipboard and Camera -->
     <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; flex-grow: 1; border: none; background: #f4f7fb;"></iframe>
   </div>
 
@@ -913,8 +912,6 @@
       </div>
       
       <form id="clientLoginForm" style="margin-top: 20px;">
-        
-        <!-- ERROR MESSAGE BOX (Hidden by default) -->
         <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
           Incorrect User ID or Password.
         </div>
@@ -924,7 +921,6 @@
           <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
         </div>
         
-        <!-- PASSWORD FIELD WITH EYE ICON -->
         <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
           <label>Password</label>
           <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
@@ -1025,19 +1021,13 @@
        CLIENT DATABASE AUTH LOGIC & DYNAMIC ROUTING
     ===================================================== */
     
-    // Global variables for Attendance
     let loggedInUserGlobal = '';
     let userAccessGlobal = '';
     let assignedAttendanceNameGlobal = '';
 
-    // Setup Multiple Client Databases here
-    const clientDatabases = [
-      {
-        companyName: "SiVMOR",
-        csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv",
-        dashboardUrl: "/sivmor"
-      }
-    ];
+    // SINGLE HARDCODED DATABASE FOR SIVMOR
+    const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
+    const DASHBOARD_URL_HASH = "#sivmor";
 
     function parseCSV(csvText) {
         try {
@@ -1142,14 +1132,14 @@
         });
     }
 
-    // 🔥 App Viewer Logic (iFrame in Same Tab) 🔥
+    // App Viewer Logic
     function openAppViewer(url, title) {
         document.getElementById('dashboard-view').style.display = 'none';
         const appViewer = document.getElementById('appViewer');
         document.getElementById('appViewerTitle').innerText = title;
         document.getElementById('appViewerFrame').src = url;
         appViewer.style.display = 'flex';
-        document.body.style.overflow = "hidden"; // Prevents background scroll
+        document.body.style.overflow = "hidden";
     }
 
     function closeAppViewer() {
@@ -1160,61 +1150,73 @@
         window.scrollTo(0, 0);
     }
 
-    // Builds the dashboard and attaches the App Viewer onclick events
-    function buildDashboard(userData, userIdRaw, companyName) {
-        document.getElementById('dashTitle').innerText = companyName + " Workspace";
-        
+    function buildDashboard(userData, userIdRaw) {
         loggedInUserGlobal = userIdRaw;
         const attVal = userData.attendance || "";
         const attLower = attVal.toLowerCase();
         userAccessGlobal = attLower;
         assignedAttendanceNameGlobal = attVal;
 
-        // FIXED: Outstanding Store Param Logic
+        // ALL Store setup for Admin
         let storeParam = encodeURIComponent(userData.allowed_stores || '');
         if (userIdRaw.toLowerCase() === 'admin' || userData.outstanding === 'admin' || userData.stock === 'admin') {
-            storeParam = 'ALL'; // Admin gets explicit ALL param
+            storeParam = 'ALL'; 
         }
         const userParam = encodeURIComponent(userIdRaw);
 
-        // 1. Attendance Form (Now correctly handles Admin click)
+        // 1. Attendance 
         const attCard = document.getElementById('app-attendance');
         if (attVal !== '' && attLower !== 'no') {
             attCard.style.display = 'block';
-            attCard.onclick = (e) => {
-                e.preventDefault();
-                // Both User and Admin now open the same built-in form
-                openAttendanceApp();
-            }; 
-        } else { attCard.style.display = 'none'; }
+            if (attLower === 'admin') {
+                attCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${userParam}`, "Attendance Monitor"); };
+            } else {
+                attCard.onclick = (e) => { e.preventDefault(); openAttendanceApp(); }; 
+            }
+        } else { 
+            attCard.style.display = 'none'; 
+            attCard.onclick = (e) => { e.preventDefault(); alert("Access Denied."); };
+        }
 
         // 2. Outstanding
         const outCard = document.getElementById('app-outstanding');
         if (userData.outstanding === 'yes' || userData.outstanding === 'admin') {
             outCard.style.display = 'block';
             outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}&stores=${storeParam}`, "Stores Outstanding");};
-        } else { outCard.style.display = 'none'; }
+        } else { 
+            outCard.style.display = 'none'; 
+            outCard.onclick = (e) => { e.preventDefault(); };
+        }
         
         // 3. Stock
         const stockCard = document.getElementById('app-stock');
         if (userData.stock === 'yes' || userData.stock === 'admin') {
             stockCard.style.display = 'block';
             stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${userParam}&stores=${storeParam}`, "Stock Availability Checker");};
-        } else { stockCard.style.display = 'none'; }
+        } else { 
+            stockCard.style.display = 'none'; 
+            stockCard.onclick = (e) => { e.preventDefault(); };
+        }
 
         // 4. Stock Value
         const stockValCard = document.getElementById('app-stock-value');
         if (userData.stock_value === 'yes' || userData.stock_value === 'admin') {
             stockValCard.style.display = 'block';
             stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${userParam}&stores=${storeParam}`, "Stock Value Store Wise");};
-        } else { stockValCard.style.display = 'none'; }
+        } else { 
+            stockValCard.style.display = 'none'; 
+            stockValCard.onclick = (e) => { e.preventDefault(); };
+        }
 
         // 5. Sales
         const salesCard = document.getElementById('app-sales');
         if (userData.sales === 'yes' || userData.sales === 'admin') {
             salesCard.style.display = 'block';
             salesCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${userParam}&stores=${storeParam}`, "Sales Dashboard");};
-        } else { salesCard.style.display = 'none'; }
+        } else { 
+            salesCard.style.display = 'none'; 
+            salesCard.onclick = (e) => { e.preventDefault(); };
+        }
         
         // 6. Target Tracker
         const targetTrackerCard = document.getElementById('app-target-tracker');
@@ -1225,21 +1227,30 @@
         } else if (instaVal === 'yes' || instaVal === 'true') {
             targetTrackerCard.style.display = 'block';
             targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${userParam}&stores=${storeParam}`, "Customer Target Tracker");};
-        } else { targetTrackerCard.style.display = 'none'; }
+        } else { 
+            targetTrackerCard.style.display = 'none'; 
+            targetTrackerCard.onclick = (e) => { e.preventDefault(); };
+        }
 
         // 7. SBI Cashback
         const sbiCard = document.getElementById('app-sbi-cashback');
         if (userData.sbi_cashback === 'yes' || userData.sbi_cashback === 'admin') {
             sbiCard.style.display = 'block';
             sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${userParam}&stores=${storeParam}`, "SBI Card Cashback");};
-        } else { sbiCard.style.display = 'none'; }
+        } else { 
+            sbiCard.style.display = 'none'; 
+            sbiCard.onclick = (e) => { e.preventDefault(); };
+        }
 
         // 8. Monthly Tracker
         const monthlyCard = document.getElementById('app-monthly-tracker');
         if (userData.monthly_tracker === 'yes' || userData.monthly_tracker === 'admin') {
             monthlyCard.style.display = 'block';
             monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${userParam}&stores=${storeParam}`, "Monthly Target Tracker");};
-        } else { monthlyCard.style.display = 'none'; }
+        } else { 
+            monthlyCard.style.display = 'none'; 
+            monthlyCard.onclick = (e) => { e.preventDefault(); };
+        }
         
         enable3DCards();
     }
@@ -1259,35 +1270,21 @@
       btn.disabled = true;
 
       try {
-          let matchedClient = null;
-          let matchedUserData = null;
+          const response = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + Date.now());
+          if (!response.ok) throw new Error("Network issue reading sheet.");
+          
+          const csvText = await response.text();
+          const userDb = parseCSV(csvText);
 
-          const fetchPromises = clientDatabases.map(db => 
-            fetch(db.csvUrl + "&cb=" + Date.now()).then(res => res.text()).then(text => ({ db, text }))
-          );
-          const results = await Promise.all(fetchPromises);
-
-          for(let result of results) {
-              const userDb = parseCSV(result.text);
-              if (userDb[userId] && userDb[userId].password === password) {
-                  matchedClient = result.db;
-                  matchedUserData = userDb[userId];
-                  break; 
-              }
-          }
-
-          if (matchedClient) {
-              // Set Login Data and Time
-              const loginTimestamp = new Date().getTime();
-              localStorage.setItem('loginTimestamp', loginTimestamp.toString());
+          if (userDb[userId] && userDb[userId].password === password) {
+              const matchedUserData = userDb[userId];
               
+              localStorage.setItem('loginTimestamp', new Date().getTime().toString());
               localStorage.setItem('allowed_stores', matchedUserData.allowed_stores || '');
               localStorage.setItem('username', userIdRaw); 
               localStorage.setItem('user', userIdRaw);
               localStorage.setItem('isLoggedIn', 'true');
-              localStorage.setItem('active_company', matchedClient.companyName);
               localStorage.setItem('user_permissions', JSON.stringify(matchedUserData)); 
-              localStorage.setItem('dashboard_url', matchedClient.dashboardUrl);
 
               robotSpeech.innerText = "Access Granted. Welcome!";
               btn.innerHTML = "Success! Loading Workspace... ✅";
@@ -1296,14 +1293,13 @@
                   loginModal.classList.remove('active');
                   document.body.style.overflow = ""; 
                   
-                  // 🔥 HASH ROUTING FIX: Protects against page refresh 404s
-                  window.history.pushState({}, '', '#' + matchedClient.dashboardUrl.replace('/', ''));
+                  window.history.pushState({}, '', DASHBOARD_URL_HASH);
 
                   document.getElementById('mainNavWrap').style.display = 'none'; 
                   document.getElementById('landing-view').style.display = 'none'; 
                   document.getElementById('dashboard-view').style.display = 'flex'; 
                   
-                  buildDashboard(matchedUserData, userIdRaw, matchedClient.companyName);
+                  buildDashboard(matchedUserData, userIdRaw);
                   window.scrollTo(0, 0);
               }, 800);
               
@@ -1324,41 +1320,27 @@
     });
 
     function logoutUser() {
-        localStorage.clear(); // Clears everything
+        localStorage.clear();
         window.history.pushState({}, '', window.location.pathname);
         location.reload(); 
     }
 
-    // Auto-Logout Timer checks every 10 seconds
     setInterval(() => {
         if (localStorage.getItem('isLoggedIn') === 'true') {
             const savedTimeStr = localStorage.getItem('loginTimestamp');
             if (savedTimeStr) {
-                const savedTime = parseInt(savedTimeStr, 10);
-                const currentTime = new Date().getTime();
-                const diffMinutes = (currentTime - savedTime) / (1000 * 60);
-
-                // If strictly greater than 5 mins, force logout
-                if (diffMinutes >= 5) {
-                    logoutUser();
-                }
+                const diffMinutes = (new Date().getTime() - parseInt(savedTimeStr, 10)) / (1000 * 60);
+                if (diffMinutes >= 5) logoutUser();
             }
         }
     }, 10000);
 
-    // Auto-Login Check on Page Load (With 5 min Timeout and Hash Routing Check)
     window.onload = function() {
         if (localStorage.getItem('isLoggedIn') === 'true') {
-            
-            // Check if 5 minutes have already passed since login
             const savedTimeStr = localStorage.getItem('loginTimestamp');
             if (savedTimeStr) {
-                const savedTime = parseInt(savedTimeStr, 10);
-                const currentTime = new Date().getTime();
-                const diffMinutes = (currentTime - savedTime) / (1000 * 60);
-
+                const diffMinutes = (new Date().getTime() - parseInt(savedTimeStr, 10)) / (1000 * 60);
                 if (diffMinutes >= 5) {
-                    // Session expired, force logout
                     logoutUser();
                     return;
                 }
@@ -1366,15 +1348,13 @@
 
             const perms = JSON.parse(localStorage.getItem('user_permissions'));
             const user = localStorage.getItem('username');
-            const comp = localStorage.getItem('active_company');
-            const url = localStorage.getItem('dashboard_url');
 
-            if(perms && user && comp) {
-                window.history.pushState({}, '', '#' + url.replace('/', ''));
+            if(perms && user) {
+                window.history.pushState({}, '', DASHBOARD_URL_HASH);
                 document.getElementById('mainNavWrap').style.display = 'none';
                 document.getElementById('landing-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'flex';
-                buildDashboard(perms, user, comp);
+                buildDashboard(perms, user);
             }
         }
     };
@@ -1404,7 +1384,6 @@
         document.getElementById('dashboard-view').style.display = 'none';
         document.getElementById('attendance-view').style.display = 'block';
         
-        // Reset form states
         locationFetched = false;
         photoCaptured = false;
         document.getElementById('status').style.display = "block";
