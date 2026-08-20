@@ -1148,12 +1148,15 @@
         userAccessGlobal = attLower;
         assignedAttendanceNameGlobal = attVal;
 
-        // 1. Attendance Form (Now Opens Built-in Form)
+        const storeParam = encodeURIComponent(userData.allowed_stores || 'ALL');
+        const userParam = encodeURIComponent(userIdRaw);
+
+        // 1. Attendance Form (Admin opens monitor, others open built-in form)
         const attCard = document.getElementById('app-attendance');
         if (attVal !== '' && attLower !== 'no') {
             attCard.style.display = 'block';
             if (attLower === 'admin') {
-                attCard.onclick = (e) => { e.preventDefault(); openAppViewer("https://kshekhawat73.github.io/Sivmor/admin-monitor.html", "Attendance Monitor"); };
+                attCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${userParam}`, "Attendance Monitor"); };
             } else {
                 attCard.onclick = (e) => { e.preventDefault(); openAttendanceApp(); }; 
             }
@@ -1163,28 +1166,28 @@
         const outCard = document.getElementById('app-outstanding');
         if (userData.outstanding === 'yes') {
             outCard.style.display = 'block';
-            outCard.onclick = (e) => { e.preventDefault(); openAppViewer("https://kshekhawat73.github.io/store-outstanding-dashboard/", "Stores Outstanding");};
+            outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}&stores=${storeParam}`, "Stores Outstanding");};
         } else { outCard.style.display = 'none'; }
         
         // 3. Stock
         const stockCard = document.getElementById('app-stock');
         if (userData.stock === 'yes') {
             stockCard.style.display = 'block';
-            stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Stock Availability Checker");};
+            stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${userParam}&stores=${storeParam}`, "Stock Availability Checker");};
         } else { stockCard.style.display = 'none'; }
 
         // 4. Stock Value
         const stockValCard = document.getElementById('app-stock-value');
         if (userData.stock_value === 'yes') {
             stockValCard.style.display = 'block';
-            stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Stock Value Store Wise");};
+            stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${userParam}&stores=${storeParam}`, "Stock Value Store Wise");};
         } else { stockValCard.style.display = 'none'; }
 
         // 5. Sales
         const salesCard = document.getElementById('app-sales');
         if (userData.sales === 'yes') {
             salesCard.style.display = 'block';
-            salesCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Sales Dashboard");};
+            salesCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/sales-dashboard/?user=${userParam}&stores=${storeParam}`, "Sales Dashboard");};
         } else { salesCard.style.display = 'none'; }
         
         // 6. Target Tracker
@@ -1192,24 +1195,24 @@
         const instaVal = userData.insta_access;
         if (instaVal === 'admin' || instaVal === 'all' || (userIdRaw === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer("https://kshekhawat73.github.io/target-tracker/admin.html", "Customer Target Tracker (Admin)");};
+            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${userParam}&stores=${storeParam}`, "Customer Target Tracker (Admin)");};
         } else if (instaVal === 'yes' || instaVal === 'true') {
             targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${encodeURIComponent(userIdRaw)}`, "Customer Target Tracker");};
+            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${userParam}&stores=${storeParam}`, "Customer Target Tracker");};
         } else { targetTrackerCard.style.display = 'none'; }
 
         // 7. SBI Cashback
         const sbiCard = document.getElementById('app-sbi-cashback');
         if (userData.sbi_cashback === 'yes') {
             sbiCard.style.display = 'block';
-            sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer("https://kshekhawat73.github.io/Sbi_Card_Cashback/", "SBI Card Cashback");};
+            sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${userParam}&stores=${storeParam}`, "SBI Card Cashback");};
         } else { sbiCard.style.display = 'none'; }
 
         // 8. Monthly Tracker
         const monthlyCard = document.getElementById('app-monthly-tracker');
         if (userData.monthly_tracker === 'yes') {
             monthlyCard.style.display = 'block';
-            monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIdRaw)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`, "Monthly Target Tracker");};
+            monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${userParam}&stores=${storeParam}`, "Monthly Target Tracker");};
         } else { monthlyCard.style.display = 'none'; }
         
         enable3DCards();
@@ -1339,9 +1342,7 @@
             const user = localStorage.getItem('username');
             const comp = localStorage.getItem('active_company');
             const url = localStorage.getItem('dashboard_url');
-            const currentHash = window.location.hash;
 
-            // Optional: You can check if the hash matches the url, but we'll show it anyway if logged in
             if(perms && user && comp) {
                 window.history.pushState({}, '', '#' + url.replace('/', ''));
                 document.getElementById('mainNavWrap').style.display = 'none';
