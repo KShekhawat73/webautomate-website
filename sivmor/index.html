@@ -302,30 +302,29 @@
             letter-spacing: -0.5px;
         }
 
-        p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem; text-align: center; }
+        p.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
 
-        /* 🟢 NEW: Gentle Notification Bar (R5) */
-        @keyframes gentlePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(0.99); }
+        /* 🟢 NEW: Gentle Notification Bar (Reads from R5) */
+        @keyframes softBlink {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+            50% { opacity: 0.8; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         }
         .global-notification {
-            display: none;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            color: #e2e8f0;
-            padding: 12px 24px;
+            display: none; 
+            background: rgba(30, 41, 59, 0.85); 
+            border: 1px solid rgba(148, 163, 184, 0.2); 
+            color: #f1f5f9; 
+            padding: 14px 28px;
             border-radius: 12px;
-            margin: 0 auto 25px auto;
+            margin: 0 auto 30px auto;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            animation: gentlePulse 3.5s infinite ease-in-out;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            animation: softBlink 3s infinite ease-in-out;
         }
 
         .logout-btn { 
@@ -441,7 +440,7 @@
         .card:hover h2 { color: var(--accent-color, #38bdf8); }
         .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
-        /* 🎨 Custom Accent Themes */
+        /* 🎨 Custom Accent Themes (Sales Removed) */
         #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
         #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
         #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
@@ -554,7 +553,7 @@
         <h1 class="header-title">SiVMOR Workspace</h1>
         <p class="subtitle">Select an application below to access your live portal</p>
         
-        <!-- 🟢 NEW: Gentle Notification Bar -->
+        <!-- 🟢 NEW: Global Notification Bar (R5) -->
         <div id="global-notification" class="global-notification"></div>
 
         <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
@@ -684,11 +683,9 @@
     </div>
 
     <script>
+        // 🚨 YOUR EXISTING SHEET_CSV_URL REMAINS THE SAME
         const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
         const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
-        
-        // 🚨 IMPORTANT: Paste the CSV URL of your "3rd Sheet" here to enable the R5 Notification
-        const NOTIFICATION_SHEET_CSV_URL = "YOUR_3RD_SHEET_CSV_URL_HERE";
 
         let loggedInUserGlobal = '';
         let userAccessGlobal = '';
@@ -717,34 +714,6 @@
                         setTimeout(() => overlay.style.display = 'none', 1500);
                     }, 5500); 
                 }
-            }
-        }
-
-        /* --- NOTIFICATION LOGIC --- */
-        async function fetchNotification() {
-            if(NOTIFICATION_SHEET_CSV_URL === "YOUR_3RD_SHEET_CSV_URL_HERE") return; // Skip if URL not provided
-            
-            try {
-                const res = await fetch(NOTIFICATION_SHEET_CSV_URL + "&cb=" + new Date().getTime());
-                if (!res.ok) return;
-                
-                const csv = await res.text();
-                const lines = csv.split(/\r?\n/);
-                
-                // R5 corresponds to Row Index 4 (5th row) and Column Index 17 (18th col 'R')
-                if (lines.length > 4) {
-                    const row5 = lines[4].split(",");
-                    if (row5.length > 17) {
-                        let r5Value = row5[17].replace(/["\r\n]+/g, '').trim();
-                        if (r5Value !== "") {
-                            const notifBar = document.getElementById('global-notification');
-                            notifBar.innerText = r5Value;
-                            notifBar.style.display = 'block';
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Failed to load R5 notification", e);
             }
         }
 
@@ -840,7 +809,7 @@
             window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
 
             const orbs = []; const pulses = [];
-            const colors = ['#38bdf8', '#34d399', '#fbbf24', '#22d3ee', '#a855f7', '#f43f5e', '#f97316', '#6366f1'];
+            const colors = ['#38bdf8', '#34d399', '#fbbf24', '#22d3ee', '#f43f5e', '#f97316', '#6366f1'];
 
             window.addEventListener('click', (e) => {
                 if (document.getElementById('dashboard-content').style.display === 'none') return;
@@ -907,59 +876,82 @@
             msg.innerText = "ℹ️ Registration Notice:\nPlease contact the admin directly to create your username and password.";
         }
 
+        /* 🔥 UPDATED CSV PARSER: Robust parsing for commas inside quotes (like a long notification text) */
+        function parseRow(row) {
+            const result = [];
+            let inQuotes = false;
+            let current = "";
+            for (let i = 0; i < row.length; i++) {
+                const char = row[i];
+                if (char === '"') { inQuotes = !inQuotes; } 
+                else if (char === ',' && !inQuotes) { result.push(current); current = ""; } 
+                else { current += char; }
+            }
+            result.push(current);
+            return result;
+        }
+
         function parseCSV(csvText) {
             try {
                 const lines = csvText.split(/\r?\n/);
-                if(lines.length < 2) return {};
+                if(lines.length < 2) return { users: {}, globalNotif: "" };
 
-                const headers = lines[0].split(",").map(h => h.replace(/["\r\n]+/g, '').trim().toLowerCase());
+                const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
                 const users = {};
 
                 const passIdx = headers.indexOf("password");
                 const attIdx = headers.indexOf("attendance");
                 const outIdx = headers.indexOf("outstanding");
-
-                let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store"));
-                if (storeIdx === -1) storeIdx = 4;
-
+                const storeIdx = headers.indexOf("allowed_stores");
+                
                 let stockIdx = headers.findIndex(h => h === "stock");
                 if (stockIdx === -1) stockIdx = 5;
-                let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val"));
+                let valIdx = headers.findIndex(h => h.includes("stock-value") || h.includes("value"));
                 if (valIdx === -1) valIdx = 6;
                 
-                let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow") || h.includes("ig") || h.includes("yt") || h.includes("google") || h.includes("marketing"));
-                if (instaIdx === -1) instaIdx = 8; 
+                let instaIdx = headers.findIndex(h => h.includes("insta"));
+                if (instaIdx === -1) instaIdx = 7; 
 
-                let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback"));
-                if (sbiIdx === -1) sbiIdx = 9; 
+                let sbiIdx = headers.findIndex(h => h.includes("sbi"));
+                if (sbiIdx === -1) sbiIdx = 8; 
 
-                let trackerIdx = headers.findIndex(h => h.includes("monthly") || h.includes("monthly-target"));
-                if (trackerIdx === -1) trackerIdx = 10; 
+                let trackerIdx = headers.findIndex(h => h.includes("monthly"));
+                if (trackerIdx === -1) trackerIdx = 9; 
 
+                // 🔥 1. Parse Cell R5 for the Notification (Row 5 corresponds to index 4, Column R is index 17)
+                let globalNotif = "";
+                if (lines.length > 4) {
+                    const row5 = parseRow(lines[4]);
+                    if (row5.length > 17) {
+                        globalNotif = row5[17].trim(); // Index 17 is Col R
+                    }
+                }
+
+                // 2. Parse User Database Rows
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
 
-                    const currentline = lines[i].split(",").map(item => item.replace(/["\r\n]+/g, '').trim());
+                    const currentline = parseRow(lines[i]).map(item => item.trim());
                     if (!currentline[0]) continue;
 
                     const username = currentline[0].toLowerCase();
 
                     users[username] = {
-                        password: currentline[passIdx !== -1 ? passIdx : 1] || "",
-                        attendance: currentline[attIdx !== -1 ? attIdx : 2] ? currentline[attIdx !== -1 ? attIdx : 2].trim() : "",
-                        outstanding: (currentline[outIdx !== -1 ? outIdx : 3] || "no").toLowerCase(),
-                        stock: (currentline[stockIdx !== -1 ? stockIdx : 5] || "no").toLowerCase(),
-                        stock_value: (currentline[valIdx !== -1 ? valIdx : 6] || "no").toLowerCase(),
-                        allowed_stores: (currentline[storeIdx !== -1 ? storeIdx : 4] || "").toLowerCase(), 
+                        password: currentline[passIdx] || "",
+                        attendance: currentline[attIdx] || "",
+                        outstanding: (currentline[outIdx] || "no").toLowerCase(),
+                        allowed_stores: (currentline[storeIdx] || "").toLowerCase(), 
+                        stock: (currentline[stockIdx] || "no").toLowerCase(),
+                        stock_value: (currentline[valIdx] || "no").toLowerCase(),
                         insta_access: (currentline[instaIdx] || "no").toLowerCase(),
                         sbi_cashback: (currentline[sbiIdx] || "no").toLowerCase(),
                         monthly_tracker: (currentline[trackerIdx] || "no").toLowerCase() 
                     };
                 }
-                return users;
+                return { users, globalNotif };
             } catch (e) {
                 console.error("Error parsing CSV: ", e);
-                return {};
+                return { users: {}, globalNotif: "" };
             }
         }
 
@@ -986,15 +978,16 @@
                 if (!response.ok) throw new Error("Network issue reading sheet remote host.");
 
                 const csvText = await response.text();
-                const userDatabase = parseCSV(csvText);
+                const dbData = parseCSV(csvText);
+                const userDatabase = dbData.users;
 
                 if (userDatabase[userIn] && userDatabase[userIn].password === passIn) {
                     const userData = userDatabase[userIn];
                     const attVal = userData.attendance;
                     const attLower = attVal.toLowerCase();
 
-                    // Removed Sales Dashboard from inactive check
-                    if (attVal === '' && userData.outstanding !== 'yes' && userData.stock !== 'yes' && userData.stock_value !== 'yes' && userData.insta_access === 'no' && userData.sbi_cashback !== 'yes' && userData.monthly_tracker !== 'yes') {
+                    // Validation if completely disabled
+                    if (attVal === '' && userData.outstanding === 'no' && userData.stock === 'no' && userData.stock_value === 'no' && userData.insta_access === 'no' && userData.sbi_cashback === 'no' && userData.monthly_tracker === 'no') {
                         msg.style.color = "#fbbf24";
                         msg.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve or assign your role.";
                         return;
@@ -1004,7 +997,15 @@
                     document.getElementById('dashboard-content').style.display = 'flex';
 
                     triggerIndependenceAnimation();
-                    fetchNotification(); // Fetch Sheet 3, Cell R5
+
+                    // 🔥 FIRE R5 NOTIFICATION (if it has text)
+                    if (dbData.globalNotif) {
+                        const notifBar = document.getElementById('global-notification');
+                        notifBar.innerText = dbData.globalNotif;
+                        notifBar.style.display = 'block';
+                    } else {
+                        document.getElementById('global-notification').style.display = 'none';
+                    }
 
                     loggedInUserGlobal = userIn;
                     userAccessGlobal = attLower;
@@ -1017,24 +1018,24 @@
 
                     initDashboardParticles();
 
+                    // 1. Attendance
                     const attCard = document.getElementById('app-attendance');
                     if (attVal !== '' && attLower !== 'no') { attCard.style.display = 'block'; } 
                     else { attCard.style.display = 'none'; }
 
-                    // 🔥 NEW OUTSTANDING LOGIC 🔥
-                    if (userData.outstanding !== 'no' && userData.outstanding !== '') {
+                    // 🔥 2. NEW OUTSTANDING LOGIC 🔥
+                    if (userData.outstanding === 'yes') {
                         const outCard = document.getElementById('app-outstanding');
                         outCard.style.display = 'block';
 
-                        let outStoreParam = userData.allowed_stores || 'ALL';
-                        
-                        // 1. If they specifically have 'yes' in allowed_stores OR outstanding, grant ALL
-                        if (userData.allowed_stores === 'yes' || userData.outstanding === 'yes' || userData.allowed_stores === 'admin' || userData.outstanding === 'admin') {
+                        let outStoreParam = 'ALL';
+                        let allowed = userData.allowed_stores;
+
+                        if (allowed === 'yes' || allowed === 'admin' || allowed === 'all') {
                             outStoreParam = 'ALL';
-                        }
-                        // 2. If there's a specific store name written inside the outstanding column, override to that store only
-                        else if (userData.outstanding !== 'yes' && userData.outstanding !== 'no' && userData.outstanding !== 'admin' && userData.outstanding !== 'all') {
-                            outStoreParam = userData.outstanding;
+                        } else if (allowed !== '') {
+                            // Automatically assigns specific store name (e.g. RATANADA)
+                            outStoreParam = allowed;
                         }
 
                         outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}`;
@@ -1042,18 +1043,21 @@
                         document.getElementById('app-outstanding').style.display = 'none';
                     }
 
+                    // 3. Stock
                     if (userData.stock === 'yes') {
                         const stockCard = document.getElementById('app-stock');
                         stockCard.style.display = 'block';
                         stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
                     }
 
+                    // 4. Stock Value
                     if (userData.stock_value === 'yes') {
                         const stockValCard = document.getElementById('app-stock-value');
                         stockValCard.style.display = 'block';
                         stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
                     }
 
+                    // 5. Customer Tracker
                     const targetTrackerCard = document.getElementById('app-target-tracker');
                     const instaVal = userData.insta_access;
                     if (instaVal === 'admin' || instaVal === 'all' || (userIn === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
@@ -1066,10 +1070,12 @@
                         targetTrackerCard.style.display = 'none';
                     }
 
+                    // 6. SBI Cashback
                     if (userData.sbi_cashback === 'yes') {
                         document.getElementById('app-sbi-cashback').style.display = 'block';
                     }
 
+                    // 7. Monthly Tracker
                     if (userData.monthly_tracker === 'yes') {
                         const monthlyCard = document.getElementById('app-monthly-tracker');
                         monthlyCard.style.display = 'block';
