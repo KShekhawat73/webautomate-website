@@ -3,17 +3,17 @@
 <head>
     <!-- 🔥 Google Site Verification Meta Tag 🔥 -->
     <meta name="google-site-verification" content="fysdPZJ3TtNgxpwzUP60-FRA7esiq3cDTXtVKStGZwA" />
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiVMOR Workspace | Management Portal</title>
-    
+
     <!-- 🔥 PWA & APK Manifest Link -->
     <link rel="manifest" href="manifest.json">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        
+
         /* 🌌 Premium Dark Gradient Background */
         body { 
             background: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 100%); 
@@ -36,7 +36,7 @@
             height: 100%;
             pointer-events: none;
         }
-        
+
         #bg-canvas { z-index: 5; }
         #dashboard-canvas { z-index: 2; display: none; }
 
@@ -121,7 +121,7 @@
             50% { box-shadow: 0 0 35px rgba(255, 255, 255, 0.4); border-color: #FFFFFF; }
             100% { box-shadow: 0 0 35px rgba(19, 136, 8, 0.5); border-color: #138808; }
         }
-        
+
         .ind-greeting-container {
             display: none; 
             justify-content: center;
@@ -146,7 +146,7 @@
             transform-origin: left center;
             animation: miniFlap 1s ease-in-out infinite alternate;
         }
-        
+
         @keyframes textShine {
             0% { filter: hue-rotate(0deg) brightness(1); }
             50% { filter: hue-rotate(15deg) brightness(1.2); }
@@ -191,11 +191,11 @@
         /* 🔥 Advanced 3D Liquid Waving Flag Logic 🔥 */
         .flag-tether {
             position: absolute;
-            right: 140px; /* Space behind the middle jet */
+            right: 140px; 
             top: 50%;
             transform: translateY(-50%);
             z-index: 1;
-            perspective: 1200px; /* 3D depth */
+            perspective: 1200px; 
         }
         .flag-fabric {
             position: relative;
@@ -203,21 +203,19 @@
             max-width: 80vw;
             border-radius: 6px;
             box-shadow: -20px 30px 50px rgba(0,0,0,0.6);
-            /* Left side flaps, right side is attached to jet */
             transform-origin: right center; 
             animation: flagFlap 1.4s ease-in-out infinite alternate;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
         }
         .flag-fabric img {
-            width: 108%; /* Slightly scaled to hide wavy distortion edges */
+            width: 108%; 
             height: 108%;
             margin-left: -4%;
             margin-top: -4%;
             display: block;
-            filter: url(#flag-ripple); /* 🔥 Applies the real fluid displacement effect 🔥 */
+            filter: url(#flag-ripple); 
         }
-        /* Wind shadows & light highlights rolling over fabric */
         .wind-ripples {
             position: absolute;
             top: 0; left: 0; width: 200%; height: 100%;
@@ -234,12 +232,10 @@
             mix-blend-mode: overlay;
         }
 
-        /* 3D Structural Flapping Keyframes */
         @keyframes flagFlap {
             0% { transform: rotateY(-18deg) rotateX(4deg) skewY(2deg); }
             100% { transform: rotateY(18deg) rotateX(-4deg) skewY(-2deg); }
         }
-        /* Continuous wind highlights moving */
         @keyframes windMove {
             0% { transform: translateX(-50%); }
             100% { transform: translateX(0); }
@@ -263,7 +259,7 @@
             background: rgba(15, 23, 42, 0.9);
             box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2); 
         }
-        
+
         .auth-box button { 
             width: 100%; 
             padding: 14px; 
@@ -283,19 +279,18 @@
             transform: translateY(-2px); 
             background: linear-gradient(135deg, #0369a1, #1d4ed8);
         }
-        
+
         .register-container { margin-top: 25px; font-size: 0.9rem; color: #94a3b8; }
         .register-link { color: #38bdf8; font-weight: 600; text-decoration: none; cursor: pointer; }
         #msg { margin-top: 15px; font-size: 0.9rem; color: #f87171; font-weight: 600; line-height: 1.4; white-space: pre-line; }
 
-        /* Emoji animation */
         .emoji-animation-box { display: none; justify-content: center; gap: 15px; margin-top: 15px; font-size: 28px; }
         .emoji-item { animation: emojiBounce 1.5s ease-in-out infinite; }
         @keyframes emojiBounce { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(-8px); opacity: 1; } }
 
         /* 👑 Dashboard View Styling */
         #dashboard-content { display: none; flex-direction: column; align-items: center; width: 100%; max-width: 1100px; z-index: 10; }
-        
+
         .header-title {
             font-size: 2.8rem;
             font-weight: 800;
@@ -306,9 +301,33 @@
             text-align: center;
             letter-spacing: -0.5px;
         }
-        
+
         p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem; text-align: center; }
-        
+
+        /* 🟢 NEW: Gentle Notification Bar (R5) */
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.99); }
+        }
+        .global-notification {
+            display: none;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            color: #e2e8f0;
+            padding: 12px 24px;
+            border-radius: 12px;
+            margin: 0 auto 25px auto;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: gentlePulse 3.5s infinite ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
         .logout-btn { 
             background: rgba(239, 68, 68, 0.15); 
             color: #f87171; 
@@ -337,7 +356,7 @@
             width: 100%; 
             perspective: 1000px;
         }
-        
+
         /* 🔥 Ultra-Modern 3D Card Design */
         .card { 
             display: none; 
@@ -401,7 +420,7 @@
             letter-spacing: 1px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .card-icon {
             font-size: 1.6rem;
             width: 46px; height: 46px;
@@ -418,7 +437,7 @@
             font-weight: 700; 
             transition: color 0.3s;
         }
-        
+
         .card:hover h2 { color: var(--accent-color, #38bdf8); }
         .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
@@ -427,7 +446,6 @@
         #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
         #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
         #app-stock-value { --accent-color: #22d3ee; --accent-glow: rgba(34, 211, 238, 0.3); }
-        #app-sales { --accent-color: #a855f7; --accent-glow: rgba(168, 85, 247, 0.35); }
         #app-target-tracker { --accent-color: #f43f5e; --accent-glow: rgba(244, 63, 94, 0.35); }
         #app-sbi-cashback { --accent-color: #f97316; --accent-glow: rgba(249, 115, 22, 0.35); }
         #app-monthly-tracker { --accent-color: #6366f1; --accent-glow: rgba(99, 102, 241, 0.35); }
@@ -437,7 +455,7 @@
         .back-home-btn { display: inline-block; width: 100%; max-width: 450px; margin: 0 auto 15px auto; padding: 10px; background: #6c757d; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .back-home-btn:hover { background: #5a6268; }
         #attendance-view h2 { text-align: center; color: #007bff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 700; }
-        
+
         #attendance-view label { font-weight: 600; display: block; margin-top: 18px; font-size: 0.9rem; color: #495057; }
         #attendance-view input, #attendance-view select, #attendance-view textarea { width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333; }
         #attendance-view button { width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -462,29 +480,22 @@
 </head>
 <body>
 
-    <!-- 🌊 SVG Filter for Realistic Waving Flag Ripple (Magic Happens Here) 🌊 -->
     <svg width="0" height="0" style="position: absolute; z-index:-1; pointer-events:none;">
         <filter id="flag-ripple" x="-20%" y="-20%" width="140%" height="140%">
-            <!-- Generates fractal noise that pulsates slightly -->
             <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="3" result="warp" seed="2">
                 <animate attributeName="baseFrequency" values="0.015 0.03; 0.025 0.045; 0.015 0.03" dur="1.5s" repeatCount="indefinite" />
             </feTurbulence>
-            <!-- Distorts the flag image using the noise above -->
             <feDisplacementMap in="SourceGraphic" in2="warp" scale="25" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
 
-    <!-- ✈️ Independence Day Jet & Realistic Waving Flag Overlay -->
     <div id="independence-overlay">
-        <!-- Top Jet (Saffron) -->
         <div class="jet-container jet-top">
             <div class="smoke-trail"></div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
         </div>
-        <!-- Middle Jet (White) & Giant 3D Waving Flag -->
         <div class="jet-container jet-mid">
             <div class="smoke-trail"></div>
-            <!-- 🇮🇳 The Waving Fabric Flag (Uses SVG Filter) -->
             <div class="flag-tether">
                 <div class="flag-fabric">
                     <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
@@ -493,7 +504,6 @@
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
         </div>
-        <!-- Bottom Jet (Green) -->
         <div class="jet-container jet-bot">
             <div class="smoke-trail"></div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#cbd5e1"><path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>
@@ -502,7 +512,7 @@
 
     <!-- 🌌 Interactive Canvas 1 -->
     <canvas id="bg-canvas"></canvas>
-    
+
     <!-- 🌌 Interactive Canvas 2 -->
     <canvas id="dashboard-canvas"></canvas>
 
@@ -510,23 +520,21 @@
     <div id="auth-screen">
         <div class="auth-box">
             <img src="https://lh3.googleusercontent.com/d/1r0AARMeDPeGoN-Nor8Z7uOT_2jxgMKbu" alt="SiVMOR Logo" class="auth-logo" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=SiVMOR&background=0284c7&color=fff&size=120';">
-            
+
             <h2 class="auth-title">SiVMOR Workspace</h2>
             <p class="auth-subtitle">Centralized Operations & Analytics Portal</p>
 
-            <!-- 🇮🇳 Dynamic Greeting Text With Waving Flag Image -->
             <div class="ind-greeting-container" id="ind-greeting">
                 <span class="ind-greeting-text">Happy Independence Day</span>
                 <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" class="ind-flag" alt="Indian Flag">
             </div>
 
-            <!-- 🔥 Proper Form for Browser Autofill & Password Manager 🔥 -->
             <form onsubmit="event.preventDefault(); handleLogin();" style="width: 100%; margin: 0; padding: 0;">
                 <input type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
                 <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
                 <button type="submit">Login</button>
             </form>
-            
+
             <div class="register-container">
                 Don't have an account? <span onclick="showRegisterNotice()" class="register-link">Register Here</span>
             </div>
@@ -545,6 +553,10 @@
     <div id="dashboard-content">
         <h1 class="header-title">SiVMOR Workspace</h1>
         <p class="subtitle">Select an application below to access your live portal</p>
+        
+        <!-- 🟢 NEW: Gentle Notification Bar -->
+        <div id="global-notification" class="global-notification"></div>
+
         <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
 
         <div class="grid">
@@ -559,7 +571,7 @@
             </a>
 
             <!-- 2. Stores Outstanding -->
-            <a href="https://kshekhawat73.github.io/store-outstanding-dashboard/" target="_blank" class="card" id="app-outstanding">
+            <a href="#" target="_blank" class="card" id="app-outstanding">
                 <div class="card-header-flex">
                     <span class="badge">Finance</span>
                     <div class="card-icon">💳</div>
@@ -569,7 +581,7 @@
             </a>
 
             <!-- 3. Stock Availability Checker -->
-            <a href="https://kshekhawat73.github.io/stock/" target="_blank" class="card" id="app-stock">
+            <a href="#" target="_blank" class="card" id="app-stock">
                 <div class="card-header-flex">
                     <span class="badge">Operations</span>
                     <div class="card-icon">📦</div>
@@ -579,7 +591,7 @@
             </a>
 
             <!-- 4. Stock Value Store Wise -->
-            <a href="https://kshekhawat73.github.io/stock-value/?sheet=Sheet2" target="_blank" class="card" id="app-stock-value">
+            <a href="#" target="_blank" class="card" id="app-stock-value">
                 <div class="card-header-flex">
                     <span class="badge">Value Tracking</span>
                     <div class="card-icon">📊</div>
@@ -588,17 +600,7 @@
                 <p>Monitor corporate value tracking, regional cash flows, and store details from Sheet2 & Sheet3.</p>
             </a>
 
-            <!-- 5. Sivmor Sales Dashboard -->
-            <a href="https://kshekhawat73.github.io/sales-dashboard/" target="_blank" class="card" id="app-sales">
-                <div class="card-header-flex">
-                    <span class="badge">Sales Analytics</span>
-                    <div class="card-icon">📈</div>
-                </div>
-                <h2>Sivmor Sales Dashboard</h2>
-                <p>Track YoY growth, monthly performance trends, store-wise revenue, and category-wise sales in real-time.</p>
-            </a>
-
-            <!-- 6. Customer Target Tracker -->
+            <!-- 5. Customer Target Tracker -->
             <a href="#" target="_blank" class="card" id="app-target-tracker">
                 <div class="card-header-flex">
                     <span class="badge">Marketing & Targets</span>
@@ -608,8 +610,8 @@
                 <p>Submit live customer proof images for Instagram follows, YouTube subscribers, and Google reviews.</p>
             </a>
 
-            <!-- 7. SBI Card Cashback -->
-            <a href="https://kshekhawat73.github.io/Sbi_Card_Cashback/" target="_blank" class="card" id="app-sbi-cashback">
+            <!-- 6. SBI Card Cashback -->
+            <a href="#" target="_blank" class="card" id="app-sbi-cashback">
                 <div class="card-header-flex">
                     <span class="badge">Offers & Cashback</span>
                     <div class="card-icon">🎁</div>
@@ -618,8 +620,8 @@
                 <p>Calculate and track SBI credit card cashback offers and benefits easily.</p>
             </a>
 
-            <!-- 8. Monthly Target Tracker -->
-            <a href="https://kshekhawat73.github.io/monthly-target-tracker/" target="_blank" class="card" id="app-monthly-tracker">
+            <!-- 7. Monthly Target Tracker -->
+            <a href="#" target="_blank" class="card" id="app-monthly-tracker">
                 <div class="card-header-flex">
                     <span class="badge">Performance</span>
                     <div class="card-icon">📆</div>
@@ -634,12 +636,12 @@
     <div id="attendance-view">
         <a href="javascript:void(0);" onclick="closeAttendanceApp()" class="back-home-btn">🏠 Back to Dashboard</a>
         <h2>Store Check-In</h2>
-        
+
         <button type="button" id="locationBtn">📍 Step 1: Verify Live GPS</button>
         <div id="status" class="status">⚠️ Awaiting Location.</div>
 
         <button type="button" id="cameraBtn">📷 Step 2: Take Selfie</button>
-        
+
         <div id="cameraBox" class="camera-box">
             <video id="videoElement" autoplay playsinline></video>
             <button type="button" id="captureBtn">📸 Click Photo</button>
@@ -684,12 +686,14 @@
     <script>
         const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
         const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
+        
+        // 🚨 IMPORTANT: Paste the CSV URL of your "3rd Sheet" here to enable the R5 Notification
+        const NOTIFICATION_SHEET_CSV_URL = "YOUR_3RD_SHEET_CSV_URL_HERE";
 
         let loggedInUserGlobal = '';
         let userAccessGlobal = '';
         let assignedAttendanceNameGlobal = '';
 
-        // 🔥 DATE TIMER LOGIC FOR 15 AUG ANIMATION 🔥
         function checkIndependenceDay() {
             const d = new Date();
             if (d.getMonth() === 7 && (d.getDate() >= 13 && d.getDate() <= 15)) {
@@ -699,11 +703,9 @@
                 if(indText) indText.style.display = 'flex';
             }
         }
-        
-        // Setup login screen animation on load
+
         document.addEventListener("DOMContentLoaded", checkIndependenceDay);
 
-        // Jets Flying Animation Trigger
         function triggerIndependenceAnimation() {
             const d = new Date();
             if (d.getMonth() === 7 && (d.getDate() >= 13 && d.getDate() <= 15)) {
@@ -715,6 +717,34 @@
                         setTimeout(() => overlay.style.display = 'none', 1500);
                     }, 5500); 
                 }
+            }
+        }
+
+        /* --- NOTIFICATION LOGIC --- */
+        async function fetchNotification() {
+            if(NOTIFICATION_SHEET_CSV_URL === "YOUR_3RD_SHEET_CSV_URL_HERE") return; // Skip if URL not provided
+            
+            try {
+                const res = await fetch(NOTIFICATION_SHEET_CSV_URL + "&cb=" + new Date().getTime());
+                if (!res.ok) return;
+                
+                const csv = await res.text();
+                const lines = csv.split(/\r?\n/);
+                
+                // R5 corresponds to Row Index 4 (5th row) and Column Index 17 (18th col 'R')
+                if (lines.length > 4) {
+                    const row5 = lines[4].split(",");
+                    if (row5.length > 17) {
+                        let r5Value = row5[17].replace(/["\r\n]+/g, '').trim();
+                        if (r5Value !== "") {
+                            const notifBar = document.getElementById('global-notification');
+                            notifBar.innerText = r5Value;
+                            notifBar.style.display = 'block';
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to load R5 notification", e);
             }
         }
 
@@ -732,115 +762,66 @@
             const particles = [];
             const shockwaves = [];
             const particleCount = 65;
-
             const mouse = { x: null, y: null };
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
+            window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
             window.addEventListener('click', (e) => {
                 shockwaves.push({ x: e.clientX, y: e.clientY, radius: 5, maxRadius: 180, alpha: 1 });
-
                 particles.forEach(p => {
-                    const dx = p.x - e.clientX;
-                    const dy = p.y - e.clientY;
+                    const dx = p.x - e.clientX; const dy = p.y - e.clientY;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 180) {
-                        p.blink = 1.0;
-                        p.speedX += (dx / dist) * 2.5;
-                        p.speedY += (dy / dist) * 2.5;
-                    }
+                    if (dist < 180) { p.blink = 1.0; p.speedX += (dx / dist) * 2.5; p.speedY += (dy / dist) * 2.5; }
                 });
             });
 
             class Particle {
                 constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
+                    this.x = Math.random() * width; this.y = Math.random() * height;
                     this.size = Math.random() * 2 + 1;
-                    this.baseSpeedX = (Math.random() - 0.5) * 0.8;
-                    this.baseSpeedY = (Math.random() - 0.5) * 0.8;
-                    this.speedX = this.baseSpeedX;
-                    this.speedY = this.baseSpeedY;
-                    this.blink = 0;
+                    this.baseSpeedX = (Math.random() - 0.5) * 0.8; this.baseSpeedY = (Math.random() - 0.5) * 0.8;
+                    this.speedX = this.baseSpeedX; this.speedY = this.baseSpeedY; this.blink = 0;
                 }
                 update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    this.speedX += (this.baseSpeedX - this.speedX) * 0.05;
-                    this.speedY += (this.baseSpeedY - this.speedY) * 0.05;
-
+                    this.x += this.speedX; this.y += this.speedY;
+                    this.speedX += (this.baseSpeedX - this.speedX) * 0.05; this.speedY += (this.baseSpeedY - this.speedY) * 0.05;
                     if (this.blink > 0) this.blink -= 0.03;
-
                     if (this.x < 0 || this.x > width) this.speedX *= -1;
                     if (this.y < 0 || this.y > height) this.speedY *= -1;
                 }
                 draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size + (this.blink * 3), 0, Math.PI * 2);
-                    if (this.blink > 0) {
-                        ctx.fillStyle = `rgba(255, 255, 255, ${0.7 + this.blink * 0.3})`;
-                        ctx.shadowBlur = 15;
-                        ctx.shadowColor = '#38bdf8';
-                    } else {
-                        ctx.fillStyle = 'rgba(56, 189, 248, 0.7)';
-                        ctx.shadowBlur = 0;
-                    }
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size + (this.blink * 3), 0, Math.PI * 2);
+                    if (this.blink > 0) { ctx.fillStyle = `rgba(255, 255, 255, ${0.7 + this.blink * 0.3})`; ctx.shadowBlur = 15; ctx.shadowColor = '#38bdf8'; } 
+                    else { ctx.fillStyle = 'rgba(56, 189, 248, 0.7)'; ctx.shadowBlur = 0; }
+                    ctx.fill(); ctx.shadowBlur = 0;
                 }
             }
 
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                
                 for (let i = shockwaves.length - 1; i >= 0; i--) {
                     const sw = shockwaves[i];
-                    ctx.beginPath();
-                    ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha})`;
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                    sw.radius += 5;
-                    sw.alpha -= 0.025;
-                    if (sw.alpha <= 0) shockwaves.splice(i, 1);
+                    ctx.beginPath(); ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha})`; ctx.lineWidth = 2; ctx.stroke();
+                    sw.radius += 5; sw.alpha -= 0.025; if (sw.alpha <= 0) shockwaves.splice(i, 1);
                 }
-
                 for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-
+                    particles[i].update(); particles[i].draw();
                     for (let j = i; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
+                        const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist < 100) {
-                            ctx.beginPath();
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.25 - dist / 400})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
+                            ctx.beginPath(); ctx.strokeStyle = `rgba(56, 189, 248, ${0.25 - dist / 400})`; ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
                         }
                     }
-
                     if (mouse.x && mouse.y) {
-                        const dx = mouse.x - particles[i].x;
-                        const dy = mouse.y - particles[i].y;
+                        const dx = mouse.x - particles[i].x; const dy = mouse.y - particles[i].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         if (distance < 140) {
-                            ctx.beginPath();
-                            ctx.strokeStyle = `rgba(56, 189, 248, ${0.8 - distance / 140})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(mouse.x, mouse.y);
-                            ctx.stroke();
+                            ctx.beginPath(); ctx.strokeStyle = `rgba(56, 189, 248, ${0.8 - distance / 140})`; ctx.lineWidth = 0.8;
+                            ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
                         }
                     }
                 }
@@ -856,13 +837,9 @@
             let width = canvas.width = window.innerWidth;
             let height = canvas.height = window.innerHeight;
 
-            window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
+            window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
 
-            const orbs = [];
-            const pulses = [];
+            const orbs = []; const pulses = [];
             const colors = ['#38bdf8', '#34d399', '#fbbf24', '#22d3ee', '#a855f7', '#f43f5e', '#f97316', '#6366f1'];
 
             window.addEventListener('click', (e) => {
@@ -872,59 +849,33 @@
 
             class Orb {
                 constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 4 + 2;
-                    this.speedY = -(Math.random() * 0.6 + 0.2);
-                    this.speedX = (Math.random() - 0.5) * 0.4;
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.x = Math.random() * width; this.y = Math.random() * height;
+                    this.size = Math.random() * 4 + 2; this.speedY = -(Math.random() * 0.6 + 0.2);
+                    this.speedX = (Math.random() - 0.5) * 0.4; this.color = colors[Math.floor(Math.random() * colors.length)];
                     this.alpha = Math.random() * 0.6 + 0.2;
                 }
                 update() {
-                    this.y += this.speedY;
-                    this.x += this.speedX;
-                    if (this.y < -20) {
-                        this.y = height + 20;
-                        this.x = Math.random() * width;
-                    }
+                    this.y += this.speedY; this.x += this.speedX;
+                    if (this.y < -20) { this.y = height + 20; this.x = Math.random() * width; }
                 }
                 draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.shadowBlur = 12;
-                    ctx.shadowColor = this.color;
-                    ctx.globalAlpha = this.alpha;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                    ctx.globalAlpha = 1.0;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color; ctx.shadowBlur = 12; ctx.shadowColor = this.color;
+                    ctx.globalAlpha = this.alpha; ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1.0;
                 }
             }
 
-            for (let i = 0; i < 45; i++) {
-                orbs.push(new Orb());
-            }
+            for (let i = 0; i < 45; i++) orbs.push(new Orb());
 
             function animateDashboard() {
                 ctx.clearRect(0, 0, width, height);
-                
                 for (let i = pulses.length - 1; i >= 0; i--) {
                     const p = pulses[i];
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(56, 189, 248, ${p.alpha})`;
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
-                    p.radius += 4;
-                    p.alpha -= 0.015;
-                    if (p.alpha <= 0) pulses.splice(i, 1);
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${p.alpha})`; ctx.lineWidth = 1.5; ctx.stroke();
+                    p.radius += 4; p.alpha -= 0.015; if (p.alpha <= 0) pulses.splice(i, 1);
                 }
-
-                orbs.forEach(orb => {
-                    orb.update();
-                    orb.draw();
-                });
-
+                orbs.forEach(orb => { orb.update(); orb.draw(); });
                 requestAnimationFrame(animateDashboard);
             }
             animateDashboard();
@@ -937,18 +888,11 @@
             cards.forEach(card => {
                 card.addEventListener('mousemove', e => {
                     const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -8;
-                    const rotateY = ((x - centerX) / centerX) * 8;
-                    
+                    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2; const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8; const rotateY = ((x - centerX) / centerX) * 8;
                     card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
                 });
-                
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
                 });
@@ -967,14 +911,14 @@
             try {
                 const lines = csvText.split(/\r?\n/);
                 if(lines.length < 2) return {};
-                
+
                 const headers = lines[0].split(",").map(h => h.replace(/["\r\n]+/g, '').trim().toLowerCase());
                 const users = {};
 
                 const passIdx = headers.indexOf("password");
                 const attIdx = headers.indexOf("attendance");
                 const outIdx = headers.indexOf("outstanding");
-                
+
                 let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store"));
                 if (storeIdx === -1) storeIdx = 4;
 
@@ -982,8 +926,6 @@
                 if (stockIdx === -1) stockIdx = 5;
                 let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val"));
                 if (valIdx === -1) valIdx = 6;
-                let salesIdx = headers.findIndex(h => h.includes("sale"));
-                if (salesIdx === -1) salesIdx = 7;
                 
                 let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow") || h.includes("ig") || h.includes("yt") || h.includes("google") || h.includes("marketing"));
                 if (instaIdx === -1) instaIdx = 8; 
@@ -996,12 +938,12 @@
 
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
-                    
+
                     const currentline = lines[i].split(",").map(item => item.replace(/["\r\n]+/g, '').trim());
                     if (!currentline[0]) continue;
-                    
+
                     const username = currentline[0].toLowerCase();
-                    
+
                     users[username] = {
                         password: currentline[passIdx !== -1 ? passIdx : 1] || "",
                         attendance: currentline[attIdx !== -1 ? attIdx : 2] ? currentline[attIdx !== -1 ? attIdx : 2].trim() : "",
@@ -1009,7 +951,6 @@
                         stock: (currentline[stockIdx !== -1 ? stockIdx : 5] || "no").toLowerCase(),
                         stock_value: (currentline[valIdx !== -1 ? valIdx : 6] || "no").toLowerCase(),
                         allowed_stores: (currentline[storeIdx !== -1 ? storeIdx : 4] || "").toLowerCase(), 
-                        sales: (currentline[salesIdx !== -1 ? salesIdx : 7] || "no").toLowerCase(),
                         insta_access: (currentline[instaIdx] || "no").toLowerCase(),
                         sbi_cashback: (currentline[sbiIdx] || "no").toLowerCase(),
                         monthly_tracker: (currentline[trackerIdx] || "no").toLowerCase() 
@@ -1043,7 +984,7 @@
                 const liveUrl = SHEET_CSV_URL + "&cb=" + new Date().getTime();
                 const response = await fetch(liveUrl);
                 if (!response.ok) throw new Error("Network issue reading sheet remote host.");
-                
+
                 const csvText = await response.text();
                 const userDatabase = parseCSV(csvText);
 
@@ -1052,7 +993,8 @@
                     const attVal = userData.attendance;
                     const attLower = attVal.toLowerCase();
 
-                    if (attVal === '' && userData.outstanding !== 'yes' && userData.stock !== 'yes' && userData.stock_value !== 'yes' && userData.sales !== 'yes' && userData.insta_access === 'no' && userData.sbi_cashback !== 'yes' && userData.monthly_tracker !== 'yes') {
+                    // Removed Sales Dashboard from inactive check
+                    if (attVal === '' && userData.outstanding !== 'yes' && userData.stock !== 'yes' && userData.stock_value !== 'yes' && userData.insta_access === 'no' && userData.sbi_cashback !== 'yes' && userData.monthly_tracker !== 'yes') {
                         msg.style.color = "#fbbf24";
                         msg.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve or assign your role.";
                         return;
@@ -1060,10 +1002,10 @@
 
                     document.getElementById('auth-screen').style.display = 'none';
                     document.getElementById('dashboard-content').style.display = 'flex';
-                    
-                    // 🔥 TRIGGERS JETS & GIANT FLAG ON SUCCESSFUL LOGIN 🔥
+
                     triggerIndependenceAnimation();
-                    
+                    fetchNotification(); // Fetch Sheet 3, Cell R5
+
                     loggedInUserGlobal = userIn;
                     userAccessGlobal = attLower;
                     assignedAttendanceNameGlobal = attVal; 
@@ -1076,14 +1018,30 @@
                     initDashboardParticles();
 
                     const attCard = document.getElementById('app-attendance');
-                    if (attVal !== '' && attLower !== 'no') {
-                        attCard.style.display = 'block';
+                    if (attVal !== '' && attLower !== 'no') { attCard.style.display = 'block'; } 
+                    else { attCard.style.display = 'none'; }
+
+                    // 🔥 NEW OUTSTANDING LOGIC 🔥
+                    if (userData.outstanding !== 'no' && userData.outstanding !== '') {
+                        const outCard = document.getElementById('app-outstanding');
+                        outCard.style.display = 'block';
+
+                        let outStoreParam = userData.allowed_stores || 'ALL';
+                        
+                        // 1. If they specifically have 'yes' in allowed_stores OR outstanding, grant ALL
+                        if (userData.allowed_stores === 'yes' || userData.outstanding === 'yes' || userData.allowed_stores === 'admin' || userData.outstanding === 'admin') {
+                            outStoreParam = 'ALL';
+                        }
+                        // 2. If there's a specific store name written inside the outstanding column, override to that store only
+                        else if (userData.outstanding !== 'yes' && userData.outstanding !== 'no' && userData.outstanding !== 'admin' && userData.outstanding !== 'all') {
+                            outStoreParam = userData.outstanding;
+                        }
+
+                        outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}`;
                     } else {
-                        attCard.style.display = 'none';
+                        document.getElementById('app-outstanding').style.display = 'none';
                     }
 
-                    if (userData.outstanding === 'yes') document.getElementById('app-outstanding').style.display = 'block';
-                    
                     if (userData.stock === 'yes') {
                         const stockCard = document.getElementById('app-stock');
                         stockCard.style.display = 'block';
@@ -1096,15 +1054,8 @@
                         stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
                     }
 
-                    if (userData.sales === 'yes') {
-                        const salesCard = document.getElementById('app-sales');
-                        salesCard.style.display = 'block';
-                        salesCard.href = `https://kshekhawat73.github.io/sales-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
-                    }
-                    
                     const targetTrackerCard = document.getElementById('app-target-tracker');
                     const instaVal = userData.insta_access;
-                    
                     if (instaVal === 'admin' || instaVal === 'all' || (userIn === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
                         targetTrackerCard.style.display = 'block';
                         targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/admin.html";
@@ -1124,7 +1075,7 @@
                         monthlyCard.style.display = 'block';
                         monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
                     }
-                    
+
                     enable3DCards();
 
                 } else {
@@ -1193,7 +1144,7 @@
                 let uniqueManagers = rawMappings.map(item => item.manager).filter(name => name && name.length > 0);
                 uniqueManagers = [...new Set(uniqueManagers)];
                 uniqueManagers.sort((a, b) => a.localeCompare(undefined, { sensitivity: 'base', numeric: true }));
-                
+
                 const userDatabaseValue = userAccessGlobal; 
                 const cleanLoggedInUser = loggedInUserGlobal.trim();
 
@@ -1234,7 +1185,7 @@
                 .filter(store => store && store.length > 0);
 
             storeSelect.innerHTML = '';
-            
+
             if (matchedStores.length > 0) {
                 matchedStores.forEach((store, idx) => {
                     storeSelect.innerHTML += `<option value="${store}" ${idx === 0 ? 'selected' : ''}>${store}</option>`;
@@ -1256,7 +1207,7 @@
         document.getElementById('locationBtn').addEventListener('click', () => {
             const statusDiv = document.getElementById('status');
             const locationBtn = document.getElementById('locationBtn');
-            
+
             statusDiv.style.display = "block";
             statusDiv.style.color = "#d97706";
             statusDiv.style.background = "rgba(245, 158, 11, 0.15)";
@@ -1272,7 +1223,7 @@
                     document.getElementById('latitude').value = position.coords.latitude;
                     document.getElementById('longitude').value = position.coords.longitude;
                     locationFetched = true;
-                    
+
                     statusDiv.style.display = "none";
                     locationBtn.style.background = "linear-gradient(45deg, #28a745, #218838)";
                     locationBtn.innerText = "✅ Step 1: Location Verified";
@@ -1281,7 +1232,7 @@
                 (err) => { 
                     statusDiv.style.color = "#dc3545";
                     statusDiv.style.background = "rgba(220, 53, 69, 0.15)";
-                    
+
                     if (err.code === 1) {
                         statusDiv.innerText = "❌ Location Permission Blocked!";
                         alert("⚠️ Location Permission Blocked!\n\nAapne browser ko location access nahi diya hai. Kripya address bar ke 'Lock 🔒' icon par click karke Location 'Allow' karein.");
