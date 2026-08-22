@@ -304,14 +304,14 @@
 
         p.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
 
-        /* 🟢 NEW: Gentle Notification Bar (Reads from R5) */
+        /* 🟢 NEW: Gentle Notification Bar (Reads from R5/Q5) */
         @keyframes softBlink {
             0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-            50% { opacity: 0.8; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+            50% { opacity: 0.85; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         }
         .global-notification {
             display: none; 
-            background: rgba(30, 41, 59, 0.85); 
+            background: rgba(30, 41, 59, 0.85); /* Slate 800 (Dark, non-vibrant, easy on eyes) */
             border: 1px solid rgba(148, 163, 184, 0.2); 
             color: #f1f5f9; 
             padding: 14px 28px;
@@ -320,11 +320,11 @@
             width: 100%;
             max-width: 700px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.5px;
             backdrop-filter: blur(12px);
-            animation: softBlink 3s infinite ease-in-out;
+            animation: softBlink 3.5s infinite ease-in-out;
         }
 
         .logout-btn { 
@@ -440,7 +440,7 @@
         .card:hover h2 { color: var(--accent-color, #38bdf8); }
         .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
-        /* 🎨 Custom Accent Themes (Sales Removed) */
+        /* 🎨 Custom Accent Themes */
         #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
         #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
         #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
@@ -553,7 +553,7 @@
         <h1 class="header-title">SiVMOR Workspace</h1>
         <p class="subtitle">Select an application below to access your live portal</p>
         
-        <!-- 🟢 NEW: Global Notification Bar (R5) -->
+        <!-- 🟢 Global Notification Bar (Pulls seamlessly from Row 5 / Column Q,R,S etc) -->
         <div id="global-notification" class="global-notification"></div>
 
         <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
@@ -683,7 +683,6 @@
     </div>
 
     <script>
-        // 🚨 YOUR EXISTING SHEET_CSV_URL REMAINS THE SAME
         const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
         const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
 
@@ -806,9 +805,13 @@
             let width = canvas.width = window.innerWidth;
             let height = canvas.height = window.innerHeight;
 
-            window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
 
-            const orbs = []; const pulses = [];
+            const orbs = [];
+            const pulses = [];
             const colors = ['#38bdf8', '#34d399', '#fbbf24', '#22d3ee', '#f43f5e', '#f97316', '#6366f1'];
 
             window.addEventListener('click', (e) => {
@@ -818,33 +821,59 @@
 
             class Orb {
                 constructor() {
-                    this.x = Math.random() * width; this.y = Math.random() * height;
-                    this.size = Math.random() * 4 + 2; this.speedY = -(Math.random() * 0.6 + 0.2);
-                    this.speedX = (Math.random() - 0.5) * 0.4; this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 4 + 2;
+                    this.speedY = -(Math.random() * 0.6 + 0.2);
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
                     this.alpha = Math.random() * 0.6 + 0.2;
                 }
                 update() {
-                    this.y += this.speedY; this.x += this.speedX;
-                    if (this.y < -20) { this.y = height + 20; this.x = Math.random() * width; }
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    if (this.y < -20) {
+                        this.y = height + 20;
+                        this.x = Math.random() * width;
+                    }
                 }
                 draw() {
-                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color; ctx.shadowBlur = 12; ctx.shadowColor = this.color;
-                    ctx.globalAlpha = this.alpha; ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1.0;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = this.color;
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.globalAlpha = 1.0;
                 }
             }
 
-            for (let i = 0; i < 45; i++) orbs.push(new Orb());
+            for (let i = 0; i < 45; i++) {
+                orbs.push(new Orb());
+            }
 
             function animateDashboard() {
                 ctx.clearRect(0, 0, width, height);
+
                 for (let i = pulses.length - 1; i >= 0; i--) {
                     const p = pulses[i];
-                    ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(56, 189, 248, ${p.alpha})`; ctx.lineWidth = 1.5; ctx.stroke();
-                    p.radius += 4; p.alpha -= 0.015; if (p.alpha <= 0) pulses.splice(i, 1);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${p.alpha})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    p.radius += 4;
+                    p.alpha -= 0.015;
+                    if (p.alpha <= 0) pulses.splice(i, 1);
                 }
-                orbs.forEach(orb => { orb.update(); orb.draw(); });
+
+                orbs.forEach(orb => {
+                    orb.update();
+                    orb.draw();
+                });
+
                 requestAnimationFrame(animateDashboard);
             }
             animateDashboard();
@@ -857,11 +886,18 @@
             cards.forEach(card => {
                 card.addEventListener('mousemove', e => {
                     const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2; const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -8; const rotateY = ((x - centerX) / centerX) * 8;
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+
                     card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
                 });
+
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
                 });
@@ -876,7 +912,7 @@
             msg.innerText = "ℹ️ Registration Notice:\nPlease contact the admin directly to create your username and password.";
         }
 
-        /* 🔥 UPDATED CSV PARSER: Robust parsing for commas inside quotes (like a long notification text) */
+        // Robust CSV row parser to handle commas within notification text properly
         function parseRow(row) {
             const result = [];
             let inQuotes = false;
@@ -899,35 +935,33 @@
                 const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
                 const users = {};
 
-                const passIdx = headers.indexOf("password");
-                const attIdx = headers.indexOf("attendance");
-                const outIdx = headers.indexOf("outstanding");
-                const storeIdx = headers.indexOf("allowed_stores");
-                
-                let stockIdx = headers.findIndex(h => h === "stock");
-                if (stockIdx === -1) stockIdx = 5;
-                let valIdx = headers.findIndex(h => h.includes("stock-value") || h.includes("value"));
-                if (valIdx === -1) valIdx = 6;
-                
-                let instaIdx = headers.findIndex(h => h.includes("insta"));
-                if (instaIdx === -1) instaIdx = 7; 
+                // Use robust indexOf logic based on your sheet layout
+                let passIdx = headers.indexOf("password"); if(passIdx === -1) passIdx = 1;
+                let attIdx = headers.indexOf("attendance"); if(attIdx === -1) attIdx = 2;
+                let outIdx = headers.indexOf("outstanding"); if(outIdx === -1) outIdx = 3;
+                let storeIdx = headers.indexOf("allowed_stores"); if(storeIdx === -1) storeIdx = 4;
+                let stockIdx = headers.indexOf("stock"); if(stockIdx === -1) stockIdx = 5;
+                let valIdx = headers.indexOf("stock-value"); if(valIdx === -1) valIdx = 6;
+                let instaIdx = headers.indexOf("insta_follow"); if(instaIdx === -1) instaIdx = 7;
+                let sbiIdx = headers.indexOf("sbi card cashback"); if(sbiIdx === -1) sbiIdx = 8;
+                let trackerIdx = headers.indexOf("monthly-target-tracker"); if(trackerIdx === -1) trackerIdx = 9;
 
-                let sbiIdx = headers.findIndex(h => h.includes("sbi"));
-                if (sbiIdx === -1) sbiIdx = 8; 
-
-                let trackerIdx = headers.findIndex(h => h.includes("monthly"));
-                if (trackerIdx === -1) trackerIdx = 9; 
-
-                // 🔥 1. Parse Cell R5 for the Notification (Row 5 corresponds to index 4, Column R is index 17)
+                // 🔥 1. Parse Notification Text from Row 5 (Index 4)
                 let globalNotif = "";
                 if (lines.length > 4) {
                     const row5 = parseRow(lines[4]);
-                    if (row5.length > 17) {
-                        globalNotif = row5[17].trim(); // Index 17 is Col R
+                    
+                    // Automatically scanning from column K (index 10) onwards in row 5. 
+                    // This ensures even if your text is in Q5, R5, or S5, it gets captured securely without clashing with login data.
+                    for(let c = 10; c < row5.length; c++) {
+                        if(row5[c] && row5[c].trim().length > 5) {
+                            globalNotif = row5[c].trim();
+                            break; // Stop at the first block of text found
+                        }
                     }
                 }
 
-                // 2. Parse User Database Rows
+                // 2. Parse User Credentials
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
 
@@ -939,7 +973,7 @@
                     users[username] = {
                         password: currentline[passIdx] || "",
                         attendance: currentline[attIdx] || "",
-                        outstanding: (currentline[outIdx] || "no").toLowerCase(),
+                        outstanding: (currentline[outIdx] || "").toLowerCase(), // Removed default 'no' so blank cells stay blank
                         allowed_stores: (currentline[storeIdx] || "").toLowerCase(), 
                         stock: (currentline[stockIdx] || "no").toLowerCase(),
                         stock_value: (currentline[valIdx] || "no").toLowerCase(),
@@ -986,8 +1020,8 @@
                     const attVal = userData.attendance;
                     const attLower = attVal.toLowerCase();
 
-                    // Validation if completely disabled
-                    if (attVal === '' && userData.outstanding === 'no' && userData.stock === 'no' && userData.stock_value === 'no' && userData.insta_access === 'no' && userData.sbi_cashback === 'no' && userData.monthly_tracker === 'no') {
+                    // Security check if totally empty/disabled
+                    if (attVal === '' && userData.outstanding === '' && userData.stock === 'no' && userData.stock_value === 'no' && userData.insta_access === 'no' && userData.sbi_cashback === 'no' && userData.monthly_tracker === 'no') {
                         msg.style.color = "#fbbf24";
                         msg.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve or assign your role.";
                         return;
@@ -998,13 +1032,11 @@
 
                     triggerIndependenceAnimation();
 
-                    // 🔥 FIRE R5 NOTIFICATION (if it has text)
+                    // 🔥 Activate Global Notification Bar if it contains text
                     if (dbData.globalNotif) {
                         const notifBar = document.getElementById('global-notification');
                         notifBar.innerText = dbData.globalNotif;
                         notifBar.style.display = 'block';
-                    } else {
-                        document.getElementById('global-notification').style.display = 'none';
                     }
 
                     loggedInUserGlobal = userIn;
@@ -1020,11 +1052,17 @@
 
                     // 1. Attendance
                     const attCard = document.getElementById('app-attendance');
-                    if (attVal !== '' && attLower !== 'no') { attCard.style.display = 'block'; } 
-                    else { attCard.style.display = 'none'; }
+                    if (attVal !== '' && attLower !== 'no') {
+                        attCard.style.display = 'block';
+                    } else {
+                        attCard.style.display = 'none';
+                    }
 
-                    // 🔥 2. NEW OUTSTANDING LOGIC 🔥
-                    if (userData.outstanding === 'yes') {
+                    // 🔥 2. OUTSTANDING STORE ACCESS LOGIC (Matches Image Exactly) 🔥
+                    // If a user has 'yes' in Outstanding OR Admin OR their allowed store is present.
+                    // Wait, user Naresh has Outstanding 'yes', allowed 'yes' -> Give ALL
+                    // Kanhaiya has Outstanding blank, allowed 'CHB' -> Hide Card
+                    if (userData.outstanding === 'yes' || userData.outstanding === 'admin' || userData.outstanding === 'all') {
                         const outCard = document.getElementById('app-outstanding');
                         outCard.style.display = 'block';
 
@@ -1034,8 +1072,7 @@
                         if (allowed === 'yes' || allowed === 'admin' || allowed === 'all') {
                             outStoreParam = 'ALL';
                         } else if (allowed !== '') {
-                            // Automatically assigns specific store name (e.g. RATANADA)
-                            outStoreParam = allowed;
+                            outStoreParam = allowed; // Automatically puts specific store (e.g. CHB / RATANADA)
                         }
 
                         outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}`;
@@ -1044,14 +1081,14 @@
                     }
 
                     // 3. Stock
-                    if (userData.stock === 'yes') {
+                    if (userData.stock === 'yes' || userData.stock === 'admin') {
                         const stockCard = document.getElementById('app-stock');
                         stockCard.style.display = 'block';
                         stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
                     }
 
                     // 4. Stock Value
-                    if (userData.stock_value === 'yes') {
+                    if (userData.stock_value === 'yes' || userData.stock_value === 'admin') {
                         const stockValCard = document.getElementById('app-stock-value');
                         stockValCard.style.display = 'block';
                         stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
@@ -1071,12 +1108,13 @@
                     }
 
                     // 6. SBI Cashback
-                    if (userData.sbi_cashback === 'yes') {
+                    if (userData.sbi_cashback === 'yes' || userData.sbi_cashback === 'admin') {
                         document.getElementById('app-sbi-cashback').style.display = 'block';
+                        document.getElementById('app-sbi-cashback').href = `https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${encodeURIComponent(userIn)}`;
                     }
 
                     // 7. Monthly Tracker
-                    if (userData.monthly_tracker === 'yes') {
+                    if (userData.monthly_tracker === 'yes' || userData.monthly_tracker === 'admin') {
                         const monthlyCard = document.getElementById('app-monthly-tracker');
                         monthlyCard.style.display = 'block';
                         monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
@@ -1097,10 +1135,7 @@
         }
 
         function logoutUser() {
-            localStorage.removeItem('allowed_stores');
-            localStorage.removeItem('username');
-            localStorage.removeItem('user');
-            localStorage.removeItem('isLoggedIn');
+            localStorage.clear();
             location.reload();
         }
 
