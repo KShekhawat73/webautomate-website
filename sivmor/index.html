@@ -305,15 +305,15 @@
         p.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
 
         /* 🟢 NEW: Gentle Notification Bar (Scans right side of sheet) */
-        @keyframes softBlink {
-            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
             50% { opacity: 0.85; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         }
         .global-notification {
             display: none; 
-            background: rgba(30, 41, 59, 0.85); /* Dark slate, comfortable to eyes */
+            background: rgba(15, 23, 42, 0.9); /* Dark navy/slate, perfectly soothing for eyes */
             border: 1px solid rgba(148, 163, 184, 0.2); 
-            color: #f1f5f9; 
+            color: #e2e8f0; 
             padding: 14px 28px;
             border-radius: 12px;
             margin: 0 auto 30px auto;
@@ -324,7 +324,7 @@
             font-weight: 500;
             letter-spacing: 0.5px;
             backdrop-filter: blur(12px);
-            animation: softBlink 3.5s infinite ease-in-out;
+            animation: gentlePulse 3.5s infinite ease-in-out;
         }
 
         .logout-btn { 
@@ -553,7 +553,7 @@
         <h1 class="header-title">SiVMOR Workspace</h1>
         <p class="subtitle">Select an application below to access your live portal</p>
         
-        <!-- 🟢 Global Notification Bar (Pulls from Column Q, R, S automatically) -->
+        <!-- 🟢 Global Notification Bar (Pulls from any column K onwards automatically) -->
         <div id="global-notification" class="global-notification"></div>
 
         <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
@@ -938,20 +938,21 @@
                 let passIdx = headers.indexOf("password"); if(passIdx === -1) passIdx = 1;
                 let attIdx = headers.indexOf("attendance"); if(attIdx === -1) attIdx = 2;
                 let outIdx = headers.indexOf("outstanding"); if(outIdx === -1) outIdx = 3;
-                let storeIdx = headers.indexOf("allowed_stores"); if(storeIdx === -1) storeIdx = 4;
-                let stockIdx = headers.indexOf("stock"); if(stockIdx === -1) stockIdx = 5;
-                let valIdx = headers.indexOf("stock-value"); if(valIdx === -1) valIdx = 6;
-                let instaIdx = headers.indexOf("insta_follow"); if(instaIdx === -1) instaIdx = 7;
-                let sbiIdx = headers.indexOf("sbi card cashback"); if(sbiIdx === -1) sbiIdx = 8;
-                let trackerIdx = headers.indexOf("monthly-target-tracker"); if(trackerIdx === -1) trackerIdx = 9;
+                let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store")); if(storeIdx === -1) storeIdx = 4;
+                let stockIdx = headers.findIndex(h => h === "stock"); if(stockIdx === -1) stockIdx = 5;
+                let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val")); if(valIdx === -1) valIdx = 6;
+                let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if(instaIdx === -1) instaIdx = 7;
+                let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if(sbiIdx === -1) sbiIdx = 8;
+                let trackerIdx = headers.findIndex(h => h.includes("monthly")); if(trackerIdx === -1) trackerIdx = 9;
 
                 // 🔥 ADVANCED NOTIFICATION SCANNER 🔥
-                // This checks EVERY cell past column J in the whole sheet to find your notification
+                // Har ek row check karega. Agar Column K (index 12) ke aage koi bada text dikha (length > 15), 
+                // toh use automatic notification maan lega.
                 let globalNotif = "";
                 for (let r = 0; r < lines.length; r++) {
                     const rowCols = parseRow(lines[r]);
-                    for (let c = 10; c < rowCols.length; c++) {
-                        if (rowCols[c] && rowCols[c].trim().length > 5) {
+                    for (let c = 12; c < rowCols.length; c++) {
+                        if (rowCols[c] && rowCols[c].trim().length > 15) {
                             globalNotif = rowCols[c].trim();
                             break; 
                         }
@@ -1063,7 +1064,7 @@
                         let outStoreParam = 'ALL';
                         let allowed = userData.allowed_stores;
 
-                        if (allowed === 'yes' || allowed === 'admin' || allowed === 'all' || userData.outstanding === 'yes') {
+                        if (userData.outstanding === 'yes' || allowed === 'yes' || allowed === 'admin' || allowed === 'all') {
                             outStoreParam = 'ALL';
                         } else if (allowed !== '') {
                             outStoreParam = allowed; 
