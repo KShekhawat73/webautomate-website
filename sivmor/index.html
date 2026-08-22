@@ -304,14 +304,14 @@
 
         p.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
 
-        /* 🟢 NEW: Gentle Notification Bar (Reads from R5/Q5) */
+        /* 🟢 NEW: Gentle Notification Bar (Scans right side of sheet) */
         @keyframes softBlink {
             0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
             50% { opacity: 0.85; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         }
         .global-notification {
             display: none; 
-            background: rgba(30, 41, 59, 0.85); /* Slate 800 (Dark, non-vibrant, easy on eyes) */
+            background: rgba(30, 41, 59, 0.85); /* Dark slate, comfortable to eyes */
             border: 1px solid rgba(148, 163, 184, 0.2); 
             color: #f1f5f9; 
             padding: 14px 28px;
@@ -440,7 +440,7 @@
         .card:hover h2 { color: var(--accent-color, #38bdf8); }
         .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
-        /* 🎨 Custom Accent Themes */
+        /* 🎨 Custom Accent Themes (Sales Dashboard Removed Completely) */
         #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
         #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
         #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
@@ -553,7 +553,7 @@
         <h1 class="header-title">SiVMOR Workspace</h1>
         <p class="subtitle">Select an application below to access your live portal</p>
         
-        <!-- 🟢 Global Notification Bar (Pulls seamlessly from Row 5 / Column Q,R,S etc) -->
+        <!-- 🟢 Global Notification Bar (Pulls from Column Q, R, S automatically) -->
         <div id="global-notification" class="global-notification"></div>
 
         <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
@@ -912,7 +912,7 @@
             msg.innerText = "ℹ️ Registration Notice:\nPlease contact the admin directly to create your username and password.";
         }
 
-        // Robust CSV row parser to handle commas within notification text properly
+        // CSV parsing that safely handles commas inside notification text
         function parseRow(row) {
             const result = [];
             let inQuotes = false;
@@ -935,7 +935,6 @@
                 const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
                 const users = {};
 
-                // Use robust indexOf logic based on your sheet layout
                 let passIdx = headers.indexOf("password"); if(passIdx === -1) passIdx = 1;
                 let attIdx = headers.indexOf("attendance"); if(attIdx === -1) attIdx = 2;
                 let outIdx = headers.indexOf("outstanding"); if(outIdx === -1) outIdx = 3;
@@ -946,22 +945,21 @@
                 let sbiIdx = headers.indexOf("sbi card cashback"); if(sbiIdx === -1) sbiIdx = 8;
                 let trackerIdx = headers.indexOf("monthly-target-tracker"); if(trackerIdx === -1) trackerIdx = 9;
 
-                // 🔥 1. Parse Notification Text from Row 5 (Index 4)
+                // 🔥 ADVANCED NOTIFICATION SCANNER 🔥
+                // This checks EVERY cell past column J in the whole sheet to find your notification
                 let globalNotif = "";
-                if (lines.length > 4) {
-                    const row5 = parseRow(lines[4]);
-                    
-                    // Automatically scanning from column K (index 10) onwards in row 5. 
-                    // This ensures even if your text is in Q5, R5, or S5, it gets captured securely without clashing with login data.
-                    for(let c = 10; c < row5.length; c++) {
-                        if(row5[c] && row5[c].trim().length > 5) {
-                            globalNotif = row5[c].trim();
-                            break; // Stop at the first block of text found
+                for (let r = 0; r < lines.length; r++) {
+                    const rowCols = parseRow(lines[r]);
+                    for (let c = 10; c < rowCols.length; c++) {
+                        if (rowCols[c] && rowCols[c].trim().length > 5) {
+                            globalNotif = rowCols[c].trim();
+                            break; 
                         }
                     }
+                    if(globalNotif) break;
                 }
 
-                // 2. Parse User Credentials
+                // Parse user login data
                 for (let i = 1; i < lines.length; i++) {
                     if (!lines[i].trim()) continue;
 
@@ -973,7 +971,7 @@
                     users[username] = {
                         password: currentline[passIdx] || "",
                         attendance: currentline[attIdx] || "",
-                        outstanding: (currentline[outIdx] || "").toLowerCase(), // Removed default 'no' so blank cells stay blank
+                        outstanding: (currentline[outIdx] || "").toLowerCase(), 
                         allowed_stores: (currentline[storeIdx] || "").toLowerCase(), 
                         stock: (currentline[stockIdx] || "no").toLowerCase(),
                         stock_value: (currentline[valIdx] || "no").toLowerCase(),
@@ -1020,7 +1018,6 @@
                     const attVal = userData.attendance;
                     const attLower = attVal.toLowerCase();
 
-                    // Security check if totally empty/disabled
                     if (attVal === '' && userData.outstanding === '' && userData.stock === 'no' && userData.stock_value === 'no' && userData.insta_access === 'no' && userData.sbi_cashback === 'no' && userData.monthly_tracker === 'no') {
                         msg.style.color = "#fbbf24";
                         msg.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve or assign your role.";
@@ -1032,7 +1029,7 @@
 
                     triggerIndependenceAnimation();
 
-                    // 🔥 Activate Global Notification Bar if it contains text
+                    // 🔥 Activate Global Notification Bar if it found your text
                     if (dbData.globalNotif) {
                         const notifBar = document.getElementById('global-notification');
                         notifBar.innerText = dbData.globalNotif;
@@ -1058,21 +1055,18 @@
                         attCard.style.display = 'none';
                     }
 
-                    // 🔥 2. OUTSTANDING STORE ACCESS LOGIC (Matches Image Exactly) 🔥
-                    // If a user has 'yes' in Outstanding OR Admin OR their allowed store is present.
-                    // Wait, user Naresh has Outstanding 'yes', allowed 'yes' -> Give ALL
-                    // Kanhaiya has Outstanding blank, allowed 'CHB' -> Hide Card
-                    if (userData.outstanding === 'yes' || userData.outstanding === 'admin' || userData.outstanding === 'all') {
+                    // 🔥 2. OUTSTANDING STORE ACCESS LOGIC 🔥
+                    if (userData.outstanding === 'yes' || userData.outstanding === 'admin' || userData.outstanding === 'all' || (userData.allowed_stores !== '' && userData.allowed_stores !== 'no')) {
                         const outCard = document.getElementById('app-outstanding');
                         outCard.style.display = 'block';
 
                         let outStoreParam = 'ALL';
                         let allowed = userData.allowed_stores;
 
-                        if (allowed === 'yes' || allowed === 'admin' || allowed === 'all') {
+                        if (allowed === 'yes' || allowed === 'admin' || allowed === 'all' || userData.outstanding === 'yes') {
                             outStoreParam = 'ALL';
                         } else if (allowed !== '') {
-                            outStoreParam = allowed; // Automatically puts specific store (e.g. CHB / RATANADA)
+                            outStoreParam = allowed; 
                         }
 
                         outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}`;
