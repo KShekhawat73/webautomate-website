@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 Strict Anti-Cache Meta Tags 🔥 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- 🔥 Google Site Verification Meta Tag 🔥 -->
     <meta name="google-site-verification" content="fysdPZJ3TtNgxpwzUP60-FRA7esiq3cDTXtVKStGZwA" />
 
@@ -304,7 +309,7 @@
 
         p.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
 
-        /* 🟢 NEW: Gentle Notification Bar (Scans right side of sheet) */
+        /* 🟢 NEW: Gentle Notification Bar */
         @keyframes gentlePulse {
             0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
             50% { opacity: 0.85; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -440,7 +445,7 @@
         .card:hover h2 { color: var(--accent-color, #38bdf8); }
         .card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
 
-        /* 🎨 Custom Accent Themes (Sales Dashboard Removed Completely) */
+        /* 🎨 Custom Accent Themes (Sales Removed) */
         #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
         #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
         #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
@@ -1006,8 +1011,9 @@
             msg.innerText = "Verifying access permissions...";
 
             try {
+                // 🔥 ANTI-CACHE TIMESTAMP APPENDED 🔥
                 const liveUrl = SHEET_CSV_URL + "&cb=" + new Date().getTime();
-                const response = await fetch(liveUrl);
+                const response = await fetch(liveUrl, { cache: "no-store" });
                 if (!response.ok) throw new Error("Network issue reading sheet remote host.");
 
                 const csvText = await response.text();
@@ -1048,6 +1054,8 @@
 
                     initDashboardParticles();
 
+                    const timestamp = new Date().getTime();
+
                     // 1. Attendance
                     const attCard = document.getElementById('app-attendance');
                     if (attVal !== '' && attLower !== 'no') {
@@ -1070,7 +1078,7 @@
                             outStoreParam = allowed; 
                         }
 
-                        outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}`;
+                        outCard.href = `https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}&t=${timestamp}`;
                     } else {
                         document.getElementById('app-outstanding').style.display = 'none';
                     }
@@ -1079,14 +1087,14 @@
                     if (userData.stock === 'yes' || userData.stock === 'admin') {
                         const stockCard = document.getElementById('app-stock');
                         stockCard.style.display = 'block';
-                        stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                        stockCard.href = `https://kshekhawat73.github.io/stock/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`;
                     }
 
                     // 4. Stock Value
                     if (userData.stock_value === 'yes' || userData.stock_value === 'admin') {
                         const stockValCard = document.getElementById('app-stock-value');
                         stockValCard.style.display = 'block';
-                        stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                        stockValCard.href = `https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`;
                     }
 
                     // 5. Customer Tracker
@@ -1094,10 +1102,10 @@
                     const instaVal = userData.insta_access;
                     if (instaVal === 'admin' || instaVal === 'all' || (userIn === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
                         targetTrackerCard.style.display = 'block';
-                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/admin.html";
+                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/admin.html?t=" + timestamp;
                     } else if (instaVal === 'yes' || instaVal === 'true') {
                         targetTrackerCard.style.display = 'block';
-                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/?user=" + encodeURIComponent(userIn);
+                        targetTrackerCard.href = "https://kshekhawat73.github.io/target-tracker/?user=" + encodeURIComponent(userIn) + "&t=" + timestamp;
                     } else {
                         targetTrackerCard.style.display = 'none';
                     }
@@ -1105,14 +1113,14 @@
                     // 6. SBI Cashback
                     if (userData.sbi_cashback === 'yes' || userData.sbi_cashback === 'admin') {
                         document.getElementById('app-sbi-cashback').style.display = 'block';
-                        document.getElementById('app-sbi-cashback').href = `https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${encodeURIComponent(userIn)}`;
+                        document.getElementById('app-sbi-cashback').href = `https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${encodeURIComponent(userIn)}&t=${timestamp}`;
                     }
 
                     // 7. Monthly Tracker
                     if (userData.monthly_tracker === 'yes' || userData.monthly_tracker === 'admin') {
                         const monthlyCard = document.getElementById('app-monthly-tracker');
                         monthlyCard.style.display = 'block';
-                        monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}`;
+                        monthlyCard.href = `https://kshekhawat73.github.io/monthly-target-tracker/?user=${encodeURIComponent(userIn)}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`;
                     }
 
                     enable3DCards();
@@ -1131,7 +1139,7 @@
 
         function logoutUser() {
             localStorage.clear();
-            location.reload();
+            location.reload(true);
         }
 
         let locationFetched = false;
@@ -1141,7 +1149,7 @@
 
         function openAttendanceApp() {
             if (userAccessGlobal === 'admin') {
-                window.location.href = 'admin-monitor.html';
+                window.location.href = 'admin-monitor.html?t=' + new Date().getTime();
                 return;
             }
 
@@ -1173,7 +1181,7 @@
             const storeSelect = document.getElementById('storeName');
 
             try {
-                const response = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + new Date().getTime());
+                const response = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + new Date().getTime(), { cache: "no-store" });
                 const mappings = await response.json();
                 rawMappings = mappings; 
 
