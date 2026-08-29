@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-
-  <!-- 🔥 Anti-Cache Meta Tags 🔥 -->
+  <!-- Anti-Cache Meta Tags -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -14,26 +13,34 @@
   <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Access live inventory, sales analytics, outstanding reports, and attendance logs.">
   <meta name="theme-color" content="#05070b">
 
-  <style>
+  <!-- Google Fonts & Confetti CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
+  <style>
     /* =========================================================
-       ROOT & BASE STYLES
+       ROOT VARIABLES & BASE THEME
     ========================================================= */
     :root {
       --bg: #05070b;
-      --bg-2: #080b11;
-      --panel: #0b0f15;
-      --panel-2: #10151d;
+      --bg-2: #080d14;
+      --panel: #0a0f18;
+      --panel-card: #0c121e;
       --text: #f4f7fb;
       --soft: #c4ccd7;
       --muted: #8a94a5;
       --dim: #555f70;
       --cyan: #57eef4;
+      --cyan-glow: rgba(87, 238, 244, 0.25);
       --mint: #6dffbd;
       --blue: #6e91ff;
       --violet: #9a78ff;
-      --line: rgba(255,255,255,.075);
-      --line-soft: rgba(255,255,255,.045);
+      --rose: #f43f5e;
+      --amber: #fbbf24;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-soft: rgba(255, 255, 255, 0.04);
       --max: 1200px;
     }
 
@@ -43,1612 +50,1296 @@
     body {
       min-height: 100vh;
       overflow-x: hidden;
-      background: radial-gradient(circle at 18% 8%, rgba(87,238,244,.075), transparent 25%),
-                  radial-gradient(circle at 82% 16%, rgba(154,120,255,.06), transparent 23%),
+      background: radial-gradient(circle at 15% 10%, rgba(87, 238, 244, 0.06), transparent 28%),
+                  radial-gradient(circle at 85% 15%, rgba(154, 120, 255, 0.05), transparent 25%),
                   var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       cursor: default;
     }
 
     body::before {
-      content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
-      background-size: 80px 80px; opacity: .55;
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.6;
     }
 
-    body::after {
-      content: ""; position: fixed; width: 650px; height: 650px; left: 50%; top: 10%;
-      transform: translate(-50%,-50%); z-index: -2; pointer-events: none; border-radius: 50%;
-      background: radial-gradient(circle, rgba(87,238,244,.035), transparent 68%);
-      animation: ambientPulse 9s ease-in-out infinite;
-    }
-
-    @keyframes ambientPulse {
-      0%, 100% { opacity: .45; transform: translate(-50%,-50%) scale(.95); }
-      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.06); }
-    }
-
-    ::selection { color: white; background: rgba(87,238,244,.18); }
+    ::selection { color: #05070b; background: var(--cyan); }
     a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
+    button, input, select, textarea { font-family: inherit; }
 
     .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-    .gradient {
-      background: linear-gradient(100deg, #ffffff, #b8ffff, #9b7cff, #ffffff);
-      background-size: 250% auto; -webkit-background-clip: text; background-clip: text;
-      color: transparent; animation: gradientFlow 8s linear infinite;
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #b8ffff 50%, #9b7cff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-
-    @keyframes gradientFlow { 0% { background-position: 0% center; } 100% { background-position: 250% center; } }
-    .eyebrow { color: var(--muted); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
 
     .mouse-light {
-      position: fixed; width: 320px; height: 320px; left: 50%; top: 50%; transform: translate(-50%,-50%);
-      border-radius: 50%; pointer-events: none; z-index: 1;
-      background: radial-gradient(circle, rgba(87,238,244,.04), transparent 68%);
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(87, 238, 244, 0.05), transparent 70%);
+      transition: opacity 0.3s ease;
     }
 
     /* =========================================================
-       NAVIGATION
+       NAVIGATION BAR
     ========================================================= */
-    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 5000; padding: 15px 18px; }
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 5000; padding: 14px 18px; }
     nav {
-      width: min(var(--max), 100%); height: 62px; margin: auto; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 10px 0 24px; border: 1px solid var(--line); border-radius: 17px; background: rgba(7,9,14,.90);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 12px 45px rgba(0,0,0,.22);
+      width: min(var(--max), 100%);
+      height: 64px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px 0 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(8, 13, 20, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
-    .logo {
-      display: inline-flex; align-items: center; font-size: 14px; font-weight: 850; letter-spacing: -.035em;
-      background: linear-gradient(100deg, #57eef4, #9a78ff, #6dffbd, #57eef4); background-size: 300% auto;
-      -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientFlow 5s linear infinite;
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #fff;
     }
-    .nav-links { display: flex; align-items: center; gap: 27px; color: #a8b1bf; font-size: 11px; }
+    .logo-sparkle {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #57eef4, #9a78ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #05070b;
+      box-shadow: 0 0 15px rgba(87, 238, 244, 0.35);
+    }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: #a8b1bf; font-size: 12px; font-weight: 600; }
     .nav-links a { position: relative; transition: color .2s ease; cursor: pointer; }
-    .nav-links a::after {
-      content: ""; position: absolute; left: 0; bottom: -5px; width: 100%; height: 1px;
-      background: var(--cyan); transform: scaleX(0); transform-origin: right; transition: transform .25s ease;
-    }
-    .nav-links a:hover { color: white; }
-    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+    .nav-links a:hover { color: var(--cyan); }
     .nav-cta {
-      min-height: 42px; padding: 0 17px; display: inline-flex; align-items: center; justify-content: center;
-      color: #061015; border-radius: 12px; background: linear-gradient(135deg, #7bfbff, #baffff);
-      font-size: 11px; font-weight: 800; position: relative; overflow: hidden; text-decoration: none; cursor: pointer;
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #05070b;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #57eef4, #a7f9ff);
+      font-size: 12px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(87, 238, 244, 0.25);
+      transition: all 0.25s ease;
     }
-    .nav-cta::after {
-      content: ""; position: absolute; left: -80px; top: 0; bottom: 0; width: 55px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
-      transform: skewX(-18deg); animation: shine 4.5s ease-in-out infinite;
-    }
-    @keyframes shine { 0% { left: -80px; } 20% { left: 120%; } 100% { left: 120%; } }
-    .mobile-menu { display: none; border: 0; background: transparent; color: white; cursor: pointer; font-size: 20px; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(87, 238, 244, 0.4); }
+    .mobile-menu-btn { display: none; background: transparent; border: none; color: white; font-size: 22px; cursor: pointer; }
 
     /* =========================================================
-       HERO & GENERAL SECTIONS
+       HERO & LOGIN SECTION
     ========================================================= */
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 20px 70px; position: relative; }
-
-    .hero-inner {
-      width: min(1200px, 100%);
+    .hero { min-height: 95vh; display: flex; align-items: center; padding: 130px 20px 70px; position: relative; }
+    .hero-grid {
+      width: min(var(--max), 100%);
       margin: auto;
       display: grid;
-      grid-template-columns: 1fr 400px;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 60px;
       align-items: center;
     }
-    .hero-content { text-align: left; }
-
-    .hero-intelligence {
-      display: inline-flex; align-items: center; gap: 9px; margin-bottom: 22px; padding: 8px 13px;
-      border: 1px solid rgba(87,238,244,.12); border-radius: 999px; background: rgba(87,238,244,.03);
-      color: #bceff2; font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(87, 238, 244, 0.05);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      color: #7ef2f7;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
     }
-    .intelligence-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
-      box-shadow: 0 0 14px rgba(109,255,189,.65); animation: intelligencePulse 2s ease-in-out infinite;
-    }
-    .hero h1 { margin: 0; font-size: clamp(45px, 6vw, 85px); line-height: 1.05; letter-spacing: -.05em; font-weight: 850; animation: heroEntrance 1.1s cubic-bezier(.16,1,.3,1) both; }
-    @keyframes heroEntrance { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    .pulsing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); animation: pulseDot 2s infinite; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-    .hero-sub { max-width: 600px; margin: 25px 0 0 0; color: var(--muted); font-size: 15px; line-height: 1.8; animation: heroSub 1s .25s cubic-bezier(.16,1,.3,1) both; }
-    @keyframes heroSub { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { font-size: clamp(38px, 5.5vw, 68px); line-height: 1.1; font-weight: 900; letter-spacing: -0.04em; }
+    .hero-sub { color: var(--muted); font-size: 15px; line-height: 1.75; margin-top: 20px; max-width: 540px; }
 
-    .btn {
-      min-height: 52px; padding: 0 21px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border-radius: 13px; font-size: 12px; font-weight: 750; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; cursor: pointer;
-    }
-    .btn:hover { transform: translateY(-3px); }
-    .btn-primary { color: #051014; background: linear-gradient(135deg, var(--cyan), #b9fdff); box-shadow: 0 15px 35px rgba(87,238,244,.11); position: relative; overflow: hidden; border: none;}
-    .btn-primary:hover { box-shadow: 0 20px 45px rgba(87,238,244,.19); }
-    .btn-secondary { color: white; border: 1px solid var(--line-soft); background: rgba(255,255,255,.025); }
-    .btn-secondary:hover { border-color: rgba(87,238,244,.23); background: rgba(255,255,255,.045); }
-
-    /* AI Animations */
-    .ai-stage { width: 100%; max-width: 650px; min-height: 200px; margin: 46px 0 0 0; position: relative; overflow: hidden; border: 1px solid var(--line-soft); border-radius: 22px; background: radial-gradient(circle at center, rgba(87,238,244,.045), transparent 42%), #080b10; box-shadow: 0 25px 70px rgba(0,0,0,.25); }
-    .ai-orb { position: absolute; left: 50%; top: 50%; width: 90px; height: 90px; transform: translate(-50%,-50%); border: 1px solid rgba(87,238,244,.30); border-radius: 50%; background: radial-gradient(circle, rgba(87,238,244,.11), rgba(87,238,244,.02) 55%, transparent 70%); box-shadow: 0 0 60px rgba(87,238,244,.08); animation: aiOrbPulse 4s ease-in-out infinite; z-index: 3; }
-    .ai-orb::before { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(154,120,255,.3); border-radius: 50%; animation: aiRotate 10s linear infinite; }
-    .ai-orb::after { content: ""; position: absolute; inset: 28px; border-radius: 50%; background: radial-gradient(circle, #c9ffff, var(--cyan) 35%, var(--blue) 80%); box-shadow: 0 0 28px rgba(87,238,244,.55); animation: aiCore 2.4s ease-in-out infinite; }
-    @keyframes aiOrbPulse { 0%, 100% { transform: translate(-50%,-50%) scale(.94); } 50% { transform: translate(-50%,-50%) scale(1.08); } }
-    @keyframes aiRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes aiCore { 0%, 100% { opacity: .75; transform: scale(.86); } 50% { opacity: 1; transform: scale(1.03); } }
-    .ai-word { position: absolute; color: #8e98a8; font-family: "Courier New", monospace; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; opacity: 0; animation: aiWord 9s ease-in-out infinite; }
-    .ai-word strong { color: #dffeff; font-weight: 500; }
-    .ai-word.w1 { left: 10%; top: 23%; animation-delay: 0s; } .ai-word.w2 { right: 12%; top: 18%; animation-delay: 1.8s; } .ai-word.w3 { left: 15%; bottom: 23%; animation-delay: 3.6s; } .ai-word.w4 { right: 15%; bottom: 20%; animation-delay: 5.4s; } .ai-word.w5 { left: 41%; top: 8%; animation-delay: 7.2s; }
-    @keyframes aiWord { 0%, 100% { opacity: 0; transform: translateY(8px); } 15%, 28% { opacity: 1; transform: translateY(0); } 40% { opacity: 0; transform: translateY(-8px); } }
-    .ai-scan { position: absolute; left: 0; right: 0; top: -20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(87,238,244,.35), transparent); animation: aiScan 5s linear infinite; z-index: 4; }
-    @keyframes aiScan { 0% { top: -10%; } 100% { top: 110%; } }
-
-    /* 🔥 RIGHT SIDE LOGIN BOX 🔥 */
-    .hero-login-card {
-      background: rgba(10, 15, 22, 0.95);
+    /* AI Telemetry Stage */
+    .ai-stage {
+      width: 100%;
+      margin-top: 36px;
+      padding: 24px;
       border: 1px solid rgba(87, 238, 244, 0.15);
-      border-radius: 24px;
-      padding: 40px 30px;
-      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      background: radial-gradient(circle at 50% 50%, rgba(87, 238, 244, 0.04), transparent 60%), #080c14;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
       position: relative;
-      z-index: 10;
+      overflow: hidden;
+    }
+    .ai-stage-scan {
+      position: absolute;
+      left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(87, 238, 244, 0.7), transparent);
+      animation: scanAnim 4s linear infinite;
+    }
+    @keyframes scanAnim { 0% { top: -10%; } 100% { top: 110%; } }
+
+    .ai-stage-header { display: flex; align-items: center; justify-content: space-between; }
+    .ai-core-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: rgba(87, 238, 244, 0.08);
+      border: 1px solid rgba(87, 238, 244, 0.25); display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--cyan);
+    }
+    .ai-telemetry-text {
+      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-soft);
+      display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    }
+
+    /* 🔥 LOGIN BOX & ROBOT MASCOT 🔥 */
+    .login-card {
+      background: rgba(10, 15, 24, 0.96);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      border-radius: 26px;
+      padding: 36px 30px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+      position: relative;
       text-align: center;
-      animation: heroSub 1s .4s cubic-bezier(.16,1,.3,1) both;
     }
 
-    /* Robot CSS inside Login Box */
-    .login-robot { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative; }
-    .robot-speech-bubble {
-      background: white; color: #000; padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 700;
-      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;
+    .robot-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 22px; cursor: pointer; }
+    .robot-bubble {
+      background: #ffffff; color: #0a0f18; padding: 7px 15px; border-radius: 12px; font-size: 11px; font-weight: 750;
+      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.25s ease;
     }
-    .robot-speech-bubble::after {
+    .robot-bubble::after {
       content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
-      border-width: 6px 6px 0; border-style: solid; border-color: white transparent transparent transparent;
+      border-width: 5px 5px 0; border-style: solid; border-color: #fff transparent transparent transparent;
     }
-    .robot-head-container { position: relative; }
-    .robot-head-box {
-      width: 70px; height: 60px; background: var(--bg-2); border: 2px solid var(--cyan); border-radius: 12px;
-      display: flex; justify-content: center; align-items: center; gap: 12px; box-shadow: 0 0 20px rgba(87,238,244,0.15); position: relative; z-index: 2;
+    .robot-head {
+      width: 72px; height: 58px; background: #080d15; border: 2px solid var(--cyan); border-radius: 14px;
+      display: flex; justify-content: center; align-items: center; gap: 14px; position: relative;
+      box-shadow: 0 0 25px rgba(87, 238, 244, 0.15);
     }
-    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); z-index: 1; }
+    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); }
     .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
-    .robot-face-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: robotBlink 4s infinite; transition: all 0.3s ease; }
-    .robot-face-mouth { position: absolute; bottom: 12px; width: 20px; height: 3px; background: rgba(87,238,244,0.5); border-radius: 2px; }
-    @keyframes robotBlink { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+    .robot-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); transition: all 0.25s ease; }
 
-    /* Other Sections */
-    .marquee-section { overflow: hidden; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255,255,255,.012); }
-    .marquee { width: max-content; display: flex; animation: marquee 42s linear infinite; }
-    .marquee span { padding: 19px 28px; white-space: nowrap; color: #768091; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; }
-    .marquee .accent { color: #a7eff2; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .input-wrap { text-align: left; margin-bottom: 18px; }
+    .input-wrap label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; letter-spacing: 0.06em; }
+    .input-box {
+      width: 100%; padding: 13px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px; color: #fff; font-size: 13px; outline: none; transition: all 0.25s ease;
+    }
+    .input-box:focus { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(87, 238, 244, 0.15); }
+    .pass-toggle-btn { position: absolute; right: 12px; top: 32px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
 
-    .section-kicker { color: var(--muted); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 15px;}
-    .section-title { font-size: clamp(32px, 5vw, 48px); line-height: 1.2; font-weight: 800; letter-spacing: -.04em;}
-    .section-description { color: var(--muted); font-size: 15px; line-height: 1.8; margin-top: 15px;}
+    .submit-btn {
+      width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--cyan), #bdfdff);
+      color: #05070b; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 8px 25px rgba(87, 238, 244, 0.2);
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(87, 238, 244, 0.35); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    .services-grid { margin-top: 50px; display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
-    .service-card { position: relative; min-height: 275px; padding: 27px; overflow: hidden; border: 1px solid var(--line-soft); border-radius: 22px; background: rgba(255,255,255,.025); box-shadow: 0 20px 60px rgba(0,0,0,.22); transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, background .3s ease, box-shadow .3s ease; }
-    .service-card::before { content: ""; position: absolute; width: 180px; height: 180px; right: -75px; top: -75px; border-radius: 50%; background: radial-gradient(circle, rgba(87,238,244,.10), transparent 68%); opacity: 0; transition: opacity .35s ease; }
-    .service-card:hover { transform: translateY(-7px) scale(1.008); border-color: rgba(87,238,244,.22); background: rgba(255,255,255,.04); box-shadow: 0 28px 70px rgba(0,0,0,.28); }
-    .service-card:hover::before { opacity: 1; }
-    .service-number { color: #4e5868; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
-    .service-icon { width: 50px; height: 50px; margin-top: 32px; display: grid; place-items: center; border-radius: 14px; border: 1px solid rgba(87,238,244,.12); background: rgba(87,238,244,.045); color: var(--cyan); font-size: 20px; transition: transform .35s ease, box-shadow .35s ease; }
-    .service-card:hover .service-icon { transform: rotate(-5deg) scale(1.07); box-shadow: 0 0 25px rgba(87,238,244,.08); }
-    .service-card h3 { margin-top: 19px; font-size: 22px; line-height: 1.1; letter-spacing: -.035em; }
-    .service-card p { max-width: 470px; margin-top: 9px; color: var(--muted); font-size: 12px; line-height: 1.72; }
-    .service-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 17px; }
-    .tag { padding: 5px 8px; border: 1px solid rgba(255,255,255,.05); border-radius: 999px; background: rgba(255,255,255,.03); color: #8993a4; font-size: 8px; }
+    /* =========================================================
+       MARQUEE & MODULES
+    ========================================================= */
+    .marquee-bar { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255, 255, 255, 0.015); padding: 14px 0; overflow: hidden; }
+    .marquee-inner { display: flex; width: max-content; animation: marqueeAnim 35s linear infinite; }
+    .marquee-item { padding: 0 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #768294; text-transform: uppercase; letter-spacing: 0.12em; }
+    .marquee-item.accent { color: var(--cyan); }
+    @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    .split { display: grid; grid-template-columns: .92fr 1.08fr; gap: 75px; align-items: center; }
-    .feature-list { display: grid; gap: 10px; margin-top: 31px; }
-    .feature { display: grid; grid-template-columns: 42px 1fr; gap: 13px; padding: 16px; border: 1px solid rgba(255,255,255,.055); border-radius: 15px; background: rgba(255,255,255,.02); transition: transform .3s ease, background .3s ease, border-color .3s ease; }
-    .feature:hover { transform: translateX(5px); background: rgba(255,255,255,.035); border-color: rgba(87,238,244,.12); }
-    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 11px; background: rgba(255,255,255,.035); color: var(--cyan); }
-    .feature h4 { font-size: 13px; font-weight: 750; }
-    .feature p { margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.65; }
+    .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 850; letter-spacing: -0.03em; }
+    .section-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-top: 10px; }
 
-    .architecture { position: relative; min-height: 430px; display: flex; align-items: center; justify-content: center; }
-    .architecture-core { position: relative; z-index: 3; width: 165px; height: 165px; display: grid; place-items: center; border: 1px solid rgba(87,238,244,.18); border-radius: 50%; background: radial-gradient(circle, rgba(87,238,244,.09), transparent 68%), #090c11; animation: corePulse 5s ease-in-out infinite; }
-    @keyframes corePulse { 0%, 100% { box-shadow: 0 0 30px rgba(87,238,244,.025); } 50% { box-shadow: 0 0 65px rgba(87,238,244,.08); } }
-    .architecture-core strong { display: block; font-size: 16px; line-height: 1.02; text-align: center; }
-    .architecture-core small { display: block; margin-top: 6px; color: #758194; font-size: 7px; text-align: center; }
-    .ring { position: absolute; width: 300px; height: 300px; border: 1px dashed rgba(87,238,244,.10); border-radius: 50%; animation: slowRotate 24s linear infinite; }
-    .ring.r2 { width: 390px; height: 390px; border-color: rgba(154,120,255,.08); animation: slowRotateReverse 32s linear infinite; }
-    @keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes slowRotateReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-    .node { position: absolute; z-index: 4; min-width: 125px; padding: 12px; border: 1px solid rgba(255,255,255,.07); border-radius: 11px; background: rgba(8,10,15,.96); box-shadow: 0 15px 35px rgba(0,0,0,.23); text-align: center; transition: transform .3s ease, border-color .3s ease; }
-    .node:hover { transform: translateY(-5px); border-color: rgba(87,238,244,.18); }
-    .node b { display: block; color: #e5ebf3; font-size: 9px; }
-    .node span { display: block; margin-top: 3px; color: #667184; font-size: 7px; }
-    .node.a { top: 17%; left: 3%; } .node.b { top: 8%; right: 5%; } .node.c { bottom: 11%; left: 9%; } .node.d { bottom: 5%; right: 2%; }
+    .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 45px; }
+    .module-card {
+      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); border-radius: 22px; padding: 28px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; position: relative; overflow: hidden;
+    }
+    .module-card:hover { transform: translateY(-6px); border-color: rgba(87, 238, 244, 0.3); background: rgba(255, 255, 255, 0.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4); }
+    .module-icon-box { width: 46px; height: 46px; border-radius: 12px; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.15); display: grid; place-items: center; font-size: 22px; margin-bottom: 20px; }
+    .module-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .module-card p { font-size: 12px; color: var(--muted); line-height: 1.7; }
 
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-    .blog-card { padding: 24px; background: rgba(255,255,255,.015); border: 1px solid rgba(87,238,244,0.1); border-radius: 16px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
-    .blog-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.03); border-color: rgba(87,238,244,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .blog-card .category { font-size: 9px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
-    .blog-card h4 { font-size: 16px; line-height: 1.4; color: white; }
-    .blog-card .read-more { margin-top: auto; font-size: 11px; color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s ease; cursor: pointer; }
-    .blog-card:hover .read-more { color: var(--cyan); }
+    /* =========================================================
+       GUIDES & SUPPORT TICKET
+    ========================================================= */
+    .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+    .guide-card {
+      background: rgba(255, 255, 255, 0.015); border: 1px solid var(--line); border-radius: 18px; padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 190px; cursor: pointer; transition: all 0.25s ease;
+    }
+    .guide-card:hover { transform: translateY(-4px); border-color: rgba(87, 238, 244, 0.3); background: rgba(255, 255, 255, 0.035); }
 
-    .query-section { padding-bottom: 100px; }
-    .custom-form .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .input-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
-    .input-group label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-    .input-group input, .input-group textarea { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; color: white; font-family: inherit; font-size: 13px; transition: all 0.3s ease; }
-    .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--cyan); background: rgba(255,255,255,0.05); box-shadow: 0 0 15px rgba(87,238,244,0.1); }
-    .input-group textarea { resize: vertical; }
+    .support-box {
+      background: linear-gradient(180deg, #0c121e 0%, #070a11 100%);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      border-radius: 26px;
+      padding: 48px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-    footer { padding: 28px 20px 42px; border-top: 1px solid rgba(255,255,255,.05); }
-    .footer-inner { width: min(var(--max), 100%); margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .footer-copy { color: #566071; font-size: 9px; }
-    .footer-links { display: flex; gap: 18px; color: #737d8d; font-size: 9px; }
-    .footer-links a { transition: color .2s ease; cursor: pointer; }
-    .footer-links a:hover { color: var(--cyan); }
+    /* =========================================================
+       🔥🔥 DASHBOARD VIEW 🔥🔥
+    ========================================================= */
+    #dashboard-view { display: none; flex-direction: column; width: 100%; max-width: 1200px; margin: 0 auto; padding: 100px 20px 60px; }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+    .user-profile-badge { display: flex; align-items: center; gap: 14px; }
+    .avatar-circle { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: grid; place-items: center; font-weight: 900; color: #05070b; }
+
+    .global-announcement {
+      display: none; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25);
+      color: #c9fdff; padding: 14px 20px; border-radius: 14px; margin-bottom: 30px; font-size: 13px; font-weight: 600;
+    }
+
+    .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; width: 100%; }
+    .tool-card {
+      display: none; background: #0c121e; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
+      position: relative; overflow: hidden; cursor: pointer; transition: all 0.25s ease;
+    }
+    .tool-card:hover { transform: translateY(-5px); border-color: var(--card-accent, var(--cyan)); box-shadow: 0 15px 40px -10px var(--card-glow, var(--cyan-glow)); }
+    .tool-card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--card-accent, var(--cyan)); }
+    .tool-badge { padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; background: rgba(255, 255, 255, 0.06); color: var(--card-accent, var(--cyan)); }
+
+    /* =========================================================
+       ATTENDANCE KIOSK VIEW
+    ========================================================= */
+    #attendance-view { display: none; width: 100%; max-width: 480px; margin: 90px auto 50px; background: #0c121e; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+
+    /* =========================================================
+       APP VIEWER MODAL
+    ========================================================= */
+    #appViewer { display: none; position: fixed; inset: 0; z-index: 99999; background: #05070b; flex-direction: column; }
+    .appViewer-bar { height: 56px; background: #090e17; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
 
     /* =========================================================
        CONTENT MODAL
     ========================================================= */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 99999; background: rgba(3, 6, 9, 0.85); backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
-    }
-    .modal-overlay.active { display: flex; opacity: 1; }
-    .modal-box.content-box { width: 100%; background: rgba(10, 15, 22, 0.95); border: 1px solid rgba(87, 238, 244, 0.15); border-radius: 24px; position: relative; box-shadow: 0 25px 65px rgba(0, 0, 0, 0.5); transform: translateY(20px); transition: transform 0.3s ease; max-width: 800px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 50px 40px; }
-    .modal-overlay.active .modal-box { transform: translateY(0); }
-    .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--muted); font-size: 28px; cursor: pointer; transition: color 0.2s ease; padding: 0; line-height: 1; }
-    .close-modal:hover { color: white; }
-    .content-modal-body p { margin-bottom: 15px; color: var(--muted); line-height: 1.7; font-size: 14px; }
-    .content-modal-body h3 { color: white; margin: 25px 0 10px; font-size: 18px; }
+    .content-modal { display: none; position: fixed; inset: 0; z-index: 99990; background: rgba(3, 6, 10, 0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
+    .content-modal.active { display: flex; }
+    .content-modal-card { background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px; position: relative; }
 
-    /* =========================================================
-       🔥🔥 SIVMOR DASHBOARD STYLES 🔥🔥
-    ========================================================= */
-    #dashboard-view {
-      display: none; flex-direction: column; align-items: center; width: 100%; max-width: 1200px;
-      margin: 0 auto; padding: 100px 20px 60px; position: relative; z-index: 10;
-    }
-    .dashboard-header-title {
-      font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 850; text-align: center; letter-spacing: -0.5px; margin-bottom: 8px;
-      background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .dashboard-subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 1.1rem; text-align: center; }
-    
-    /* 🟢 GENTLE NOTIFICATION BAR 🟢 */
-    @keyframes gentlePulse {
-        0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        50% { opacity: 0.85; transform: scale(0.995); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    }
-    .global-notification {
-        display: none;
-        background: rgba(10, 15, 22, 0.95);
-        border: 1px solid rgba(87, 238, 244, 0.3);
-        color: #dffeff;
-        padding: 12px 24px;
-        border-radius: 12px;
-        margin: 0 auto 30px auto;
-        width: 100%;
-        max-width: 600px;
-        text-align: center;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        animation: gentlePulse 3.5s infinite ease-in-out;
-    }
-
-    .logout-btn {
-      background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); padding: 10px 24px;
-      border-radius: 50px; cursor: pointer; margin-bottom: 40px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; backdrop-filter: blur(8px);
-    }
-    .logout-btn:hover { background: #ef4444; color: #ffffff; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); transform: translateY(-2px); }
-
-    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; width: 100%; perspective: 1000px; }
-
-    .dash-card {
-      display: none; position: relative; background: rgba(30, 41, 59, 0.65); border-radius: 20px; padding: 32px 26px;
-      text-align: left; text-decoration: none; color: inherit; border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px); transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
-      cursor: pointer; overflow: hidden; transform-style: preserve-3d; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    }
-    .dash-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent-color, #38bdf8);
-      opacity: 0.8; transition: opacity 0.3s, height 0.3s;
-    }
-    .dash-card::after {
-      content: ''; position: absolute; width: 150px; height: 150px; background: var(--accent-color, #38bdf8);
-      filter: blur(80px); top: -50px; right: -50px; opacity: 0.15; transition: opacity 0.4s ease; pointer-events: none;
-    }
-    .dash-card:hover { border-color: var(--accent-color, #38bdf8); box-shadow: 0 20px 40px -15px var(--accent-glow, rgba(56, 189, 248, 0.25)); }
-    .dash-card:hover::before { height: 5px; opacity: 1; }
-    .dash-card:hover::after { opacity: 0.35; }
-    .dash-card-header-flex { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-
-    .dash-badge {
-      display: inline-block; background: rgba(255, 255, 255, 0.08); color: var(--accent-color, #38bdf8); padding: 6px 14px;
-      border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .dash-card-icon {
-      font-size: 1.6rem; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
-      border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .dash-card h2 { color: #f8fafc; margin-bottom: 12px; font-size: 1.35rem; font-weight: 700; transition: color 0.3s; }
-    .dash-card:hover h2 { color: var(--accent-color, #38bdf8); }
-    .dash-card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
-
-    #app-attendance { --accent-color: #38bdf8; --accent-glow: rgba(56, 189, 248, 0.3); }
-    #app-outstanding { --accent-color: #34d399; --accent-glow: rgba(52, 211, 153, 0.3); }
-    #app-stock { --accent-color: #fbbf24; --accent-glow: rgba(251, 191, 36, 0.3); }
-    #app-stock-value { --accent-color: #22d3ee; --accent-glow: rgba(34, 211, 238, 0.3); }
-    #app-target-tracker { --accent-color: #f43f5e; --accent-glow: rgba(244, 63, 94, 0.35); }
-    #app-sbi-cashback { --accent-color: #f97316; --accent-glow: rgba(249, 115, 22, 0.35); }
-    #app-monthly-tracker { --accent-color: #6366f1; --accent-glow: rgba(99, 102, 241, 0.35); }
-
-
-    /* =========================================================
-       🔥🔥 ATTENDANCE IN-BUILT FORM STYLES 🔥🔥
-    ========================================================= */
-    #attendance-view { display: none; width: 100%; max-width: 450px; margin: 100px auto 50px; background: white; color: #333; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 20; position: relative; }
-    .back-home-btn { display: inline-block; width: 100%; max-width: 450px; margin: 0 auto 15px auto; padding: 10px; background: #6c757d; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; border:none; }
-    .back-home-btn:hover { background: #5a6268; }
-    #attendance-view h2 { text-align: center; color: #007bff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 700; }
-    #attendance-view label { font-weight: 600; display: block; margin-top: 18px; font-size: 0.9rem; color: #495057; }
-    #attendance-view input, #attendance-view select, #attendance-view textarea { width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333; }
-    #attendance-view button { width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    #attendance-view button:disabled { background-color: #e9ecef !important; color: #dc3545 !important; cursor: not-allowed; border: 1px solid #dc3545; }
-    #locationBtn { background: linear-gradient(45deg, #ffc107, #ff9800); }
-    #cameraBtn { background: linear-gradient(45deg, #17a2b8, #117a8b); margin-top: 15px; }
-    #captureBtn { background: #007bff; padding: 10px; margin-top: 10px; }
-    #retakeBtn { background: #6c757d; padding: 10px; margin-top: 10px; }
-    #submitAttBtn { background: linear-gradient(45deg, #28a745, #218838); margin-top: 25px; }
-    .status { text-align: center; font-weight: bold; margin-top: 15px; font-size: 0.95rem; color: #dc3545; padding: 10px; border-radius: 6px; background: rgba(220, 53, 69, 0.1); }
-    .camera-box { display: none; margin-top: 15px; text-align: center; border: 2px dashed #dee2e6; padding: 10px; border-radius: 8px; }
-    #videoElement { width: 100%; border-radius: 8px; background: #000; }
-    #photoResult { display: none; margin-top: 15px; text-align: center; }
-    #capturedImage { width: 100%; border-radius: 8px; border: 2px solid #28a745; }
-    .section-title-att { font-size: 1.1rem; color: #343a40; margin-top: 25px; margin-bottom: -5px; font-weight: 700; border-bottom: 2px solid #f1f3f5; padding-bottom: 5px; }
-    #successOverlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3, 6, 9, 0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 20px; }
-    .success-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); max-width: 400px; color: #333; }
-    .success-icon-circle { width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #28a745; font-size: 3rem; }
-    .success-title { color: #28a745; font-size: 1.8rem; font-weight: bold; margin-bottom: 12px; }
-    .success-card p { color: #6c757d; font-size: 1rem; }
-
-
-    /* =========================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS) 
-    ========================================================= */
-    #appViewer {
-      display: none; position: fixed; top: 0; left: 0; 
-      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
-      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;
-    }
-    .appViewer-header {
-      height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); 
-      display: flex; align-items: center; padding: 0 20px; gap: 15px; flex-shrink: 0;
-    }
-    .appViewer-btn {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; 
-      padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;
-    }
-    .appViewer-title {
-      color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; 
-      overflow: hidden; text-overflow: ellipsis;
-    }
-    .appViewer-content-wrapper {
-      flex-grow: 1; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; background: #f4f7fb;
-    }
-    #appViewerFrame {
-      width: 100%; height: 100%; border: none; display: block;
-    }
-
-    /* Media Queries */
     @media (max-width: 960px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-content { text-align: center; }
-      .hero-content h1, .hero-sub, .hero-intelligence, .ai-stage { margin-left: auto; margin-right: auto; }
-      .nav-links, .top-buttons { display: none !important; }
-      .mobile-menu { display: block; }
-      .split { grid-template-columns: 1fr; gap: 45px; }
-    }
-    @media (max-width: 760px) {
-      .hero { padding-top: 125px; }
-      .services-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .custom-form .form-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 560px) {
-      .hero h1 { font-size: clamp(40px, 10vw, 68px); }
-      .modal-box.content-box { padding: 40px 20px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .modules-grid { grid-template-columns: 1fr; }
     }
   </style>
-
 </head>
-
 
 <body>
 
-  <!-- MOUSE LIGHT -->
+  <!-- MOUSE LIGHT TRACKER -->
   <div class="mouse-light" id="mouseLight"></div>
 
   <!-- NAVIGATION -->
   <div class="nav-wrap" id="mainNavWrap">
     <nav>
-      <a href="/" class="logo" style="text-decoration: none;">SiVMOR</a>
+      <a href="#" class="logo-badge" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+        <div class="logo-sparkle">✦</div>
+        <span>SiVMOR</span>
+      </a>
+
       <div class="nav-links">
-        <a href="#about">Dashboard</a>
-        <a href="#services">Modules</a>
-        <a href="#architecture">Features</a>
-        <a href="#resources">Guides</a>
+        <a href="#modules">Modules</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#guides">Guides</a>
+        <a href="#support">Support</a>
       </div>
-      <div class="top-buttons" style="display: flex; gap: 10px; align-items: center;">
-        <a href="#loginBox" class="nav-cta" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Portal Login</a>
+
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button type="button" class="nav-cta" onclick="document.getElementById('loginBox').scrollIntoView({behavior: 'smooth'})">
+          Portal Login ↗
+        </button>
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
       </div>
-      <button type="button" class="mobile-menu" id="mobileMenuButton" aria-label="Open menu">☰</button>
     </nav>
   </div>
 
-  <!-- MOBILE NAV -->
-  <div class="mobile-panel" id="mobilePanel" style="display:none; position:fixed; top:78px; left:12px; right:12px; z-index:4999; padding:12px; gap:5px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:rgba(7,9,14,.98); box-shadow:0 20px 50px rgba(0,0,0,.4);">
-    <a href="#about" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Dashboard</a>
-    <a href="#services" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Modules</a>
-    <a href="#architecture" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Features</a>
-    <a href="#resources" style="padding:12px 10px; color:#b5bdca; font-size:12px;">Guides</a>
-    <a href="#loginBox" style="padding:12px 10px; color:#fff; font-size:12px; font-weight: bold;">Portal Login</a>
-  </div>
-
-
   <!-- =====================================================
-       MAIN WEBSITE VIEW (Landing Page)
+       LANDING PAGE VIEW
   ===================================================== -->
   <div id="landing-view">
 
+    <!-- HERO SECTION -->
     <section class="hero" id="top">
-      <div class="hero-inner">
-
-          <div class="hero-content">
-            <div class="hero-intelligence">
-              <span class="intelligence-dot"></span>
-              Centralized Portal • Live Tracking • Smart Analytics
-            </div>
-            <h1>Welcome to the<br><span class="gradient">SiVMOR Workspace.</span></h1>
-            <p class="hero-sub">
-              The centralized digital operations and management portal for SiVMOR Gadgets. Access live inventory, sales analytics, and staff attendance in one secure place.
-            </p>
-            <div class="hero-note" style="margin-top: 25px;">Authorized Personnel Only • Secure Cloud Infrastructure • Live Data Sync</div>
-
-            <div class="ai-stage">
-              <div class="ai-scan"></div>
-              <div class="ai-orb"></div>
-              <div class="ai-word w1"><strong>TRACK</strong> / INVENTORY</div>
-              <div class="ai-word w2"><strong>MANAGE</strong> / STAFF</div>
-              <div class="ai-word w3"><strong>MONITOR</strong> / SALES</div>
-              <div class="ai-word w4"><strong>CALCULATE</strong> / CASHBACK</div>
-              <div class="ai-word w5"><strong>ACHIEVE</strong> / TARGETS</div>
-            </div>
+      <div class="hero-grid">
+        
+        <!-- Left: Copy & AI Stage -->
+        <div>
+          <div class="badge-pill">
+            <span class="pulsing-dot"></span>
+            Centralized Portal • Live Sync • Smart Analytics
           </div>
 
-          <!-- 🔥 RIGHT SIDE LOGIN BOX 🔥 -->
-          <div class="hero-login-card" id="loginBox">
-              <!-- CUTE ROBOT SECTION -->
-              <div class="login-robot">
-                <div class="robot-speech-bubble" id="robotSpeech">Beep boop. Enter details.</div>
-                <div class="robot-head-container">
-                  <div class="robot-antenna"></div>
-                  <div class="robot-head-box">
-                    <div class="robot-face-eye" id="robotEyeL"></div>
-                    <div class="robot-face-eye" id="robotEyeR"></div>
-                    <div class="robot-face-mouth"></div>
-                  </div>
+          <h1>
+            Welcome to the <br>
+            <span class="gradient-text">SiVMOR Workspace.</span>
+          </h1>
+
+          <p class="hero-sub">
+            The centralized operations and management system for SiVMOR Gadgets. Access real-time inventory, sales analytics, GPS staff attendance, and store finances in one unified interface.
+          </p>
+
+          <!-- Animated Telemetry Stage -->
+          <div class="ai-stage">
+            <div class="ai-stage-scan"></div>
+            <div class="ai-stage-header">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="ai-core-icon">⚡</div>
+                <div>
+                  <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">SYSTEM TELEMETRY CORE</div>
+                  <div style="font-size: 14px; font-weight: 800; color: #fff;">STATUS: OPERATIONAL</div>
                 </div>
               </div>
+              <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--mint); background: rgba(109,255,189,0.08); padding: 4px 10px; border-radius: 8px;">
+                SYNC: LIVE
+              </div>
+            </div>
 
-              <form id="clientLoginForm" style="margin-top: 20px;">
-                <div id="loginErrorMessage" style="display: none; background: rgba(255, 95, 86, 0.1); border: 1px solid #ff5f56; color: #ff5f56; padding: 10px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
-                  Incorrect User ID or Password.
-                </div>
-
-                <div class="input-group" style="text-align: left;">
-                  <label>User ID</label>
-                  <input type="text" id="loginUserId" placeholder="Enter your User ID" autocomplete="username" required>
-                </div>
-
-                <!-- PASSWORD FIELD WITH EYE ICON -->
-                <div class="input-group" style="margin-top: 20px; text-align: left; position: relative;">
-                  <label>Password</label>
-                  <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 40px;">
-                  <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 32px; background: transparent; border: none; color: #8a94a5; cursor: pointer; font-size: 16px; padding: 5px;">👁️</button>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 30px; border:none;">
-                  Secure Login ↗
-                </button>
-              </form>
+            <div class="ai-telemetry-text">
+              <span style="color: var(--muted);">ACTIVE SUBSYSTEM:</span>
+              <span id="telemetryWord" style="color: #fff; font-weight: 700;">TRACK / INVENTORY</span>
+            </div>
           </div>
+        </div>
+
+        <!-- Right: Login Box with Mascot -->
+        <div class="login-card" id="loginBox">
+          <div class="robot-container" id="robotAvatar">
+            <div class="robot-bubble" id="robotSpeech">Beep boop! State your User ID.</div>
+            <div class="robot-head">
+              <div class="robot-antenna"></div>
+              <div class="robot-eye" id="eyeL"></div>
+              <div class="robot-eye" id="eyeR"></div>
+            </div>
+          </div>
+
+          <form id="clientLoginForm">
+            <div id="loginErrorMsg" style="display: none; background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.3); color: #fda4af; padding: 10px; border-radius: 10px; font-size: 12px; margin-bottom: 15px;">
+              Incorrect User ID or Password.
+            </div>
+
+            <div class="input-wrap">
+              <label>User ID</label>
+              <input type="text" id="loginUserId" class="input-box" placeholder="e.g. CHB, ADMIN, MANAGER1" autocomplete="username" required>
+            </div>
+
+            <div class="input-wrap" style="position: relative;">
+              <label>Password</label>
+              <input type="password" id="loginPassword" class="input-box" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 42px;">
+              <button type="button" id="togglePasswordBtn" class="pass-toggle-btn">👁️</button>
+            </div>
+
+            <button type="submit" class="submit-btn" id="loginSubmitBtn">
+              Secure Portal Login ↗
+            </button>
+          </form>
+        </div>
 
       </div>
     </section>
 
-    <!-- MARQUEE -->
-    <div class="marquee-section" style="margin-top: 40px;">
-      <div class="marquee">
-        <span>INVENTORY</span><span class="accent">SALES</span><span>ATTENDANCE</span><span class="accent">OUTSTANDING</span><span>PERFORMANCE</span><span class="accent">CASHBACK</span>
-        <span>INVENTORY</span><span class="accent">SALES</span><span>ATTENDANCE</span><span class="accent">OUTSTANDING</span><span>PERFORMANCE</span><span class="accent">CASHBACK</span>
+    <!-- LIVE MARQUEE -->
+    <div class="marquee-bar">
+      <div class="marquee-inner">
+        <span class="marquee-item">LIVE INVENTORY SYNC</span>
+        <span class="marquee-item accent">SALES & TURNOVER</span>
+        <span class="marquee-item">GPS ATTENDANCE LOGS</span>
+        <span class="marquee-item accent">STORES OUTSTANDING</span>
+        <span class="marquee-item">CUSTOMER TARGET PROOFS</span>
+        <span class="marquee-item accent">SBI CASHBACK ENGINE</span>
+        <span class="marquee-item">LIVE INVENTORY SYNC</span>
+        <span class="marquee-item accent">SALES & TURNOVER</span>
+        <span class="marquee-item">GPS ATTENDANCE LOGS</span>
+        <span class="marquee-item accent">STORES OUTSTANDING</span>
+        <span class="marquee-item">CUSTOMER TARGET PROOFS</span>
+        <span class="marquee-item accent">SBI CASHBACK ENGINE</span>
       </div>
     </div>
 
-    <!-- INTRO SECTION -->
-    <section id="about" style="padding: 100px 20px;">
+    <!-- MODULES SECTION -->
+    <section id="modules" style="padding: 100px 0;">
       <div class="container">
-        <div class="split">
-          <div><div class="eyebrow" style="margin-bottom: 10px;">SiVMOR Core System</div></div>
-          <div>
-            <h2 style="font-size: 32px; line-height: 1.2; margin-bottom: 20px;">
-              Everything you need to manage your store, <span class="gradient">in one place.</span>
-            </h2>
-            <p style="color: var(--muted); line-height: 1.8;">Log in to access your designated modules, check live performance, and report your daily activities seamlessly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">PORTAL SUITES</div>
+        <h2 class="section-title">Built for <span class="gradient-text">Store Managers & Staff.</span></h2>
+        <p class="section-desc">Select role-authorized tools configured specifically for branch inventory, customer proofs, and cashflow.</p>
 
-    <!-- SERVICES SECTION -->
-    <section id="services" style="padding: 80px 0;">
-      <div class="container">
-        <div class="section-kicker">Portal Modules</div>
-        <h2 class="section-title">Built for <span class="gradient">Store Managers.</span></h2>
-        <p class="section-description">Select tools assigned to your profile based on your current role and responsibilities.</p>
-        <div class="services-grid">
-          <article class="service-card">
-            <div class="service-number">01 / MANAGEMENT</div>
-            <div class="service-icon">👥</div>
+        <div class="modules-grid">
+          <div class="module-card" onclick="openGuideModal('blog-1')">
+            <div class="module-icon-box">👥</div>
             <h3>Manager Attendance</h3>
-            <p>Verify your presence using GPS-enabled check-ins and live selfie capture directly from your device.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-number">02 / OPERATIONS</div>
-            <div class="service-icon">📦</div>
+            <p>Verify your presence using GPS-enabled location checks and live selfie capture directly from your smartphone.</p>
+          </div>
+          <div class="module-card" onclick="openGuideModal('blog-3')">
+            <div class="module-icon-box">📦</div>
             <h3>Live Stock & Value</h3>
-            <p>Check real-time stock availability across branches and monitor the corporate value tracking seamlessly.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-number">03 / FINANCE</div>
-            <div class="service-icon">💳</div>
+            <p>Check real-time stock availability across branches and monitor corporate inventory valuation with multi-sheet sync.</p>
+          </div>
+          <div class="module-card" onclick="openGuideModal('blog-2')">
+            <div class="module-icon-box">💳</div>
             <h3>Stores Outstanding</h3>
-            <p>Review pending customer balances, invoices, and credit details to maintain accurate financial health.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-number">04 / MARKETING</div>
-            <div class="service-icon">🎯</div>
-            <h3>Customer Targets</h3>
-            <p>Submit daily customer proofs for social media follows, reviews, and track monthly sales targets easily.</p>
-          </article>
+            <p>Review customer pending ledgers, store invoices, and credit aging buckets to maintain balanced finances.</p>
+          </div>
+          <div class="module-card" onclick="openGuideModal('blog-5')">
+            <div class="module-icon-box">🎯</div>
+            <h3>Customer Target Tracker</h3>
+            <p>Submit daily customer proofs for Instagram follows, YouTube subscribers, and 5-star Google Reviews.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ARCHITECTURE SECTION -->
-    <section id="architecture" style="padding: 80px 0;">
+    <section id="architecture" style="padding: 80px 0; border-top: 1px solid var(--line-soft);">
       <div class="container">
-        <div class="split">
-          <div>
-            <div class="section-kicker">Portal Features</div>
-            <h2 class="section-title">Fast, secure,<br><span class="gradient">and reliable.</span></h2>
-            <p class="section-description">Our custom-built portal is designed to process store data quickly without lag, keeping you updated on the go.</p>
-            <div class="feature-list">
-              <div class="feature"><div class="feature-icon">⚡</div><div><h4>Fast & Responsive</h4><p>Works perfectly on your mobile phone or desktop.</p></div></div>
-              <div class="feature"><div class="feature-icon">🛡️</div><div><h4>Secure Access</h4><p>Role-based logins ensure you only see what you need to.</p></div></div>
-              <div class="feature"><div class="feature-icon">◉</div><div><h4>Store-Specific Data</h4><p>Metrics automatically filter based on your assigned branch.</p></div></div>
-            </div>
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 50px;">
+          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--violet); font-weight: 700; text-transform: uppercase;">SYSTEM HIGHLIGHTS</div>
+          <h2 class="section-title">Fast, secure, and <span class="gradient-text">reliable.</span></h2>
+          <p class="section-desc">Engineered on Google Workspace cloud APIs for zero-delay synchronization across all branch devices.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
+            <div style="font-size: 24px; margin-bottom: 12px;">⚡</div>
+            <h4 style="font-size: 16px; margin-bottom: 6px;">Zero-Lag Architecture</h4>
+            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Ultra-lightweight single-page execution designed to run swiftly even on 3G store connections.</p>
           </div>
-          <div class="architecture">
-            <div class="ring"></div><div class="ring r2"></div>
-            <div class="node a"><b>Live Sync</b><span>Real-time Updates</span></div>
-            <div class="node b"><b>Cloud DB</b><span>Secure Storage</span></div>
-            <div class="node c"><b>Analytics</b><span>Visual Dashboards</span></div>
-            <div class="node d"><b>Tracking</b><span>GPS & Target Metrics</span></div>
-            <div class="architecture-core"><div><strong>SiVMOR<br>CORE</strong><small>WORKSPACE OS</small></div></div>
+          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
+            <div style="font-size: 24px; margin-bottom: 12px;">🛡️</div>
+            <h4 style="font-size: 16px; margin-bottom: 6px;">Granular Permissions</h4>
+            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Role-based security ensuring managers and staff access only designated store records.</p>
+          </div>
+          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
+            <div style="font-size: 24px; margin-bottom: 12px;">📍</div>
+            <h4 style="font-size: 16px; margin-bottom: 6px;">Store Geo-Scoping</h4>
+            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Automatic branch filtering applies instantly based on your authenticated username profile.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- RESOURCES / BLOG SECTION -->
-    <section id="resources" style="padding: 80px 0;">
+    <!-- GUIDES SECTION -->
+    <section id="guides" style="padding: 90px 0;">
       <div class="container">
-        <div class="section-kicker" style="text-align: center;">Help Center</div>
-        <h2 class="section-title" style="text-align: center;">SiVMOR Internal <span class="gradient">Guides</span></h2>
-        <div class="blog-grid">
-          <article class="blog-card"><span class="category">Management</span><h4>How to mark Manager Attendance?</h4><a href="#" class="read-more open-content" data-target="blog-1">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Finance</span><h4>Checking Store Outstanding Balances</h4><a href="#" class="read-more open-content" data-target="blog-2">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Operations</span><h4>Live Stock Availability Guide</h4><a href="#" class="read-more open-content" data-target="blog-3">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Marketing</span><h4>Submitting Customer Target Proofs</h4><a href="#" class="read-more open-content" data-target="blog-5">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Performance</span><h4>Tracking your Monthly Targets</h4><a href="#" class="read-more open-content" data-target="blog-6">Read Guide →</a></article>
-          <article class="blog-card"><span class="category">Offers</span><h4>SBI Cashback Calculation Rules</h4><a href="#" class="read-more open-content" data-target="blog-7">Read Guide →</a></article>
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px;">
+          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--amber); font-weight: 700; text-transform: uppercase;">KNOWLEDGE BASE</div>
+          <h2 class="section-title">Internal <span class="gradient-text">Operating Guides</span></h2>
+          <p class="section-desc">Step-by-step documentation for marking attendance, querying stock, and uploading target proofs.</p>
+        </div>
+
+        <div class="guides-grid">
+          <div class="guide-card" onclick="openGuideModal('blog-1')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">MANAGEMENT</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">How to mark Manager Attendance?</h4>
+            <span style="font-size: 11px; color: var(--cyan); font-weight: 700;">Read Guide →</span>
+          </div>
+          <div class="guide-card" onclick="openGuideModal('blog-2')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--mint); font-weight: 700;">FINANCE</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">Checking Store Outstanding Balances</h4>
+            <span style="font-size: 11px; color: var(--mint); font-weight: 700;">Read Guide →</span>
+          </div>
+          <div class="guide-card" onclick="openGuideModal('blog-3')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 700;">OPERATIONS</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">Live Stock Availability Guide</h4>
+            <span style="font-size: 11px; color: var(--amber); font-weight: 700;">Read Guide →</span>
+          </div>
+          <div class="guide-card" onclick="openGuideModal('blog-5')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--rose); font-weight: 700;">MARKETING</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">Submitting Customer Target Proofs</h4>
+            <span style="font-size: 11px; color: var(--rose); font-weight: 700;">Read Guide →</span>
+          </div>
+          <div class="guide-card" onclick="openGuideModal('blog-6')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--violet); font-weight: 700;">PERFORMANCE</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">Tracking your Monthly Targets</h4>
+            <span style="font-size: 11px; color: var(--violet); font-weight: 700;">Read Guide →</span>
+          </div>
+          <div class="guide-card" onclick="openGuideModal('blog-7')">
+            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: #f97316; font-weight: 700;">OFFERS</span>
+            <h4 style="font-size: 15px; margin: 12px 0;">SBI Cashback Calculation Rules</h4>
+            <span style="font-size: 11px; color: #f97316; font-weight: 700;">Read Guide →</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- QUERY FORM CTA -->
-    <section id="contact" style="padding: 80px 0 100px;">
+    <!-- SUPPORT TICKET SECTION -->
+    <section id="support" style="padding: 80px 0 120px;">
       <div class="container">
-        <div class="cta-box" style="text-align: left; max-width: 800px; margin: 0 auto; padding: 50px 40px;">
-          <div class="section-kicker" style="text-align: center; margin-bottom: 10px;">SiVMOR Support Helpdesk</div>
-          <h2 style="text-align: center; margin-bottom: 40px; font-size: clamp(28px, 4vw, 42px);">Raise a <span class="gradient">Support Ticket</span></h2>
-
-          <div id="formSuccessMessage" style="display: none; text-align: center; padding: 60px 20px;">
-            <div style="font-size: 45px; margin-bottom: 20px; color: var(--mint);">✓</div>
-            <h3 style="font-size: 26px; margin-bottom: 12px;">Ticket Submitted!</h3>
-            <p style="color: var(--muted); font-size: 14px; line-height: 1.6;">Your issue has been logged. Admin will review the details and get back to you shortly.</p>
-            <button onclick="window.location.reload()" class="btn btn-secondary" style="margin-top: 30px;">Submit Another Ticket</button>
+        <div class="support-box">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--rose); font-weight: 700; text-transform: uppercase;">HELPDESK</div>
+            <h2 style="font-size: 28px; font-weight: 850;">Raise a <span class="gradient-text">Support Ticket</span></h2>
+            <p style="color: var(--muted); font-size: 13px; margin-top: 6px;">Need login or attendance assistance? Direct submission to Technical Operations.</p>
           </div>
 
-          <form id="waSubmitForm" class="custom-form">
-            <div class="form-grid">
-              <div class="input-group"><label>Your Name</label><input type="text" id="waName" placeholder="Enter your name" required></div>
-              <div class="input-group"><label>Store Name</label><input type="text" id="waBusiness" placeholder="e.g. CHB" required></div>
-              <div class="input-group"><label>Contact Number</label><input type="tel" id="waPhone" placeholder="+91 XXXXX XXXXX" required></div>
-              <div class="input-group"><label>Email / User ID</label><input type="text" id="waEmail" placeholder="Enter your User ID" required></div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label>Issue Type</label><input type="text" id="waCity" placeholder="e.g. Login Issue, Attendance Error" required></div>
-              <div class="input-group" style="grid-column: 1 / -1;"><label>Describe the Problem</label><textarea rows="4" id="waReq" placeholder="Please provide details about the issue..." required></textarea></div>
+          <div id="ticketSuccessBox" style="display: none; text-align: center; padding: 40px 10px;">
+            <div style="font-size: 40px; color: var(--mint); margin-bottom: 12px;">✓</div>
+            <h3 style="font-size: 20px;">Ticket Logged Successfully!</h3>
+            <p style="color: var(--muted); font-size: 13px; margin-top: 8px;">Admin technical desk will review and reach out.</p>
+            <button onclick="document.getElementById('ticketSuccessBox').style.display='none'; document.getElementById('ticketForm').style.display='block';" class="nav-cta" style="margin-top: 20px;">Submit Another Ticket</button>
+          </div>
+
+          <form id="ticketForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="input-wrap"><label>Your Name</label><input type="text" id="tName" class="input-box" placeholder="e.g. Rahul Sharma" required></div>
+              <div class="input-wrap"><label>Store Name / Branch</label><input type="text" id="tStore" class="input-box" placeholder="e.g. CHB" required></div>
+              <div class="input-wrap"><label>Mobile Number</label><input type="tel" id="tPhone" class="input-box" placeholder="+91 XXXXX XXXXX" required></div>
+              <div class="input-wrap"><label>User ID / Email</label><input type="text" id="tEmail" class="input-box" placeholder="User ID" required></div>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 25px;">Submit Ticket ↗</button>
+            <div class="input-wrap"><label>Issue Type</label><input type="text" id="tIssue" class="input-box" placeholder="e.g. GPS Error, Password Reset" required></div>
+            <div class="input-wrap"><label>Problem Description</label><textarea id="tDesc" rows="3" class="input-box" placeholder="Please describe what happened..." required style="resize: vertical;"></textarea></div>
+
+            <button type="submit" class="submit-btn" id="ticketSubmitBtn" style="margin-top: 10px;">
+              Submit Support Ticket ↗
+            </button>
           </form>
         </div>
       </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-copy">© <span id="year"></span> SiVMOR Gadgets. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="#" class="open-content" data-target="privacy">Privacy Policy</a>
-          <a href="#" class="open-content" data-target="terms">Terms of Access</a>
+    <footer style="border-top: 1px solid var(--line); padding: 30px 20px; background: #040609;">
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 15px; font-size: 12px; color: var(--muted);">
+        <div>© <span id="year"></span> SiVMOR Gadgets. All rights reserved.</div>
+        <div style="display: flex; gap: 20px;">
+          <a href="#" onclick="openGuideModal('privacy'); return false;">Privacy Policy</a>
+          <a href="#" onclick="openGuideModal('terms'); return false;">Terms of Access</a>
         </div>
       </div>
     </footer>
 
   </div>
-  <!-- END OF MAIN WEBSITE VIEW -->
 
 
   <!-- =====================================================
-       🔥🔥 DYNAMIC DASHBOARD VIEW (HIDDEN INITIALLY) 🔥🔥
+       🔥🔥 DASHBOARD VIEW (AFTER LOGIN) 🔥🔥
   ===================================================== -->
   <div id="dashboard-view">
-      <h1 class="dashboard-header-title" id="dashTitle">SiVMOR Workspace</h1>
-      <p class="dashboard-subtitle">Select an application below to access your live portal</p>
+    
+    <!-- Topbar -->
+    <div class="dash-topbar">
+      <div class="user-profile-badge">
+        <div class="avatar-circle" id="userAvatarChar">U</div>
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: #fff;" id="dashWelcomeUser">Welcome, User</h2>
+          <div style="font-size: 12px; color: var(--muted);">Store: <strong id="dashStoreName" style="color: var(--cyan);">GENERAL</strong></div>
+        </div>
+      </div>
+      <button class="nav-cta" style="background: rgba(244,63,94,0.15); color: #fda4af; border: 1px solid rgba(244,63,94,0.3);" onclick="logoutUser()">
+        ⚡ Log Out
+      </button>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div class="global-announcement" id="dashAnnouncement"></div>
+
+    <div style="margin-bottom: 25px;">
+      <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em;">Operations Control Center</h1>
+      <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Launch your authorized store tools below:</p>
+    </div>
+
+    <!-- Dynamic Cards Grid -->
+    <div class="dash-tools-grid" id="dashToolsGrid">
       
-      <!-- 🟢 GLOBAL NOTIFICATION BAR 🟢 -->
-      <div id="global-notification" class="global-notification"></div>
-
-      <button class="logout-btn" onclick="logoutUser()">⚡ Log Out</button>
-
-      <div class="dash-grid" id="dashGrid">
-          
-          <a href="#" class="dash-card" id="app-attendance">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Management</span>
-                  <div class="dash-card-icon">👥</div>
-              </div>
-              <h2>Manager Attendance</h2>
-              <p>Track, view, and manage daily staff attendance logs and clock-in metrics seamlessly.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-outstanding">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Finance</span>
-                  <div class="dash-card-icon">💳</div>
-              </div>
-              <h2>Stores Outstanding</h2>
-              <p>Monitor pending balances, store invoices, and credit details in real-time.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-stock">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Operations</span>
-                  <div class="dash-card-icon">📦</div>
-              </div>
-              <h2>Stock Availability Checker</h2>
-              <p>Track, filter, and view regional store inventory counts directly from Sheet1.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-stock-value">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Value Tracking</span>
-                  <div class="dash-card-icon">📊</div>
-              </div>
-              <h2>Stock Value Store Wise</h2>
-              <p>Monitor corporate value tracking, regional cash flows, and store details from Sheet2 & Sheet3.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-target-tracker">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Marketing & Targets</span>
-                  <div class="dash-card-icon">🎯</div>
-              </div>
-              <h2>Customer Target Tracker</h2>
-              <p>Submit live customer proof images for Instagram follows, YouTube subscribers, and Google reviews.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-sbi-cashback">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Offers & Cashback</span>
-                  <div class="dash-card-icon">🎁</div>
-              </div>
-              <h2>SBI Card Cashback</h2>
-              <p>Calculate and track SBI credit card cashback offers and benefits easily.</p>
-          </a>
-
-          <a href="#" class="dash-card" id="app-monthly-tracker">
-              <div class="dash-card-header-flex">
-                  <span class="dash-badge">Performance</span>
-                  <div class="dash-card-icon">📆</div>
-              </div>
-              <h2>Monthly Target Tracker</h2>
-              <p>Track, analyze, and manage monthly targets and brand-wise achievements.</p>
-          </a>
+      <!-- 1. Manager Attendance -->
+      <div class="tool-card" id="app-attendance" style="--card-accent: #38bdf8; --card-glow: rgba(56,189,248,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Management</span>
+          <span style="font-size: 20px;">👥</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Manager Attendance</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, view, and record daily staff attendance logs and GPS check-ins.</p>
       </div>
+
+      <!-- 2. Stores Outstanding -->
+      <div class="tool-card" id="app-outstanding" style="--card-accent: #34d399; --card-glow: rgba(52,211,153,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Finance</span>
+          <span style="font-size: 20px;">💳</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stores Outstanding</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Monitor pending customer balances, store credit invoices, and receipts.</p>
+      </div>
+
+      <!-- 3. Stock Availability -->
+      <div class="tool-card" id="app-stock" style="--card-accent: #fbbf24; --card-glow: rgba(251,191,36,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Operations</span>
+          <span style="font-size: 20px;">📦</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stock Availability Checker</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Search, filter, and review regional inventory counts directly from Sheet1.</p>
+      </div>
+
+      <!-- 4. Stock Value -->
+      <div class="tool-card" id="app-stock-value" style="--card-accent: #22d3ee; --card-glow: rgba(34,211,238,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Value Tracking</span>
+          <span style="font-size: 20px;">📊</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stock Value Store Wise</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Monitor corporate value tracking and store investments from Sheet2 & Sheet3.</p>
+      </div>
+
+      <!-- 5. Customer Target Tracker -->
+      <div class="tool-card" id="app-target-tracker" style="--card-accent: #f43f5e; --card-glow: rgba(244,63,94,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Marketing</span>
+          <span style="font-size: 20px;">🎯</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Customer Target Tracker</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Submit live customer proofs for Instagram follows, YouTube subs, and reviews.</p>
+      </div>
+
+      <!-- 6. SBI Card Cashback -->
+      <div class="tool-card" id="app-sbi-cashback" style="--card-accent: #f97316; --card-glow: rgba(249,115,22,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Offers</span>
+          <span style="font-size: 20px;">🎁</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">SBI Card Cashback</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Calculate instant credit card customer cashbacks and merchant discounts.</p>
+      </div>
+
+      <!-- 7. Monthly Target Tracker -->
+      <div class="tool-card" id="app-monthly-tracker" style="--card-accent: #6366f1; --card-glow: rgba(99,102,241,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Performance</span>
+          <span style="font-size: 20px;">📆</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Monthly Target Tracker</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, analyze, and manage monthly targets and brand-wise sales achievements.</p>
+      </div>
+
+    </div>
   </div>
 
 
   <!-- =====================================================
-       📝 ATTENDANCE FORM (IN-BUILT) 
+       ATTENDANCE KIOSK (IN-BUILT VIEW)
   ===================================================== -->
-  <div id="attendance-view" style="display: none; width: 100%; max-width: 450px; margin: 100px auto 50px; background: white; color: #333; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 20; position: relative;">
-      <button onclick="closeAttendanceApp()" class="back-home-btn">
-        ⬅ Back to Dashboard
+  <div id="attendance-view">
+    <button onclick="closeAttendanceKiosk()" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; width: 100%; margin-bottom: 20px; border: 1px solid var(--line);">
+      ⬅ Return to Dashboard
+    </button>
+
+    <h2 style="font-size: 22px; font-weight: 850; text-align: center; margin-bottom: 20px;">Store Attendance Check-In</h2>
+
+    <!-- Step 1: GPS -->
+    <div style="margin-bottom: 20px;">
+      <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">📍 Step 1: Verify Live GPS</button>
+      <div id="locStatus" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; color: #fda4af;">⚠️ Awaiting GPS Signal</div>
+    </div>
+
+    <!-- Step 2: Camera -->
+    <div style="margin-bottom: 20px;">
+      <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">📷 Step 2: Open Camera for Selfie</button>
+      
+      <div id="camBox" style="display: none; margin-top: 15px; text-align: center;">
+        <video id="attVideo" autoplay playsinline style="width: 100%; border-radius: 14px; background: #000; border: 2px solid var(--cyan);"></video>
+        <button type="button" id="snapBtn" class="submit-btn" style="margin-top: 10px;">📸 Take Photo Now</button>
+      </div>
+
+      <div id="photoPreviewBox" style="display: none; margin-top: 15px; text-align: center;">
+        <img id="attPhotoImg" src="" style="width: 100%; border-radius: 14px; border: 2px solid var(--mint);">
+        <button type="button" id="retakeBtn" class="nav-cta" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.1); color: #fff;">🔄 Retake Selfie</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Details -->
+    <form id="attSubmitForm">
+      <div class="input-wrap" id="mgrWrap" style="display: none;">
+        <label>Manager Name</label>
+        <select id="attMgrSelect" class="input-box" style="background: #080d15;">
+          <option value="">-- Loading... --</option>
+        </select>
+      </div>
+
+      <div class="input-wrap" id="storeWrap" style="display: none;">
+        <label>Store Assignment</label>
+        <select id="attStoreSelect" class="input-box" style="background: #080d15;">
+          <option value="">-- Select Store --</option>
+        </select>
+      </div>
+
+      <div class="input-wrap">
+        <label>Remarks (Optional)</label>
+        <input type="text" id="attRemarks" class="input-box" placeholder="e.g. On-time opening">
+      </div>
+
+      <input type="hidden" id="attLat">
+      <input type="hidden" id="attLng">
+      <input type="hidden" id="attPhotoData">
+
+      <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 10px;">
+        Checking Details...
       </button>
-      <h2 style="text-align: center; color: #007bff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 700;">Store Check-In</h2>
-
-      <button type="button" id="locationBtn" style="width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; background: linear-gradient(45deg, #ffc107, #ff9800);">📍 Step 1: Verify Live GPS</button>
-      <div id="status" style="text-align: center; font-weight: bold; margin-top: 15px; font-size: 0.95rem; color: #dc3545; padding: 10px; border-radius: 6px; background: rgba(220, 53, 69, 0.1);">⚠️ Awaiting Location.</div>
-
-      <button type="button" id="cameraBtn" style="width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; background: linear-gradient(45deg, #17a2b8, #117a8b); margin-top: 15px;">📷 Step 2: Take Selfie</button>
-
-      <div id="cameraBox" style="display: none; margin-top: 15px; text-align: center; border: 2px dashed #dee2e6; padding: 10px; border-radius: 8px;">
-          <video id="videoElement" autoplay playsinline style="width: 100%; border-radius: 8px; background: #000;"></video>
-          <button type="button" id="captureBtn" style="width: 100%; padding: 10px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: #007bff; margin-top: 10px;">📸 Click Photo</button>
-      </div>
-
-      <div id="photoResult" style="display: none; margin-top: 15px; text-align: center;">
-          <img id="capturedImage" src="" alt="Captured Selfie" style="width: 100%; border-radius: 8px; border: 2px solid #28a745;" />
-          <button type="button" id="retakeBtn" style="width: 100%; padding: 10px; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: #6c757d; margin-top: 10px;">🔄 Retake Photo</button>
-          <input type="hidden" id="photoData" value="">
-      </div>
-
-      <div style="font-size: 1.1rem; color: #343a40; margin-top: 25px; margin-bottom: -5px; font-weight: 700; border-bottom: 2px solid #f1f3f5; padding-bottom: 5px;">📝 Step 3: Details</div>
-      <form id="attendanceForm">
-          <label id="managerLabel" style="display:none; font-weight: 600; margin-top: 18px; font-size: 0.9rem; color: #495057;">Manager Name</label>
-          <select id="managerName" required style="display:none; width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333;">
-              <option value="">-- Loading Managers... --</option>
-          </select>
-
-          <label id="storeLabel" style="display:none; font-weight: 600; margin-top: 18px; font-size: 0.9rem; color: #495057;">Store Name</label>
-          <select id="storeName" required disabled style="display:none; width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333;">
-              <option value="">-- Select Manager First --</option>
-          </select>
-
-          <label style="font-weight: 600; display: block; margin-top: 18px; font-size: 0.9rem; color: #495057;">Remarks</label>
-          <textarea id="remarks" rows="2" placeholder="Any update or remarks (Optional)" style="width: 100%; padding: 12px; margin-top: 6px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; background-color: #fff; color: #333; resize: vertical;"></textarea>
-
-          <input type="hidden" id="latitude" value="">
-          <input type="hidden" id="longitude" value="">
-
-          <button type="submit" id="submitAttBtn" disabled style="width: 100%; padding: 14px; color: white; border: 1px solid #dc3545; border-radius: 8px; font-size: 1rem; font-weight: bold; margin-top: 25px; background-color: #e9ecef; cursor: not-allowed;">Checking details...</button>
-      </form>
-  </div>
-
-  <div id="successOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3, 6, 9, 0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 20px;">
-      <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); max-width: 400px; color: #333;">
-          <div style="width: 80px; height: 80px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #28a745; font-size: 3rem;">✓</div>
-          <div style="color: #28a745; font-size: 1.8rem; font-weight: bold; margin-bottom: 12px;">Success!</div>
-          <p style="color: #6c757d; font-size: 1rem;">Your attendance, selfie, and GPS have been marked.</p>
-          <button onclick="closeSuccessOverlay()" class="btn btn-primary" style="margin-top:20px; width:100%; border:none;">Return to Dashboard</button>
-      </div>
+    </form>
   </div>
 
 
   <!-- =====================================================
-       APP VIEWER (IFRAME MODAL FOR TOOLS) 
+       FULLSCREEN APP VIEWER (IFRAME MODAL)
   ===================================================== -->
-  <div id="appViewer" style="display: none; position: fixed; top: 0; left: 0; 
-      width: 100vw; max-width: 100%; height: 100vh; height: 100dvh; 
-      background: var(--bg); z-index: 99999; flex-direction: column; overflow-x: hidden;">
-    <div class="appViewer-header" style="height: 60px; background: rgba(10,15,22,0.95); border-bottom: 1px solid var(--line-soft); display: flex; align-items: center; padding: 0 20px; gap: 15px; flex-shrink: 0;">
-      <button class="appViewer-btn" onclick="closeAppViewer()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s;">
-        ⬅ Back
-      </button>
-      <div id="appViewerTitle" class="appViewer-title" style="color: white; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">App Title</div>
+  <div id="appViewer">
+    <div class="appViewer-bar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button onclick="closeAppViewer()" class="nav-cta" style="padding: 6px 12px; font-size: 11px;">⬅ Back</button>
+        <span id="appViewerTitle" style="font-weight: 800; font-size: 13px; color: #fff;">Module Title</span>
+      </div>
+      <div>
+        <button onclick="document.getElementById('appViewerFrame').src += ''" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; padding: 6px 12px; font-size: 11px;">🔄 Reload</button>
+      </div>
     </div>
-    <div style="flex-grow: 1; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; background: #f4f7fb;">
-        <iframe id="appViewerFrame" src="" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; display-capture; fullscreen" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+    <div style="flex: 1; width: 100%; overflow: auto; background: #fff;">
+      <iframe id="appViewerFrame" src="" style="width: 100%; height: 100%; border: none;" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"></iframe>
     </div>
   </div>
 
 
   <!-- =====================================================
-       CONTENT / BLOG READER MODAL
+       KNOWLEDGE BASE / ARTICLE MODAL
   ===================================================== -->
-  <div class="modal-overlay" id="contentModal">
-    <div class="modal-box content-box">
-      <button class="close-modal" id="closeContentModal">&times;</button>
-      <div class="section-kicker" id="contentModalCategory" style="margin-bottom: 10px;">Reading</div>
-      <h2 id="contentModalTitle" style="font-size: clamp(24px, 4vw, 36px); line-height: 1.2; margin-bottom: 25px;"></h2>
-      <div id="contentModalBody" class="content-modal-body"></div>
+  <div class="content-modal" id="contentModal">
+    <div class="content-modal-card">
+      <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer;">&times;</button>
+      <div id="guideCategory" style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY</div>
+      <h2 id="guideTitle" style="font-size: 24px; font-weight: 850; margin: 8px 0 20px; color: #fff;">Guide Title</h2>
+      <div id="guideBody" style="color: var(--muted); font-size: 14px; line-height: 1.8;"></div>
     </div>
   </div>
 
 
   <!-- =====================================================
-       JAVASCRIPT
+       JAVASCRIPT CONTROLLER
   ===================================================== -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* Mouse Light Tracker */
+    /* Mouse Spotlight Tracker */
     const mouseLight = document.getElementById("mouseLight");
     let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, lightX = mouseX, lightY = mouseY;
     window.addEventListener("mousemove", (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
-    function moveLight() {
-      lightX += (mouseX - lightX) * .08; lightY += (mouseY - lightY) * .08;
-      mouseLight.style.left = lightX + "px"; mouseLight.style.top = lightY + "px";
-      requestAnimationFrame(moveLight);
+    function animateLight() {
+      lightX += (mouseX - lightX) * 0.08;
+      lightY += (mouseY - lightY) * 0.08;
+      mouseLight.style.left = lightX + "px";
+      mouseLight.style.top = lightY + "px";
+      requestAnimationFrame(animateLight);
     }
-    moveLight();
+    animateLight();
 
-    /* Mobile Menu Toggle */
-    const mobileButton = document.getElementById("mobileMenuButton");
-    const mobilePanel = document.getElementById("mobilePanel");
-    mobileButton.addEventListener("click", function() {
-      mobilePanel.style.display = mobilePanel.style.display === "grid" ? "none" : "grid";
-    });
-    mobilePanel.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => mobilePanel.style.display = "none");
-    });
+    /* Cycling Telemetry Words */
+    const words = ["TRACK / INVENTORY", "MANAGE / STAFF GPS", "MONITOR / OUTSTANDING", "CALCULATE / CASHBACK", "ACHIEVE / TARGETS"];
+    let wordIdx = 0;
+    setInterval(() => {
+      wordIdx = (wordIdx + 1) % words.length;
+      document.getElementById("telemetryWord").innerText = words[wordIdx];
+    }, 2500);
 
-    /* Contact Form Submission (Google Sheets) */
-    const waSubmitForm = document.getElementById("waSubmitForm");
-    const formSuccessMessage = document.getElementById("formSuccessMessage");
-    const waScriptURL = 'https://script.google.com/macros/s/AKfycbyH3xeu2w2faKxUpivCZVKKw0eue14w-gUjAfdrGFKiYI5ILuMLC3hPR5cXZz-S9T2X/exec'; 
-    if (waSubmitForm) {
-      waSubmitForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const submitBtn = waSubmitForm.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = "Sending... ⏳";
-        submitBtn.disabled = true;
-
-        const formData = {
-          name: document.getElementById("waName").value,
-          business: document.getElementById("waBusiness").value,
-          phone: document.getElementById("waPhone").value,
-          email: document.getElementById("waEmail").value,
-          city: document.getElementById("waCity").value,
-          req: document.getElementById("waReq").value
-        };
-
-        fetch(waScriptURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(formData)
-        })
-        .then(res => res.json())
-        .then(data => {
-          if(data.result === 'success') {
-            waSubmitForm.style.display = 'none';
-            formSuccessMessage.style.display = 'block';
-            waSubmitForm.reset();
-          } else throw new Error(data.error);
-        })
-        .catch(error => {
-          submitBtn.innerHTML = "Error sending. Try Again ❌";
-          submitBtn.disabled = false;
-          setTimeout(() => { submitBtn.innerHTML = originalBtnText; }, 4000);
-        });
-      });
-    }
-
-    /* =====================================================
-       CLIENT DATABASE AUTH LOGIC & DYNAMIC ROUTING
-    ===================================================== */
-
-    let loggedInUserGlobal = '';
-    let userAccessGlobal = '';
-    let assignedAttendanceNameGlobal = '';
-
+    /* Endpoints */
     const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
-    const DASHBOARD_URL_HASH = "#sivmor";
+    const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
+    const SUPPORT_TICKET_URL = "https://script.google.com/macros/s/AKfycbyH3xeu2w2faKxUpivCZVKKw0eue14w-gUjAfdrGFKiYI5ILuMLC3hPR5cXZz-S9T2X/exec";
 
-    function parseRow(row) {
+    let loggedInUser = '';
+    let userPermissions = null;
+
+    /* CSV Parser */
+    function parseCSV(csvText) {
+      const lines = csvText.split(/\r?\n/);
+      if (lines.length < 2) return { users: {}, globalNotif: "" };
+
+      function parseRow(row) {
         const result = [];
-        let inQuotes = false;
-        let current = "";
+        let inQuotes = false, current = "";
         for (let i = 0; i < row.length; i++) {
-            const char = row[i];
-            if (char === '"') { inQuotes = !inQuotes; } 
-            else if (char === ',' && !inQuotes) { result.push(current); current = ""; } 
-            else { current += char; }
+          if (row[i] === '"') inQuotes = !inQuotes;
+          else if (row[i] === ',' && !inQuotes) { result.push(current); current = ""; }
+          else current += row[i];
         }
         result.push(current);
         return result;
-    }
+      }
 
-    function parseCSV(csvText) {
-        try {
-            const lines = csvText.split(/\r?\n/);
-            if(lines.length < 2) return { users: {}, globalNotif: "" };
+      const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
+      const users = {};
 
-            const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
-            const users = {};
+      let passIdx = headers.indexOf("password"); if (passIdx === -1) passIdx = 1;
+      let attIdx = headers.indexOf("attendance"); if (attIdx === -1) attIdx = 2;
+      let outIdx = headers.indexOf("outstanding"); if (outIdx === -1) outIdx = 3;
+      let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store")); if (storeIdx === -1) storeIdx = 4;
+      let stockIdx = headers.findIndex(h => h === "stock"); if (stockIdx === -1) stockIdx = 5;
+      let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val")); if (valIdx === -1) valIdx = 6;
+      let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if (instaIdx === -1) instaIdx = 7;
+      let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if (sbiIdx === -1) sbiIdx = 8;
+      let trackerIdx = headers.findIndex(h => h.includes("monthly")); if (trackerIdx === -1) trackerIdx = 9;
 
-            let passIdx = headers.indexOf("password"); if(passIdx === -1) passIdx = 1;
-            let attIdx = headers.indexOf("attendance"); if(attIdx === -1) attIdx = 2;
-            let outIdx = headers.indexOf("outstanding"); if(outIdx === -1) outIdx = 3;
-            let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store")); if(storeIdx === -1) storeIdx = 4;
-            let stockIdx = headers.findIndex(h => h === "stock"); if(stockIdx === -1) stockIdx = 5;
-            let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val")); if(valIdx === -1) valIdx = 6;
-            let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if(instaIdx === -1) instaIdx = 7;
-            let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if(sbiIdx === -1) sbiIdx = 8;
-            let trackerIdx = headers.findIndex(h => h.includes("monthly")); if(trackerIdx === -1) trackerIdx = 9;
-
-            // 🔥 ADVANCED NOTIFICATION SCANNER 🔥
-            let globalNotif = "";
-            for (let r = 0; r < lines.length; r++) {
-                const rowCols = parseRow(lines[r]);
-                for (let c = 12; c < rowCols.length; c++) {
-                    if (rowCols[c] && rowCols[c].trim().length > 15) {
-                        globalNotif = rowCols[c].trim();
-                        break; 
-                    }
-                }
-                if(globalNotif) break;
-            }
-
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue;
-
-                const currentline = parseRow(lines[i]).map(item => item.trim());
-                if (!currentline[0]) continue;
-
-                const username = currentline[0].toLowerCase();
-
-                users[username] = {
-                    password: currentline[passIdx] || "",
-                    attendance: currentline[attIdx] || "",
-                    outstanding: (currentline[outIdx] || "").toLowerCase(),
-                    allowed_stores: (currentline[storeIdx] || "").toLowerCase(), 
-                    stock: (currentline[stockIdx] || "no").toLowerCase(),
-                    stock_value: (currentline[valIdx] || "no").toLowerCase(),
-                    insta_access: (currentline[instaIdx] || "no").toLowerCase(),
-                    sbi_cashback: (currentline[sbiIdx] || "no").toLowerCase(),
-                    monthly_tracker: (currentline[trackerIdx] || "no").toLowerCase() 
-                };
-            }
-            return { users, globalNotif };
-        } catch (e) {
-            console.error("Error parsing CSV: ", e);
-            return { users: {}, globalNotif: "" };
+      let globalNotif = "";
+      for (let r = 0; r < lines.length; r++) {
+        const rowCols = parseRow(lines[r]);
+        for (let c = 12; c < rowCols.length; c++) {
+          if (rowCols[c] && rowCols[c].trim().length > 15) {
+            globalNotif = rowCols[c].trim();
+            break;
+          }
         }
+        if (globalNotif) break;
+      }
+
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const cols = parseRow(lines[i]).map(c => c.trim());
+        if (!cols[0]) continue;
+        const uName = cols[0].toLowerCase();
+        users[uName] = {
+          password: cols[passIdx] || "",
+          attendance: cols[attIdx] || "",
+          outstanding: (cols[outIdx] || "").toLowerCase(),
+          allowed_stores: (cols[storeIdx] || "").toLowerCase(),
+          stock: (cols[stockIdx] || "no").toLowerCase(),
+          stock_value: (cols[valIdx] || "no").toLowerCase(),
+          insta_access: (cols[instaIdx] || "no").toLowerCase(),
+          sbi_cashback: (cols[sbiIdx] || "no").toLowerCase(),
+          monthly_tracker: (cols[trackerIdx] || "no").toLowerCase()
+        };
+      }
+      return { users, globalNotif };
     }
 
-    const clientLoginForm = document.getElementById('clientLoginForm');
-    const loginErrorMessage = document.getElementById('loginErrorMessage');
+    /* Robot Mascot Expressions */
+    const robotSpeech = document.getElementById("robotSpeech");
+    const loginUserId = document.getElementById("loginUserId");
+    const loginPassword = document.getElementById("loginPassword");
+    const eyeL = document.getElementById("eyeL");
+    const eyeR = document.getElementById("eyeR");
 
-    const robotSpeech = document.getElementById('robotSpeech');
-    const loginUserId = document.getElementById('loginUserId');
-    const loginPassword = document.getElementById('loginPassword');
-    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-
-    togglePasswordBtn.addEventListener('click', function() {
-      const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-      loginPassword.setAttribute('type', type);
-      this.textContent = type === 'password' ? '👁️' : '🙈'; 
+    loginUserId.addEventListener("focus", () => {
+      robotSpeech.innerText = "State your User ID, explorer.";
+      eyeL.style.transform = "scaleY(1)";
+      eyeR.style.transform = "scaleY(1)";
+    });
+    loginPassword.addEventListener("focus", () => {
+      robotSpeech.innerText = "Shh... Encrypted password field!";
+      eyeL.style.transform = "scaleY(0.2)";
+      eyeR.style.transform = "scaleY(0.2)";
+    });
+    loginPassword.addEventListener("blur", () => {
+      eyeL.style.transform = "scaleY(1)";
+      eyeR.style.transform = "scaleY(1)";
+      if (!loginUserId.value && !loginPassword.value) robotSpeech.innerText = "Beep boop! State your User ID.";
     });
 
-    loginUserId.addEventListener('focus', () => robotSpeech.innerText = "A visitor. State your ID.");
-    loginUserId.addEventListener('blur', () => { if(!loginUserId.value) robotSpeech.innerText = "Beep boop. Enter details."; });
-    loginPassword.addEventListener('focus', () => robotSpeech.innerText = "Shh. Super secret password.");
-    loginPassword.addEventListener('blur', () => { if(!loginPassword.value && !loginUserId.value) robotSpeech.innerText = "Beep boop. Enter details."; });
+    document.getElementById("togglePasswordBtn").addEventListener("click", function() {
+      const isPass = loginPassword.type === "password";
+      loginPassword.type = isPass ? "text" : "password";
+      this.innerText = isPass ? "🙈" : "👁️";
+    });
 
-    function enable3DCards() {
-        document.querySelectorAll('.dash-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left, y = e.clientY - rect.top;
-                const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -8;
-                const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 8;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
-            });
-            card.addEventListener('mouseleave', () => card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)');
-        });
-    }
-
-    function openAppViewer(url, title, forceDesktop = false) {
-        document.getElementById('dashboard-view').style.display = 'none';
-        const appViewer = document.getElementById('appViewer');
-        document.getElementById('appViewerTitle').innerText = title;
-
-        const iframe = document.getElementById('appViewerFrame');
-        iframe.src = url;
-
-        if(forceDesktop) { iframe.style.minWidth = '1000px'; } 
-        else { iframe.style.minWidth = '100%'; }
-
-        appViewer.style.display = 'flex';
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeAppViewer() {
-        document.getElementById('appViewer').style.display = 'none';
-        document.getElementById('appViewerFrame').src = "";
-        document.getElementById('appViewerFrame').style.minWidth = '100%';
-        document.getElementById('dashboard-view').style.display = 'flex';
-        document.body.style.overflow = ""; 
-        window.scrollTo(0, 0);
-    }
-
-    async function fetchNotificationForDashboard() {
-        try {
-            const res = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + new Date().getTime(), { cache: "no-store" });
-            if(!res.ok) return;
-            const text = await res.text();
-            const dbData = parseCSV(text);
-            if(dbData.globalNotif) {
-                const nBar = document.getElementById('global-notification');
-                nBar.innerText = dbData.globalNotif;
-                nBar.style.display = 'block';
-            }
-        } catch(e) {}
-    }
-
-    function buildDashboard(userData, userIdRaw) {
-        loggedInUserGlobal = userIdRaw;
-        const attVal = userData.attendance || "";
-        const attLower = attVal.toLowerCase();
-        userAccessGlobal = attLower;
-        assignedAttendanceNameGlobal = attVal;
-
-        const userParam = encodeURIComponent(userIdRaw);
-        const timestamp = new Date().getTime();
-
-        fetchNotificationForDashboard();
-
-        // 1. Attendance
-        const attCard = document.getElementById('app-attendance');
-        if (attVal !== '' && attLower !== 'no') {
-            attCard.style.display = 'block';
-            if (attLower === 'admin') {
-                attCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${userParam}&t=${timestamp}`, "Attendance Monitor"); };
-            } else {
-                attCard.onclick = (e) => { e.preventDefault(); openAttendanceApp(); }; 
-            }
-        } else { 
-            attCard.style.display = 'none'; 
-            attCard.onclick = (e) => { e.preventDefault(); alert("Access Denied."); };
-        }
-
-        // 2. Outstanding 🔥 Fixed Logic 🔥
-        const outCard = document.getElementById('app-outstanding');
-        if (userData.outstanding === 'yes' || userData.outstanding === 'admin' || userData.outstanding === 'all' || (userData.allowed_stores !== '' && userData.allowed_stores !== 'no')) {
-            outCard.style.display = 'block';
-            let outStoreParam = 'ALL';
-            let allowed = userData.allowed_stores;
-            
-            if (userData.outstanding === 'yes' || allowed === 'yes' || allowed === 'admin' || allowed === 'all') {
-                outStoreParam = 'ALL';
-            } else if (allowed !== '') {
-                outStoreParam = allowed; 
-            }
-
-            outCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${userParam}&stores=${encodeURIComponent(outStoreParam.toUpperCase())}&t=${timestamp}`, "Stores Outstanding", true);};
-        } else { 
-            outCard.style.display = 'none'; 
-            outCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        // 3. Stock
-        const stockCard = document.getElementById('app-stock');
-        if (userData.stock === 'yes' || userData.stock === 'admin') {
-            stockCard.style.display = 'block';
-            stockCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock/?user=${userParam}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`, "Stock Availability Checker", true);};
-        } else { 
-            stockCard.style.display = 'none'; 
-            stockCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        // 4. Stock Value
-        const stockValCard = document.getElementById('app-stock-value');
-        if (userData.stock_value === 'yes' || userData.stock_value === 'admin') {
-            stockValCard.style.display = 'block';
-            stockValCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${userParam}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`, "Stock Value Store Wise", true);};
-        } else { 
-            stockValCard.style.display = 'none'; 
-            stockValCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        // 5. Target Tracker
-        const targetTrackerCard = document.getElementById('app-target-tracker');
-        const instaVal = userData.insta_access;
-        if (instaVal === 'admin' || instaVal === 'all' || (userIdRaw.toLowerCase() === 'admin' && (instaVal === 'yes' || instaVal === 'admin'))) {
-            targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${userParam}&t=${timestamp}`, "Customer Target Tracker (Admin)");};
-        } else if (instaVal === 'yes' || instaVal === 'true') {
-            targetTrackerCard.style.display = 'block';
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${userParam}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`, "Customer Target Tracker");};
-        } else { 
-            targetTrackerCard.style.display = 'none'; 
-            targetTrackerCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        // 6. SBI Cashback
-        const sbiCard = document.getElementById('app-sbi-cashback');
-        if (userData.sbi_cashback === 'yes' || userData.sbi_cashback === 'admin') {
-            sbiCard.style.display = 'block';
-            sbiCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${userParam}&t=${timestamp}`, "SBI Card Cashback");};
-        } else { 
-            sbiCard.style.display = 'none'; 
-            sbiCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        // 7. Monthly Tracker
-        const monthlyCard = document.getElementById('app-monthly-tracker');
-        if (userData.monthly_tracker === 'yes' || userData.monthly_tracker === 'admin') {
-            monthlyCard.style.display = 'block';
-            monthlyCard.onclick = (e) => { e.preventDefault(); openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${userParam}&stores=${encodeURIComponent(userData.allowed_stores || '')}&t=${timestamp}`, "Monthly Target Tracker", true);};
-        } else { 
-            monthlyCard.style.display = 'none'; 
-            monthlyCard.onclick = (e) => { e.preventDefault(); };
-        }
-
-        enable3DCards();
-    }
-
-    clientLoginForm.addEventListener('submit', async (e) => {
+    /* Login Handling */
+    document.getElementById("clientLoginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = clientLoginForm.querySelector('button[type="submit"]');
-      const originalText = btn.innerHTML;
+      const btn = document.getElementById("loginSubmitBtn");
+      const errBox = document.getElementById("loginErrorMsg");
+      const rawUser = loginUserId.value.trim();
+      const pass = loginPassword.value;
 
-      const userIdRaw = loginUserId.value.trim();
-      const userId = userIdRaw.toLowerCase();
-      const password = loginPassword.value;
-
-      loginErrorMessage.style.display = 'none';
-      btn.innerHTML = "Authenticating... ⏳";
-      robotSpeech.innerText = "Verifying Access...";
+      errBox.style.display = "none";
+      btn.innerText = "Authenticating... ⏳";
       btn.disabled = true;
 
       try {
-          // 🔥 BYPASS CACHE 🔥
-          const response = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + new Date().getTime(), { cache: "no-store" });
-          if (!response.ok) throw new Error("Network issue reading sheet.");
+        const res = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + Date.now(), { cache: "no-store" });
+        const csv = await res.text();
+        const db = parseCSV(csv);
 
-          const csvText = await response.text();
-          const dbData = parseCSV(csvText);
-          const userDb = dbData.users;
+        if (db.users[rawUser.toLowerCase()] && db.users[rawUser.toLowerCase()].password === pass) {
+          const userPerms = db.users[rawUser.toLowerCase()];
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("loginTimestamp", Date.now().toString());
+          localStorage.setItem("username", rawUser);
+          localStorage.setItem("allowed_stores", userPerms.allowed_stores || "");
+          localStorage.setItem("user_permissions", JSON.stringify(userPerms));
 
-          if (userDb[userId] && userDb[userId].password === password) {
-              const matchedUserData = userDb[userId];
-              
-              if (matchedUserData.attendance === '' && matchedUserData.outstanding === '' && matchedUserData.stock === 'no' && matchedUserData.stock_value === 'no' && matchedUserData.insta_access === 'no' && matchedUserData.sbi_cashback === 'no' && matchedUserData.monthly_tracker === 'no') {
-                  loginErrorMessage.innerText = "🔒 Profile Access Deactivated.\nPlease contact the admin to approve your role.";
-                  loginErrorMessage.style.display = 'block';
-                  btn.innerHTML = originalText;
-                  btn.disabled = false;
-                  return;
-              }
+          robotSpeech.innerText = "Access Granted! Loading...";
+          btn.innerText = "Success! Launching... ✅";
 
-              localStorage.setItem('loginTimestamp', new Date().getTime().toString());
-              localStorage.setItem('allowed_stores', matchedUserData.allowed_stores || '');
-              localStorage.setItem('username', userIdRaw); 
-              localStorage.setItem('user', userIdRaw);
-              localStorage.setItem('isLoggedIn', 'true');
-              localStorage.setItem('user_permissions', JSON.stringify(matchedUserData)); 
+          if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 60 });
 
-              robotSpeech.innerText = "Access Granted. Welcome!";
-              btn.innerHTML = "Success! Loading Workspace... ✅";
-
-              setTimeout(() => {
-                  window.history.pushState({}, '', DASHBOARD_URL_HASH);
-                  document.getElementById('mainNavWrap').style.display = 'none'; 
-                  document.getElementById('landing-view').style.display = 'none'; 
-                  document.getElementById('dashboard-view').style.display = 'flex'; 
-                  buildDashboard(matchedUserData, userIdRaw);
-                  window.scrollTo(0, 0);
-              }, 800);
-
-          } else {
-              robotSpeech.innerText = "Intruder Alert! Try again.";
-              loginErrorMessage.style.display = 'block';
-              btn.innerHTML = originalText;
-              btn.disabled = false;
-          }
-      } catch (err) {
-          console.error(err);
-          robotSpeech.innerText = "Database connection error!";
-          loginErrorMessage.innerText = "Network error syncing permissions sheet. Please verify your connection.";
-          loginErrorMessage.style.display = 'block';
-          btn.innerHTML = originalText;
+          setTimeout(() => {
+            showDashboard(userPerms, rawUser, db.globalNotif);
+          }, 600);
+        } else {
+          errBox.style.display = "block";
+          robotSpeech.innerText = "Intruder Alert! Check credentials.";
+          btn.innerText = "Secure Portal Login ↗";
           btn.disabled = false;
+        }
+      } catch (err) {
+        errBox.innerText = "Network sync error. Check internet connection.";
+        errBox.style.display = "block";
+        btn.innerText = "Secure Portal Login ↗";
+        btn.disabled = false;
       }
     });
+
+    function showDashboard(perms, userRaw, announcement = "") {
+      loggedInUser = userRaw;
+      userPermissions = perms;
+
+      document.getElementById("mainNavWrap").style.display = "none";
+      document.getElementById("landing-view").style.display = "none";
+      document.getElementById("dashboard-view").style.display = "flex";
+
+      document.getElementById("dashWelcomeUser").innerText = "Welcome, " + userRaw;
+      document.getElementById("userAvatarChar").innerText = userRaw.charAt(0).toUpperCase();
+      document.getElementById("dashStoreName").innerText = (perms.allowed_stores || "GENERAL").toUpperCase();
+
+      if (announcement) {
+        const notifBar = document.getElementById("dashAnnouncement");
+        notifBar.innerText = "📢 " + announcement;
+        notifBar.style.display = "block";
+      }
+
+      const uParam = encodeURIComponent(userRaw);
+      const tParam = Date.now();
+
+      // 1. Attendance
+      const attCard = document.getElementById("app-attendance");
+      if (perms.attendance && perms.attendance.toLowerCase() !== "no") {
+        attCard.style.display = "block";
+        attCard.onclick = () => {
+          if (perms.attendance.toLowerCase() === "admin") {
+            openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${uParam}&t=${tParam}`, "Attendance Monitor");
+          } else {
+            openAttendanceKiosk();
+          }
+        };
+      }
+
+      // 2. Outstanding
+      const outCard = document.getElementById("app-outstanding");
+      if (perms.outstanding === "yes" || perms.outstanding === "admin" || perms.outstanding === "all" || (perms.allowed_stores && perms.allowed_stores !== "no")) {
+        outCard.style.display = "block";
+        let storeP = (perms.outstanding === "yes" || perms.allowed_stores === "yes" || perms.allowed_stores === "admin") ? "ALL" : perms.allowed_stores;
+        outCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${uParam}&stores=${encodeURIComponent(storeP.toUpperCase())}&t=${tParam}`, "Stores Outstanding");
+      }
+
+      // 3. Stock
+      const stockCard = document.getElementById("app-stock");
+      if (perms.stock === "yes" || perms.stock === "admin") {
+        stockCard.style.display = "block";
+        stockCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Availability Checker");
+      }
+
+      // 4. Stock Value
+      const valCard = document.getElementById("app-stock-value");
+      if (perms.stock_value === "yes" || perms.stock_value === "admin") {
+        valCard.style.display = "block";
+        valCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Value Store Wise");
+      }
+
+      // 5. Target Tracker
+      const targetCard = document.getElementById("app-target-tracker");
+      if (perms.insta_access === "admin" || perms.insta_access === "all" || (userRaw.toLowerCase() === "admin" && perms.insta_access !== "no")) {
+        targetCard.style.display = "block";
+        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${uParam}&t=${tParam}`, "Customer Target Tracker (Admin)");
+      } else if (perms.insta_access === "yes" || perms.insta_access === "true") {
+        targetCard.style.display = "block";
+        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Customer Target Tracker");
+      }
+
+      // 6. SBI Cashback
+      const sbiCard = document.getElementById("app-sbi-cashback");
+      if (perms.sbi_cashback === "yes" || perms.sbi_cashback === "admin") {
+        sbiCard.style.display = "block";
+        sbiCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${uParam}&t=${tParam}`, "SBI Card Cashback");
+      }
+
+      // 7. Monthly Tracker
+      const monthlyCard = document.getElementById("app-monthly-tracker");
+      if (perms.monthly_tracker === "yes" || perms.monthly_tracker === "admin") {
+        monthlyCard.style.display = "block";
+        monthlyCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Monthly Target Tracker");
+      }
+
+      window.scrollTo(0, 0);
+    }
 
     function logoutUser() {
-        localStorage.clear();
-        window.history.pushState({}, '', window.location.pathname);
-        // Force un-cached reload
-        window.location.href = window.location.pathname + "?t=" + new Date().getTime(); 
+      localStorage.clear();
+      window.location.reload();
     }
 
-    setInterval(() => {
-        if (localStorage.getItem('isLoggedIn') === 'true') {
-            const savedTimeStr = localStorage.getItem('loginTimestamp');
-            if (savedTimeStr) {
-                const diffMinutes = (new Date().getTime() - parseInt(savedTimeStr, 10)) / (1000 * 60);
-                if (diffMinutes >= 60) logoutUser(); // Extended to 1 hour for convenience
-            }
-        }
-    }, 10000);
-
-    window.onload = function() {
-        if (localStorage.getItem('isLoggedIn') === 'true') {
-            const savedTimeStr = localStorage.getItem('loginTimestamp');
-            if (savedTimeStr) {
-                const diffMinutes = (new Date().getTime() - parseInt(savedTimeStr, 10)) / (1000 * 60);
-                if (diffMinutes >= 60) {
-                    logoutUser();
-                    return;
-                }
-            }
-
-            const perms = JSON.parse(localStorage.getItem('user_permissions'));
-            const user = localStorage.getItem('username');
-
-            if(perms && user) {
-                window.history.pushState({}, '', DASHBOARD_URL_HASH);
-                document.getElementById('mainNavWrap').style.display = 'none';
-                document.getElementById('landing-view').style.display = 'none';
-                document.getElementById('dashboard-view').style.display = 'flex';
-                buildDashboard(perms, user);
-            }
-        }
-    };
-
-    /* =====================================================
-       ATTENDANCE SYSTEM LOGIC (EMBEDDED)
-    ===================================================== */
-    const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
-    let locationFetched = false;
-    let photoCaptured = false;
-    let rawMappings = [];
-    let stream = null;
-
-    function openAttendanceApp() {
-        if (userAccessGlobal !== 'all' && userAccessGlobal !== 'admin') {
-            document.getElementById('managerLabel').style.display = 'none';
-            document.getElementById('managerName').style.display = 'none';
-            document.getElementById('storeLabel').style.display = 'none';
-            document.getElementById('storeName').style.display = 'none';
+    /* Check Saved Session on Page Load */
+    window.addEventListener("load", () => {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        const savedTime = parseInt(localStorage.getItem("loginTimestamp") || "0", 10);
+        if ((Date.now() - savedTime) / (1000 * 60) < 60) {
+          const perms = JSON.parse(localStorage.getItem("user_permissions") || "{}");
+          const uName = localStorage.getItem("username") || "";
+          showDashboard(perms, uName);
         } else {
-            document.getElementById('managerLabel').style.display = 'block';
-            document.getElementById('managerName').style.display = 'block';
-            document.getElementById('storeLabel').style.display = 'block';
-            document.getElementById('storeName').style.display = 'block';
+          logoutUser();
         }
-
-        document.getElementById('dashboard-view').style.display = 'none';
-        document.getElementById('attendance-view').style.display = 'block';
-
-        locationFetched = false;
-        photoCaptured = false;
-        document.getElementById('status').style.display = "block";
-        document.getElementById('status').innerText = "⚠️ Awaiting Location.";
-        document.getElementById('status').style.color = "#dc3545";
-        document.getElementById('status').style.background = "rgba(220, 53, 69, 0.1)";
-        document.getElementById('locationBtn').innerText = "📍 Step 1: Verify Live GPS";
-        document.getElementById('locationBtn').style.background = "linear-gradient(45deg, #ffc107, #ff9800)";
-
-        document.getElementById('photoResult').style.display = 'none';
-        document.getElementById('cameraBtn').style.display = 'block';
-        document.getElementById('photoData').value = '';
-        document.getElementById('attendanceForm').reset();
-        checkFormReadyEmbedded();
-
-        loadListsDynamicEmbedded();
-        window.scrollTo(0, 0);
-    }
-
-    function closeAttendanceApp() {
-        stopCamera();
-        document.getElementById('attendance-view').style.display = 'none';
-        document.getElementById('dashboard-view').style.display = 'flex';
-        window.scrollTo(0, 0);
-    }
-
-    function closeSuccessOverlay() {
-        document.getElementById('successOverlay').style.display = 'none';
-        closeAttendanceApp();
-    }
-
-    async function loadListsDynamicEmbedded() {
-        const managerSelect = document.getElementById('managerName');
-        const storeSelect = document.getElementById('storeName');
-
-        try {
-            const response = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + new Date().getTime(), { cache: "no-store" });
-            const mappings = await response.json();
-            rawMappings = mappings; 
-
-            let uniqueManagers = rawMappings.map(item => item.manager).filter(name => name && name.length > 0);
-            uniqueManagers = [...new Set(uniqueManagers)];
-            uniqueManagers.sort((a, b) => a.localeCompare(undefined, { sensitivity: 'base', numeric: true }));
-
-            const cleanLoggedInUser = loggedInUserGlobal.trim();
-
-            if (cleanLoggedInUser && userAccessGlobal !== 'all' && userAccessGlobal !== 'admin') {
-                let mappedManagerName = assignedAttendanceNameGlobal || userAccessGlobal.toUpperCase();
-                managerSelect.innerHTML = `<option value="${mappedManagerName}" selected>${mappedManagerName}</option>`;
-                updateStoresForManagerEmbedded(mappedManagerName);
-            } else {
-                managerSelect.innerHTML = '<option value="">-- Select Your Name --</option>';
-                uniqueManagers.forEach(name => {
-                    managerSelect.innerHTML += `<option value="${name}">${name}</option>`;
-                });
-                if (cleanLoggedInUser && (userAccessGlobal === 'all' || userAccessGlobal === 'admin')) {
-                    storeSelect.innerHTML = '<option value="">-- Select Manager First --</option>';
-                }
-            }
-            checkFormReadyEmbedded();
-        } catch (error) {
-            alert("Live store list load nahi ho payi. Kripya page refresh karein.");
-        }
-    }
-
-    function updateStoresForManagerEmbedded(selectedManager) {
-        const storeSelect = document.getElementById('storeName');
-        if (!selectedManager) {
-            storeSelect.innerHTML = '<option value="">-- Select Manager First --</option>';
-            storeSelect.disabled = true;
-            checkFormReadyEmbedded();
-            return;
-        }
-
-        const cleanSelectedManager = selectedManager.toLowerCase().trim();
-        const matchedStores = rawMappings
-            .filter(item => item.manager.toLowerCase().trim() === cleanSelectedManager)
-            .map(item => item.store)
-            .filter(store => store && store.length > 0);
-
-        storeSelect.innerHTML = '';
-        if (matchedStores.length > 0) {
-            matchedStores.forEach((store, idx) => {
-                storeSelect.innerHTML += `<option value="${store}" ${idx === 0 ? 'selected' : ''}>${store}</option>`;
-            });
-            storeSelect.disabled = false;
-        } else {
-            let userAllowedStore = localStorage.getItem('allowed_stores') || 'GENERAL';
-            let defaultStore = userAllowedStore.toUpperCase();
-            storeSelect.innerHTML = `<option value="${defaultStore}" selected>${defaultStore}</option>`;
-            storeSelect.disabled = false;
-        }
-        checkFormReadyEmbedded();
-    }
-
-    document.getElementById('managerName').addEventListener('change', (e) => {
-        updateStoresForManagerEmbedded(e.target.value);
-    });
-
-    document.getElementById('locationBtn').addEventListener('click', () => {
-        const statusDiv = document.getElementById('status');
-        const locationBtn = document.getElementById('locationBtn');
-
-        statusDiv.style.display = "block";
-        statusDiv.style.color = "#d97706";
-        statusDiv.style.background = "rgba(245, 158, 11, 0.15)";
-        statusDiv.innerText = "🔄 Fetching GPS Signal...";
-
-        if (!navigator.geolocation) {
-            alert("❌ Your browser doesn't support GPS Location.");
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                document.getElementById('latitude').value = position.coords.latitude;
-                document.getElementById('longitude').value = position.coords.longitude;
-                locationFetched = true;
-
-                statusDiv.style.display = "none";
-                locationBtn.style.background = "linear-gradient(45deg, #28a745, #218838)";
-                locationBtn.innerText = "✅ Step 1: Location Verified";
-                checkFormReadyEmbedded();
-            },
-            (err) => { 
-                statusDiv.style.color = "#dc3545";
-                statusDiv.style.background = "rgba(220, 53, 69, 0.15)";
-                if (err.code === 1) {
-                    statusDiv.innerText = "❌ Location Permission Blocked!";
-                    alert("⚠️ Location Permission Blocked!\n\nPlease click the lock 🔒 icon in the address bar and Allow location access.");
-                } else {
-                    statusDiv.innerText = "⚠️ Location / GPS signal not found. Turn on Location.";
-                }
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-        );
-    });
-
-    async function startCameraEmbedded() {
-        const videoElement = document.getElementById('videoElement');
-        const cameraBtn = document.getElementById('cameraBtn');
-        const cameraBox = document.getElementById('cameraBox');
-        const photoResult = document.getElementById('photoResult');
-
-        try {
-            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-            videoElement.srcObject = stream;
-            cameraBtn.style.display = 'none';
-            photoResult.style.display = 'none';
-            cameraBox.style.display = 'block';
-        } catch (err) { alert("Camera access denied or unavailable."); }
-    }
-
-    function stopCamera() { if (stream) { stream.getTracks().forEach(track => track.stop()); } }
-
-    document.getElementById('cameraBtn').addEventListener('click', startCameraEmbedded);
-    document.getElementById('retakeBtn').addEventListener('click', () => {
-        photoCaptured = false;
-        document.getElementById('photoData').value = "";
-        checkFormReadyEmbedded();
-        startCameraEmbedded();
-    });
-
-    document.getElementById('captureBtn').addEventListener('click', () => {
-        const videoElement = document.getElementById('videoElement');
-        const capturedImage = document.getElementById('capturedImage');
-        const photoData = document.getElementById('photoData');
-        const cameraBox = document.getElementById('cameraBox');
-        const photoResult = document.getElementById('photoResult');
-
-        const canvas = document.createElement('canvas');
-        canvas.width = videoElement.videoWidth;
-        canvas.height = videoElement.videoHeight;
-        canvas.getContext('2d').drawImage(videoElement, 0, 0);
-        const base64Image = canvas.toDataURL('image/jpeg', 0.6); 
-        capturedImage.src = base64Image;
-        photoData.value = base64Image;
-        photoCaptured = true;
-        stopCamera();
-        cameraBox.style.display = 'none';
-        photoResult.style.display = 'block';
-        checkFormReadyEmbedded();
-    });
-
-    function checkFormReadyEmbedded() {
-        const submitBtn = document.getElementById('submitAttBtn');
-        const managerSelect = document.getElementById('managerName');
-        const storeSelect = document.getElementById('storeName');
-
-        let missing = [];
-        if (!locationFetched) missing.push("Location");
-        if (!photoCaptured) missing.push("Selfie");
-        if (!managerSelect.value) missing.push("Manager Name");
-        if (!storeSelect.value) missing.push("Store Assign");
-
-        if (missing.length === 0) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit Attendance 🚀";
-            submitBtn.style.background = "linear-gradient(45deg, #28a745, #218838)";
-            submitBtn.style.color = "white";
-            submitBtn.style.border = "none";
-        } else {
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Missing: " + missing.join(", ");
-        }
-    }
-
-    document.getElementById('attendanceForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const submitBtn = document.getElementById('submitAttBtn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting Data... ⏳";
-
-        const formData = new URLSearchParams();
-        formData.append('managerName', document.getElementById('managerName').value);
-        formData.append('storeName', document.getElementById('storeName').value);
-        formData.append('remarks', document.getElementById('remarks').value);
-        formData.append('latitude', document.getElementById('latitude').value);
-        formData.append('longitude', document.getElementById('longitude').value);
-        formData.append('photoBase64', document.getElementById('photoData').value); 
-
-        fetch(ATTENDANCE_WEB_APP_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
-            body: formData.toString()
-        }).then(() => {
-            document.getElementById('attendance-view').style.display = 'none';
-            document.getElementById('successOverlay').style.display = 'flex';
-        }).catch(err => {
-            alert("Submission Error: " + err);
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit Attendance 🚀";
-        });
-    });
-
-    /* =====================================================
-       DYNAMIC CONTENT READER MODAL (SIVMOR GUIDES)
-    ===================================================== */
-    const articleDatabase = {
-      "privacy": {
-        category: "Legal",
-        title: "Privacy Policy",
-        body: `<p>SiVMOR respects your privacy. All portal data, including location check-ins and images, are strictly collected for internal operational tracking and evaluation purposes only.</p>`
-      },
-      "terms": {
-        category: "Legal",
-        title: "Terms of Access",
-        body: `<p>Access to the SiVMOR Workspace is restricted to authorized personnel. Sharing credentials or internal company data with unauthorized entities is strictly prohibited.</p>`
-      },
-      "blog-1": {
-        category: "Management",
-        title: "How to mark Manager Attendance?",
-        body: `<p>To submit your daily attendance, click on the <strong>Manager Attendance</strong> module. Allow location access when prompted to verify your store presence via GPS. Take a live selfie and click Submit. Your reporting time and branch details are instantly recorded.</p>`
-      },
-      "blog-2": {
-        category: "Finance",
-        title: "Checking Store Outstanding",
-        body: `<p>Use the <strong>Stores Outstanding</strong> module to access real-time financial pending statuses. The data shown is strictly filtered for your branch, allowing you to manage collections safely and effectively.</p>`
-      },
-      "blog-3": {
-        category: "Operations",
-        title: "Live Stock Availability",
-        body: `<p>In the <strong>Stock Checker</strong> module, you can search for products across the network. If an item is out of stock at your store, you can verify its availability in a nearby branch to ensure maximum customer retention.</p>`
-      },
-      "blog-5": {
-        category: "Marketing",
-        title: "Submitting Customer Target Proofs",
-        body: `<p>In the <strong>Customer Targets</strong> tool, you are required to upload daily screenshots for Google Reviews, Instagram Follows, and YouTube Subs taken from customers. These inputs directly calculate your monthly incentives.</p>`
-      },
-      "blog-6": {
-        category: "Performance",
-        title: "Tracking your Monthly Targets",
-        body: `<p>Use the <strong>Monthly Tracker</strong> to see how close you are to unlocking tier bonuses. Keep an eye on your ongoing metrics to adjust sales focus accordingly.</p>`
-      },
-      "blog-7": {
-        category: "Offers",
-        title: "SBI Cashback Rules",
-        body: `<p>The <strong>SBI Cashback</strong> module gives you instant calculations for ongoing banking offers. Enter the product value to get the exact final price for the customer, minimizing math errors.</p>`
       }
-    };
-
-    const contentModal = document.getElementById('contentModal');
-    const closeContentModal = document.getElementById('closeContentModal');
-    const contentModalTitle = document.getElementById('contentModalTitle');
-    const contentModalBody = document.getElementById('contentModalBody');
-    const contentModalCategory = document.getElementById('contentModalCategory');
-    const openContentBtns = document.querySelectorAll('.open-content');
-
-    openContentBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = btn.getAttribute('data-target');
-        const article = articleDatabase[targetId];
-
-        if(article) {
-          contentModalCategory.innerText = article.category || "Information";
-          contentModalTitle.innerText = article.title;
-          contentModalBody.innerHTML = article.body;
-          contentModal.classList.add('active');
-          document.body.style.overflow = "hidden"; 
-        }
-      });
     });
 
-    closeContentModal.addEventListener('click', () => { contentModal.classList.remove('active'); document.body.style.overflow = ""; });
-    contentModal.addEventListener('click', (e) => { if (e.target === contentModal) { contentModal.classList.remove('active'); document.body.style.overflow = ""; }});
+    /* =========================================================
+       APP VIEWER MODAL
+    ========================================================= */
+    function openAppViewer(url, title) {
+      document.getElementById("dashboard-view").style.display = "none";
+      document.getElementById("appViewerTitle").innerText = title;
+      document.getElementById("appViewerFrame").src = url;
+      document.getElementById("appViewer").style.display = "flex";
+    }
+    function closeAppViewer() {
+      document.getElementById("appViewer").style.display = "none";
+      document.getElementById("appViewerFrame").src = "";
+      document.getElementById("dashboard-view").style.display = "flex";
+    }
 
+    /* =========================================================
+       ATTENDANCE KIOSK LOGIC
+    ========================================================= */
+    let cameraStream = null;
+
+    function openAttendanceKiosk() {
+      document.getElementById("dashboard-view").style.display = "none";
+      document.getElementById("attendance-view").style.display = "block";
+      loadStoreDropdowns();
+      validateAttendanceReady();
+    }
+    function closeAttendanceKiosk() {
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+      document.getElementById("attendance-view").style.display = "none";
+      document.getElementById("dashboard-view").style.display = "flex";
+    }
+
+    async function loadStoreDropdowns() {
+      const isAdm = userPermissions.attendance.toLowerCase() === "admin" || userPermissions.attendance.toLowerCase() === "all";
+      if (isAdm) {
+        document.getElementById("mgrWrap").style.display = "block";
+        document.getElementById("storeWrap").style.display = "block";
+        try {
+          const res = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + Date.now());
+          const list = await res.json();
+          const uniqueMgrs = [...new Set(list.map(i => i.manager).filter(Boolean))];
+          const mSelect = document.getElementById("attMgrSelect");
+          mSelect.innerHTML = '<option value="">-- Select Manager --</option>' + uniqueMgrs.map(m => `<option value="${m}">${m}</option>`).join("");
+          
+          mSelect.onchange = () => {
+            const matchedStores = list.filter(i => i.manager.toLowerCase() === mSelect.value.toLowerCase()).map(i => i.store);
+            document.getElementById("attStoreSelect").innerHTML = matchedStores.map(s => `<option value="${s}">${s}</option>`).join("");
+            validateAttendanceReady();
+          };
+        } catch(e) {}
+      } else {
+        document.getElementById("attMgrSelect").innerHTML = `<option value="${loggedInUser}" selected>${loggedInUser}</option>`;
+        document.getElementById("attStoreSelect").innerHTML = `<option value="${userPermissions.allowed_stores.toUpperCase()}" selected>${userPermissions.allowed_stores.toUpperCase()}</option>`;
+      }
+    }
+
+    // GPS Click
+    document.getElementById("locBtn").addEventListener("click", () => {
+      const status = document.getElementById("locStatus");
+      status.innerText = "🔄 Acquiring GPS Satellite Signal...";
+      status.style.color = "var(--amber)";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          document.getElementById("attLat").value = pos.coords.latitude;
+          document.getElementById("attLng").value = pos.coords.longitude;
+          status.innerText = "✅ GPS Location Verified (" + pos.coords.latitude.toFixed(4) + ", " + pos.coords.longitude.toFixed(4) + ")";
+          status.style.color = "var(--mint)";
+          validateAttendanceReady();
+        },
+        () => {
+          status.innerText = "❌ Location blocked! Allow GPS in browser address bar.";
+          status.style.color = "var(--rose)";
+        },
+        { enableHighAccuracy: true, timeout: 12000 }
+      );
+    });
+
+    // Camera Click
+    document.getElementById("camBtn").addEventListener("click", async () => {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+        const video = document.getElementById("attVideo");
+        video.srcObject = cameraStream;
+        document.getElementById("camBox").style.display = "block";
+        document.getElementById("camBtn").style.display = "none";
+      } catch(e) {
+        alert("Camera permission denied.");
+      }
+    });
+
+    document.getElementById("snapBtn").addEventListener("click", () => {
+      const video = document.getElementById("attVideo");
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 640;
+      canvas.getContext("2d").drawImage(video, 0, 0);
+      const b64 = canvas.toDataURL("image/jpeg", 0.6);
+      document.getElementById("attPhotoData").value = b64;
+      document.getElementById("attPhotoImg").src = b64;
+
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+      document.getElementById("camBox").style.display = "none";
+      document.getElementById("photoPreviewBox").style.display = "block";
+      validateAttendanceReady();
+    });
+
+    document.getElementById("retakeBtn").addEventListener("click", () => {
+      document.getElementById("photoPreviewBox").style.display = "none";
+      document.getElementById("camBtn").click();
+    });
+
+    function validateAttendanceReady() {
+      const hasLoc = !!document.getElementById("attLat").value;
+      const hasPhoto = !!document.getElementById("attPhotoData").value;
+      const btn = document.getElementById("attSubmitBtn");
+
+      if (hasLoc && hasPhoto) {
+        btn.disabled = false;
+        btn.innerText = "Submit Verified Attendance 🚀";
+        btn.style.background = "linear-gradient(135deg, #34d399, #059669)";
+      } else {
+        btn.disabled = true;
+        btn.innerText = "Missing: " + (!hasLoc ? "GPS " : "") + (!hasPhoto ? "Selfie" : "");
+      }
+    }
+
+    document.getElementById("attSubmitForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("attSubmitBtn");
+      btn.innerText = "Uploading to Database... ⏳";
+      btn.disabled = true;
+
+      const params = new URLSearchParams();
+      params.append("managerName", document.getElementById("attMgrSelect").value || loggedInUser);
+      params.append("storeName", document.getElementById("attStoreSelect").value || userPermissions.allowed_stores);
+      params.append("remarks", document.getElementById("attRemarks").value);
+      params.append("latitude", document.getElementById("attLat").value);
+      params.append("longitude", document.getElementById("attLng").value);
+      params.append("photoBase64", document.getElementById("attPhotoData").value);
+
+      try {
+        await fetch(ATTENDANCE_WEB_APP_URL, { method: "POST", mode: "no-cors", body: params.toString() });
+        if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70 });
+        alert("✅ Attendance successfully recorded!");
+        closeAttendanceKiosk();
+      } catch(err) {
+        alert("Submission error: " + err);
+        btn.disabled = false;
+        btn.innerText = "Submit Verified Attendance 🚀";
+      }
+    });
+
+    /* =========================================================
+       SUPPORT TICKET SUBMISSION
+    ========================================================= */
+    document.getElementById("ticketForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("ticketSubmitBtn");
+      btn.innerText = "Submitting Ticket... ⏳";
+      btn.disabled = true;
+
+      const data = {
+        name: document.getElementById("tName").value,
+        business: document.getElementById("tStore").value,
+        phone: document.getElementById("tPhone").value,
+        email: document.getElementById("tEmail").value,
+        city: document.getElementById("tIssue").value,
+        req: document.getElementById("tDesc").value
+      };
+
+      try {
+        const res = await fetch(SUPPORT_TICKET_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.result === "success") {
+          document.getElementById("ticketForm").style.display = "none";
+          document.getElementById("ticketSuccessBox").style.display = "block";
+          document.getElementById("ticketForm").reset();
+        }
+      } catch(e) {
+        alert("Error sending ticket. Please try again.");
+      } finally {
+        btn.innerText = "Submit Support Ticket ↗";
+        btn.disabled = false;
+      }
+    });
+
+    /* =========================================================
+       GUIDES MODAL DATABASE
+    ========================================================= */
+    const guides = {
+      "privacy": { cat: "Legal", title: "Privacy Policy", body: "<p>SiVMOR respects your privacy. Geolocation logs and camera photos are encrypted and captured strictly for internal attendance authentication.</p>" },
+      "terms": { cat: "Legal", title: "Terms of Access", body: "<p>Access to the SiVMOR Workspace is limited strictly to authorized store managers and employees. Account sharing is prohibited.</p>" },
+      "blog-1": { cat: "Management", title: "How to mark Manager Attendance?", body: "<p>Click <strong>Step 1: Verify GPS</strong> to validate your proximity to the store. Then click <strong>Step 2: Take Selfie</strong>, align your face in the box, and tap Submit.</p>" },
+      "blog-2": { cat: "Finance", title: "Checking Store Outstanding", body: "<p>Open the <strong>Stores Outstanding</strong> module to view filtered customer ledgers, open balances, and invoice aging for your branch.</p>" },
+      "blog-3": { cat: "Operations", title: "Live Stock Availability Guide", body: "<p>Search product SKUs in real time. If an item is out of stock at your store, check adjacent stores for customer reservations.</p>" },
+      "blog-5": { cat: "Marketing", title: "Submitting Customer Target Proofs", body: "<p>Upload customer screenshots of Instagram follows, YouTube subscriptions, and 5-star Google Reviews to calculate monthly incentives.</p>" },
+      "blog-6": { cat: "Performance", title: "Tracking Monthly Targets", body: "<p>Monitor your daily sales pace, incentive tier bonuses, and branch ranks on the company leaderboard.</p>" },
+      "blog-7": { cat: "Offers", title: "SBI Cashback Rules", body: "<p>Input product billing values to calculate instant bank discounts versus statement cashback to prevent customer billing errors.</p>" }
+    };
+
+    function openGuideModal(key) {
+      const g = guides[key];
+      if (!g) return;
+      document.getElementById("guideCategory").innerText = g.cat;
+      document.getElementById("guideTitle").innerText = g.title;
+      document.getElementById("guideBody").innerHTML = g.body;
+      document.getElementById("contentModal").classList.add("active");
+    }
+    function closeGuideModal() {
+      document.getElementById("contentModal").classList.remove("active");
+    }
   </script>
 
 </body>
-
 </html>
