@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SiVMOR Workspace — Centralized Operations Portal</title>
-  <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Access live inventory, sales analytics, outstanding reports, and attendance logs.">
+  <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Rajasthan's First & Biggest Mobile Retail Chain.">
   <meta name="theme-color" content="#05070b">
 
   <!-- Google Fonts & Confetti CDN -->
@@ -95,9 +95,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* =========================================================
-       NAVIGATION BAR
-    ========================================================= */
+    /* NAVIGATION */
     .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 5000; padding: 14px 18px; }
     nav {
       width: min(var(--max), 100%);
@@ -135,7 +133,7 @@
       color: #05070b;
       box-shadow: 0 0 15px rgba(87, 238, 244, 0.35);
     }
-    .nav-links { display: flex; align-items: center; gap: 28px; color: #a8b1bf; font-size: 12px; font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: #a8b1bf; font-size: 12px; font-weight: 600; }
     .nav-links a { position: relative; transition: color .2s ease; cursor: pointer; }
     .nav-links a:hover { color: var(--cyan); }
     .nav-cta {
@@ -156,10 +154,8 @@
     }
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(87, 238, 244, 0.4); }
 
-    /* =========================================================
-       HERO & LOGIN SECTION
-    ========================================================= */
-    .hero { min-height: 95vh; display: flex; align-items: center; padding: 130px 20px 70px; position: relative; }
+    /* HERO & LOGIN */
+    .hero { min-height: 90vh; display: flex; align-items: center; padding: 120px 20px 60px; position: relative; }
     .hero-grid {
       width: min(var(--max), 100%);
       margin: auto;
@@ -187,41 +183,9 @@
     .pulsing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); animation: pulseDot 2s infinite; }
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-    .hero h1 { font-size: clamp(38px, 5.5vw, 68px); line-height: 1.1; font-weight: 900; letter-spacing: -0.04em; }
-    .hero-sub { color: var(--muted); font-size: 15px; line-height: 1.75; margin-top: 20px; max-width: 540px; }
+    .hero h1 { font-size: clamp(34px, 5vw, 62px); line-height: 1.12; font-weight: 900; letter-spacing: -0.04em; }
+    .hero-sub { color: var(--muted); font-size: 14px; line-height: 1.75; margin-top: 18px; max-width: 520px; }
 
-    /* Telemetry Stage */
-    .ai-stage {
-      width: 100%;
-      margin-top: 36px;
-      padding: 24px;
-      border: 1px solid rgba(87, 238, 244, 0.15);
-      border-radius: 20px;
-      background: radial-gradient(circle at 50% 50%, rgba(87, 238, 244, 0.04), transparent 60%), #080c14;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-    }
-    .ai-stage-scan {
-      position: absolute;
-      left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(87, 238, 244, 0.7), transparent);
-      animation: scanAnim 4s linear infinite;
-    }
-    @keyframes scanAnim { 0% { top: -10%; } 100% { top: 110%; } }
-
-    .ai-stage-header { display: flex; align-items: center; justify-content: space-between; }
-    .ai-core-icon {
-      width: 44px; height: 44px; border-radius: 12px; background: rgba(87, 238, 244, 0.08);
-      border: 1px solid rgba(87, 238, 244, 0.25); display: flex; align-items: center; justify-content: center;
-      font-size: 20px; color: var(--cyan);
-    }
-    .ai-telemetry-text {
-      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-soft);
-      display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    }
-
-    /* LOGIN CARD & MASCOT */
     .login-card {
       background: rgba(10, 15, 24, 0.96);
       border: 1px solid rgba(87, 238, 244, 0.2);
@@ -250,69 +214,63 @@
     .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
     .robot-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); transition: all 0.25s ease; }
 
-    .input-wrap { text-align: left; margin-bottom: 18px; }
-    .input-wrap label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; letter-spacing: 0.06em; }
+    .input-wrap { text-align: left; margin-bottom: 16px; }
+    .input-wrap label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.06em; }
     .input-box {
-      width: 100%; padding: 13px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px; color: #fff; font-size: 13px; outline: none; transition: all 0.25s ease;
     }
     .input-box:focus { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(87, 238, 244, 0.15); }
-    .pass-toggle-btn { position: absolute; right: 12px; top: 32px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
+    .pass-toggle-btn { position: absolute; right: 12px; top: 30px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
 
     .submit-btn {
-      width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--cyan), #bdfdff);
+      width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--cyan), #bdfdff);
       color: #05070b; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 8px 25px rgba(87, 238, 244, 0.2);
     }
     .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(87, 238, 244, 0.35); }
     .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    /* MARQUEE & MODULES */
     .marquee-bar { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255, 255, 255, 0.015); padding: 14px 0; overflow: hidden; }
     .marquee-inner { display: flex; width: max-content; animation: marqueeAnim 35s linear infinite; }
     .marquee-item { padding: 0 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #768294; text-transform: uppercase; letter-spacing: 0.12em; }
     .marquee-item.accent { color: var(--cyan); }
     @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 850; letter-spacing: -0.03em; }
-    .section-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-top: 10px; }
-
-    .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 45px; }
-    .module-card {
-      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); border-radius: 22px; padding: 28px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; position: relative; overflow: hidden;
+    /* SUMMARY ROWS (COMPACT EXPLANATION) */
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .module-card:hover { transform: translateY(-6px); border-color: rgba(87, 238, 244, 0.3); background: rgba(255, 255, 255, 0.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4); }
-    .module-icon-box { width: 46px; height: 46px; border-radius: 12px; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.15); display: grid; place-items: center; font-size: 22px; margin-bottom: 20px; }
-    .module-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-    .module-card p { font-size: 12px; color: var(--muted); line-height: 1.7; }
-
-    /* GUIDES & SUPPORT */
-    .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-    .guide-card {
-      background: rgba(255, 255, 255, 0.015); border: 1px solid var(--line); border-radius: 18px; padding: 24px;
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 190px; cursor: pointer; transition: all 0.25s ease;
+    .summary-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(87, 238, 244, 0.35);
+      transform: translateY(-2px);
     }
-    .guide-card:hover { transform: translateY(-4px); border-color: rgba(87, 238, 244, 0.3); background: rgba(255, 255, 255, 0.035); }
-
-    .support-box {
-      background: linear-gradient(180deg, #0c121e 0%, #070a11 100%);
+    .summary-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(87, 238, 244, 0.08);
       border: 1px solid rgba(87, 238, 244, 0.2);
-      border-radius: 26px;
-      padding: 48px 40px;
-      max-width: 800px;
-      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      shrink: 0;
+      margin-top: 2px;
     }
 
     /* DASHBOARD VIEW */
     #dashboard-view { display: none; flex-direction: column; width: 100%; max-width: 1200px; margin: 0 auto; padding: 100px 20px 60px; }
-    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
     .user-profile-badge { display: flex; align-items: center; gap: 14px; }
     .avatar-circle { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: grid; place-items: center; font-weight: 900; color: #05070b; }
-
-    .global-announcement {
-      display: none; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25);
-      color: #c9fdff; padding: 14px 20px; border-radius: 14px; margin-bottom: 30px; font-size: 13px; font-weight: 600;
-    }
 
     .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; width: 100%; }
     .tool-card {
@@ -333,12 +291,11 @@
     /* CONTENT MODAL */
     .content-modal { display: none; position: fixed; inset: 0; z-index: 99990; background: rgba(3, 6, 10, 0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
     .content-modal.active { display: flex; }
-    .content-modal-card { background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px; position: relative; }
+    .content-modal-card { background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 36px; position: relative; }
 
     @media (max-width: 960px) {
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .nav-links { display: none; }
-      .modules-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -356,8 +313,8 @@
       </a>
 
       <div class="nav-links">
+        <a href="#about-sivmor">About SiVMOR</a>
         <a href="#modules">Modules</a>
-        <a href="#architecture">Architecture</a>
         <a href="#guides">Guides</a>
         <a href="#support">Support</a>
       </div>
@@ -378,36 +335,24 @@
         <div>
           <div class="badge-pill">
             <span class="pulsing-dot"></span>
-            Centralized Portal • Live Sync • Smart Analytics
+            Rajasthan's First & Biggest Mobile Retail Chain
           </div>
 
           <h1>
-            Welcome to the <br>
+            Centralized Operations <br>
             <span class="gradient-text">SiVMOR Workspace.</span>
           </h1>
 
           <p class="hero-sub">
-            The centralized operations and management system for SiVMOR Gadgets. Access real-time inventory, sales analytics, GPS staff attendance, and store finances in one unified interface.
+            The unified portal for SiVMOR Gadgets store managers and operations. Access real-time inventory, sales analytics, GPS staff attendance, and branch records.
           </p>
 
-          <div class="ai-stage">
-            <div class="ai-stage-scan"></div>
-            <div class="ai-stage-header">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <div class="ai-core-icon">⚡</div>
-                <div>
-                  <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">SYSTEM TELEMETRY CORE</div>
-                  <div style="font-size: 14px; font-weight: 800; color: #fff;">STATUS: OPERATIONAL</div>
-                </div>
-              </div>
-              <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--mint); background: rgba(109,255,189,0.08); padding: 4px 10px; border-radius: 8px;">
-                SYNC: LIVE
-              </div>
+          <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan);">
+              🏢 GANPATI GROUP LEGACY
             </div>
-
-            <div class="ai-telemetry-text">
-              <span style="color: var(--muted);">ACTIVE SUBSYSTEM:</span>
-              <span id="telemetryWord" style="color: #fff; font-weight: 700;">TRACK / INVENTORY</span>
+            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--mint);">
+              ⚡ LIVE CLOUD INTEGRATION
             </div>
           </div>
         </div>
@@ -451,138 +396,236 @@
     <!-- LIVE MARQUEE -->
     <div class="marquee-bar">
       <div class="marquee-inner">
-        <span class="marquee-item">LIVE INVENTORY SYNC</span>
-        <span class="marquee-item accent">SALES & TURNOVER</span>
+        <span class="marquee-item">RAJASTHAN'S FIRST & BIGGEST MOBILE RETAIL CHAIN</span>
+        <span class="marquee-item accent">LIVE INVENTORY SYNC</span>
         <span class="marquee-item">GPS ATTENDANCE LOGS</span>
         <span class="marquee-item accent">STORES OUTSTANDING</span>
-        <span class="marquee-item">CUSTOMER TARGET PROOFS</span>
-        <span class="marquee-item accent">SBI CASHBACK ENGINE</span>
+        <span class="marquee-item">GANPATI GROUP TRUSTED SINCE 2007</span>
       </div>
     </div>
 
-    <!-- MODULES SECTION -->
-    <section id="modules" style="padding: 100px 0;">
+    <!-- =========================================================
+         BRAND DETAILS & STORY SECTION (IMAGES 1 & 2)
+    ========================================================= -->
+    <section id="about-sivmor" style="padding: 80px 0; border-top: 1px solid var(--line-soft);">
       <div class="container">
-        <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">PORTAL SUITES</div>
-        <h2 class="section-title">Built for <span class="gradient-text">Store Managers & Staff.</span></h2>
-        <p class="section-desc">Select role-authorized tools configured specifically for branch inventory, customer proofs, and cashflow.</p>
+        
+        <!-- Header -->
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
+          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">BRAND PROFILE</div>
+          <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 900; letter-spacing: -0.03em; margin-top: 6px;">
+            About <span class="gradient-text">SiVMOR Gadgets</span>
+          </h2>
+          <p style="color: var(--muted); font-size: 13px; line-height: 1.7; margin-top: 10px;">
+            Rajasthan's first and fastest-growing organized multi-brand mobile retail chain, backed by the prestigious <strong>Ganpati Group (Est. 2007)</strong>.
+          </p>
+        </div>
 
-        <div class="modules-grid">
-          <div class="module-card" onclick="openGuideModal('blog-1')">
-            <div class="module-icon-box">👥</div>
-            <h3>Manager Attendance</h3>
-            <p>Verify your presence using GPS-enabled location checks and live selfie capture directly from your smartphone.</p>
+        <!-- Brand Showcase Card -->
+        <div style="background: linear-gradient(135deg, #0c121e 0%, #080d16 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; margin-bottom: 40px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
+            <div>
+              <div style="font-size: 26px; font-weight: 900; color: #fff;">
+                SiV<span style="color: var(--cyan);">MOR</span> <span style="font-size: 14px; letter-spacing: 0.15em; color: var(--muted); font-weight: 700;">GADGETS</span>
+              </div>
+              <div style="font-size: 12px; color: var(--cyan); font-family: 'JetBrains Mono'; margin-top: 6px;">
+                Rajasthan's First & Biggest Mobile Retail Chain
+              </div>
+              <p style="font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 12px;">
+                Launched in 2022 starting with 4 stores in Jodhpur, SIVMOR has rapidly expanded across Western Rajasthan with cutting-edge electronics and customer trust.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
+                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">HERITAGE</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">Ganpati Group</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Since 2007 in Real Estate, Textile & Distribution.</div>
+              </div>
+              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
+                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--mint); font-weight: 700;">GROWTH MODEL</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">COCO & FOCO</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Statewide multi-district retail expansion.</div>
+              </div>
+            </div>
           </div>
-          <div class="module-card" onclick="openGuideModal('blog-3')">
-            <div class="module-icon-box">📦</div>
-            <h3>Live Stock & Value</h3>
-            <p>Check real-time stock availability across branches and monitor corporate inventory valuation with multi-sheet sync.</p>
+        </div>
+
+        <!-- 2 Column Details: Offerings & Mission -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+          
+          <!-- What We Offer -->
+          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
+            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY SUITE</div>
+            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 12px; color: #fff;">What We Offer Under One Roof</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: var(--soft);">
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📱 Smartphones</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📟 Tablets</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🎧 Accessories</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📺 Smart TVs</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🔊 Sound Systems</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">❄️ Air Conditioners</div>
+            </div>
           </div>
-          <div class="module-card" onclick="openGuideModal('blog-2')">
-            <div class="module-icon-box">💳</div>
-            <h3>Stores Outstanding</h3>
-            <p>Review customer pending ledgers, store invoices, and credit aging buckets to maintain balanced finances.</p>
+
+          <!-- Mission & Pillars -->
+          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
+            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 700; text-transform: uppercase;">OUR COMMITMENT</div>
+            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 6px; color: #fff;">Our Mission</h3>
+            <div style="font-size: 12px; color: var(--cyan); font-style: italic; margin-bottom: 12px;">
+              "To provide the best products at the best prices with the best customer experience."
+            </div>
+            <div style="font-size: 12px; color: var(--muted); line-height: 1.8;">
+              <div>✓ Genuine products from top international brands</div>
+              <div>✓ Competitive pricing with instant cashbacks</div>
+              <div>✓ Dedicated after-sales support and assistance</div>
+              <div>✓ Modern, comfortable retail store environment</div>
+            </div>
           </div>
-          <div class="module-card" onclick="openGuideModal('blog-5')">
-            <div class="module-icon-box">🎯</div>
-            <h3>Customer Target Tracker</h3>
-            <p>Submit daily customer proofs for Instagram follows, YouTube subscribers, and 5-star Google Reviews.</p>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SHORT EXPLANATION SUMMARIES FOR MODULES (IMAGE 3 REPLACED)
+    ========================================================= -->
+    <section id="modules" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
+          <div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">SUMMARY HUB</div>
+            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Portal Modules Summary</h2>
           </div>
+          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">4 Live Operational Suites</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px;">
+          
+          <div class="summary-row" onclick="openGuideModal('blog-1')">
+            <div class="summary-icon">👥</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Manager Attendance</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                GPS location geofencing with live camera selfie check-in logging.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-3')">
+            <div class="summary-icon">📦</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Live Stock & Value</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Real-time regional SKU stock counts and corporate valuation tracking.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-2')">
+            <div class="summary-icon">💳</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Stores Outstanding</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Customer credit aging ledgers, branch invoices, and statement reviews.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-5')">
+            <div class="summary-icon">🎯</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Customer Target Tracker</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Upload proof of social follows, YouTube subs, and Google 5-star reviews.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- ARCHITECTURE SECTION -->
-    <section id="architecture" style="padding: 80px 0; border-top: 1px solid var(--line-soft);">
+    <!-- =========================================================
+         SHORT EXPLANATION SUMMARIES FOR GUIDES (IMAGE 4 REPLACED)
+    ========================================================= -->
+    <section id="guides" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
       <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto 50px;">
-          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--violet); font-weight: 700; text-transform: uppercase;">SYSTEM HIGHLIGHTS</div>
-          <h2 class="section-title">Fast, secure, and <span class="gradient-text">reliable.</span></h2>
-          <p class="section-desc">Engineered on Google Workspace cloud APIs for zero-delay synchronization across all branch devices.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
+          <div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--amber); font-weight: 700; text-transform: uppercase;">PROCEDURE SUMMARIES</div>
+            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Operating Guides & Rules</h2>
+          </div>
+          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">Click to open full SOP</span>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
-          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">⚡</div>
-            <h4 style="font-size: 16px; margin-bottom: 6px;">Zero-Lag Architecture</h4>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Ultra-lightweight execution designed to run swiftly even on store mobile connections.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          
+          <div class="summary-row" onclick="openGuideModal('blog-1')">
+            <div class="summary-icon" style="color: var(--cyan); border-color: rgba(87,238,244,0.3);">📍</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Attendance Check-In Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Verify satellite GPS, take clear selfie, tap submit.</p>
+            </div>
           </div>
-          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">🛡️</div>
-            <h4 style="font-size: 16px; margin-bottom: 6px;">Granular Permissions</h4>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Role-based security ensuring managers access only designated store records.</p>
-          </div>
-          <div style="padding: 24px; background: rgba(255,255,255,0.015); border: 1px solid var(--line); border-radius: 18px;">
-            <div style="font-size: 24px; margin-bottom: 12px;">📍</div>
-            <h4 style="font-size: 16px; margin-bottom: 6px;">Store Geo-Scoping</h4>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">Automatic branch filtering applies instantly based on your authenticated username profile.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- GUIDES SECTION -->
-    <section id="guides" style="padding: 90px 0;">
-      <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px;">
-          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--amber); font-weight: 700; text-transform: uppercase;">KNOWLEDGE BASE</div>
-          <h2 class="section-title">Internal <span class="gradient-text">Operating Guides</span></h2>
-          <p class="section-desc">Step-by-step documentation for marking attendance, querying stock, and uploading target proofs.</p>
-        </div>
+          <div class="summary-row" onclick="openGuideModal('blog-2')">
+            <div class="summary-icon" style="color: var(--mint); border-color: rgba(109,255,189,0.3);">💳</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Outstanding Ledgers Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Filter branch accounts and check pending balance rows.</p>
+            </div>
+          </div>
 
-        <div class="guides-grid">
-          <div class="guide-card" onclick="openGuideModal('blog-1')">
-            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">MANAGEMENT</span>
-            <h4 style="font-size: 15px; margin: 12px 0;">How to mark Manager Attendance?</h4>
-            <span style="font-size: 11px; color: var(--cyan); font-weight: 700;">Read Guide →</span>
+          <div class="summary-row" onclick="openGuideModal('blog-3')">
+            <div class="summary-icon" style="color: var(--amber); border-color: rgba(251,191,36,0.3);">📦</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Stock Availability Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Search live SKUs across stores before customer reservation.</p>
+            </div>
           </div>
-          <div class="guide-card" onclick="openGuideModal('blog-2')">
-            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--mint); font-weight: 700;">FINANCE</span>
-            <h4 style="font-size: 15px; margin: 12px 0;">Checking Store Outstanding Balances</h4>
-            <span style="font-size: 11px; color: var(--mint); font-weight: 700;">Read Guide →</span>
+
+          <div class="summary-row" onclick="openGuideModal('blog-5')">
+            <div class="summary-icon" style="color: var(--rose); border-color: rgba(244,63,94,0.3);">🎯</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Target Proof Submission</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Upload screenshot proofs to qualify for monthly incentives.</p>
+            </div>
           </div>
-          <div class="guide-card" onclick="openGuideModal('blog-3')">
-            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 700;">OPERATIONS</span>
-            <h4 style="font-size: 15px; margin: 12px 0;">Live Stock Availability Guide</h4>
-            <span style="font-size: 11px; color: var(--amber); font-weight: 700;">Read Guide →</span>
-          </div>
-          <div class="guide-card" onclick="openGuideModal('blog-5')">
-            <span style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--rose); font-weight: 700;">MARKETING</span>
-            <h4 style="font-size: 15px; margin: 12px 0;">Submitting Customer Target Proofs</h4>
-            <span style="font-size: 11px; color: var(--rose); font-weight: 700;">Read Guide →</span>
-          </div>
+
         </div>
       </div>
     </section>
 
     <!-- SUPPORT TICKET SECTION -->
-    <section id="support" style="padding: 80px 0 120px;">
+    <section id="support" style="padding: 70px 0 100px; border-top: 1px solid var(--line-soft);">
       <div class="container">
-        <div class="support-box">
-          <div style="text-align: center; margin-bottom: 30px;">
+        <div style="background: linear-gradient(180deg, #0c121e 0%, #070a11 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 36px; max-width: 800px; margin: 0 auto;">
+          <div style="text-align: center; margin-bottom: 24px;">
             <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--rose); font-weight: 700; text-transform: uppercase;">HELPDESK</div>
-            <h2 style="font-size: 28px; font-weight: 850;">Raise a <span class="gradient-text">Support Ticket</span></h2>
-            <p style="color: var(--muted); font-size: 13px; margin-top: 6px;">Need login or attendance assistance? Direct submission to Technical Operations.</p>
+            <h2 style="font-size: 26px; font-weight: 850;">Raise a <span class="gradient-text">Support Ticket</span></h2>
+            <p style="color: var(--muted); font-size: 12px; margin-top: 4px;">Technical Desk support for GPS issues, permissions, or system assistance.</p>
           </div>
 
-          <div id="ticketSuccessBox" style="display: none; text-align: center; padding: 40px 10px;">
-            <div style="font-size: 40px; color: var(--mint); margin-bottom: 12px;">✓</div>
-            <h3 style="font-size: 20px;">Ticket Logged Successfully!</h3>
-            <p style="color: var(--muted); font-size: 13px; margin-top: 8px;">Admin technical desk will review and reach out.</p>
-            <button onclick="document.getElementById('ticketSuccessBox').style.display='none'; document.getElementById('ticketForm').style.display='block';" class="nav-cta" style="margin-top: 20px;">Submit Another Ticket</button>
+          <div id="ticketSuccessBox" style="display: none; text-align: center; padding: 30px 10px;">
+            <div style="font-size: 36px; color: var(--mint); margin-bottom: 10px;">✓</div>
+            <h3 style="font-size: 18px;">Ticket Logged Successfully!</h3>
+            <p style="color: var(--muted); font-size: 12px; margin-top: 6px;">Technical Operations desk will review and contact you.</p>
+            <button onclick="document.getElementById('ticketSuccessBox').style.display='none'; document.getElementById('ticketForm').style.display='block';" class="nav-cta" style="margin-top: 16px;">Submit Another Ticket</button>
           </div>
 
           <form id="ticketForm">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div class="input-wrap"><label>Your Name</label><input type="text" id="tName" class="input-box" placeholder="e.g. Rahul Sharma" required></div>
-              <div class="input-wrap"><label>Store Name / Branch</label><input type="text" id="tStore" class="input-box" placeholder="e.g. CHB" required></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="input-wrap"><label>Your Name</label><input type="text" id="tName" class="input-box" placeholder="Rahul Sharma" required></div>
+              <div class="input-wrap"><label>Store Name / Branch</label><input type="text" id="tStore" class="input-box" placeholder="CHB" required></div>
               <div class="input-wrap"><label>Mobile Number</label><input type="tel" id="tPhone" class="input-box" placeholder="+91 XXXXX XXXXX" required></div>
               <div class="input-wrap"><label>User ID / Email</label><input type="text" id="tEmail" class="input-box" placeholder="User ID" required></div>
             </div>
             <div class="input-wrap"><label>Issue Type</label><input type="text" id="tIssue" class="input-box" placeholder="e.g. GPS Error, Password Reset" required></div>
-            <div class="input-wrap"><label>Problem Description</label><textarea id="tDesc" rows="3" class="input-box" placeholder="Please describe what happened..." required style="resize: vertical;"></textarea></div>
+            <div class="input-wrap"><label>Problem Description</label><textarea id="tDesc" rows="3" class="input-box" placeholder="Please describe the issue..." required style="resize: vertical;"></textarea></div>
 
-            <button type="submit" class="submit-btn" id="ticketSubmitBtn" style="margin-top: 10px;">
+            <button type="submit" class="submit-btn" id="ticketSubmitBtn" style="margin-top: 8px;">
               Submit Support Ticket ↗
             </button>
           </form>
@@ -591,10 +634,10 @@
     </section>
 
     <!-- FOOTER -->
-    <footer style="border-top: 1px solid var(--line); padding: 30px 20px; background: #040609;">
-      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 15px; font-size: 12px; color: var(--muted);">
-        <div>© <span id="year"></span> SiVMOR Gadgets. All rights reserved.</div>
-        <div style="display: flex; gap: 20px;">
+    <footer style="border-top: 1px solid var(--line); padding: 24px 20px; background: #040609;">
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted);">
+        <div>© <span id="year"></span> SiVMOR Gadgets • Ganpati Group. All rights reserved.</div>
+        <div style="display: flex; gap: 16px;">
           <a href="#" onclick="openGuideModal('privacy'); return false;">Privacy Policy</a>
           <a href="#" onclick="openGuideModal('terms'); return false;">Terms of Access</a>
         </div>
@@ -623,9 +666,9 @@
     </div>
 
     <!-- Announcement Bar -->
-    <div class="global-announcement" id="dashAnnouncement"></div>
+    <div class="global-announcement" id="dashAnnouncement" style="display: none; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25); color: #c9fdff; padding: 14px 20px; border-radius: 14px; margin-bottom: 25px; font-size: 13px; font-weight: 600;"></div>
 
-    <div style="margin-bottom: 25px;">
+    <div style="margin-bottom: 24px;">
       <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em;">Operations Control Center</h1>
       <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Launch your authorized store tools below:</p>
     </div>
@@ -641,7 +684,7 @@
           <span style="font-size: 20px;">👥</span>
         </div>
         <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Manager Attendance</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, view, and record daily staff attendance logs and GPS check-ins.</p>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, view, and record daily staff presence and GPS check-ins.</p>
       </div>
 
       <!-- 2. Stores Outstanding -->
@@ -707,32 +750,44 @@
           <span style="font-size: 20px;">📆</span>
         </div>
         <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Monthly Target Tracker</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, analyze, and manage monthly targets and brand-wise sales achievements.</p>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
       </div>
 
     </div>
+
+    <!-- Brand Footer Strip on Dashboard -->
+    <div style="margin-top: 40px; padding: 24px 30px; background: #090e17; border: 1px solid var(--line); border-radius: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+      <div>
+        <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">GANPATI GROUP • SIVMOR GADGETS</div>
+        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 2px;">Rajasthan's First & Biggest Mobile Retail Chain</div>
+      </div>
+      <div style="font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono';">
+        JODHPUR HQ • MULTI-STORE RETAIL NETWORK
+      </div>
+    </div>
+
   </div>
 
 
   <!-- =====================================================
-       ATTENDANCE KIOSK (ACCURATELY MAPPED)
+       ATTENDANCE KIOSK
   ===================================================== -->
   <div id="attendance-view">
     <button onclick="closeAttendanceKiosk()" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; width: 100%; margin-bottom: 20px; border: 1px solid var(--line);">
       ⬅ Return to Dashboard
     </button>
 
-    <h2 style="font-size: 22px; font-weight: 850; text-align: center; margin-bottom: 15px;">Store Attendance Check-In</h2>
-    <p style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 25px;">Please verify your GPS and take a front selfie.</p>
+    <h2 style="font-size: 22px; font-weight: 850; text-align: center; margin-bottom: 12px;">Store Attendance Check-In</h2>
+    <p style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 24px;">Please verify your GPS and take a front selfie.</p>
 
     <!-- Step 1: GPS -->
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 18px;">
       <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">📍 Step 1: Verify Live GPS</button>
       <div id="locStatus" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; color: #fda4af;">⚠️ Awaiting GPS Signal</div>
     </div>
 
     <!-- Step 2: Camera -->
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 18px;">
       <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">📷 Step 2: Open Camera for Selfie</button>
       
       <div id="camBox" style="display: none; margin-top: 15px; text-align: center;">
@@ -771,7 +826,7 @@
       <input type="hidden" id="attLng">
       <input type="hidden" id="attPhotoData">
 
-      <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 10px;">
+      <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 8px;">
         Checking Requirements...
       </button>
     </form>
@@ -779,7 +834,7 @@
 
 
   <!-- =====================================================
-       FULLSCREEN APP VIEWER (IFRAME MODAL)
+       FULLSCREEN APP VIEWER
   ===================================================== -->
   <div id="appViewer">
     <div class="appViewer-bar">
@@ -798,14 +853,14 @@
 
 
   <!-- =====================================================
-       KNOWLEDGE BASE / ARTICLE MODAL
+       CONTENT MODAL
   ===================================================== -->
   <div class="content-modal" id="contentModal">
     <div class="content-modal-card">
       <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer;">&times;</button>
       <div id="guideCategory" style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY</div>
-      <h2 id="guideTitle" style="font-size: 24px; font-weight: 850; margin: 8px 0 20px; color: #fff;">Guide Title</h2>
-      <div id="guideBody" style="color: var(--muted); font-size: 14px; line-height: 1.8;"></div>
+      <h2 id="guideTitle" style="font-size: 22px; font-weight: 850; margin: 6px 0 16px; color: #fff;">Guide Title</h2>
+      <div id="guideBody" style="color: var(--muted); font-size: 13px; line-height: 1.8;"></div>
     </div>
   </div>
 
@@ -828,14 +883,6 @@
       requestAnimationFrame(animateLight);
     }
     animateLight();
-
-    /* Cycling Telemetry Words */
-    const words = ["TRACK / INVENTORY", "MANAGE / STAFF GPS", "MONITOR / OUTSTANDING", "CALCULATE / CASHBACK", "ACHIEVE / TARGETS"];
-    let wordIdx = 0;
-    setInterval(() => {
-      wordIdx = (wordIdx + 1) % words.length;
-      document.getElementById("telemetryWord").innerText = words[wordIdx];
-    }, 2500);
 
     /* Endpoints */
     const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
@@ -1099,9 +1146,7 @@
       document.getElementById("dashboard-view").style.display = "flex";
     }
 
-    /* =========================================================
-       ATTENDANCE KIOSK (FIXED & FULLY MAPPED)
-    ========================================================= */
+    /* ATTENDANCE KIOSK */
     let cameraStream = null;
 
     async function openAttendanceKiosk() {
@@ -1144,7 +1189,6 @@
           validateAttendanceReady();
         };
       } else {
-        // Regular manager
         const managerName = (attVal && attVal.toLowerCase() !== "yes") ? attVal.toUpperCase() : loggedInUser.toUpperCase();
         mSelect.innerHTML = `<option value="${managerName}" selected>${managerName}</option>`;
         
@@ -1160,7 +1204,6 @@
       }
     }
 
-    // GPS Step
     document.getElementById("locBtn").addEventListener("click", () => {
       const status = document.getElementById("locStatus");
       status.innerText = "🔄 Acquiring GPS Satellite Signal...";
@@ -1182,7 +1225,6 @@
       );
     });
 
-    // Camera Step
     document.getElementById("camBtn").addEventListener("click", async () => {
       try {
         cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 640 } } });
@@ -1240,7 +1282,6 @@
       }
     }
 
-    // Submit Attendance with Correct Payload & Headers
     document.getElementById("attSubmitForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const btn = document.getElementById("attSubmitBtn");
@@ -1318,7 +1359,7 @@
       }
     });
 
-    /* GUIDES DATABASE */
+    /* GUIDES CONTENT */
     const guides = {
       "privacy": { cat: "Legal", title: "Privacy Policy", body: "<p>SiVMOR respects your privacy. Geolocation logs and camera photos are encrypted and captured strictly for internal attendance authentication.</p>" },
       "terms": { cat: "Legal", title: "Terms of Access", body: "<p>Access to the SiVMOR Workspace is limited strictly to authorized store managers and employees. Account sharing is prohibited.</p>" },
