@@ -22,7 +22,7 @@
   <style>
     /* =========================================================
        ROOT VARIABLES & BASE THEME
-    ================================================================ */
+    ========================================================= */
     :root {
       --bg: #05070b;
       --bg-2: #080d14;
@@ -272,14 +272,43 @@
     .user-profile-badge { display: flex; align-items: center; gap: 14px; }
     .avatar-circle { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: grid; place-items: center; font-weight: 900; color: #05070b; }
 
-    .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; width: 100%; }
+    /* NEW COMPACT & ATTRACTIVE CARDS GRID */
+    .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; }
+    
     .tool-card {
-      display: none; background: #0c121e; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
-      position: relative; overflow: hidden; cursor: pointer; transition: all 0.25s ease;
+      display: none; background: #0a0f16; border: 1px solid rgba(255, 255, 255, 0.05); 
+      border-radius: 18px; padding: 22px; position: relative; overflow: hidden; 
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .tool-card:hover { transform: translateY(-5px); border-color: var(--card-accent, var(--cyan)); box-shadow: 0 15px 40px -10px var(--card-glow, var(--cyan-glow)); }
-    .tool-card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--card-accent, var(--cyan)); }
-    .tool-badge { padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; background: rgba(255, 255, 255, 0.06); color: var(--card-accent, var(--cyan)); }
+    
+    .tool-card::before {
+      content: ""; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px;
+      background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
+      opacity: 0.5; transition: all 0.3s ease; border-radius: 50%; z-index: 0;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-5px); border-color: var(--card-accent);
+      box-shadow: 0 12px 30px -10px var(--card-glow);
+    }
+    
+    .tool-card:hover::before { transform: scale(1.5); opacity: 0.9; }
+    .tool-card > * { position: relative; z-index: 1; }
+    
+    .tool-card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent); }
+    
+    .tool-badge { 
+      padding: 4px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; 
+      text-transform: uppercase; font-family: 'JetBrains Mono', monospace; 
+      background: rgba(255, 255, 255, 0.03); color: var(--card-accent); 
+      border: 1px solid var(--card-glow); 
+    }
+    
+    .tool-icon {
+      width: 36px; height: 36px; border-radius: 10px; background: var(--card-glow);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      border: 1px solid var(--card-accent); box-shadow: 0 4px 10px var(--card-glow);
+    }
 
     /* ATTENDANCE KIOSK VIEW */
     #attendance-view { display: none; width: 100%; max-width: 520px; margin: 90px auto 50px; background: #0c121e; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
@@ -489,7 +518,7 @@
     </section>
 
     <!-- =========================================================
-         SHORT EXPLANATION SUMMARIES FOR MODULES (IMAGE 3 REPLACED)
+         SHORT EXPLANATION SUMMARIES FOR MODULES
     ========================================================= -->
     <section id="modules" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
       <div class="container">
@@ -548,7 +577,7 @@
     </section>
 
     <!-- =========================================================
-         SHORT EXPLANATION SUMMARIES FOR GUIDES (IMAGE 4 REPLACED)
+         SHORT EXPLANATION SUMMARIES FOR GUIDES
     ========================================================= -->
     <section id="guides" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
       <div class="container">
@@ -673,95 +702,95 @@
       <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Launch your authorized store tools below:</p>
     </div>
 
-    <!-- Dynamic Cards Grid -->
+    <!-- NEW COMPACT CARDS GRID -->
     <div class="dash-tools-grid" id="dashToolsGrid">
       
-      <!-- 1. Manager Attendance -->
-      <div class="tool-card" id="app-attendance" style="--card-accent: #38bdf8; --card-glow: rgba(56,189,248,0.25);">
+      <!-- 1. Manager Attendance (Theme: Light Blue) -->
+      <div class="tool-card" id="app-attendance" style="--card-accent: #38bdf8; --card-glow: rgba(56,189,248,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Management</span>
-          <span style="font-size: 20px;">👥</span>
+          <div class="tool-icon">👥</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Manager Attendance</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, view, and record daily staff presence and GPS check-ins.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Manager Attendance</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, view, and record daily staff presence and GPS check-ins.</p>
       </div>
 
-      <!-- 2. Stores Outstanding -->
-      <div class="tool-card" id="app-outstanding" style="--card-accent: #34d399; --card-glow: rgba(52,211,153,0.25);">
+      <!-- 2. Stores Outstanding (Theme: Emerald Green) -->
+      <div class="tool-card" id="app-outstanding" style="--card-accent: #10b981; --card-glow: rgba(16,185,129,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Finance</span>
-          <span style="font-size: 20px;">💳</span>
+          <div class="tool-icon">💳</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stores Outstanding</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Monitor pending customer balances, store credit invoices, and receipts.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stores Outstanding</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor pending customer balances, store credit invoices, and receipts.</p>
       </div>
 
-      <!-- 3. Stock Availability -->
-      <div class="tool-card" id="app-stock" style="--card-accent: #fbbf24; --card-glow: rgba(251,191,36,0.25);">
+      <!-- 3. Stock Availability (Theme: Amber Yellow) -->
+      <div class="tool-card" id="app-stock" style="--card-accent: #f59e0b; --card-glow: rgba(245,158,11,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Operations</span>
-          <span style="font-size: 20px;">📦</span>
+          <div class="tool-icon">📦</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stock Availability Checker</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Search, filter, and review regional inventory counts directly from Sheet1.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Availability</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Search, filter, and review regional inventory counts directly from Sheet1.</p>
       </div>
 
-      <!-- 4. Stock Value -->
-      <div class="tool-card" id="app-stock-value" style="--card-accent: #22d3ee; --card-glow: rgba(34,211,238,0.25);">
+      <!-- 4. Stock Value (Theme: Cyan Teal) -->
+      <div class="tool-card" id="app-stock-value" style="--card-accent: #06b6d4; --card-glow: rgba(6,182,212,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Value Tracking</span>
-          <span style="font-size: 20px;">📊</span>
+          <div class="tool-icon">📊</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Stock Value Store Wise</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Monitor corporate value tracking and store investments from Sheet2 & Sheet3.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Value Store Wise</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor corporate value tracking and store investments from Sheet2 & Sheet3.</p>
       </div>
 
-      <!-- 5. Customer Target Tracker -->
-      <div class="tool-card" id="app-target-tracker" style="--card-accent: #f43f5e; --card-glow: rgba(244,63,94,0.25);">
+      <!-- 5. Customer Target Tracker (Theme: Rose Red) -->
+      <div class="tool-card" id="app-target-tracker" style="--card-accent: #f43f5e; --card-glow: rgba(244,63,94,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Marketing</span>
-          <span style="font-size: 20px;">🎯</span>
+          <div class="tool-icon">🎯</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Customer Target Tracker</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Submit live customer proofs for Instagram follows, YouTube subs, and reviews.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Customer Target Tracker</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Submit live customer proofs for Instagram follows, YouTube subs, and reviews.</p>
       </div>
 
-      <!-- 6. SBI Card Cashback -->
-      <div class="tool-card" id="app-sbi-cashback" style="--card-accent: #f97316; --card-glow: rgba(249,115,22,0.25);">
+      <!-- 6. SBI Card Cashback (Theme: Vibrant Orange) -->
+      <div class="tool-card" id="app-sbi-cashback" style="--card-accent: #f97316; --card-glow: rgba(249,115,22,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Offers</span>
-          <span style="font-size: 20px;">🎁</span>
+          <div class="tool-icon">🎁</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">SBI Card Cashback</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Calculate instant credit card customer cashbacks and merchant discounts.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">SBI Card Cashback</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Calculate instant credit card customer cashbacks and merchant discounts.</p>
       </div>
 
-      <!-- 7. Monthly Target Tracker -->
-      <div class="tool-card" id="app-monthly-tracker" style="--card-accent: #6366f1; --card-glow: rgba(99,102,241,0.25);">
+      <!-- 7. Monthly Target Tracker (Theme: Indigo Blue) -->
+      <div class="tool-card" id="app-monthly-tracker" style="--card-accent: #6366f1; --card-glow: rgba(99,102,241,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Performance</span>
-          <span style="font-size: 20px;">📆</span>
+          <div class="tool-icon">📆</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Monthly Target Tracker</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Monthly Target Tracker</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
       </div>
 
-      <!-- 8. Ageing Stock -->
-      <div class="tool-card" id="app-ageing-stock" style="--card-accent: #a855f7; --card-glow: rgba(168,85,247,0.25);">
+      <!-- 8. Ageing Stock (Theme: Fuchsia Pink) -->
+      <div class="tool-card" id="app-ageing-stock" style="--card-accent: #d946ef; --card-glow: rgba(217,70,239,0.2);">
         <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
           <span class="tool-badge">Analytics</span>
-          <span style="font-size: 20px;">⏳</span>
+          <div class="tool-icon">⏳</div>
         </div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Ageing Stock</h3>
-        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track and monitor older product inventory reports across stores.</p>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Ageing Stock</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track and monitor older product inventory reports across stores.</p>
       </div>
 
     </div>
@@ -933,6 +962,7 @@
       let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if (instaIdx === -1) instaIdx = 7;
       let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if (sbiIdx === -1) sbiIdx = 8;
       let trackerIdx = headers.findIndex(h => h.includes("monthly")); if (trackerIdx === -1) trackerIdx = 9;
+      // NAYA INDEX: Ageing Stock
       let ageingIdx = headers.findIndex(h => h.includes("ageing")); if (ageingIdx === -1) ageingIdx = 10;
 
       let globalNotif = "";
@@ -962,6 +992,7 @@
           insta_access: (cols[instaIdx] || "no").toLowerCase(),
           sbi_cashback: (cols[sbiIdx] || "no").toLowerCase(),
           monthly_tracker: (cols[trackerIdx] || "no").toLowerCase(),
+          // NAYA DATA: Ageing Stock
           ageing_stock: (cols[ageingIdx] || "no").toLowerCase()
         };
       }
