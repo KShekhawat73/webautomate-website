@@ -22,7 +22,7 @@
   <style>
     /* =========================================================
        ROOT VARIABLES & BASE THEME
-    ========================================================= */
+    ================================================================ */
     :root {
       --bg: #05070b;
       --bg-2: #080d14;
@@ -753,6 +753,17 @@
         <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
       </div>
 
+      <!-- 8. Ageing Stock -->
+      <div class="tool-card" id="app-ageing-stock" style="--card-accent: #a855f7; --card-glow: rgba(168,85,247,0.25);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span class="tool-badge">Analytics</span>
+          <span style="font-size: 20px;">⏳</span>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Ageing Stock</h3>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Track and monitor older product inventory reports across stores.</p>
+      </div>
+
     </div>
 
     <!-- Brand Footer Strip on Dashboard -->
@@ -922,6 +933,7 @@
       let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if (instaIdx === -1) instaIdx = 7;
       let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if (sbiIdx === -1) sbiIdx = 8;
       let trackerIdx = headers.findIndex(h => h.includes("monthly")); if (trackerIdx === -1) trackerIdx = 9;
+      let ageingIdx = headers.findIndex(h => h.includes("ageing")); if (ageingIdx === -1) ageingIdx = 10;
 
       let globalNotif = "";
       for (let r = 0; r < lines.length; r++) {
@@ -949,7 +961,8 @@
           stock_value: (cols[valIdx] || "no").toLowerCase(),
           insta_access: (cols[instaIdx] || "no").toLowerCase(),
           sbi_cashback: (cols[sbiIdx] || "no").toLowerCase(),
-          monthly_tracker: (cols[trackerIdx] || "no").toLowerCase()
+          monthly_tracker: (cols[trackerIdx] || "no").toLowerCase(),
+          ageing_stock: (cols[ageingIdx] || "no").toLowerCase()
         };
       }
       return { users, globalNotif };
@@ -1109,6 +1122,13 @@
       if (perms.monthly_tracker === "yes" || perms.monthly_tracker === "admin") {
         monthlyCard.style.display = "block";
         monthlyCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Monthly Target Tracker");
+      }
+
+      // 8. Ageing Stock
+      const ageingCard = document.getElementById("app-ageing-stock");
+      if (perms.ageing_stock === "yes" || perms.ageing_stock === "admin") {
+        ageingCard.style.display = "block";
+        ageingCard.onclick = () => openAppViewer(`https://script.google.com/macros/s/AKfycbwHy5rTkJgzCTlFz7kKFK3LeybiQIpv3LmKDhbZl_ZDrjfXOMkLH1nlDedHGDz2PVtB/exec?user=${uParam}&t=${tParam}`, "Ageing Stock");
       }
 
       window.scrollTo(0, 0);
