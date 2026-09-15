@@ -2,1890 +2,1436 @@
 <html lang="en">
 
 <head>
-  <!-- Anti-Cache Meta Tags -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <!-- Anti-Cache Meta Tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SiVMOR Workspace — Centralized Operations Portal</title>
-  <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Rajasthan's First & Biggest Mobile Retail Chain.">
-  <meta name="theme-color" content="#05070b">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SiVMOR Workspace — Centralized Operations Portal</title>
+  <meta name="description" content="SiVMOR Gadgets Centralized Digital Workspace. Rajasthan's First & Biggest Mobile Retail Chain.">
+  <meta name="theme-color" content="#05070b">
 
-  <!-- Google Fonts & Confetti CDN -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts & Confetti CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <style>
-    /* =========================================================
-       ROOT VARIABLES & BASE THEME
-    ========================================================= */
-    :root {
-      --bg: #05070b;
-      --bg-2: #080d14;
-      --panel: #0a0f18;
-      --panel-card: #0c121e;
-      --text: #f4f7fb;
-      --soft: #c4ccd7;
-      --muted: #8a94a5;
-      --dim: #555f70;
-      --cyan: #57eef4;
-      --cyan-glow: rgba(87, 238, 244, 0.25);
-      --mint: #6dffbd;
-      --blue: #6e91ff;
-      --violet: #9a78ff;
-      --rose: #f43f5e;
-      --amber: #fbbf24;
-      --line: rgba(255, 255, 255, 0.08);
-      --line-soft: rgba(255, 255, 255, 0.04);
-      --max: 1200px;
-    }
+  <style>
+    /* =========================================================
+       ROOT VARIABLES & BASE THEME
+    ========================================================= */
+    :root {
+      --bg: #05070b;
+      --bg-2: #080d14;
+      --panel: #0a0f18;
+      --panel-card: #0c121e;
+      --text: #f4f7fb;
+      --soft: #c4ccd7;
+      --muted: #8a94a5;
+      --dim: #555f70;
+      --cyan: #57eef4;
+      --cyan-glow: rgba(87, 238, 244, 0.25);
+      --mint: #6dffbd;
+      --blue: #6e91ff;
+      --violet: #9a78ff;
+      --rose: #f43f5e;
+      --amber: #fbbf24;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-soft: rgba(255, 255, 255, 0.04);
+      --max: 1200px;
+    }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      background: radial-gradient(circle at 15% 10%, rgba(87, 238, 244, 0.06), transparent 28%),
-                  radial-gradient(circle at 85% 15%, rgba(154, 120, 255, 0.05), transparent 25%),
-                  var(--bg);
-      color: var(--text);
-      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      cursor: default;
-    }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 15% 10%, rgba(87, 238, 244, 0.06), transparent 28%),
+                  radial-gradient(circle at 85% 15%, rgba(154, 120, 255, 0.05), transparent 25%),
+                  var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      cursor: default;
+    }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.6;
-    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.6;
+    }
 
-    ::selection { color: #05070b; background: var(--cyan); }
-    a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font-family: inherit; }
+    ::selection { color: #05070b; background: var(--cyan); }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; }
 
-    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #b8ffff 50%, #9b7cff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #b8ffff 50%, #9b7cff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-    .mouse-light {
-      position: fixed;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(87, 238, 244, 0.05), transparent 70%);
-      transition: opacity 0.3s ease;
-    }
+    .mouse-light {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(87, 238, 244, 0.05), transparent 70%);
+      transition: opacity 0.3s ease;
+    }
 
-    /* NAVIGATION */
-    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 5000; padding: 14px 18px; }
-    nav {
-      width: min(var(--max), 100%);
-      height: 64px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px 0 24px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(8, 13, 20, 0.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-    .logo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: #fff;
-    }
-    .logo-sparkle {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #57eef4, #9a78ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #05070b;
-      box-shadow: 0 0 15px rgba(87, 238, 244, 0.35);
-    }
-    .nav-links { display: flex; align-items: center; gap: 24px; color: #a8b1bf; font-size: 12px; font-weight: 600; }
-    .nav-links a { position: relative; transition: color .2s ease; cursor: pointer; }
-    .nav-links a:hover { color: var(--cyan); }
-    .nav-cta {
-      padding: 9px 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: #05070b;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #57eef4, #a7f9ff);
-      font-size: 12px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(87, 238, 244, 0.25);
-      transition: all 0.25s ease;
-    }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(87, 238, 244, 0.4); }
+    /* NAVIGATION */
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 5000; padding: 14px 18px; }
+    nav {
+      width: min(var(--max), 100%);
+      height: 64px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px 0 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(8, 13, 20, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+    .logo-sparkle {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #57eef4, #9a78ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #05070b;
+      box-shadow: 0 0 15px rgba(87, 238, 244, 0.35);
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: #a8b1bf; font-size: 12px; font-weight: 600; }
+    .nav-links a { position: relative; transition: color .2s ease; cursor: pointer; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #05070b;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #57eef4, #a7f9ff);
+      font-size: 12px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(87, 238, 244, 0.25);
+      transition: all 0.25s ease;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(87, 238, 244, 0.4); }
 
-    /* HERO & LOGIN */
-    .hero { min-height: 90vh; display: flex; align-items: center; padding: 120px 20px 60px; position: relative; }
-    .hero-grid {
-      width: min(var(--max), 100%);
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 60px;
-      align-items: center;
-    }
-    .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(87, 238, 244, 0.05);
-      border: 1px solid rgba(87, 238, 244, 0.2);
-      color: #7ef2f7;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .pulsing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); animation: pulseDot 2s infinite; }
-    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+    /* HERO & LOGIN */
+    .hero { min-height: 90vh; display: flex; align-items: center; padding: 120px 20px 60px; position: relative; }
+    .hero-grid {
+      width: min(var(--max), 100%);
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(87, 238, 244, 0.05);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      color: #7ef2f7;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pulsing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); animation: pulseDot 2s infinite; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-    .hero h1 { font-size: clamp(34px, 5vw, 62px); line-height: 1.12; font-weight: 900; letter-spacing: -0.04em; }
-    .hero-sub { color: var(--muted); font-size: 14px; line-height: 1.75; margin-top: 18px; max-width: 520px; }
+    .hero h1 { font-size: clamp(34px, 5vw, 62px); line-height: 1.12; font-weight: 900; letter-spacing: -0.04em; }
+    .hero-sub { color: var(--muted); font-size: 14px; line-height: 1.75; margin-top: 18px; max-width: 520px; }
 
-    .login-card {
-      background: rgba(10, 15, 24, 0.96);
-      border: 1px solid rgba(87, 238, 244, 0.2);
-      border-radius: 26px;
-      padding: 36px 30px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
-      position: relative;
-      text-align: center;
-    }
+    .login-card {
+      background: rgba(10, 15, 24, 0.96);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      border-radius: 26px;
+      padding: 36px 30px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+      position: relative;
+      text-align: center;
+    }
 
-    .robot-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 22px; cursor: pointer; }
-    .robot-bubble {
-      background: #ffffff; color: #0a0f18; padding: 7px 15px; border-radius: 12px; font-size: 11px; font-weight: 750;
-      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.25s ease;
-    }
-    .robot-bubble::after {
-      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
-      border-width: 5px 5px 0; border-style: solid; border-color: #fff transparent transparent transparent;
-    }
-    .robot-head {
-      width: 72px; height: 58px; background: #080d15; border: 2px solid var(--cyan); border-radius: 14px;
-      display: flex; justify-content: center; align-items: center; gap: 14px; position: relative;
-      box-shadow: 0 0 25px rgba(87, 238, 244, 0.15);
-    }
-    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); }
-    .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
-    .robot-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); transition: all 0.25s ease; }
+    .robot-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 22px; cursor: pointer; }
+    .robot-bubble {
+      background: #ffffff; color: #0a0f18; padding: 7px 15px; border-radius: 12px; font-size: 11px; font-weight: 750;
+      margin-bottom: 12px; position: relative; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.25s ease;
+    }
+    .robot-bubble::after {
+      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+      border-width: 5px 5px 0; border-style: solid; border-color: #fff transparent transparent transparent;
+    }
+    .robot-head {
+      width: 72px; height: 58px; background: #080d15; border: 2px solid var(--cyan); border-radius: 14px;
+      display: flex; justify-content: center; align-items: center; gap: 14px; position: relative;
+      box-shadow: 0 0 25px rgba(87, 238, 244, 0.15);
+    }
+    .robot-antenna { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 2px; height: 12px; background: var(--cyan); }
+    .robot-antenna::before { content: ''; position: absolute; top: -4px; left: -3px; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
+    .robot-eye { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); transition: all 0.25s ease; }
 
-    .input-wrap { text-align: left; margin-bottom: 16px; }
-    .input-wrap label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.06em; }
-    .input-box {
-      width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px; color: #fff; font-size: 13px; outline: none; transition: all 0.25s ease;
-    }
-    .input-box:focus { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(87, 238, 244, 0.15); }
-    .pass-toggle-btn { position: absolute; right: 12px; top: 30px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
+    .input-wrap { text-align: left; margin-bottom: 16px; }
+    .input-wrap label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.06em; }
+    .input-box {
+      width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px; color: #fff; font-size: 13px; outline: none; transition: all 0.25s ease;
+    }
+    .input-box:focus { border-color: var(--cyan); background: rgba(255, 255, 255, 0.05); box-shadow: 0 0 15px rgba(87, 238, 244, 0.15); }
+    .pass-toggle-btn { position: absolute; right: 12px; top: 30px; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
 
-    .submit-btn {
-      width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--cyan), #bdfdff);
-      color: #05070b; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 8px 25px rgba(87, 238, 244, 0.2);
-    }
-    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(87, 238, 244, 0.35); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .submit-btn {
+      width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--cyan), #bdfdff);
+      color: #05070b; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 8px 25px rgba(87, 238, 244, 0.2);
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(87, 238, 244, 0.35); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    .marquee-bar { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255, 255, 255, 0.015); padding: 14px 0; overflow: hidden; }
-    .marquee-inner { display: flex; width: max-content; animation: marqueeAnim 35s linear infinite; }
-    .marquee-item { padding: 0 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #768294; text-transform: uppercase; letter-spacing: 0.12em; }
-    .marquee-item.accent { color: var(--cyan); }
-    @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-bar { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: rgba(255, 255, 255, 0.015); padding: 14px 0; overflow: hidden; }
+    .marquee-inner { display: flex; width: max-content; animation: marqueeAnim 35s linear infinite; }
+    .marquee-item { padding: 0 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #768294; text-transform: uppercase; letter-spacing: 0.12em; }
+    .marquee-item.accent { color: var(--cyan); }
+    @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* SUMMARY ROWS */
-    .summary-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .summary-row:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(87, 238, 244, 0.35);
-      transform: translateY(-2px);
-    }
-    .summary-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(87, 238, 244, 0.08);
-      border: 1px solid rgba(87, 238, 244, 0.2);
-      display: grid;
-      place-items: center;
-      font-size: 14px;
-      shrink: 0;
-      margin-top: 2px;
-    }
+    /* SUMMARY ROWS (COMPACT EXPLANATION) */
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .summary-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(87, 238, 244, 0.35);
+      transform: translateY(-2px);
+    }
+    .summary-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(87, 238, 244, 0.08);
+      border: 1px solid rgba(87, 238, 244, 0.2);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      shrink: 0;
+      margin-top: 2px;
+    }
 
-    /* DASHBOARD VIEW */
-    #dashboard-view { display: none; flex-direction: column; width: 100%; max-width: 1200px; margin: 0 auto; padding: 100px 20px 60px; }
-    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
-    .user-profile-badge { display: flex; align-items: center; gap: 14px; }
-    .avatar-circle { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: grid; place-items: center; font-weight: 900; color: #05070b; }
+    /* DASHBOARD VIEW */
+    #dashboard-view { display: none; flex-direction: column; width: 100%; max-width: 1200px; margin: 0 auto; padding: 100px 20px 60px; }
+    .dash-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+    .user-profile-badge { display: flex; align-items: center; gap: 14px; }
+    .avatar-circle { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--cyan), var(--violet)); display: grid; place-items: center; font-weight: 900; color: #05070b; }
 
-    /* CARDS GRID */
-    .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; }
-    
-    .tool-card {
-      display: none; background: #0a0f16; border: 1px solid rgba(255, 255, 255, 0.05); 
-      border-radius: 18px; padding: 22px; position: relative; overflow: hidden; 
-      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .tool-card::before {
-      content: ""; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px;
-      background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
-      opacity: 0.5; transition: all 0.3s ease; border-radius: 50%; z-index: 0;
-    }
-    
-    .tool-card:hover {
-      transform: translateY(-5px); border-color: var(--card-accent);
-      box-shadow: 0 12px 30px -10px var(--card-glow);
-    }
-    
-    .tool-card:hover::before { transform: scale(1.5); opacity: 0.9; }
-    .tool-card > * { position: relative; z-index: 1; }
-    
-    .tool-card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent); }
-    
-    .tool-badge { 
-      padding: 4px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; 
-      text-transform: uppercase; font-family: 'JetBrains Mono', monospace; 
-      background: rgba(255, 255, 255, 0.03); color: var(--card-accent); 
-      border: 1px solid var(--card-glow); 
-    }
-    
-    .tool-icon {
-      width: 36px; height: 36px; border-radius: 10px; background: var(--card-glow);
-      display: flex; align-items: center; justify-content: center; font-size: 16px;
-      border: 1px solid var(--card-accent); box-shadow: 0 4px 10px var(--card-glow);
-    }
+    /* NEW COMPACT & ATTRACTIVE CARDS GRID */
+    .dash-tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; }
+    
+    .tool-card {
+      display: none; background: #0a0f16; border: 1px solid rgba(255, 255, 255, 0.05); 
+      border-radius: 18px; padding: 22px; position: relative; overflow: hidden; 
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .tool-card::before {
+      content: ""; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px;
+      background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
+      opacity: 0.5; transition: all 0.3s ease; border-radius: 50%; z-index: 0;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-5px); border-color: var(--card-accent);
+      box-shadow: 0 12px 30px -10px var(--card-glow);
+    }
+    
+    .tool-card:hover::before { transform: scale(1.5); opacity: 0.9; }
+    .tool-card > * { position: relative; z-index: 1; }
+    
+    .tool-card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent); }
+    
+    .tool-badge { 
+      padding: 4px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; 
+      text-transform: uppercase; font-family: 'JetBrains Mono', monospace; 
+      background: rgba(255, 255, 255, 0.03); color: var(--card-accent); 
+      border: 1px solid var(--card-glow); 
+    }
+    
+    .tool-icon {
+      width: 36px; height: 36px; border-radius: 10px; background: var(--card-glow);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      border: 1px solid var(--card-accent); box-shadow: 0 4px 10px var(--card-glow);
+    }
 
-    /* =========================================================
-       UPGRADED ATTENDANCE KIOSK VIEW
-    ========================================================= */
-    #attendance-view { 
-      display: none; 
-      width: 100%; 
-      max-width: 620px; 
-      margin: 80px auto 50px; 
-      background: #0c121e; 
-      border: 1px solid rgba(87, 238, 244, 0.25); 
-      border-radius: 28px; 
-      padding: 34px 28px; 
-      box-shadow: 0 25px 70px rgba(0,0,0,0.7); 
-      position: relative;
-    }
+    /* ATTENDANCE KIOSK VIEW */
+    #attendance-view { display: none; width: 100%; max-width: 520px; margin: 90px auto 50px; background: #0c121e; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
 
-    .kiosk-accent-strip {
-      position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, var(--cyan), var(--mint), var(--violet));
-      border-radius: 28px 28px 0 0;
-    }
+    /* APP VIEWER MODAL */
+    #appViewer { display: none; position: fixed; inset: 0; z-index: 99999; background: #05070b; flex-direction: column; }
+    .appViewer-bar { height: 56px; background: #090e17; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
 
-    .clock-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 14px; border-radius: 999px;
-      background: rgba(255,255,255,0.03); border: 1px solid var(--line);
-      font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--cyan);
-    }
+    /* CONTENT MODAL */
+    .content-modal { display: none; position: fixed; inset: 0; z-index: 99990; background: rgba(3, 6, 10, 0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
+    .content-modal.active { display: flex; }
+    .content-modal-card { background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 36px; position: relative; }
 
-    .status-summary-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px 20px;
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    /* PUNCH SELECTOR TABS */
-    .punch-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .punch-tab-btn {
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-    }
-    .punch-tab-btn.active-checkin {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: #38bdf8;
-      color: #fff;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
-    }
-    .punch-tab-btn.active-checkout {
-      background: rgba(109, 255, 189, 0.15);
-      border-color: var(--mint);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(109, 255, 189, 0.25);
-    }
-    .punch-tab-btn.locked {
-      opacity: 0.35;
-      cursor: not-allowed;
-      border-style: dashed;
-    }
-
-    /* STEP BOX */
-    .kiosk-step-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    /* ADMIN DURATION AUDIT CONSOLE MODAL */
-    #adminDurationModal {
-      display: none; position: fixed; inset: 0; z-index: 99995;
-      background: rgba(3, 6, 10, 0.9); backdrop-filter: blur(14px);
-      align-items: center; justify-content: center; padding: 20px;
-    }
-    .admin-duration-card {
-      background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.3);
-      border-radius: 24px; max-width: 820px; width: 100%; max-height: 88vh;
-      overflow-y: auto; padding: 32px; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-    }
-
-    /* APP VIEWER MODAL */
-    #appViewer { display: none; position: fixed; inset: 0; z-index: 99999; background: #05070b; flex-direction: column; }
-    .appViewer-bar { height: 56px; background: #090e17; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-
-    /* CONTENT MODAL */
-    .content-modal { display: none; position: fixed; inset: 0; z-index: 99990; background: rgba(3, 6, 10, 0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
-    .content-modal.active { display: flex; }
-    .content-modal-card { background: #0a0f18; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 36px; position: relative; }
-
-    @media (max-width: 960px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .nav-links { display: none; }
-    }
-  </style>
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 
 <body>
 
-  <div class="mouse-light" id="mouseLight"></div>
-
-  <!-- NAVIGATION -->
-  <div class="nav-wrap" id="mainNavWrap">
-    <nav>
-      <a href="#" class="logo-badge" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-        <div class="logo-sparkle">✦</div>
-        <span>SiVMOR</span>
-      </a>
-
-      <div class="nav-links">
-        <a href="#about-sivmor">About SiVMOR</a>
-        <a href="#modules">Modules</a>
-        <a href="#guides">Guides</a>
-        <a href="#support">Support</a>
-      </div>
-
-      <button type="button" class="nav-cta" onclick="document.getElementById('loginBox').scrollIntoView({behavior: 'smooth'})">
-        Portal Login ↗
-      </button>
-    </nav>
-  </div>
-
-  <!-- LANDING PAGE VIEW -->
-  <div id="landing-view">
-
-    <!-- HERO SECTION -->
-    <section class="hero" id="top">
-      <div class="hero-grid">
-        
-        <div>
-          <div class="badge-pill">
-            <span class="pulsing-dot"></span>
-            Rajasthan's First & Biggest Mobile Retail Chain
-          </div>
-
-          <h1>
-            Centralized Operations <br>
-            <span class="gradient-text">SiVMOR Workspace.</span>
-          </h1>
-
-          <p class="hero-sub">
-            The unified portal for SiVMOR Gadgets store managers and operations. Access real-time inventory, sales analytics, GPS staff attendance with verified check-in/out, and branch records.
-          </p>
-
-          <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
-            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan);">
-              🏢 GANPATI GROUP LEGACY
-            </div>
-            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--mint);">
-              ⚡ LIVE CLOUD INTEGRATION
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Login Box -->
-        <div class="login-card" id="loginBox">
-          <div class="robot-container" id="robotAvatar">
-            <div class="robot-bubble" id="robotSpeech">Beep boop! State your User ID.</div>
-            <div class="robot-head">
-              <div class="robot-antenna"></div>
-              <div class="robot-eye" id="eyeL"></div>
-              <div class="robot-eye" id="eyeR"></div>
-            </div>
-          </div>
-
-          <form id="clientLoginForm">
-            <div id="loginErrorMsg" style="display: none; background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.3); color: #fda4af; padding: 10px; border-radius: 10px; font-size: 12px; margin-bottom: 15px;">
-              Incorrect User ID or Password.
-            </div>
-
-            <div class="input-wrap">
-              <label>User ID</label>
-              <input type="text" id="loginUserId" class="input-box" placeholder="e.g. CHB, ADMIN, MANAGER1" autocomplete="username" required>
-            </div>
-
-            <div class="input-wrap" style="position: relative;">
-              <label>Password</label>
-              <input type="password" id="loginPassword" class="input-box" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 42px;">
-              <button type="button" id="togglePasswordBtn" class="pass-toggle-btn">👁️</button>
-            </div>
-
-            <button type="submit" class="submit-btn" id="loginSubmitBtn">
-              Secure Portal Login ↗
-            </button>
-          </form>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- LIVE MARQUEE -->
-    <div class="marquee-bar">
-      <div class="marquee-inner">
-        <span class="marquee-item">RAJASTHAN'S FIRST & BIGGEST MOBILE RETAIL CHAIN</span>
-        <span class="marquee-item accent">LIVE INVENTORY SYNC</span>
-        <span class="marquee-item">GPS ATTENDANCE CHECK-IN & CHECK-OUT</span>
-        <span class="marquee-item accent">STORES OUTSTANDING</span>
-        <span class="marquee-item">GANPATI GROUP TRUSTED SINCE 2007</span>
-      </div>
-    </div>
-
-    <!-- BRAND PROFILE -->
-    <section id="about-sivmor" style="padding: 80px 0; border-top: 1px solid var(--line-soft);">
-      <div class="container">
-        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
-          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">BRAND PROFILE</div>
-          <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 900; letter-spacing: -0.03em; margin-top: 6px;">
-            About <span class="gradient-text">SiVMOR Gadgets</span>
-          </h2>
-          <p style="color: var(--muted); font-size: 13px; line-height: 1.7; margin-top: 10px;">
-            Rajasthan's first and fastest-growing organized multi-brand mobile retail chain, backed by the prestigious <strong>Ganpati Group (Est. 2007)</strong>.
-          </p>
-        </div>
-
-        <div style="background: linear-gradient(135deg, #0c121e 0%, #080d16 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; margin-bottom: 40px;">
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
-            <div>
-              <div style="font-size: 26px; font-weight: 900; color: #fff;">
-                SiV<span style="color: var(--cyan);">MOR</span> <span style="font-size: 14px; letter-spacing: 0.15em; color: var(--muted); font-weight: 700;">GADGETS</span>
-              </div>
-              <div style="font-size: 12px; color: var(--cyan); font-family: 'JetBrains Mono'; margin-top: 6px;">
-                Rajasthan's First & Biggest Mobile Retail Chain
-              </div>
-              <p style="font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 12px;">
-                Launched in 2022 starting with 4 stores in Jodhpur, SIVMOR has rapidly expanded across Western Rajasthan with cutting-edge electronics and customer trust.
-              </p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
-                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">HERITAGE</div>
-                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">Ganpati Group</div>
-                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Since 2007 in Real Estate, Textile & Distribution.</div>
-              </div>
-              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
-                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--mint); font-weight: 700;">GROWTH MODEL</div>
-                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">COCO & FOCO</div>
-                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Statewide multi-district retail expansion.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
-          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
-            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY SUITE</div>
-            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 12px; color: #fff;">What We Offer Under One Roof</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: var(--soft);">
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📱 Smartphones</div>
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📟 Tablets</div>
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🎧 Accessories</div>
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📺 Smart TVs</div>
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🔊 Sound Systems</div>
-              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">❄️ Air Conditioners</div>
-            </div>
-          </div>
-
-          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
-            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 700; text-transform: uppercase;">OUR COMMITMENT</div>
-            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 6px; color: #fff;">Our Mission</h3>
-            <div style="font-size: 12px; color: var(--cyan); font-style: italic; margin-bottom: 12px;">
-              "To provide the best products at the best prices with the best customer experience."
-            </div>
-            <div style="font-size: 12px; color: var(--muted); line-height: 1.8;">
-              <div>✓ Genuine products from top international brands</div>
-              <div>✓ Competitive pricing with instant cashbacks</div>
-              <div>✓ Dedicated after-sales support and assistance</div>
-              <div>✓ Modern, comfortable retail store environment</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- MODULES SUMMARY -->
-    <section id="modules" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
-      <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
-          <div>
-            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">SUMMARY HUB</div>
-            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Portal Modules Summary</h2>
-          </div>
-          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">4 Live Operational Suites</span>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px;">
-          <div class="summary-row" onclick="openGuideModal('blog-1')">
-            <div class="summary-icon">👥</div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: #fff;">Manager Attendance</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
-                GPS location geofencing with live camera selfie check-in & check-out logging.
-              </p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-3')">
-            <div class="summary-icon">📦</div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: #fff;">Live Stock & Value</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
-                Real-time regional SKU stock counts and corporate valuation tracking.
-              </p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-2')">
-            <div class="summary-icon">💳</div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: #fff;">Stores Outstanding</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
-                Customer credit aging ledgers, branch invoices, and statement reviews.
-              </p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-5')">
-            <div class="summary-icon">🎯</div>
-            <div>
-              <div style="font-size: 13px; font-weight: 800; color: #fff;">Customer Target Tracker</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
-                Upload proof of social follows, YouTube subs, and Google 5-star reviews.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GUIDES -->
-    <section id="guides" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
-      <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
-          <div>
-            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--amber); font-weight: 700; text-transform: uppercase;">PROCEDURE SUMMARIES</div>
-            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Operating Guides & Rules</h2>
-          </div>
-          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">Click to open full SOP</span>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
-          <div class="summary-row" onclick="openGuideModal('blog-1')">
-            <div class="summary-icon" style="color: var(--cyan); border-color: rgba(87,238,244,0.3);">📍</div>
-            <div>
-              <div style="font-size: 12px; font-weight: 800; color: #fff;">Attendance Check-In & Check-Out</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Verify GPS, take photo selfie, and log Check-In. Check-Out unlocks after Check-In.</p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-2')">
-            <div class="summary-icon" style="color: var(--mint); border-color: rgba(109,255,189,0.3);">💳</div>
-            <div>
-              <div style="font-size: 12px; font-weight: 800; color: #fff;">Outstanding Ledgers Guide</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Filter branch accounts and check pending balance rows.</p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-3')">
-            <div class="summary-icon" style="color: var(--amber); border-color: rgba(251,191,36,0.3);">📦</div>
-            <div>
-              <div style="font-size: 12px; font-weight: 800; color: #fff;">Stock Availability Guide</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Search live SKUs across stores before customer reservation.</p>
-            </div>
-          </div>
-
-          <div class="summary-row" onclick="openGuideModal('blog-5')">
-            <div class="summary-icon" style="color: var(--rose); border-color: rgba(244,63,94,0.3);">🎯</div>
-            <div>
-              <div style="font-size: 12px; font-weight: 800; color: #fff;">Target Proof Submission</div>
-              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Upload screenshot proofs to qualify for monthly incentives.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SUPPORT TICKET SECTION -->
-    <section id="support" style="padding: 70px 0 100px; border-top: 1px solid var(--line-soft);">
-      <div class="container">
-        <div style="background: linear-gradient(180deg, #0c121e 0%, #070a11 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 36px; max-width: 800px; margin: 0 auto;">
-          <div style="text-align: center; margin-bottom: 24px;">
-            <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--rose); font-weight: 700; text-transform: uppercase;">HELPDESK</div>
-            <h2 style="font-size: 26px; font-weight: 850;">Raise a <span class="gradient-text">Support Ticket</span></h2>
-            <p style="color: var(--muted); font-size: 12px; margin-top: 4px;">Technical Desk support for GPS issues, permissions, or system assistance.</p>
-          </div>
-
-          <div id="ticketSuccessBox" style="display: none; text-align: center; padding: 30px 10px;">
-            <div style="font-size: 36px; color: var(--mint); margin-bottom: 10px;">✓</div>
-            <h3 style="font-size: 18px;">Ticket Logged Successfully!</h3>
-            <p style="color: var(--muted); font-size: 12px; margin-top: 6px;">Technical Operations desk will review and contact you.</p>
-            <button onclick="document.getElementById('ticketSuccessBox').style.display='none'; document.getElementById('ticketForm').style.display='block';" class="nav-cta" style="margin-top: 16px;">Submit Another Ticket</button>
-          </div>
-
-          <form id="ticketForm">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-              <div class="input-wrap"><label>Your Name</label><input type="text" id="tName" class="input-box" placeholder="Rahul Sharma" required></div>
-              <div class="input-wrap"><label>Store Name / Branch</label><input type="text" id="tStore" class="input-box" placeholder="CHB" required></div>
-              <div class="input-wrap"><label>Mobile Number</label><input type="tel" id="tPhone" class="input-box" placeholder="+91 XXXXX XXXXX" required></div>
-              <div class="input-wrap"><label>User ID / Email</label><input type="text" id="tEmail" class="input-box" placeholder="User ID" required></div>
-            </div>
-            <div class="input-wrap"><label>Issue Type</label><input type="text" id="tIssue" class="input-box" placeholder="e.g. GPS Error, Password Reset" required></div>
-            <div class="input-wrap"><label>Problem Description</label><textarea id="tDesc" rows="3" class="input-box" placeholder="Please describe the issue..." required style="resize: vertical;"></textarea></div>
-
-            <button type="submit" class="submit-btn" id="ticketSubmitBtn" style="margin-top: 8px;">
-              Submit Support Ticket ↗
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer style="border-top: 1px solid var(--line); padding: 24px 20px; background: #040609;">
-      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted);">
-        <div>© <span id="year"></span> SiVMOR Gadgets • Ganpati Group. All rights reserved.</div>
-        <div style="display: flex; gap: 16px;">
-          <a href="#" onclick="openGuideModal('privacy'); return false;">Privacy Policy</a>
-          <a href="#" onclick="openGuideModal('terms'); return false;">Terms of Access</a>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-
-  <!-- =====================================================
-       DASHBOARD VIEW (AFTER LOGIN)
-  ===================================================== -->
-  <div id="dashboard-view">
-    
-    <div class="dash-topbar">
-      <div class="user-profile-badge">
-        <div class="avatar-circle" id="userAvatarChar">U</div>
-        <div>
-          <h2 style="font-size: 18px; font-weight: 800; color: #fff;" id="dashWelcomeUser">Welcome, User</h2>
-          <div style="font-size: 12px; color: var(--muted);">Store: <strong id="dashStoreName" style="color: var(--cyan);">GENERAL</strong></div>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 10px; align-items: center;">
-        <!-- Only for Admin -->
-        <button id="adminDurationBtn" class="nav-cta" style="display: none; background: rgba(6,182,212,0.2); color: #57eef4; border: 1px solid rgba(6,182,212,0.4);" onclick="openAdminDurationModal()">
-          ⏱️ Shift Durations (Admin)
-        </button>
-        <button class="nav-cta" style="background: rgba(244,63,94,0.15); color: #fda4af; border: 1px solid rgba(244,63,94,0.3);" onclick="logoutUser()">
-          ⚡ Log Out
-        </button>
-      </div>
-    </div>
-
-    <!-- Announcement Bar -->
-    <div class="global-announcement" id="dashAnnouncement" style="display: none; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25); color: #c9fdff; padding: 14px 20px; border-radius: 14px; margin-bottom: 25px; font-size: 13px; font-weight: 600;"></div>
-
-    <div style="margin-bottom: 24px;">
-      <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em;">Operations Control Center</h1>
-      <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Launch your authorized store tools below:</p>
-    </div>
-
-    <!-- CARDS GRID -->
-    <div class="dash-tools-grid" id="dashToolsGrid">
-      
-      <!-- 1. Manager Attendance -->
-      <div class="tool-card" id="app-attendance" style="--card-accent: #38bdf8; --card-glow: rgba(56,189,248,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Management</span>
-          <div class="tool-icon">👥</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Manager Attendance</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track daily presence with live GPS check-in and checkout after shift.</p>
-      </div>
-
-      <!-- 2. Stores Outstanding -->
-      <div class="tool-card" id="app-outstanding" style="--card-accent: #10b981; --card-glow: rgba(16,185,129,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Finance</span>
-          <div class="tool-icon">💳</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stores Outstanding</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor pending customer balances, store credit invoices, and receipts.</p>
-      </div>
-
-      <!-- 3. Stock Availability -->
-      <div class="tool-card" id="app-stock" style="--card-accent: #f59e0b; --card-glow: rgba(245,158,11,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Operations</span>
-          <div class="tool-icon">📦</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Availability</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Search, filter, and review regional inventory counts directly from Sheet1.</p>
-      </div>
-
-      <!-- 4. Stock Value -->
-      <div class="tool-card" id="app-stock-value" style="--card-accent: #06b6d4; --card-glow: rgba(6,182,212,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Value Tracking</span>
-          <div class="tool-icon">📊</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Value Store Wise</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor corporate value tracking and store investments from Sheet2 & Sheet3.</p>
-      </div>
-
-      <!-- 5. Customer Target Tracker -->
-      <div class="tool-card" id="app-target-tracker" style="--card-accent: #f43f5e; --card-glow: rgba(244,63,94,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Marketing</span>
-          <div class="tool-icon">🎯</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Customer Target Tracker</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Submit live customer proofs for Instagram follows, YouTube subs, and reviews.</p>
-      </div>
-
-      <!-- 6. SBI Card Cashback -->
-      <div class="tool-card" id="app-sbi-cashback" style="--card-accent: #f97316; --card-glow: rgba(249,115,22,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Offers</span>
-          <div class="tool-icon">🎁</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">SBI Card Cashback</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Calculate instant credit card customer cashbacks and merchant discounts.</p>
-      </div>
-
-      <!-- 7. Monthly Target Tracker -->
-      <div class="tool-card" id="app-monthly-tracker" style="--card-accent: #6366f1; --card-glow: rgba(99,102,241,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Performance</span>
-          <div class="tool-icon">📆</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Monthly Target Tracker</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
-      </div>
-
-      <!-- 8. Ageing Stock -->
-      <div class="tool-card" id="app-ageing-stock" style="--card-accent: #d946ef; --card-glow: rgba(217,70,239,0.2);">
-        <div class="tool-card-accent-bar"></div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-          <span class="tool-badge">Analytics</span>
-          <div class="tool-icon">⏳</div>
-        </div>
-        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Ageing Stock</h3>
-        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track and monitor older product inventory reports across stores.</p>
-      </div>
-
-    </div>
-
-    <!-- Brand Footer Strip on Dashboard -->
-    <div style="margin-top: 40px; padding: 24px 30px; background: #090e17; border: 1px solid var(--line); border-radius: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
-      <div>
-        <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">GANPATI GROUP • SIVMOR GADGETS</div>
-        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 2px;">Rajasthan's First & Biggest Mobile Retail Chain</div>
-      </div>
-      <div style="font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono';">
-        JODHPUR HQ • MULTI-STORE RETAIL NETWORK
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- =====================================================
-       UPGRADED ATTENDANCE KIOSK (ATTRACTIVE & CHECK-IN / CHECK-OUT)
-  ===================================================== -->
-  <div id="attendance-view">
-    <div class="kiosk-accent-strip"></div>
-
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-      <button onclick="closeAttendanceKiosk()" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; padding: 8px 14px; font-size: 11px; border: 1px solid var(--line);">
-        ⬅ Return to Dashboard
-      </button>
-
-      <div class="clock-badge">
-        <span id="liveClockDisplay">--:--:--</span>
-      </div>
-    </div>
-
-    <div style="text-align: center; margin-bottom: 20px;">
-      <h2 style="font-size: 24px; font-weight: 900; letter-spacing: -0.02em;">Store Biometric Attendance</h2>
-      <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Live GPS boundary verification with facial capture.</p>
-    </div>
-
-    <!-- Active Shift Status Card -->
-    <div class="status-summary-card" id="activeShiftCard">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <div id="shiftStatusIndicator" style="width: 14px; height: 14px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 10px #fbbf24;"></div>
-        <div>
-          <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted); text-transform: uppercase;">TODAY'S SHIFT STATUS</div>
-          <div id="shiftStatusText" style="font-size: 14px; font-weight: 800; color: #fff;">Awaiting Check-In</div>
-        </div>
-      </div>
-      <div id="punchTimestamps" style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); text-align: right;">
-        Check-In: Not marked
-      </div>
-    </div>
-
-    <!-- Admin Duration Notice in Kiosk -->
-    <div id="adminDurationNotice" style="display: none; background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.3); border-radius: 12px; padding: 12px; font-size: 12px; color: #7ef2f7; margin-bottom: 20px;">
-      ⏱️ <strong>Admin Calculation:</strong> <span id="adminDurationResult">Calculated on Check-Out</span>
-    </div>
-
-    <!-- PUNCH SWITCHER: CHECK-IN vs CHECK-OUT (Check-Out unlocked ONLY after Check-In) -->
-    <div class="punch-tabs">
-      <button type="button" id="tabCheckIn" class="punch-tab-btn active-checkin" onclick="selectPunchMode('CHECK_IN')">
-        🟢 1. Check-In
-      </button>
-
-      <button type="button" id="tabCheckOut" class="punch-tab-btn locked" onclick="selectPunchMode('CHECK_OUT')" title="Check-Out unlocks only after Check-In is submitted.">
-        🏁 2. Check-Out <span id="checkOutLockIcon">🔒</span>
-      </button>
-    </div>
-
-    <!-- Step 1: GPS -->
-    <div class="kiosk-step-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span style="font-size: 12px; font-weight: 800; color: #fff;">📍 Step 1: Verify Live Store GPS</span>
-        <span id="gpsBadge" style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--muted);">PENDING</span>
-      </div>
-      <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); padding: 11px; font-size: 12px;">
-        📡 Acquire GPS Satellite Signal
-      </button>
-      <div id="locStatus" style="font-size: 11px; font-weight: 700; text-align: center; margin-top: 8px; color: #fda4af;">
-        ⚠️ Awaiting GPS Signal
-      </div>
-    </div>
-
-    <!-- Step 2: Camera Selfie -->
-    <div class="kiosk-step-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span style="font-size: 12px; font-weight: 800; color: #fff;">📷 Step 2: Biometric Facial Selfie</span>
-        <span id="camBadge" style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--muted);">PENDING</span>
-      </div>
-
-      <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7); padding: 11px; font-size: 12px;">
-        Open Camera for Live Selfie
-      </button>
-      
-      <div id="camBox" style="display: none; margin-top: 12px; text-align: center;">
-        <div style="position: relative; width: 100%; max-width: 340px; margin: 0 auto; aspect-ratio: 1; border-radius: 18px; overflow: hidden; border: 2px solid var(--cyan);">
-          <video id="attVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; background: #000; transform: scaleX(-1);"></video>
-          <div style="position: absolute; inset: 24px; border: 2px dashed rgba(87,238,244,0.6); border-radius: 50%; pointer-events: none;"></div>
-        </div>
-        <button type="button" id="snapBtn" class="submit-btn" style="margin-top: 10px; width: 100%; max-width: 340px;">
-          📸 Take Photo Now
-        </button>
-      </div>
-
-      <div id="photoPreviewBox" style="display: none; margin-top: 12px; text-align: center;">
-        <img id="attPhotoImg" src="" style="width: 100%; max-width: 340px; aspect-ratio: 1; object-fit: cover; border-radius: 18px; border: 2px solid var(--mint);">
-        <button type="button" id="retakeBtn" class="nav-cta" style="margin-top: 10px; width: 100%; max-width: 340px; background: rgba(255,255,255,0.1); color: #fff;">
-          🔄 Retake Selfie
-        </button>
-      </div>
-    </div>
-
-    <!-- Step 3: Details & Final Submit -->
-    <form id="attSubmitForm">
-      <div class="kiosk-step-box">
-        <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 10px;">🏢 Step 3: Branch & Details</div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <div class="input-wrap" id="mgrWrap" style="margin-bottom: 8px;">
-            <label>Manager Name</label>
-            <select id="attMgrSelect" class="input-box" style="background: #080d15;" required>
-              <option value="">-- Loading... --</option>
-            </select>
-          </div>
-
-          <div class="input-wrap" id="storeWrap" style="margin-bottom: 8px;">
-            <label>Store Assignment</label>
-            <select id="attStoreSelect" class="input-box" style="background: #080d15;" required>
-              <option value="">-- Loading... --</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="input-wrap" style="margin-bottom: 0;">
-          <label>Shift Remarks (Optional)</label>
-          <input type="text" id="attRemarks" class="input-box" placeholder="e.g. Opening shift on time">
-        </div>
-      </div>
-
-      <input type="hidden" id="attLat">
-      <input type="hidden" id="attLng">
-      <input type="hidden" id="attPhotoData">
-
-      <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 4px; padding: 14px;">
-        Requirements Needed: GPS, Selfie
-      </button>
-    </form>
-  </div>
-
-
-  <!-- =====================================================
-       ADMIN SHIFT DURATION AUDIT MODAL (ONLY ACCESSIBLE TO ADMIN)
-  ===================================================== -->
-  <div id="adminDurationModal">
-    <div class="admin-duration-card">
-      <button onclick="closeAdminDurationModal()" style="position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--muted); font-size: 26px; cursor: pointer;">&times;</button>
-      
-      <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700;">CONFIDENTIAL AUDIT</div>
-      <h2 style="font-size: 22px; font-weight: 900; margin: 4px 0 16px; color: #fff;">Shift Duration & Working Hours Calculation</h2>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 20px;">
-        Strictly visible to Corporate Admin. Automatically calculates elapsed time between manager Check-In and Check-Out.
-      </p>
-
-      <!-- Calculation Stats -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px;">
-        <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--muted);">ON DUTY TODAY</div>
-          <div id="adminActiveCount" style="font-size: 24px; font-weight: 900; color: var(--mint); margin-top: 4px;">0</div>
-        </div>
-        <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--muted);">COMPLETED SHIFTS</div>
-          <div id="adminDoneCount" style="font-size: 24px; font-weight: 900; color: var(--violet); margin-top: 4px;">0</div>
-        </div>
-        <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
-          <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--muted);">TOTAL HOURS LOGGED</div>
-          <div id="adminTotalHours" style="font-size: 24px; font-weight: 900; color: var(--cyan); margin-top: 4px;">0 hrs</div>
-        </div>
-      </div>
-
-      <!-- Live Calculation Table -->
-      <div style="border: 1px solid var(--line); border-radius: 16px; overflow: hidden;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
-          <thead style="background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--line); color: var(--muted); font-family: 'JetBrains Mono'; font-size: 10px;">
-            <tr>
-              <th style="padding: 12px 16px;">Manager</th>
-              <th style="padding: 12px 16px;">Store</th>
-              <th style="padding: 12px 16px;">Check-In</th>
-              <th style="padding: 12px 16px;">Check-Out</th>
-              <th style="padding: 12px 16px; text-align: right;">Calculated Working Duration</th>
-            </tr>
-          </thead>
-          <tbody id="adminDurationTableBody">
-            <!-- Dynamic rows -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- =====================================================
-       FULLSCREEN APP VIEWER
-  ===================================================== -->
-  <div id="appViewer">
-    <div class="appViewer-bar">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <button onclick="closeAppViewer()" class="nav-cta" style="padding: 6px 12px; font-size: 11px;">⬅ Back</button>
-        <span id="appViewerTitle" style="font-weight: 800; font-size: 13px; color: #fff;">Module Title</span>
-      </div>
-      <div>
-        <button onclick="document.getElementById('appViewerFrame').src += ''" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; padding: 6px 12px; font-size: 11px;">🔄 Reload</button>
-      </div>
-    </div>
-    <div style="flex: 1; width: 100%; overflow: auto; background: #fff;">
-      <iframe id="appViewerFrame" src="" style="width: 100%; height: 100%; border: none;" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"></iframe>
-    </div>
-  </div>
-
-
-  <!-- =====================================================
-       CONTENT MODAL
-  ===================================================== -->
-  <div class="content-modal" id="contentModal">
-    <div class="content-modal-card">
-      <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer;">&times;</button>
-      <div id="guideCategory" style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY</div>
-      <h2 id="guideTitle" style="font-size: 22px; font-weight: 850; margin: 6px 0 16px; color: #fff;">Guide Title</h2>
-      <div id="guideBody" style="color: var(--muted); font-size: 13px; line-height: 1.8;"></div>
-    </div>
-  </div>
-
-
-  <!-- =====================================================
-       JAVASCRIPT LOGIC
-  ===================================================== -->
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* Clock Update */
-    setInterval(() => {
-      const now = new Date();
-      const str = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-      const el = document.getElementById("liveClockDisplay");
-      if (el) el.innerText = str;
-    }, 1000);
-
-    /* Mouse Spotlight Tracker */
-    const mouseLight = document.getElementById("mouseLight");
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, lightX = mouseX, lightY = mouseY;
-    window.addEventListener("mousemove", (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
-    function animateLight() {
-      lightX += (mouseX - lightX) * 0.08;
-      lightY += (mouseY - lightY) * 0.08;
-      mouseLight.style.left = lightX + "px";
-      mouseLight.style.top = lightY + "px";
-      requestAnimationFrame(animateLight);
-    }
-    animateLight();
-
-    /* Endpoints */
-    const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
-    const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
-    const SUPPORT_TICKET_URL = "https://script.google.com/macros/s/AKfycbyH3xeu2w2faKxUpivCZVKKw0eue14w-gUjAfdrGFKiYI5ILuMLC3hPR5cXZz-S9T2X/exec";
-
-    let loggedInUser = '';
-    let userPermissions = null;
-    let storeMappings = [];
-
-    // Local Attendance Storage Key
-    const ATT_STORAGE_KEY = "sivmor_attendance_records_db";
-    function getStoredAttendance() {
-      try { return JSON.parse(localStorage.getItem(ATT_STORAGE_KEY) || "[]"); } catch(e) { return []; }
-    }
-    function saveStoredAttendance(data) {
-      localStorage.setItem(ATT_STORAGE_KEY, JSON.stringify(data));
-    }
-
-    // Shift Calculation helper (Only for Admin)
-    function calculateShiftDuration(startIso, endIso) {
-      const diffMs = Math.max(0, new Date(endIso).getTime() - new Date(startIso).getTime());
-      const totalSec = Math.floor(diffMs / 1000);
-      const h = Math.floor(totalSec / 3600);
-      const m = Math.floor((totalSec % 3600) / 60);
-      const s = totalSec % 60;
-      return {
-        text: `${h}h ${m}m ${s}s`,
-        hours: parseFloat((diffMs / (3600 * 1000)).toFixed(2))
-      };
-    }
-
-    /* CSV Parser */
-    function parseCSV(csvText) {
-      const lines = csvText.split(/\r?\n/);
-      if (lines.length < 2) return { users: {}, globalNotif: "" };
-
-      function parseRow(row) {
-        const result = [];
-        let inQuotes = false, current = "";
-        for (let i = 0; i < row.length; i++) {
-          if (row[i] === '"') inQuotes = !inQuotes;
-          else if (row[i] === ',' && !inQuotes) { result.push(current); current = ""; }
-          else current += row[i];
-        }
-        result.push(current);
-        return result;
-      }
-
-      const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
-      const users = {};
-
-      let passIdx = headers.indexOf("password"); if (passIdx === -1) passIdx = 1;
-      let attIdx = headers.indexOf("attendance"); if (attIdx === -1) attIdx = 2;
-      let outIdx = headers.indexOf("outstanding"); if (outIdx === -1) outIdx = 3;
-      let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store")); if (storeIdx === -1) storeIdx = 4;
-      let stockIdx = headers.findIndex(h => h === "stock"); if (stockIdx === -1) stockIdx = 5;
-      let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val")); if (valIdx === -1) valIdx = 6;
-      let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if (instaIdx === -1) instaIdx = 7;
-      let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if (sbiIdx === -1) sbiIdx = 8;
-      let trackerIdx = headers.findIndex(h => h.includes("monthly")); if (trackerIdx === -1) trackerIdx = 9;
-      let ageingIdx = headers.findIndex(h => h.includes("ageing")); if (ageingIdx === -1) ageingIdx = 10;
-
-      let globalNotif = "";
-      for (let r = 0; r < lines.length; r++) {
-        const rowCols = parseRow(lines[r]);
-        for (let c = 12; c < rowCols.length; c++) {
-          if (rowCols[c] && rowCols[c].trim().length > 15) {
-            globalNotif = rowCols[c].trim();
-            break;
-          }
-        }
-        if (globalNotif) break;
-      }
-
-      for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        const cols = parseRow(lines[i]).map(c => c.trim());
-        if (!cols[0]) continue;
-        const uName = cols[0].toLowerCase();
-        users[uName] = {
-          password: cols[passIdx] || "",
-          attendance: cols[attIdx] || "",
-          outstanding: (cols[outIdx] || "").toLowerCase(),
-          allowed_stores: (cols[storeIdx] || "").toLowerCase(),
-          stock: (cols[stockIdx] || "no").toLowerCase(),
-          stock_value: (cols[valIdx] || "no").toLowerCase(),
-          insta_access: (cols[instaIdx] || "no").toLowerCase(),
-          sbi_cashback: (cols[sbiIdx] || "no").toLowerCase(),
-          monthly_tracker: (cols[trackerIdx] || "no").toLowerCase(),
-          ageing_stock: (cols[ageingIdx] || "no").toLowerCase()
-        };
-      }
-      return { users, globalNotif };
-    }
-
-    /* Mascot Reactions */
-    const robotSpeech = document.getElementById("robotSpeech");
-    const loginUserId = document.getElementById("loginUserId");
-    const loginPassword = document.getElementById("loginPassword");
-    const eyeL = document.getElementById("eyeL");
-    const eyeR = document.getElementById("eyeR");
-
-    loginUserId.addEventListener("focus", () => {
-      robotSpeech.innerText = "State your User ID, explorer.";
-      eyeL.style.transform = "scaleY(1)";
-      eyeR.style.transform = "scaleY(1)";
-    });
-    loginPassword.addEventListener("focus", () => {
-      robotSpeech.innerText = "Shh... Encrypted password field!";
-      eyeL.style.transform = "scaleY(0.2)";
-      eyeR.style.transform = "scaleY(0.2)";
-    });
-    loginPassword.addEventListener("blur", () => {
-      eyeL.style.transform = "scaleY(1)";
-      eyeR.style.transform = "scaleY(1)";
-      if (!loginUserId.value && !loginPassword.value) robotSpeech.innerText = "Beep boop! State your User ID.";
-    });
-
-    document.getElementById("togglePasswordBtn").addEventListener("click", function() {
-      const isPass = loginPassword.type === "password";
-      loginPassword.type = isPass ? "text" : "password";
-      this.innerText = isPass ? "🙈" : "👁️";
-    });
-
-    /* Login Handling */
-    document.getElementById("clientLoginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById("loginSubmitBtn");
-      const errBox = document.getElementById("loginErrorMsg");
-      const rawUser = loginUserId.value.trim();
-      const pass = loginPassword.value;
-
-      errBox.style.display = "none";
-      btn.innerText = "Authenticating... ⏳";
-      btn.disabled = true;
-
-      try {
-        const res = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + Date.now(), { cache: "no-store" });
-        const csv = await res.text();
-        const db = parseCSV(csv);
-
-        let userPerms = null;
-        if (db.users[rawUser.toLowerCase()] && db.users[rawUser.toLowerCase()].password === pass) {
-          userPerms = db.users[rawUser.toLowerCase()];
-        } else if (rawUser.toLowerCase() === "admin" && pass === "admin") {
-          userPerms = { password: "admin", attendance: "admin", outstanding: "admin", allowed_stores: "ALL", stock: "admin", stock_value: "admin", insta_access: "admin", sbi_cashback: "admin", monthly_tracker: "admin", ageing_stock: "admin" };
-        }
-
-        if (userPerms) {
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("loginTimestamp", Date.now().toString());
-          localStorage.setItem("username", rawUser);
-          localStorage.setItem("allowed_stores", userPerms.allowed_stores || "");
-          localStorage.setItem("user_permissions", JSON.stringify(userPerms));
-
-          robotSpeech.innerText = "Access Granted! Loading...";
-          btn.innerText = "Success! Launching... ✅";
-
-          if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 60 });
-
-          setTimeout(() => {
-            showDashboard(userPerms, rawUser, db.globalNotif);
-          }, 500);
-        } else {
-          errBox.style.display = "block";
-          robotSpeech.innerText = "Intruder Alert! Check credentials.";
-          btn.innerText = "Secure Portal Login ↗";
-          btn.disabled = false;
-        }
-      } catch (err) {
-        errBox.innerText = "Network sync error. Check internet connection.";
-        errBox.style.display = "block";
-        btn.innerText = "Secure Portal Login ↗";
-        btn.disabled = false;
-      }
-    });
-
-    function showDashboard(perms, userRaw, announcement = "") {
-      loggedInUser = userRaw;
-      userPermissions = perms;
-
-      document.getElementById("mainNavWrap").style.display = "none";
-      document.getElementById("landing-view").style.display = "none";
-      document.getElementById("dashboard-view").style.display = "flex";
-
-      document.getElementById("dashWelcomeUser").innerText = "Welcome, " + userRaw;
-      document.getElementById("userAvatarChar").innerText = userRaw.charAt(0).toUpperCase();
-      document.getElementById("dashStoreName").innerText = (perms.allowed_stores || "GENERAL").toUpperCase();
-
-      const isAdm = userRaw.toLowerCase() === "admin" || (perms.attendance && perms.attendance.toLowerCase() === "admin");
-      document.getElementById("adminDurationBtn").style.display = isAdm ? "inline-flex" : "none";
-
-      if (announcement) {
-        const notifBar = document.getElementById("dashAnnouncement");
-        notifBar.innerText = "📢 " + announcement;
-        notifBar.style.display = "block";
-      }
-
-      const uParam = encodeURIComponent(userRaw);
-      const tParam = Date.now();
-
-      // 1. Attendance Card
-      const attCard = document.getElementById("app-attendance");
-      if (perms.attendance && perms.attendance.toLowerCase() !== "no") {
-        attCard.style.display = "block";
-        attCard.onclick = () => openAttendanceKiosk();
-      }
-
-      // 2. Outstanding
-      const outCard = document.getElementById("app-outstanding");
-      if (perms.outstanding === "yes" || perms.outstanding === "admin" || perms.outstanding === "all" || (perms.allowed_stores && perms.allowed_stores !== "no")) {
-        outCard.style.display = "block";
-        let storeP = (perms.outstanding === "yes" || perms.allowed_stores === "yes" || perms.allowed_stores === "admin") ? "ALL" : perms.allowed_stores;
-        outCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${uParam}&stores=${encodeURIComponent(storeP.toUpperCase())}&t=${tParam}`, "Stores Outstanding");
-      }
-
-      // 3. Stock
-      const stockCard = document.getElementById("app-stock");
-      if (perms.stock === "yes" || perms.stock === "admin") {
-        stockCard.style.display = "block";
-        stockCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Availability Checker");
-      }
-
-      // 4. Stock Value
-      const valCard = document.getElementById("app-stock-value");
-      if (perms.stock_value === "yes" || perms.stock_value === "admin") {
-        valCard.style.display = "block";
-        valCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Value Store Wise");
-      }
-
-      // 5. Target Tracker
-      const targetCard = document.getElementById("app-target-tracker");
-      if (perms.insta_access === "admin" || perms.insta_access === "all" || (userRaw.toLowerCase() === "admin" && perms.insta_access !== "no")) {
-        targetCard.style.display = "block";
-        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${uParam}&t=${tParam}`, "Customer Target Tracker (Admin)");
-      } else if (perms.insta_access === "yes" || perms.insta_access === "true") {
-        targetCard.style.display = "block";
-        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Customer Target Tracker");
-      }
-
-      // 6. SBI Cashback
-      const sbiCard = document.getElementById("app-sbi-cashback");
-      if (perms.sbi_cashback === "yes" || perms.sbi_cashback === "admin") {
-        sbiCard.style.display = "block";
-        sbiCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${uParam}&t=${tParam}`, "SBI Card Cashback");
-      }
-
-      // 7. Monthly Tracker
-      const monthlyCard = document.getElementById("app-monthly-tracker");
-      if (perms.monthly_tracker === "yes" || perms.monthly_tracker === "admin") {
-        monthlyCard.style.display = "block";
-        monthlyCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Monthly Target Tracker");
-      }
-
-      // 8. Ageing Stock
-      const ageingCard = document.getElementById("app-ageing-stock");
-      if (perms.ageing_stock === "yes" || perms.ageing_stock === "admin") {
-        ageingCard.style.display = "block";
-        ageingCard.onclick = () => openAppViewer(`https://script.google.com/macros/s/AKfycbwHy5rTkJgzCTlFz7kKFK3LeybiQIpv3LmKDhbZl_ZDrjfXOMkLH1nlDedHGDz2PVtB/exec?user=${uParam}&t=${tParam}`, "Ageing Stock");
-      }
-
-      window.scrollTo(0, 0);
-    }
-
-    function logoutUser() {
-      localStorage.clear();
-      window.location.reload();
-    }
-
-    /* Check Saved Session on Page Load */
-    window.addEventListener("load", () => {
-      if (localStorage.getItem("isLoggedIn") === "true") {
-        const savedTime = parseInt(localStorage.getItem("loginTimestamp") || "0", 10);
-        if ((Date.now() - savedTime) / (1000 * 60) < 120) {
-          const perms = JSON.parse(localStorage.getItem("user_permissions") || "{}");
-          const uName = localStorage.getItem("username") || "";
-          showDashboard(perms, uName);
-        } else {
-          logoutUser();
-        }
-      }
-    });
-
-    /* App Viewer Modal */
-    function openAppViewer(url, title) {
-      document.getElementById("dashboard-view").style.display = "none";
-      document.getElementById("appViewerTitle").innerText = title;
-      document.getElementById("appViewerFrame").src = url;
-      document.getElementById("appViewer").style.display = "flex";
-    }
-    function closeAppViewer() {
-      document.getElementById("appViewer").style.display = "none";
-      document.getElementById("appViewerFrame").src = "";
-      document.getElementById("dashboard-view").style.display = "flex";
-    }
-
-    /* =========================================================
-       ATTENDANCE KIOSK LOGIC (CHECK-IN, CHECK-OUT, DURATION)
-    ========================================================= */
-    let cameraStream = null;
-    let currentPunchMode = "CHECK_IN"; // 'CHECK_IN' or 'CHECK_OUT'
-
-    async function openAttendanceKiosk() {
-      document.getElementById("dashboard-view").style.display = "none";
-      document.getElementById("attendance-view").style.display = "block";
-      await loadStoreDropdowns();
-      syncAttendanceShiftStatus();
-      validateAttendanceReady();
-      window.scrollTo(0, 0);
-    }
-
-    function closeAttendanceKiosk() {
-      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
-      document.getElementById("attendance-view").style.display = "none";
-      document.getElementById("dashboard-view").style.display = "flex";
-    }
-
-    function getTodayManagerRecord() {
-      const all = getStoredAttendance();
-      const today = new Date().toISOString().split('T')[0];
-      const mgr = (document.getElementById("attMgrSelect").value || loggedInUser).toLowerCase().trim();
-      return all.find(r => r.date === today && r.manager.toLowerCase().trim() === mgr);
-    }
-
-    function syncAttendanceShiftStatus() {
-      const rec = getTodayManagerRecord();
-      const statusText = document.getElementById("shiftStatusText");
-      const statusDot = document.getElementById("shiftStatusIndicator");
-      const timestamps = document.getElementById("punchTimestamps");
-      const tabOut = document.getElementById("tabCheckOut");
-      const lockIcon = document.getElementById("checkOutLockIcon");
-      const adminNotice = document.getElementById("adminDurationNotice");
-      const isAdm = loggedInUser.toLowerCase() === "admin" || (userPermissions && userPermissions.attendance.toLowerCase() === "admin");
-
-      if (!rec) {
-        // Not checked in yet
-        statusDot.style.background = "#fbbf24";
-        statusDot.style.boxShadow = "0 0 10px #fbbf24";
-        statusText.innerText = "Awaiting Check-In 🔴";
-        timestamps.innerText = "Shift not started";
-        
-        // CHECKOUT REMAINS LOCKED
-        tabOut.classList.add("locked");
-        lockIcon.style.display = "inline";
-        selectPunchMode('CHECK_IN');
-        adminNotice.style.display = "none";
-      } else if (rec.status === "CHECKED_IN") {
-        // Checked in! Now checkout is UNLOCKED
-        statusDot.style.background = "var(--mint)";
-        statusDot.style.boxShadow = "0 0 10px var(--mint)";
-        statusText.innerText = "Currently On Duty (Checked-In) 🟢";
-        timestamps.innerHTML = `In: <strong style="color:#fff;">${rec.checkInDisplay}</strong>`;
-        
-        // UNLOCK CHECKOUT
-        tabOut.classList.remove("locked");
-        lockIcon.style.display = "none";
-        selectPunchMode('CHECK_OUT');
-        adminNotice.style.display = "none";
-      } else if (rec.status === "COMPLETED") {
-        // Both Check-In and Check-Out completed!
-        statusDot.style.background = "var(--violet)";
-        statusDot.style.boxShadow = "0 0 10px var(--violet)";
-        statusText.innerText = "Shift Completed 🏁";
-        timestamps.innerHTML = `In: ${rec.checkInDisplay} | Out: ${rec.checkOutDisplay}`;
-        
-        tabOut.classList.remove("locked");
-        lockIcon.style.display = "none";
-
-        // Show Duration ONLY TO ADMIN
-        if (isAdm && rec.calculatedDuration) {
-          adminNotice.style.display = "block";
-          document.getElementById("adminDurationResult").innerText = `${rec.calculatedDuration} (${rec.decimalHours || ''} hrs)`;
-        } else {
-          adminNotice.style.display = "none";
-        }
-      }
-    }
-
-    function selectPunchMode(mode) {
-      const rec = getTodayManagerRecord();
-      if (mode === "CHECK_OUT" && !rec) {
-        alert("🔒 Check-Out is locked! You must Check-In first when starting your shift.");
-        return;
-      }
-
-      currentPunchMode = mode;
-      const tabIn = document.getElementById("tabCheckIn");
-      const tabOut = document.getElementById("tabCheckOut");
-
-      if (mode === "CHECK_IN") {
-        tabIn.className = "punch-tab-btn active-checkin";
-        tabOut.className = "punch-tab-btn" + (!rec ? " locked" : "");
-      } else {
-        tabIn.className = "punch-tab-btn";
-        tabOut.className = "punch-tab-btn active-checkout";
-      }
-      validateAttendanceReady();
-    }
-
-    async function loadStoreDropdowns() {
-      const attVal = (userPermissions && userPermissions.attendance) || "";
-      const isAdm = attVal.toLowerCase() === "admin" || attVal.toLowerCase() === "all";
-
-      const mSelect = document.getElementById("attMgrSelect");
-      const sSelect = document.getElementById("attStoreSelect");
-
-      try {
-        const res = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + Date.now());
-        storeMappings = await res.json();
-      } catch(e) {
-        storeMappings = [
-          { manager: "CHB", store: "CHB" },
-          { manager: "ADMIN", store: "HQ" },
-          { manager: "MANAGER1", store: "PAOTA" }
-        ];
-      }
-
-      if (isAdm) {
-        const uniqueMgrs = [...new Set(storeMappings.map(i => i.manager).filter(Boolean))].sort();
-        mSelect.innerHTML = uniqueMgrs.map(m => `<option value="${m}">${m}</option>`).join("");
-        mSelect.value = uniqueMgrs[0] || "ADMIN";
-
-        const updateStores = () => {
-          const selVal = mSelect.value.trim().toLowerCase();
-          const matchedStores = storeMappings.filter(i => (i.manager || "").toLowerCase().trim() === selVal).map(i => i.store);
-          sSelect.innerHTML = matchedStores.map(s => `<option value="${s}">${s}</option>`).join("");
-          if (matchedStores.length > 0) sSelect.value = matchedStores[0];
-          syncAttendanceShiftStatus();
-          validateAttendanceReady();
-        };
-
-        mSelect.onchange = updateStores;
-        updateStores();
-      } else {
-        const managerName = (attVal && attVal.toLowerCase() !== "yes") ? attVal.toUpperCase() : loggedInUser.toUpperCase();
-        mSelect.innerHTML = `<option value="${managerName}" selected>${managerName}</option>`;
-        
-        let storeOptions = [];
-        if (storeMappings.length > 0) {
-          storeOptions = storeMappings.filter(i => (i.manager || "").toLowerCase().trim() === managerName.toLowerCase().trim()).map(i => i.store);
-        }
-        if (storeOptions.length === 0) {
-          storeOptions = [((userPermissions && userPermissions.allowed_stores) || "GENERAL").toUpperCase()];
-        }
-        sSelect.innerHTML = storeOptions.map(s => `<option value="${s}">${s}</option>`).join("");
-        sSelect.value = storeOptions[0];
-      }
-    }
-
-    // Step 1: GPS
-    document.getElementById("locBtn").addEventListener("click", () => {
-      const status = document.getElementById("locStatus");
-      const badge = document.getElementById("gpsBadge");
-      status.innerText = "🔄 Acquiring GPS Satellite Signal...";
-      status.style.color = "var(--amber)";
-      badge.innerText = "ACQUIRING...";
-
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          document.getElementById("attLat").value = pos.coords.latitude.toFixed(6);
-          document.getElementById("attLng").value = pos.coords.longitude.toFixed(6);
-          status.innerText = "✅ GPS Location Verified (" + pos.coords.latitude.toFixed(4) + ", " + pos.coords.longitude.toFixed(4) + ")";
-          status.style.color = "var(--mint)";
-          badge.innerText = "VERIFIED ✓";
-          badge.style.color = "var(--mint)";
-          validateAttendanceReady();
-        },
-        () => {
-          status.innerText = "❌ Location blocked! Allow GPS in browser address bar.";
-          status.style.color = "var(--rose)";
-          badge.innerText = "BLOCKED";
-        },
-        { enableHighAccuracy: true, timeout: 15000 }
-      );
-    });
-
-    // Step 2: Camera
-    document.getElementById("camBtn").addEventListener("click", async () => {
-      try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 640 } } });
-        const video = document.getElementById("attVideo");
-        video.srcObject = cameraStream;
-        document.getElementById("camBox").style.display = "block";
-        document.getElementById("camBtn").style.display = "none";
-      } catch(e) {
-        alert("Camera permission denied. Please allow camera in your browser.");
-      }
-    });
-
-    document.getElementById("snapBtn").addEventListener("click", () => {
-      const video = document.getElementById("attVideo");
-      const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth || 640;
-      canvas.height = video.videoHeight || 640;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const b64 = canvas.toDataURL("image/jpeg", 0.65);
-      document.getElementById("attPhotoData").value = b64;
-      document.getElementById("attPhotoImg").src = b64;
-
-      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
-      document.getElementById("camBox").style.display = "none";
-      document.getElementById("photoPreviewBox").style.display = "block";
-
-      const badge = document.getElementById("camBadge");
-      badge.innerText = "CAPTURED ✓";
-      badge.style.color = "var(--mint)";
-      validateAttendanceReady();
-    });
-
-    document.getElementById("retakeBtn").addEventListener("click", () => {
-      document.getElementById("photoPreviewBox").style.display = "none";
-      document.getElementById("camBtn").click();
-    });
-
-    function validateAttendanceReady() {
-      const hasLoc = !!document.getElementById("attLat").value;
-      const hasPhoto = !!document.getElementById("attPhotoData").value;
-      const hasMgr = !!document.getElementById("attMgrSelect").value;
-      const hasStore = !!document.getElementById("attStoreSelect").value;
-      const btn = document.getElementById("attSubmitBtn");
-
-      if (hasLoc && hasPhoto && hasMgr && hasStore) {
-        btn.disabled = false;
-        if (currentPunchMode === "CHECK_IN") {
-          btn.innerText = "Submit Verified Check-In 🚀";
-          btn.style.background = "linear-gradient(135deg, #38bdf8, #0284c7)";
-        } else {
-          btn.innerText = "Submit Verified Check-Out 🏁";
-          btn.style.background = "linear-gradient(135deg, #34d399, #059669)";
-        }
-      } else {
-        btn.disabled = true;
-        const missing = [];
-        if (!hasLoc) missing.push("GPS");
-        if (!hasPhoto) missing.push("Selfie");
-        btn.innerText = "Requirements Needed: " + missing.join(", ");
-        btn.style.background = "rgba(255,255,255,0.08)";
-      }
-    }
-
-    // Submit Attendance Form
-    document.getElementById("attSubmitForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById("attSubmitBtn");
-      btn.innerText = "Uploading to Database... ⏳";
-      btn.disabled = true;
-
-      const mgrVal = document.getElementById("attMgrSelect").value.trim();
-      const storeVal = document.getElementById("attStoreSelect").value.trim();
-      const latVal = document.getElementById("attLat").value.trim();
-      const lngVal = document.getElementById("attLng").value.trim();
-      const photoVal = document.getElementById("attPhotoData").value.trim();
-      const remarksVal = document.getElementById("attRemarks").value.trim();
-      const now = new Date();
-      const today = now.toISOString().split('T')[0];
-      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-
-      const allRecords = getStoredAttendance();
-      let matchedIdx = allRecords.findIndex(r => r.date === today && r.manager.toLowerCase().trim() === mgrVal.toLowerCase().trim());
-
-      let postType = currentPunchMode;
-      let durationCalc = null;
-
-      if (currentPunchMode === "CHECK_IN") {
-        const newRecord = {
-          id: "att_" + Date.now(),
-          date: today,
-          manager: mgrVal,
-          store: storeVal,
-          checkInIso: now.toISOString(),
-          checkInDisplay: timeStr,
-          checkInLat: latVal,
-          checkInLng: lngVal,
-          checkInRemarks: remarksVal || "Check-In",
-          status: "CHECKED_IN"
-        };
-        if (matchedIdx >= 0) allRecords[matchedIdx] = newRecord;
-        else allRecords.unshift(newRecord);
-      } else {
-        // CHECK-OUT
-        if (matchedIdx >= 0) {
-          const orig = allRecords[matchedIdx];
-          durationCalc = calculateShiftDuration(orig.checkInIso, now.toISOString());
-          orig.checkOutIso = now.toISOString();
-          orig.checkOutDisplay = timeStr;
-          orig.checkOutLat = latVal;
-          orig.checkOutLng = lngVal;
-          orig.checkOutRemarks = remarksVal || "Check-Out";
-          orig.status = "COMPLETED";
-          orig.calculatedDuration = durationCalc.text;
-          orig.decimalHours = durationCalc.hours;
-          allRecords[matchedIdx] = orig;
-        } else {
-          durationCalc = { text: "8h 00m 00s", hours: 8.0 };
-          allRecords.unshift({
-            id: "att_" + Date.now(),
-            date: today,
-            manager: mgrVal,
-            store: storeVal,
-            checkInIso: new Date(Date.now() - 8 * 3600 * 1000).toISOString(),
-            checkInDisplay: "Earlier Today",
-            checkOutIso: now.toISOString(),
-            checkOutDisplay: timeStr,
-            status: "COMPLETED",
-            calculatedDuration: durationCalc.text,
-            decimalHours: durationCalc.hours
-          });
-        }
-      }
-
-      saveStoredAttendance(allRecords);
-
-      // POST to Google Apps Script
-      const params = new URLSearchParams();
-      params.append("type", currentPunchMode);
-      params.append("action", currentPunchMode.toLowerCase());
-      params.append("managerName", mgrVal);
-      params.append("storeName", storeVal);
-      params.append("latitude", latVal);
-      params.append("longitude", lngVal);
-      params.append("photoBase64", photoVal);
-      params.append("remarks", remarksVal);
-      if (durationCalc) params.append("calculatedDuration", durationCalc.text);
-
-      try {
-        await fetch(ATTENDANCE_WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body: params.toString()
-        });
-      } catch (postErr) {
-        console.warn("Attendance POST sent:", postErr);
-      }
-
-      if (typeof confetti === 'function') confetti({ particleCount: 90, spread: 65 });
-
-      if (currentPunchMode === "CHECK_IN") {
-        alert("✅ Check-In recorded successfully at " + timeStr + "! Check-Out option is now unlocked for when your shift ends.");
-      } else {
-        alert("🏁 Check-Out recorded successfully at " + timeStr + "! Your shift is marked completed.");
-      }
-
-      // Reset form
-      document.getElementById("attPhotoData").value = "";
-      document.getElementById("attLat").value = "";
-      document.getElementById("attLng").value = "";
-      document.getElementById("photoPreviewBox").style.display = "none";
-      document.getElementById("camBtn").style.display = "block";
-      document.getElementById("camBadge").innerText = "PENDING";
-      document.getElementById("gpsBadge").innerText = "PENDING";
-      document.getElementById("locStatus").innerText = "⚠️ Awaiting GPS Signal";
-      document.getElementById("locStatus").style.color = "#fda4af";
-
-      syncAttendanceShiftStatus();
-      validateAttendanceReady();
-    });
-
-    /* =========================================================
-       ADMIN SHIFT DURATION AUDIT CONSOLE
-    ========================================================= */
-    function openAdminDurationModal() {
-      const modal = document.getElementById("adminDurationModal");
-      const tbody = document.getElementById("adminDurationTableBody");
-      const records = getStoredAttendance();
-
-      let activeCount = 0;
-      let completedCount = 0;
-      let totalHrs = 0;
-
-      let html = "";
-      if (records.length === 0) {
-        html = `<tr><td colspan="5" style="padding: 24px; text-align: center; color: var(--muted);">No attendance shift records found yet today.</td></tr>`;
-      } else {
-        records.forEach(r => {
-          if (r.status === "CHECKED_IN") activeCount++;
-          if (r.status === "COMPLETED") {
-            completedCount++;
-            totalHrs += (r.decimalHours || 0);
-          }
-
-          html += `
-            <tr style="border-bottom: 1px solid var(--line-soft);">
-              <td style="padding: 14px 16px; font-weight: 800; color: #fff;">${r.manager}</td>
-              <td style="padding: 14px 16px; font-family: 'JetBrains Mono'; color: var(--cyan);">${r.store}</td>
-              <td style="padding: 14px 16px; font-family: 'JetBrains Mono'; color: #fff;">${r.checkInDisplay || '—'}</td>
-              <td style="padding: 14px 16px; font-family: 'JetBrains Mono'; color: #fff;">${r.checkOutDisplay || '<span style="color:var(--amber);">Awaiting Checkout</span>'}</td>
-              <td style="padding: 14px 16px; text-align: right;">
-                ${r.calculatedDuration ? `
-                  <span style="display: inline-block; padding: 4px 10px; border-radius: 8px; background: rgba(109,255,189,0.15); border: 1px solid rgba(109,255,189,0.3); color: var(--mint); font-family: 'JetBrains Mono'; font-weight: 800;">
-                    ⏱️ ${r.calculatedDuration} (${r.decimalHours} hrs)
-                  </span>
-                ` : '<span style="color: var(--amber); font-family: \'JetBrains Mono\';">In Progress ⏳</span>'}
-              </td>
-            </tr>
-          `;
-        });
-      }
-
-      document.getElementById("adminActiveCount").innerText = activeCount;
-      document.getElementById("adminDoneCount").innerText = completedCount;
-      document.getElementById("adminTotalHours").innerText = totalHrs.toFixed(1) + " hrs";
-      tbody.innerHTML = html;
-      modal.style.display = "flex";
-    }
-
-    function closeAdminDurationModal() {
-      document.getElementById("adminDurationModal").style.display = "none";
-    }
-
-    /* SUPPORT TICKET */
-    document.getElementById("ticketForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById("ticketSubmitBtn");
-      btn.innerText = "Submitting Ticket... ⏳";
-      btn.disabled = true;
-
-      const data = {
-        name: document.getElementById("tName").value,
-        business: document.getElementById("tStore").value,
-        phone: document.getElementById("tPhone").value,
-        email: document.getElementById("tEmail").value,
-        city: document.getElementById("tIssue").value,
-        req: document.getElementById("tDesc").value
-      };
-
-      try {
-        const res = await fetch(SUPPORT_TICKET_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        if (json.result === "success") {
-          document.getElementById("ticketForm").style.display = "none";
-          document.getElementById("ticketSuccessBox").style.display = "block";
-          document.getElementById("ticketForm").reset();
-        }
-      } catch(e) {
-        alert("Ticket submitted to operations queue.");
-        document.getElementById("ticketForm").style.display = "none";
-        document.getElementById("ticketSuccessBox").style.display = "block";
-      } finally {
-        btn.innerText = "Submit Support Ticket ↗";
-        btn.disabled = false;
-      }
-    });
-
-    /* GUIDES CONTENT */
-    const guides = {
-      "privacy": { cat: "Legal",
+  <div class="mouse-light" id="mouseLight"></div>
+
+  <!-- NAVIGATION -->
+  <div class="nav-wrap" id="mainNavWrap">
+    <nav>
+      <a href="#" class="logo-badge" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+        <div class="logo-sparkle">✦</div>
+        <span>SiVMOR</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about-sivmor">About SiVMOR</a>
+        <a href="#modules">Modules</a>
+        <a href="#guides">Guides</a>
+        <a href="#support">Support</a>
+      </div>
+
+      <button type="button" class="nav-cta" onclick="document.getElementById('loginBox').scrollIntoView({behavior: 'smooth'})">
+        Portal Login ↗
+      </button>
+    </nav>
+  </div>
+
+  <!-- LANDING PAGE VIEW -->
+  <div id="landing-view">
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        
+        <div>
+          <div class="badge-pill">
+            <span class="pulsing-dot"></span>
+            Rajasthan's First & Biggest Mobile Retail Chain
+          </div>
+
+          <h1>
+            Centralized Operations <br>
+            <span class="gradient-text">SiVMOR Workspace.</span>
+          </h1>
+
+          <p class="hero-sub">
+            The unified portal for SiVMOR Gadgets store managers and operations. Access real-time inventory, sales analytics, GPS staff attendance, and branch records.
+          </p>
+
+          <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan);">
+              🏢 GANPATI GROUP LEGACY
+            </div>
+            <div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 11px; font-family: 'JetBrains Mono'; color: var(--mint);">
+              ⚡ LIVE CLOUD INTEGRATION
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Login Box -->
+        <div class="login-card" id="loginBox">
+          <div class="robot-container" id="robotAvatar">
+            <div class="robot-bubble" id="robotSpeech">Beep boop! State your User ID.</div>
+            <div class="robot-head">
+              <div class="robot-antenna"></div>
+              <div class="robot-eye" id="eyeL"></div>
+              <div class="robot-eye" id="eyeR"></div>
+            </div>
+          </div>
+
+          <form id="clientLoginForm">
+            <div id="loginErrorMsg" style="display: none; background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.3); color: #fda4af; padding: 10px; border-radius: 10px; font-size: 12px; margin-bottom: 15px;">
+              Incorrect User ID or Password.
+            </div>
+
+            <div class="input-wrap">
+              <label>User ID</label>
+              <input type="text" id="loginUserId" class="input-box" placeholder="e.g. CHB, ADMIN, MANAGER1" autocomplete="username" required>
+            </div>
+
+            <div class="input-wrap" style="position: relative;">
+              <label>Password</label>
+              <input type="password" id="loginPassword" class="input-box" placeholder="••••••••" autocomplete="current-password" required style="padding-right: 42px;">
+              <button type="button" id="togglePasswordBtn" class="pass-toggle-btn">👁️</button>
+            </div>
+
+            <button type="submit" class="submit-btn" id="loginSubmitBtn">
+              Secure Portal Login ↗
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIVE MARQUEE -->
+    <div class="marquee-bar">
+      <div class="marquee-inner">
+        <span class="marquee-item">RAJASTHAN'S FIRST & BIGGEST MOBILE RETAIL CHAIN</span>
+        <span class="marquee-item accent">LIVE INVENTORY SYNC</span>
+        <span class="marquee-item">GPS ATTENDANCE LOGS</span>
+        <span class="marquee-item accent">STORES OUTSTANDING</span>
+        <span class="marquee-item">GANPATI GROUP TRUSTED SINCE 2007</span>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         BRAND DETAILS & STORY SECTION (IMAGES 1 & 2)
+    ========================================================= -->
+    <section id="about-sivmor" style="padding: 80px 0; border-top: 1px solid var(--line-soft);">
+      <div class="container">
+        
+        <!-- Header -->
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 50px;">
+          <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">BRAND PROFILE</div>
+          <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 900; letter-spacing: -0.03em; margin-top: 6px;">
+            About <span class="gradient-text">SiVMOR Gadgets</span>
+          </h2>
+          <p style="color: var(--muted); font-size: 13px; line-height: 1.7; margin-top: 10px;">
+            Rajasthan's first and fastest-growing organized multi-brand mobile retail chain, backed by the prestigious <strong>Ganpati Group (Est. 2007)</strong>.
+          </p>
+        </div>
+
+        <!-- Brand Showcase Card -->
+        <div style="background: linear-gradient(135deg, #0c121e 0%, #080d16 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; margin-bottom: 40px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
+            <div>
+              <div style="font-size: 26px; font-weight: 900; color: #fff;">
+                SiV<span style="color: var(--cyan);">MOR</span> <span style="font-size: 14px; letter-spacing: 0.15em; color: var(--muted); font-weight: 700;">GADGETS</span>
+              </div>
+              <div style="font-size: 12px; color: var(--cyan); font-family: 'JetBrains Mono'; margin-top: 6px;">
+                Rajasthan's First & Biggest Mobile Retail Chain
+              </div>
+              <p style="font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 12px;">
+                Launched in 2022 starting with 4 stores in Jodhpur, SIVMOR has rapidly expanded across Western Rajasthan with cutting-edge electronics and customer trust.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
+                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">HERITAGE</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">Ganpati Group</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Since 2007 in Real Estate, Textile & Distribution.</div>
+              </div>
+              <div style="padding: 16px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);">
+                <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--mint); font-weight: 700;">GROWTH MODEL</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 4px;">COCO & FOCO</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">Statewide multi-district retail expansion.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Column Details: Offerings & Mission -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+          
+          <!-- What We Offer -->
+          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
+            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY SUITE</div>
+            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 12px; color: #fff;">What We Offer Under One Roof</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: var(--soft);">
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📱 Smartphones</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📟 Tablets</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🎧 Accessories</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">📺 Smart TVs</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">🔊 Sound Systems</div>
+              <div style="padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--line-soft);">❄️ Air Conditioners</div>
+            </div>
+          </div>
+
+          <!-- Mission & Pillars -->
+          <div style="background: #0a0f18; border: 1px solid var(--line); border-radius: 20px; padding: 26px;">
+            <div style="font-size: 10px; font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 700; text-transform: uppercase;">OUR COMMITMENT</div>
+            <h3 style="font-size: 18px; font-weight: 850; margin: 6px 0 6px; color: #fff;">Our Mission</h3>
+            <div style="font-size: 12px; color: var(--cyan); font-style: italic; margin-bottom: 12px;">
+              "To provide the best products at the best prices with the best customer experience."
+            </div>
+            <div style="font-size: 12px; color: var(--muted); line-height: 1.8;">
+              <div>✓ Genuine products from top international brands</div>
+              <div>✓ Competitive pricing with instant cashbacks</div>
+              <div>✓ Dedicated after-sales support and assistance</div>
+              <div>✓ Modern, comfortable retail store environment</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SHORT EXPLANATION SUMMARIES FOR MODULES
+    ========================================================= -->
+    <section id="modules" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
+          <div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">SUMMARY HUB</div>
+            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Portal Modules Summary</h2>
+          </div>
+          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">4 Live Operational Suites</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px;">
+          
+          <div class="summary-row" onclick="openGuideModal('blog-1')">
+            <div class="summary-icon">👥</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Manager Attendance</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                GPS location geofencing with live camera selfie check-in logging.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-3')">
+            <div class="summary-icon">📦</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Live Stock & Value</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Real-time regional SKU stock counts and corporate valuation tracking.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-2')">
+            <div class="summary-icon">💳</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Stores Outstanding</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Customer credit aging ledgers, branch invoices, and statement reviews.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-5')">
+            <div class="summary-icon">🎯</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 800; color: #fff;">Customer Target Tracker</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5;">
+                Upload proof of social follows, YouTube subs, and Google 5-star reviews.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SHORT EXPLANATION SUMMARIES FOR GUIDES
+    ========================================================= -->
+    <section id="guides" style="padding: 60px 0; border-top: 1px solid var(--line-soft);">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;">
+          <div>
+            <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--amber); font-weight: 700; text-transform: uppercase;">PROCEDURE SUMMARIES</div>
+            <h2 style="font-size: 22px; font-weight: 850; color: #fff;">Operating Guides & Rules</h2>
+          </div>
+          <span style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--muted);">Click to open full SOP</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+          
+          <div class="summary-row" onclick="openGuideModal('blog-1')">
+            <div class="summary-icon" style="color: var(--cyan); border-color: rgba(87,238,244,0.3);">📍</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Attendance Check-In Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Verify satellite GPS, take clear selfie, tap submit.</p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-2')">
+            <div class="summary-icon" style="color: var(--mint); border-color: rgba(109,255,189,0.3);">💳</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Outstanding Ledgers Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Filter branch accounts and check pending balance rows.</p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-3')">
+            <div class="summary-icon" style="color: var(--amber); border-color: rgba(251,191,36,0.3);">📦</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Stock Availability Guide</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Search live SKUs across stores before customer reservation.</p>
+            </div>
+          </div>
+
+          <div class="summary-row" onclick="openGuideModal('blog-5')">
+            <div class="summary-icon" style="color: var(--rose); border-color: rgba(244,63,94,0.3);">🎯</div>
+            <div>
+              <div style="font-size: 12px; font-weight: 800; color: #fff;">Target Proof Submission</div>
+              <p style="font-size: 11px; color: var(--muted); margin-top: 3px;">Upload screenshot proofs to qualify for monthly incentives.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT TICKET SECTION -->
+    <section id="support" style="padding: 70px 0 100px; border-top: 1px solid var(--line-soft);">
+      <div class="container">
+        <div style="background: linear-gradient(180deg, #0c121e 0%, #070a11 100%); border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 36px; max-width: 800px; margin: 0 auto;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--rose); font-weight: 700; text-transform: uppercase;">HELPDESK</div>
+            <h2 style="font-size: 26px; font-weight: 850;">Raise a <span class="gradient-text">Support Ticket</span></h2>
+            <p style="color: var(--muted); font-size: 12px; margin-top: 4px;">Technical Desk support for GPS issues, permissions, or system assistance.</p>
+          </div>
+
+          <div id="ticketSuccessBox" style="display: none; text-align: center; padding: 30px 10px;">
+            <div style="font-size: 36px; color: var(--mint); margin-bottom: 10px;">✓</div>
+            <h3 style="font-size: 18px;">Ticket Logged Successfully!</h3>
+            <p style="color: var(--muted); font-size: 12px; margin-top: 6px;">Technical Operations desk will review and contact you.</p>
+            <button onclick="document.getElementById('ticketSuccessBox').style.display='none'; document.getElementById('ticketForm').style.display='block';" class="nav-cta" style="margin-top: 16px;">Submit Another Ticket</button>
+          </div>
+
+          <form id="ticketForm">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="input-wrap"><label>Your Name</label><input type="text" id="tName" class="input-box" placeholder="Rahul Sharma" required></div>
+              <div class="input-wrap"><label>Store Name / Branch</label><input type="text" id="tStore" class="input-box" placeholder="CHB" required></div>
+              <div class="input-wrap"><label>Mobile Number</label><input type="tel" id="tPhone" class="input-box" placeholder="+91 XXXXX XXXXX" required></div>
+              <div class="input-wrap"><label>User ID / Email</label><input type="text" id="tEmail" class="input-box" placeholder="User ID" required></div>
+            </div>
+            <div class="input-wrap"><label>Issue Type</label><input type="text" id="tIssue" class="input-box" placeholder="e.g. GPS Error, Password Reset" required></div>
+            <div class="input-wrap"><label>Problem Description</label><textarea id="tDesc" rows="3" class="input-box" placeholder="Please describe the issue..." required style="resize: vertical;"></textarea></div>
+
+            <button type="submit" class="submit-btn" id="ticketSubmitBtn" style="margin-top: 8px;">
+              Submit Support Ticket ↗
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="border-top: 1px solid var(--line); padding: 24px 20px; background: #040609;">
+      <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted);">
+        <div>© <span id="year"></span> SiVMOR Gadgets • Ganpati Group. All rights reserved.</div>
+        <div style="display: flex; gap: 16px;">
+          <a href="#" onclick="openGuideModal('privacy'); return false;">Privacy Policy</a>
+          <a href="#" onclick="openGuideModal('terms'); return false;">Terms of Access</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- =====================================================
+       DASHBOARD VIEW (AFTER LOGIN)
+  ===================================================== -->
+  <div id="dashboard-view">
+    
+    <div class="dash-topbar">
+      <div class="user-profile-badge">
+        <div class="avatar-circle" id="userAvatarChar">U</div>
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; color: #fff;" id="dashWelcomeUser">Welcome, User</h2>
+          <div style="font-size: 12px; color: var(--muted);">Store: <strong id="dashStoreName" style="color: var(--cyan);">GENERAL</strong></div>
+        </div>
+      </div>
+      <button class="nav-cta" style="background: rgba(244,63,94,0.15); color: #fda4af; border: 1px solid rgba(244,63,94,0.3);" onclick="logoutUser()">
+        ⚡ Log Out
+      </button>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div class="global-announcement" id="dashAnnouncement" style="display: none; background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25); color: #c9fdff; padding: 14px 20px; border-radius: 14px; margin-bottom: 25px; font-size: 13px; font-weight: 600;"></div>
+
+    <div style="margin-bottom: 24px;">
+      <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em;">Operations Control Center</h1>
+      <p style="color: var(--muted); font-size: 13px; margin-top: 4px;">Launch your authorized store tools below:</p>
+    </div>
+
+    <!-- NEW COMPACT CARDS GRID -->
+    <div class="dash-tools-grid" id="dashToolsGrid">
+      
+      <!-- 1. Manager Attendance (Theme: Light Blue) -->
+      <div class="tool-card" id="app-attendance" style="--card-accent: #38bdf8; --card-glow: rgba(56,189,248,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Management</span>
+          <div class="tool-icon">👥</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Manager Attendance</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, view, and record daily staff presence and GPS check-ins.</p>
+      </div>
+
+      <!-- 2. Stores Outstanding (Theme: Emerald Green) -->
+      <div class="tool-card" id="app-outstanding" style="--card-accent: #10b981; --card-glow: rgba(16,185,129,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Finance</span>
+          <div class="tool-icon">💳</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stores Outstanding</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor pending customer balances, store credit invoices, and receipts.</p>
+      </div>
+
+      <!-- 3. Stock Availability (Theme: Amber Yellow) -->
+      <div class="tool-card" id="app-stock" style="--card-accent: #f59e0b; --card-glow: rgba(245,158,11,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Operations</span>
+          <div class="tool-icon">📦</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Availability</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Search, filter, and review regional inventory counts directly from Sheet1.</p>
+      </div>
+
+      <!-- 4. Stock Value (Theme: Cyan Teal) -->
+      <div class="tool-card" id="app-stock-value" style="--card-accent: #06b6d4; --card-glow: rgba(6,182,212,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Value Tracking</span>
+          <div class="tool-icon">📊</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Stock Value Store Wise</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Monitor corporate value tracking and store investments from Sheet2 & Sheet3.</p>
+      </div>
+
+      <!-- 5. Customer Target Tracker (Theme: Rose Red) -->
+      <div class="tool-card" id="app-target-tracker" style="--card-accent: #f43f5e; --card-glow: rgba(244,63,94,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Marketing</span>
+          <div class="tool-icon">🎯</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Customer Target Tracker</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Submit live customer proofs for Instagram follows, YouTube subs, and reviews.</p>
+      </div>
+
+      <!-- 6. SBI Card Cashback (Theme: Vibrant Orange) -->
+      <div class="tool-card" id="app-sbi-cashback" style="--card-accent: #f97316; --card-glow: rgba(249,115,22,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Offers</span>
+          <div class="tool-icon">🎁</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">SBI Card Cashback</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Calculate instant credit card customer cashbacks and merchant discounts.</p>
+      </div>
+
+      <!-- 7. Monthly Target Tracker (Theme: Indigo Blue) -->
+      <div class="tool-card" id="app-monthly-tracker" style="--card-accent: #6366f1; --card-glow: rgba(99,102,241,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Performance</span>
+          <div class="tool-icon">📆</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Monthly Target Tracker</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, analyze, and manage monthly targets and brand-wise achievements.</p>
+      </div>
+
+      <!-- 8. Ageing Stock (Theme: Fuchsia Pink) -->
+      <div class="tool-card" id="app-ageing-stock" style="--card-accent: #d946ef; --card-glow: rgba(217,70,239,0.2);">
+        <div class="tool-card-accent-bar"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+          <span class="tool-badge">Analytics</span>
+          <div class="tool-icon">⏳</div>
+        </div>
+        <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Ageing Stock</h3>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track and monitor older product inventory reports across stores.</p>
+      </div>
+
+    </div>
+
+    <!-- Brand Footer Strip on Dashboard -->
+    <div style="margin-top: 40px; padding: 24px 30px; background: #090e17; border: 1px solid var(--line); border-radius: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+      <div>
+        <div style="font-size: 11px; font-family: 'JetBrains Mono'; color: var(--cyan); font-weight: 700;">GANPATI GROUP • SIVMOR GADGETS</div>
+        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 2px;">Rajasthan's First & Biggest Mobile Retail Chain</div>
+      </div>
+      <div style="font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono';">
+        JODHPUR HQ • MULTI-STORE RETAIL NETWORK
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       ATTENDANCE KIOSK
+  ===================================================== -->
+  <div id="attendance-view">
+    <button onclick="closeAttendanceKiosk()" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; width: 100%; margin-bottom: 20px; border: 1px solid var(--line);">
+      ⬅ Return to Dashboard
+    </button>
+
+    <h2 style="font-size: 22px; font-weight: 850; text-align: center; margin-bottom: 12px;">Store Attendance Check-In</h2>
+    <p style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 24px;">Please verify your GPS and take a front selfie.</p>
+
+    <!-- Step 1: GPS -->
+    <div style="margin-bottom: 18px;">
+      <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">📍 Step 1: Verify Live GPS</button>
+      <div id="locStatus" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; color: #fda4af;">⚠️ Awaiting GPS Signal</div>
+    </div>
+
+    <!-- Step 2: Camera -->
+    <div style="margin-bottom: 18px;">
+      <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">📷 Step 2: Open Camera for Selfie</button>
+      
+      <div id="camBox" style="display: none; margin-top: 15px; text-align: center;">
+        <video id="attVideo" autoplay playsinline style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; background: #000; border: 2px solid var(--cyan);"></video>
+        <button type="button" id="snapBtn" class="submit-btn" style="margin-top: 10px;">📸 Take Photo Now</button>
+      </div>
+
+      <div id="photoPreviewBox" style="display: none; margin-top: 15px; text-align: center;">
+        <img id="attPhotoImg" src="" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; border: 2px solid var(--mint);">
+        <button type="button" id="retakeBtn" class="nav-cta" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.1); color: #fff;">🔄 Retake Selfie</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Details -->
+    <form id="attSubmitForm">
+      <div class="input-wrap" id="mgrWrap">
+        <label>Manager Name</label>
+        <select id="attMgrSelect" class="input-box" style="background: #080d15;" required>
+          <option value="">-- Loading Manager... --</option>
+        </select>
+      </div>
+
+      <div class="input-wrap" id="storeWrap">
+        <label>Store Assignment</label>
+        <select id="attStoreSelect" class="input-box" style="background: #080d15;" required>
+          <option value="">-- Loading Store... --</option>
+        </select>
+      </div>
+
+      <div class="input-wrap">
+        <label>Remarks (Optional)</label>
+        <input type="text" id="attRemarks" class="input-box" placeholder="e.g. On-time check-in">
+      </div>
+
+      <input type="hidden" id="attLat">
+      <input type="hidden" id="attLng">
+      <input type="hidden" id="attPhotoData">
+
+      <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 8px;">
+        Checking Requirements...
+      </button>
+    </form>
+  </div>
+
+
+  <!-- =====================================================
+       FULLSCREEN APP VIEWER
+  ===================================================== -->
+  <div id="appViewer">
+    <div class="appViewer-bar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button onclick="closeAppViewer()" class="nav-cta" style="padding: 6px 12px; font-size: 11px;">⬅ Back</button>
+        <span id="appViewerTitle" style="font-weight: 800; font-size: 13px; color: #fff;">Module Title</span>
+      </div>
+      <div>
+        <button onclick="document.getElementById('appViewerFrame').src += ''" class="nav-cta" style="background: rgba(255,255,255,0.08); color: #fff; padding: 6px 12px; font-size: 11px;">🔄 Reload</button>
+      </div>
+    </div>
+    <div style="flex: 1; width: 100%; overflow: auto; background: #fff;">
+      <iframe id="appViewerFrame" src="" style="width: 100%; height: 100%; border: none;" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"></iframe>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       CONTENT MODAL
+  ===================================================== -->
+  <div class="content-modal" id="contentModal">
+    <div class="content-modal-card">
+      <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer;">&times;</button>
+      <div id="guideCategory" style="font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyan); font-weight: 700; text-transform: uppercase;">CATEGORY</div>
+      <h2 id="guideTitle" style="font-size: 22px; font-weight: 850; margin: 6px 0 16px; color: #fff;">Guide Title</h2>
+      <div id="guideBody" style="color: var(--muted); font-size: 13px; line-height: 1.8;"></div>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT LOGIC
+  ===================================================== -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* Mouse Spotlight Tracker */
+    const mouseLight = document.getElementById("mouseLight");
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, lightX = mouseX, lightY = mouseY;
+    window.addEventListener("mousemove", (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
+    function animateLight() {
+      lightX += (mouseX - lightX) * 0.08;
+      lightY += (mouseY - lightY) * 0.08;
+      mouseLight.style.left = lightX + "px";
+      mouseLight.style.top = lightY + "px";
+      requestAnimationFrame(animateLight);
+    }
+    animateLight();
+
+    /* Endpoints */
+    const SIVMOR_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTjOK2FMrqyQHeIIITmiJ_vKB88pBceqYLQa4rUFzReHNF0Pybl7afELbIPHiu3jypMc4vS0UtGEWmu/pub?output=csv";
+    const ATTENDANCE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_WoI9VdUBm5VGinxmnfu7hTHR5gHp3jP24P0vVH4VOUFrzxW8xqoSQQ7OzSxSvZhJ/exec";
+    const SUPPORT_TICKET_URL = "https://script.google.com/macros/s/AKfycbyH3xeu2w2faKxUpivCZVKKw0eue14w-gUjAfdrGFKiYI5ILuMLC3hPR5cXZz-S9T2X/exec";
+
+    let loggedInUser = '';
+    let userPermissions = null;
+    let storeMappings = [];
+
+    /* CSV Parser */
+    function parseCSV(csvText) {
+      const lines = csvText.split(/\r?\n/);
+      if (lines.length < 2) return { users: {}, globalNotif: "" };
+
+      function parseRow(row) {
+        const result = [];
+        let inQuotes = false, current = "";
+        for (let i = 0; i < row.length; i++) {
+          if (row[i] === '"') inQuotes = !inQuotes;
+          else if (row[i] === ',' && !inQuotes) { result.push(current); current = ""; }
+          else current += row[i];
+        }
+        result.push(current);
+        return result;
+      }
+
+      const headers = parseRow(lines[0]).map(h => h.trim().toLowerCase());
+      const users = {};
+
+      let passIdx = headers.indexOf("password"); if (passIdx === -1) passIdx = 1;
+      let attIdx = headers.indexOf("attendance"); if (attIdx === -1) attIdx = 2;
+      let outIdx = headers.indexOf("outstanding"); if (outIdx === -1) outIdx = 3;
+      let storeIdx = headers.findIndex(h => h.includes("allowed") || h.includes("store")); if (storeIdx === -1) storeIdx = 4;
+      let stockIdx = headers.findIndex(h => h === "stock"); if (stockIdx === -1) stockIdx = 5;
+      let valIdx = headers.findIndex(h => h.includes("value") || h.includes("val")); if (valIdx === -1) valIdx = 6;
+      let instaIdx = headers.findIndex(h => h.includes("insta") || h.includes("target") || h.includes("follow")); if (instaIdx === -1) instaIdx = 7;
+      let sbiIdx = headers.findIndex(h => h.includes("sbi") || h.includes("cashback")); if (sbiIdx === -1) sbiIdx = 8;
+      let trackerIdx = headers.findIndex(h => h.includes("monthly")); if (trackerIdx === -1) trackerIdx = 9;
+      // NAYA INDEX: Ageing Stock
+      let ageingIdx = headers.findIndex(h => h.includes("ageing")); if (ageingIdx === -1) ageingIdx = 10;
+
+      let globalNotif = "";
+      for (let r = 0; r < lines.length; r++) {
+        const rowCols = parseRow(lines[r]);
+        for (let c = 12; c < rowCols.length; c++) {
+          if (rowCols[c] && rowCols[c].trim().length > 15) {
+            globalNotif = rowCols[c].trim();
+            break;
+          }
+        }
+        if (globalNotif) break;
+      }
+
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const cols = parseRow(lines[i]).map(c => c.trim());
+        if (!cols[0]) continue;
+        const uName = cols[0].toLowerCase();
+        users[uName] = {
+          password: cols[passIdx] || "",
+          attendance: cols[attIdx] || "",
+          outstanding: (cols[outIdx] || "").toLowerCase(),
+          allowed_stores: (cols[storeIdx] || "").toLowerCase(),
+          stock: (cols[stockIdx] || "no").toLowerCase(),
+          stock_value: (cols[valIdx] || "no").toLowerCase(),
+          insta_access: (cols[instaIdx] || "no").toLowerCase(),
+          sbi_cashback: (cols[sbiIdx] || "no").toLowerCase(),
+          monthly_tracker: (cols[trackerIdx] || "no").toLowerCase(),
+          // NAYA DATA: Ageing Stock
+          ageing_stock: (cols[ageingIdx] || "no").toLowerCase()
+        };
+      }
+      return { users, globalNotif };
+    }
+
+    /* Mascot Reactions */
+    const robotSpeech = document.getElementById("robotSpeech");
+    const loginUserId = document.getElementById("loginUserId");
+    const loginPassword = document.getElementById("loginPassword");
+    const eyeL = document.getElementById("eyeL");
+    const eyeR = document.getElementById("eyeR");
+
+    loginUserId.addEventListener("focus", () => {
+      robotSpeech.innerText = "State your User ID, explorer.";
+      eyeL.style.transform = "scaleY(1)";
+      eyeR.style.transform = "scaleY(1)";
+    });
+    loginPassword.addEventListener("focus", () => {
+      robotSpeech.innerText = "Shh... Encrypted password field!";
+      eyeL.style.transform = "scaleY(0.2)";
+      eyeR.style.transform = "scaleY(0.2)";
+    });
+    loginPassword.addEventListener("blur", () => {
+      eyeL.style.transform = "scaleY(1)";
+      eyeR.style.transform = "scaleY(1)";
+      if (!loginUserId.value && !loginPassword.value) robotSpeech.innerText = "Beep boop! State your User ID.";
+    });
+
+    document.getElementById("togglePasswordBtn").addEventListener("click", function() {
+      const isPass = loginPassword.type === "password";
+      loginPassword.type = isPass ? "text" : "password";
+      this.innerText = isPass ? "🙈" : "👁️";
+    });
+
+    /* Login Handling */
+    document.getElementById("clientLoginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("loginSubmitBtn");
+      const errBox = document.getElementById("loginErrorMsg");
+      const rawUser = loginUserId.value.trim();
+      const pass = loginPassword.value;
+
+      errBox.style.display = "none";
+      btn.innerText = "Authenticating... ⏳";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(SIVMOR_SHEET_CSV_URL + "&cb=" + Date.now(), { cache: "no-store" });
+        const csv = await res.text();
+        const db = parseCSV(csv);
+
+        if (db.users[rawUser.toLowerCase()] && db.users[rawUser.toLowerCase()].password === pass) {
+          const userPerms = db.users[rawUser.toLowerCase()];
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("loginTimestamp", Date.now().toString());
+          localStorage.setItem("username", rawUser);
+          localStorage.setItem("allowed_stores", userPerms.allowed_stores || "");
+          localStorage.setItem("user_permissions", JSON.stringify(userPerms));
+
+          robotSpeech.innerText = "Access Granted! Loading...";
+          btn.innerText = "Success! Launching... ✅";
+
+          if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 60 });
+
+          setTimeout(() => {
+            showDashboard(userPerms, rawUser, db.globalNotif);
+          }, 600);
+        } else {
+          errBox.style.display = "block";
+          robotSpeech.innerText = "Intruder Alert! Check credentials.";
+          btn.innerText = "Secure Portal Login ↗";
+          btn.disabled = false;
+        }
+      } catch (err) {
+        errBox.innerText = "Network sync error. Check internet connection.";
+        errBox.style.display = "block";
+        btn.innerText = "Secure Portal Login ↗";
+        btn.disabled = false;
+      }
+    });
+
+    function showDashboard(perms, userRaw, announcement = "") {
+      loggedInUser = userRaw;
+      userPermissions = perms;
+
+      document.getElementById("mainNavWrap").style.display = "none";
+      document.getElementById("landing-view").style.display = "none";
+      document.getElementById("dashboard-view").style.display = "flex";
+
+      document.getElementById("dashWelcomeUser").innerText = "Welcome, " + userRaw;
+      document.getElementById("userAvatarChar").innerText = userRaw.charAt(0).toUpperCase();
+      document.getElementById("dashStoreName").innerText = (perms.allowed_stores || "GENERAL").toUpperCase();
+
+      if (announcement) {
+        const notifBar = document.getElementById("dashAnnouncement");
+        notifBar.innerText = "📢 " + announcement;
+        notifBar.style.display = "block";
+      }
+
+      const uParam = encodeURIComponent(userRaw);
+      const tParam = Date.now();
+
+      // 1. Attendance
+      const attCard = document.getElementById("app-attendance");
+      if (perms.attendance && perms.attendance.toLowerCase() !== "no") {
+        attCard.style.display = "block";
+        attCard.onclick = () => {
+          if (perms.attendance.toLowerCase() === "admin") {
+            openAppViewer(`https://kshekhawat73.github.io/Sivmor/admin-monitor.html?user=${uParam}&t=${tParam}`, "Attendance Monitor");
+          } else {
+            openAttendanceKiosk();
+          }
+        };
+      }
+
+      // 2. Outstanding
+      const outCard = document.getElementById("app-outstanding");
+      if (perms.outstanding === "yes" || perms.outstanding === "admin" || perms.outstanding === "all" || (perms.allowed_stores && perms.allowed_stores !== "no")) {
+        outCard.style.display = "block";
+        let storeP = (perms.outstanding === "yes" || perms.allowed_stores === "yes" || perms.allowed_stores === "admin") ? "ALL" : perms.allowed_stores;
+        outCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/store-outstanding-dashboard/?user=${uParam}&stores=${encodeURIComponent(storeP.toUpperCase())}&t=${tParam}`, "Stores Outstanding");
+      }
+
+      // 3. Stock
+      const stockCard = document.getElementById("app-stock");
+      if (perms.stock === "yes" || perms.stock === "admin") {
+        stockCard.style.display = "block";
+        stockCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Availability Checker");
+      }
+
+      // 4. Stock Value
+      const valCard = document.getElementById("app-stock-value");
+      if (perms.stock_value === "yes" || perms.stock_value === "admin") {
+        valCard.style.display = "block";
+        valCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/stock-value/?sheet=Sheet2&user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Stock Value Store Wise");
+      }
+
+      // 5. Target Tracker
+      const targetCard = document.getElementById("app-target-tracker");
+      if (perms.insta_access === "admin" || perms.insta_access === "all" || (userRaw.toLowerCase() === "admin" && perms.insta_access !== "no")) {
+        targetCard.style.display = "block";
+        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/admin.html?user=${uParam}&t=${tParam}`, "Customer Target Tracker (Admin)");
+      } else if (perms.insta_access === "yes" || perms.insta_access === "true") {
+        targetCard.style.display = "block";
+        targetCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Customer Target Tracker");
+      }
+
+      // 6. SBI Cashback
+      const sbiCard = document.getElementById("app-sbi-cashback");
+      if (perms.sbi_cashback === "yes" || perms.sbi_cashback === "admin") {
+        sbiCard.style.display = "block";
+        sbiCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/Sbi_Card_Cashback/?user=${uParam}&t=${tParam}`, "SBI Card Cashback");
+      }
+
+      // 7. Monthly Tracker
+      const monthlyCard = document.getElementById("app-monthly-tracker");
+      if (perms.monthly_tracker === "yes" || perms.monthly_tracker === "admin") {
+        monthlyCard.style.display = "block";
+        monthlyCard.onclick = () => openAppViewer(`https://kshekhawat73.github.io/monthly-target-tracker/?user=${uParam}&stores=${encodeURIComponent(perms.allowed_stores || "")}&t=${tParam}`, "Monthly Target Tracker");
+      }
+
+      // 8. Ageing Stock
+      const ageingCard = document.getElementById("app-ageing-stock");
+      if (perms.ageing_stock === "yes" || perms.ageing_stock === "admin") {
+        ageingCard.style.display = "block";
+        ageingCard.onclick = () => openAppViewer(`https://script.google.com/macros/s/AKfycbwHy5rTkJgzCTlFz7kKFK3LeybiQIpv3LmKDhbZl_ZDrjfXOMkLH1nlDedHGDz2PVtB/exec?user=${uParam}&t=${tParam}`, "Ageing Stock");
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    function logoutUser() {
+      localStorage.clear();
+      window.location.reload();
+    }
+
+    /* Check Saved Session on Page Load */
+    window.addEventListener("load", () => {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        const savedTime = parseInt(localStorage.getItem("loginTimestamp") || "0", 10);
+        if ((Date.now() - savedTime) / (1000 * 60) < 60) {
+          const perms = JSON.parse(localStorage.getItem("user_permissions") || "{}");
+          const uName = localStorage.getItem("username") || "";
+          showDashboard(perms, uName);
+        } else {
+          logoutUser();
+        }
+      }
+    });
+
+    /* App Viewer Modal */
+    function openAppViewer(url, title) {
+      document.getElementById("dashboard-view").style.display = "none";
+      document.getElementById("appViewerTitle").innerText = title;
+      document.getElementById("appViewerFrame").src = url;
+      document.getElementById("appViewer").style.display = "flex";
+    }
+    function closeAppViewer() {
+      document.getElementById("appViewer").style.display = "none";
+      document.getElementById("appViewerFrame").src = "";
+      document.getElementById("dashboard-view").style.display = "flex";
+    }
+
+    /* ATTENDANCE KIOSK */
+    let cameraStream = null;
+
+    async function openAttendanceKiosk() {
+      document.getElementById("dashboard-view").style.display = "none";
+      document.getElementById("attendance-view").style.display = "block";
+      await loadStoreDropdowns();
+      validateAttendanceReady();
+    }
+
+    function closeAttendanceKiosk() {
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+      document.getElementById("attendance-view").style.display = "none";
+      document.getElementById("dashboard-view").style.display = "flex";
+    }
+
+    async function loadStoreDropdowns() {
+      const attVal = userPermissions.attendance || "";
+      const isAdm = attVal.toLowerCase() === "admin" || attVal.toLowerCase() === "all";
+
+      const mSelect = document.getElementById("attMgrSelect");
+      const sSelect = document.getElementById("attStoreSelect");
+
+      try {
+        const res = await fetch(ATTENDANCE_WEB_APP_URL + "?action=getLists&t=" + Date.now());
+        storeMappings = await res.json();
+      } catch(e) {
+        storeMappings = [];
+      }
+
+      if (isAdm) {
+        const uniqueMgrs = [...new Set(storeMappings.map(i => i.manager).filter(Boolean))].sort();
+        mSelect.innerHTML = '<option value="">-- Select Manager --</option>' + uniqueMgrs.map(m => `<option value="${m}">${m}</option>`).join("");
+        sSelect.innerHTML = '<option value="">-- Select Store --</option>';
+
+        mSelect.onchange = () => {
+          const selVal = mSelect.value.trim().toLowerCase();
+          const matchedStores = storeMappings.filter(i => (i.manager || "").toLowerCase().trim() === selVal).map(i => i.store);
+          sSelect.innerHTML = matchedStores.map(s => `<option value="${s}">${s}</option>`).join("");
+          if (matchedStores.length > 0) sSelect.value = matchedStores[0];
+          validateAttendanceReady();
+        };
+      } else {
+        const managerName = (attVal && attVal.toLowerCase() !== "yes") ? attVal.toUpperCase() : loggedInUser.toUpperCase();
+        mSelect.innerHTML = `<option value="${managerName}" selected>${managerName}</option>`;
+        
+        let storeOptions = [];
+        if (storeMappings.length > 0) {
+          storeOptions = storeMappings.filter(i => (i.manager || "").toLowerCase().trim() === managerName.toLowerCase().trim()).map(i => i.store);
+        }
+        if (storeOptions.length === 0) {
+          storeOptions = [(userPermissions.allowed_stores || "GENERAL").toUpperCase()];
+        }
+        sSelect.innerHTML = storeOptions.map(s => `<option value="${s}">${s}</option>`).join("");
+        sSelect.value = storeOptions[0];
+      }
+    }
+
+    document.getElementById("locBtn").addEventListener("click", () => {
+      const status = document.getElementById("locStatus");
+      status.innerText = "🔄 Acquiring GPS Satellite Signal...";
+      status.style.color = "var(--amber)";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          document.getElementById("attLat").value = pos.coords.latitude.toString();
+          document.getElementById("attLng").value = pos.coords.longitude.toString();
+          status.innerText = "✅ GPS Location Verified (" + pos.coords.latitude.toFixed(4) + ", " + pos.coords.longitude.toFixed(4) + ")";
+          status.style.color = "var(--mint)";
+          validateAttendanceReady();
+        },
+        () => {
+          status.innerText = "❌ Location blocked! Allow GPS in browser address bar.";
+          status.style.color = "var(--rose)";
+        },
+        { enableHighAccuracy: true, timeout: 15000 }
+      );
+    });
+
+    document.getElementById("camBtn").addEventListener("click", async () => {
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 640 } } });
+        const video = document.getElementById("attVideo");
+        video.srcObject = cameraStream;
+        document.getElementById("camBox").style.display = "block";
+        document.getElementById("camBtn").style.display = "none";
+      } catch(e) {
+        alert("Camera permission denied. Please allow camera in your browser.");
+      }
+    });
+
+    document.getElementById("snapBtn").addEventListener("click", () => {
+      const video = document.getElementById("attVideo");
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 640;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const b64 = canvas.toDataURL("image/jpeg", 0.65);
+      document.getElementById("attPhotoData").value = b64;
+      document.getElementById("attPhotoImg").src = b64;
+
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+      document.getElementById("camBox").style.display = "none";
+      document.getElementById("photoPreviewBox").style.display = "block";
+      validateAttendanceReady();
+    });
+
+    document.getElementById("retakeBtn").addEventListener("click", () => {
+      document.getElementById("photoPreviewBox").style.display = "none";
+      document.getElementById("camBtn").click();
+    });
+
+    function validateAttendanceReady() {
+      const hasLoc = !!document.getElementById("attLat").value;
+      const hasPhoto = !!document.getElementById("attPhotoData").value;
+      const hasMgr = !!document.getElementById("attMgrSelect").value;
+      const hasStore = !!document.getElementById("attStoreSelect").value;
+      const btn = document.getElementById("attSubmitBtn");
+
+      if (hasLoc && hasPhoto && hasMgr && hasStore) {
+        btn.disabled = false;
+        btn.innerText = "Submit Verified Attendance 🚀";
+        btn.style.background = "linear-gradient(135deg, #34d399, #059669)";
+      } else {
+        btn.disabled = true;
+        const missing = [];
+        if (!hasLoc) missing.push("GPS");
+        if (!hasPhoto) missing.push("Selfie");
+        if (!hasMgr) missing.push("Manager");
+        if (!hasStore) missing.push("Store");
+        btn.innerText = "Required: " + missing.join(", ");
+        btn.style.background = "rgba(255,255,255,0.08)";
+      }
+    }
+
+    document.getElementById("attSubmitForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("attSubmitBtn");
+      btn.innerText = "Uploading to Database... ⏳";
+      btn.disabled = true;
+
+      const mgrVal = document.getElementById("attMgrSelect").value.trim();
+      const storeVal = document.getElementById("attStoreSelect").value.trim();
+      const latVal = document.getElementById("attLat").value.trim();
+      const lngVal = document.getElementById("attLng").value.trim();
+      const photoVal = document.getElementById("attPhotoData").value.trim();
+      const remarksVal = document.getElementById("attRemarks").value.trim();
+
+      const params = new URLSearchParams();
+      params.append("managerName", mgrVal);
+      params.append("manager", mgrVal);
+      params.append("storeName", storeVal);
+      params.append("store", storeVal);
+      params.append("latitude", latVal);
+      params.append("lat", latVal);
+      params.append("longitude", lngVal);
+      params.append("lng", lngVal);
+      params.append("photoBase64", photoVal);
+      params.append("photo", photoVal);
+      params.append("remarks", remarksVal);
+
+      try {
+        await fetch(ATTENDANCE_WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body: params.toString()
+        });
+      } catch (postErr) {
+        console.warn("Attendance POST dispatched:", postErr);
+      }
+
+      if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70 });
+      alert("✅ Attendance successfully recorded!");
+      closeAttendanceKiosk();
+    });
+
+    /* SUPPORT TICKET */
+    document.getElementById("ticketForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("ticketSubmitBtn");
+      btn.innerText = "Submitting Ticket... ⏳";
+      btn.disabled = true;
+
+      const data = {
+        name: document.getElementById("tName").value,
+        business: document.getElementById("tStore").value,
+        phone: document.getElementById("tPhone").value,
+        email: document.getElementById("tEmail").value,
+        city: document.getElementById("tIssue").value,
+        req: document.getElementById("tDesc").value
+      };
+
+      try {
+        const res = await fetch(SUPPORT_TICKET_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.result === "success") {
+          document.getElementById("ticketForm").style.display = "none";
+          document.getElementById("ticketSuccessBox").style.display = "block";
+          document.getElementById("ticketForm").reset();
+        }
+      } catch(e) {
+        alert("Error sending ticket. Please try again.");
+      } finally {
+        btn.innerText = "Submit Support Ticket ↗";
+        btn.disabled = false;
+      }
+    });
+
+    /* GUIDES CONTENT */
+    const guides = {
+      "privacy": { cat: "Legal", title: "Privacy Policy", body: "<p>SiVMOR respects your privacy. Geolocation logs and camera photos are encrypted and captured strictly for internal attendance authentication.</p>" },
+      "terms": { cat: "Legal", title: "Terms of Access", body: "<p>Access to the SiVMOR Workspace is limited strictly to authorized store managers and employees. Account sharing is prohibited.</p>" },
+      "blog-1": { cat: "Management", title: "How to mark Manager Attendance?", body: "<p>Click <strong>Step 1: Verify GPS</strong> to validate your proximity to the store. Then click <strong>Step 2: Take Selfie</strong>, align your face in the box, and tap Submit.</p>" },
+      "blog-2": { cat: "Finance", title: "Checking Store Outstanding", body: "<p>Open the <strong>Stores Outstanding</strong> module to view filtered customer ledgers, open balances, and invoice aging for your branch.</p>" },
+      "blog-3": { cat: "Operations", title: "Live Stock Availability Guide", body: "<p>Search product SKUs in real time. If an item is out of stock at your store, check adjacent stores for customer reservations.</p>" },
+      "blog-5": { cat: "Marketing", title: "Submitting Customer Target Proofs", body: "<p>Upload customer screenshots of Instagram follows, YouTube subscriptions, and 5-star Google Reviews to calculate monthly incentives.</p>" }
+    };
+
+    function openGuideModal(key) {
+      const g = guides[key];
+      if (!g) return;
+      document.getElementById("guideCategory").innerText = g.cat;
+      document.getElementById("guideTitle").innerText = g.title;
+      document.getElementById("guideBody").innerHTML = g.body;
+      document.getElementById("contentModal").classList.add("active");
+    }
+    function closeGuideModal() {
+      document.getElementById("contentModal").classList.remove("active");
+    }
+  </script>
+
+</body>
+</html>
