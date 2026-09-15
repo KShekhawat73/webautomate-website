@@ -315,6 +315,53 @@
     /* ATTENDANCE KIOSK VIEW */
     #attendance-view { display: none; width: 100%; max-width: 520px; margin: 90px auto 50px; background: #0c121e; border: 1px solid rgba(87, 238, 244, 0.2); border-radius: 24px; padding: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
 
+    .input-box:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* Attendance — dynamic Check-In / Check-Out mode banner */
+    .att-mode-banner {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 16px;
+      background: rgba(87, 238, 244, 0.06); border: 1px solid rgba(87, 238, 244, 0.25);
+      margin-bottom: 22px; transition: background 0.35s ease, border-color 0.35s ease;
+    }
+    .att-mode-banner.mode-checkout { background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.3); }
+    .att-mode-banner.mode-complete { background: rgba(109, 255, 189, 0.08); border-color: rgba(109, 255, 189, 0.3); }
+    .att-mode-icon {
+      width: 42px; height: 42px; border-radius: 12px; background: rgba(87, 238, 244, 0.12); flex-shrink: 0;
+      display: grid; place-items: center; font-size: 19px; border: 1px solid rgba(87, 238, 244, 0.3);
+      transition: all 0.35s ease;
+    }
+    .att-mode-banner.mode-checkout .att-mode-icon { background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.35); }
+    .att-mode-banner.mode-complete .att-mode-icon { background: rgba(109, 255, 189, 0.14); border-color: rgba(109, 255, 189, 0.35); }
+    .att-mode-title { font-size: 15px; font-weight: 850; color: #fff; }
+    .att-mode-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+    /* Attendance — step progress indicator (GPS -> Selfie -> Confirm) */
+    .att-stepper { display: flex; align-items: center; justify-content: center; margin-bottom: 26px; }
+    .att-step { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 64px; }
+    .att-step-circle {
+      width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 12px; font-weight: 800; background: rgba(255,255,255,0.04); color: var(--dim);
+      border: 1.5px solid var(--line); transition: all 0.3s ease;
+    }
+    .att-step-label { font-size: 9.5px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.3s ease; }
+    .att-step.active .att-step-circle { background: var(--cyan); border-color: var(--cyan); color: #05070b; box-shadow: 0 0 14px rgba(87, 238, 244, 0.4); }
+    .att-step.active .att-step-label { color: var(--cyan); }
+    .att-step.done .att-step-circle { background: var(--mint); border-color: var(--mint); color: #05070b; }
+    .att-step.done .att-step-label { color: var(--mint); }
+    .att-step-line { flex: 1; max-width: 40px; height: 1.5px; background: var(--line); margin: 0 2px 18px; transition: background 0.3s ease; }
+    .att-step-line.done { background: var(--mint); }
+
+    /* Attendance — day complete summary card */
+    .att-complete-card { text-align: center; padding: 18px 6px 6px; }
+    .att-complete-icon {
+      width: 60px; height: 60px; border-radius: 18px; margin: 0 auto 16px; display: grid; place-items: center;
+      font-size: 28px; background: rgba(109, 255, 189, 0.1); border: 1px solid rgba(109, 255, 189, 0.3);
+    }
+    .att-complete-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; text-align: left; }
+    .att-complete-row { padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--line); }
+    .att-complete-row-label { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--dim); }
+    .att-complete-row-value { font-size: 13px; font-weight: 800; color: #fff; margin-top: 4px; }
+
     /* APP VIEWER MODAL */
     #appViewer { display: none; position: fixed; inset: 0; z-index: 99999; background: #05070b; flex-direction: column; }
     .appViewer-bar { height: 56px; background: #090e17; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
@@ -720,6 +767,7 @@
     </div>
     <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 6px; color: #fff;">Manager Attendance</h3>
     <p style="font-size: 12px; color: var(--muted); line-height: 1.5;">Track, view, and record daily staff presence and GPS check-ins.</p>
+    <div id="attCardStatusBadge" style="display: none; margin-top: 12px; font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 8px; width: fit-content; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.03em;"></div>
   </div>
 
   <!-- 2. Stores Outstanding (Theme: Emerald Green) -->
@@ -823,59 +871,99 @@
       ⬅ Return to Dashboard
     </button>
 
-<h2 style="font-size: 22px; font-weight: 850; text-align: center; margin-bottom: 12px;">Store Attendance Check-In</h2>
-<p style="text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 24px;">Please verify your GPS and take a front selfie.</p>
+    <!-- Dynamic mode banner: switches copy/colour between Check-In and Check-Out -->
+    <div class="att-mode-banner" id="attModeBanner">
+      <div class="att-mode-icon" id="attModeIcon">📍</div>
+      <div>
+        <div class="att-mode-title" id="attModeTitle">Store Attendance Check-In</div>
+        <div class="att-mode-sub" id="attModeSub">Verify your GPS and take a front selfie to begin your shift.</div>
+      </div>
+    </div>
 
-<!-- Step 1: GPS -->
-<div style="margin-bottom: 18px;">
-  <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">📍 Step 1: Verify Live GPS</button>
-  <div id="locStatus" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; color: #fda4af;">⚠️ Awaiting GPS Signal</div>
-</div>
+    <!-- Progress stepper -->
+    <div class="att-stepper" id="attStepper">
+      <div class="att-step" id="attStepDot1"><div class="att-step-circle">1</div><div class="att-step-label">GPS</div></div>
+      <div class="att-step-line" id="attStepLine1"></div>
+      <div class="att-step" id="attStepDot2"><div class="att-step-circle">2</div><div class="att-step-label">Selfie</div></div>
+      <div class="att-step-line" id="attStepLine2"></div>
+      <div class="att-step" id="attStepDot3"><div class="att-step-circle">3</div><div class="att-step-label">Confirm</div></div>
+    </div>
 
-<!-- Step 2: Camera -->
-<div style="margin-bottom: 18px;">
-  <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">📷 Step 2: Open Camera for Selfie</button>
-  
-  <div id="camBox" style="display: none; margin-top: 15px; text-align: center;">
-    <video id="attVideo" autoplay playsinline style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; background: #000; border: 2px solid var(--cyan);"></video>
-    <button type="button" id="snapBtn" class="submit-btn" style="margin-top: 10px;">📸 Take Photo Now</button>
-  </div>
+    <!-- Shown only once BOTH check-in and check-out are done for today -->
+    <div id="attCompleteCard" style="display: none;">
+      <div class="att-complete-card">
+        <div class="att-complete-icon">🎉</div>
+        <h2 style="font-size: 18px; font-weight: 850;">Today's Attendance Complete</h2>
+        <p style="font-size: 12px; color: var(--muted); margin-top: 6px;">You've already checked in and checked out for today. See you tomorrow!</p>
+        <div class="att-complete-rows">
+          <div class="att-complete-row">
+            <div class="att-complete-row-label">Check-In</div>
+            <div class="att-complete-row-value" id="attCompleteInTime">--:--</div>
+          </div>
+          <div class="att-complete-row">
+            <div class="att-complete-row-label">Check-Out</div>
+            <div class="att-complete-row-value" id="attCompleteOutTime">--:--</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div id="photoPreviewBox" style="display: none; margin-top: 15px; text-align: center;">
-    <img id="attPhotoImg" src="" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; border: 2px solid var(--mint);">
-    <button type="button" id="retakeBtn" class="nav-cta" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.1); color: #fff;">🔄 Retake Selfie</button>
-  </div>
-</div>
+    <!-- Check-In / Check-Out flow (same GPS + selfie steps reused for both) -->
+    <div id="attFlowWrapper">
 
-<!-- Step 3: Details -->
-<form id="attSubmitForm">
-  <div class="input-wrap" id="mgrWrap">
-    <label>Manager Name</label>
-    <select id="attMgrSelect" class="input-box" style="background: #080d15;" required>
-      <option value="">-- Loading Manager... --</option>
-    </select>
-  </div>
+      <!-- Step 1: GPS -->
+      <div style="margin-bottom: 18px;">
+        <button type="button" id="locBtn" class="submit-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">📍 Step 1: Verify Live GPS</button>
+        <div id="locStatus" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 10px; color: #fda4af;">⚠️ Awaiting GPS Signal</div>
+      </div>
 
-  <div class="input-wrap" id="storeWrap">
-    <label>Store Assignment</label>
-    <select id="attStoreSelect" class="input-box" style="background: #080d15;" required>
-      <option value="">-- Loading Store... --</option>
-    </select>
-  </div>
+      <!-- Step 2: Camera -->
+      <div style="margin-bottom: 18px;">
+        <button type="button" id="camBtn" class="submit-btn" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">📷 Step 2: Open Camera for Selfie</button>
 
-  <div class="input-wrap">
-    <label>Remarks (Optional)</label>
-    <input type="text" id="attRemarks" class="input-box" placeholder="e.g. On-time check-in">
-  </div>
+        <div id="camBox" style="display: none; margin-top: 15px; text-align: center;">
+          <video id="attVideo" autoplay playsinline style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; background: #000; border: 2px solid var(--cyan);"></video>
+          <button type="button" id="snapBtn" class="submit-btn" style="margin-top: 10px;">📸 Take Photo Now</button>
+        </div>
 
-  <input type="hidden" id="attLat">
-  <input type="hidden" id="attLng">
-  <input type="hidden" id="attPhotoData">
+        <div id="photoPreviewBox" style="display: none; margin-top: 15px; text-align: center;">
+          <img id="attPhotoImg" src="" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; border: 2px solid var(--mint);">
+          <button type="button" id="retakeBtn" class="nav-cta" style="margin-top: 10px; width: 100%; background: rgba(255,255,255,0.1); color: #fff;">🔄 Retake Selfie</button>
+        </div>
+      </div>
 
-  <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 8px;">
-    Checking Requirements...
-  </button>
-</form>
+      <!-- Step 3: Details -->
+      <form id="attSubmitForm">
+        <div class="input-wrap" id="mgrWrap">
+          <label>Manager Name</label>
+          <select id="attMgrSelect" class="input-box" style="background: #080d15;" required>
+            <option value="">-- Loading Manager... --</option>
+          </select>
+        </div>
+
+        <div class="input-wrap" id="storeWrap">
+          <label>Store Assignment</label>
+          <select id="attStoreSelect" class="input-box" style="background: #080d15;" required>
+            <option value="">-- Loading Store... --</option>
+          </select>
+        </div>
+
+        <div class="input-wrap">
+          <label id="attRemarksLabel">Remarks (Optional)</label>
+          <input type="text" id="attRemarks" class="input-box" placeholder="e.g. On-time check-in">
+        </div>
+
+        <input type="hidden" id="attLat">
+        <input type="hidden" id="attLng">
+        <input type="hidden" id="attPhotoData">
+        <input type="hidden" id="attModeField" value="checkin">
+
+        <button type="submit" id="attSubmitBtn" class="submit-btn" disabled style="margin-top: 8px;">
+          Checking Requirements...
+        </button>
+      </form>
+
+    </div>
 
   </div>
 
@@ -1114,6 +1202,25 @@
             openAttendanceKiosk();
           }
         };
+
+        // Live "already checked in / done for today" badge — only meaningful for a single fixed manager
+        const attValLower = perms.attendance.toLowerCase();
+        const badge = document.getElementById("attCardStatusBadge");
+        if (attValLower !== "admin" && attValLower !== "all") {
+          const mgrNameForBadge = (perms.attendance && attValLower !== "yes") ? perms.attendance.toUpperCase() : userRaw.toUpperCase();
+          const badgeMode = determineAttendanceMode(mgrNameForBadge);
+          badge.style.display = "inline-block";
+          if (badgeMode === "complete") {
+            badge.innerText = "✅ Day Complete";
+            badge.style.background = "rgba(109,255,189,0.12)"; badge.style.color = "#6dffbd"; badge.style.border = "1px solid rgba(109,255,189,0.3)";
+          } else if (badgeMode === "checkout") {
+            badge.innerText = "🟡 Checked In — Check-Out Pending";
+            badge.style.background = "rgba(251,191,36,0.12)"; badge.style.color = "#fbbf24"; badge.style.border = "1px solid rgba(251,191,36,0.3)";
+          } else {
+            badge.innerText = "⚪ Not Checked In Yet";
+            badge.style.background = "rgba(255,255,255,0.04)"; badge.style.color = "#8a94a5"; badge.style.border = "1px solid rgba(255,255,255,0.08)";
+          }
+        }
       }
 
       // 2. Outstanding
@@ -1206,10 +1313,123 @@
 
     /* ATTENDANCE KIOSK */
     let cameraStream = null;
+    let currentAttMode = "checkin";   // 'checkin' | 'checkout' | 'complete'
+    let currentAttRecord = null;
+    const ATT_STORAGE_PREFIX = "sivmor_att_v1_";
+
+    /* ---- Local check-in/check-out state (per manager, per day, on this device) ---- */
+    function getLocalDateStr(d = new Date()) {
+      const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, "0"), day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+    function attRecordKey(managerName) {
+      return ATT_STORAGE_PREFIX + getLocalDateStr() + "_" + (managerName || "").trim().toUpperCase();
+    }
+    function getAttendanceRecord(managerName) {
+      try {
+        const raw = localStorage.getItem(attRecordKey(managerName));
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) { return null; }
+    }
+    function saveAttendanceRecord(managerName, record) {
+      try { localStorage.setItem(attRecordKey(managerName), JSON.stringify(record)); } catch (e) {}
+    }
+    function formatClockTime(iso) {
+      try { return new Date(iso).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }); }
+      catch (e) { return "--:--"; }
+    }
+    function determineAttendanceMode(managerName) {
+      const record = getAttendanceRecord(managerName);
+      currentAttRecord = record;
+      if (record && record.checkinDone && record.checkoutDone) return "complete";
+      if (record && record.checkinDone && !record.checkoutDone) return "checkout";
+      return "checkin";
+    }
+
+    /* ---- Step progress indicator ---- */
+    function updateStepper(activeStep) {
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById("attStepDot" + i);
+        dot.classList.remove("active", "done");
+        if (i < activeStep) dot.classList.add("done");
+        else if (i === activeStep) dot.classList.add("active");
+      }
+      document.getElementById("attStepLine1").classList.toggle("done", activeStep > 1);
+      document.getElementById("attStepLine2").classList.toggle("done", activeStep > 2);
+    }
+
+    /* ---- Switch the kiosk UI between Check-In / Check-Out / Day-Complete ---- */
+    function applyAttendanceMode(mode) {
+      currentAttMode = mode;
+      const banner = document.getElementById("attModeBanner");
+      const icon = document.getElementById("attModeIcon");
+      const title = document.getElementById("attModeTitle");
+      const sub = document.getElementById("attModeSub");
+      const flow = document.getElementById("attFlowWrapper");
+      const completeCard = document.getElementById("attCompleteCard");
+      const stepper = document.getElementById("attStepper");
+      const modeField = document.getElementById("attModeField");
+
+      banner.classList.remove("mode-checkout", "mode-complete");
+
+      if (mode === "complete") {
+        flow.style.display = "none";
+        stepper.style.display = "none";
+        completeCard.style.display = "block";
+        banner.classList.add("mode-complete");
+        icon.innerText = "🎉";
+        title.innerText = "Attendance Completed";
+        sub.innerText = "Your check-in and check-out for today are both recorded.";
+        if (currentAttRecord) {
+          document.getElementById("attCompleteInTime").innerText = formatClockTime(currentAttRecord.checkinTime);
+          document.getElementById("attCompleteOutTime").innerText = formatClockTime(currentAttRecord.checkoutTime);
+        }
+        return;
+      }
+
+      completeCard.style.display = "none";
+      stepper.style.display = "flex";
+      flow.style.display = "block";
+
+      if (mode === "checkout") {
+        banner.classList.add("mode-checkout");
+        icon.innerText = "🚪";
+        title.innerText = "Store Attendance Check-Out";
+        sub.innerText = "Verify your GPS and take a selfie to end your shift.";
+        modeField.value = "checkout";
+        document.getElementById("attMgrSelect").disabled = true;
+        document.getElementById("attStoreSelect").disabled = true;
+      } else {
+        icon.innerText = "📍";
+        title.innerText = "Store Attendance Check-In";
+        sub.innerText = "Verify your GPS and take a front selfie to begin your shift.";
+        modeField.value = "checkin";
+        document.getElementById("attMgrSelect").disabled = false;
+        document.getElementById("attStoreSelect").disabled = false;
+      }
+
+      updateStepper(1);
+    }
+
+    /* ---- Reset the capture fields so every Check-In / Check-Out starts fresh ---- */
+    function resetAttendanceFlowUI() {
+      document.getElementById("attLat").value = "";
+      document.getElementById("attLng").value = "";
+      document.getElementById("attPhotoData").value = "";
+      document.getElementById("attRemarks").value = "";
+      document.getElementById("locStatus").innerText = "⚠️ Awaiting GPS Signal";
+      document.getElementById("locStatus").style.color = "#fda4af";
+      document.getElementById("camBox").style.display = "none";
+      document.getElementById("photoPreviewBox").style.display = "none";
+      document.getElementById("camBtn").style.display = "block";
+      document.getElementById("attPhotoImg").src = "";
+      if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+    }
 
     async function openAttendanceKiosk() {
       document.getElementById("dashboard-view").style.display = "none";
       document.getElementById("attendance-view").style.display = "block";
+      resetAttendanceFlowUI();
       await loadStoreDropdowns();
       validateAttendanceReady();
     }
@@ -1238,12 +1458,22 @@
         const uniqueMgrs = [...new Set(storeMappings.map(i => i.manager).filter(Boolean))].sort();
         mSelect.innerHTML = '<option value="">-- Select Manager --</option>' + uniqueMgrs.map(m => `<option value="${m}">${m}</option>`).join("");
         sSelect.innerHTML = '<option value="">-- Select Store --</option>';
+        applyAttendanceMode("checkin"); // neutral default until a manager is actually picked
 
         mSelect.onchange = () => {
           const selVal = mSelect.value.trim().toLowerCase();
           const matchedStores = storeMappings.filter(i => (i.manager || "").toLowerCase().trim() === selVal).map(i => i.store);
           sSelect.innerHTML = matchedStores.map(s => `<option value="${s}">${s}</option>`).join("");
-          if (matchedStores.length > 0) sSelect.value = matchedStores[0];
+
+          const mode = determineAttendanceMode(mSelect.value);
+          applyAttendanceMode(mode);
+
+          if (mode === "checkout" && currentAttRecord && currentAttRecord.store && matchedStores.includes(currentAttRecord.store)) {
+            sSelect.value = currentAttRecord.store;
+          } else if (matchedStores.length > 0) {
+            sSelect.value = matchedStores[0];
+          }
+          resetAttendanceFlowUI();
           validateAttendanceReady();
         };
       } else {
@@ -1258,7 +1488,15 @@
           storeOptions = [(userPermissions.allowed_stores || "GENERAL").toUpperCase()];
         }
         sSelect.innerHTML = storeOptions.map(s => `<option value="${s}">${s}</option>`).join("");
-        sSelect.value = storeOptions[0];
+
+        const mode = determineAttendanceMode(managerName);
+        applyAttendanceMode(mode);
+
+        if (mode === "checkout" && currentAttRecord && currentAttRecord.store && storeOptions.includes(currentAttRecord.store)) {
+          sSelect.value = currentAttRecord.store;
+        } else {
+          sSelect.value = storeOptions[0];
+        }
       }
     }
 
@@ -1273,6 +1511,7 @@
           document.getElementById("attLng").value = pos.coords.longitude.toString();
           status.innerText = "✅ GPS Location Verified (" + pos.coords.latitude.toFixed(4) + ", " + pos.coords.longitude.toFixed(4) + ")";
           status.style.color = "var(--mint)";
+          updateStepper(2);
           validateAttendanceReady();
         },
         () => {
@@ -1309,11 +1548,15 @@
       if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
       document.getElementById("camBox").style.display = "none";
       document.getElementById("photoPreviewBox").style.display = "block";
+      updateStepper(3);
       validateAttendanceReady();
     });
 
     document.getElementById("retakeBtn").addEventListener("click", () => {
       document.getElementById("photoPreviewBox").style.display = "none";
+      document.getElementById("attPhotoData").value = "";
+      updateStepper(2);
+      validateAttendanceReady();
       document.getElementById("camBtn").click();
     });
 
@@ -1323,11 +1566,14 @@
       const hasMgr = !!document.getElementById("attMgrSelect").value;
       const hasStore = !!document.getElementById("attStoreSelect").value;
       const btn = document.getElementById("attSubmitBtn");
+      const isCheckout = currentAttMode === "checkout";
 
       if (hasLoc && hasPhoto && hasMgr && hasStore) {
         btn.disabled = false;
-        btn.innerText = "Submit Verified Attendance 🚀";
-        btn.style.background = "linear-gradient(135deg, #34d399, #059669)";
+        btn.innerText = isCheckout ? "Submit Verified Check-Out 🚪" : "Submit Verified Check-In 🚀";
+        btn.style.background = isCheckout
+          ? "linear-gradient(135deg, #fbbf24, #f59e0b)"
+          : "linear-gradient(135deg, #34d399, #059669)";
       } else {
         btn.disabled = true;
         const missing = [];
@@ -1343,7 +1589,8 @@
     document.getElementById("attSubmitForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const btn = document.getElementById("attSubmitBtn");
-      btn.innerText = "Uploading to Database... ⏳";
+      const isCheckout = currentAttMode === "checkout";
+      btn.innerText = isCheckout ? "Uploading Check-Out... ⏳" : "Uploading to Database... ⏳";
       btn.disabled = true;
 
       const mgrVal = document.getElementById("attMgrSelect").value.trim();
@@ -1352,6 +1599,7 @@
       const lngVal = document.getElementById("attLng").value.trim();
       const photoVal = document.getElementById("attPhotoData").value.trim();
       const remarksVal = document.getElementById("attRemarks").value.trim();
+      const nowIso = new Date().toISOString();
 
       const params = new URLSearchParams();
       params.append("managerName", mgrVal);
@@ -1365,6 +1613,22 @@
       params.append("photoBase64", photoVal);
       params.append("photo", photoVal);
       params.append("remarks", remarksVal);
+      // Event type marker so the backend sheet can tell Check-In rows from Check-Out rows
+      params.append("type", isCheckout ? "checkout" : "checkin");
+      params.append("eventTime", nowIso);
+
+      if (isCheckout && currentAttRecord && currentAttRecord.checkinTime) {
+        const checkinMs = new Date(currentAttRecord.checkinTime).getTime();
+        const durationMinutes = Math.max(0, Math.round((Date.now() - checkinMs) / 60000));
+        const hrs = Math.floor(durationMinutes / 60);
+        const mins = durationMinutes % 60;
+        // Duration is sent to the backend only — it is never rendered in this kiosk UI.
+        // Only the admin-monitor dashboard (a separate page) should read/display these fields.
+        params.append("checkinTime", currentAttRecord.checkinTime);
+        params.append("checkoutTime", nowIso);
+        params.append("durationMinutes", String(durationMinutes));
+        params.append("durationText", `${hrs}h ${mins}m`);
+      }
 
       try {
         await fetch(ATTENDANCE_WEB_APP_URL, {
@@ -1376,8 +1640,23 @@
         console.warn("Attendance POST dispatched:", postErr);
       }
 
+      // Remember today's progress on this device so the kiosk shows the right step next time
+      if (isCheckout) {
+        saveAttendanceRecord(mgrVal, {
+          manager: mgrVal, store: storeVal,
+          checkinDone: true, checkinTime: currentAttRecord ? currentAttRecord.checkinTime : nowIso,
+          checkoutDone: true, checkoutTime: nowIso
+        });
+      } else {
+        saveAttendanceRecord(mgrVal, {
+          manager: mgrVal, store: storeVal,
+          checkinDone: true, checkinTime: nowIso,
+          checkoutDone: false, checkoutTime: null
+        });
+      }
+
       if (typeof confetti === 'function') confetti({ particleCount: 100, spread: 70 });
-      alert("✅ Attendance successfully recorded!");
+      alert(isCheckout ? "✅ Check-Out recorded! Thanks for today." : "✅ Check-In recorded! Have a great shift.");
       closeAttendanceKiosk();
     });
 
